@@ -1,4 +1,4 @@
-namespace _Darkland.Sources.Models {
+namespace Sources.Models {
 
     public struct DarklandAuthData {
         public bool isBot;

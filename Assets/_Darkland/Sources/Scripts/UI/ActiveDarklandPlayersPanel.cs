@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts;
 using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Scripts.UI {
+namespace Sources.Scripts.UI {
 
     public class ActiveDarklandPlayersPanel : MonoBehaviour {
 

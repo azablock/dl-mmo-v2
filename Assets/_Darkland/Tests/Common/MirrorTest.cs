@@ -1,16 +1,16 @@
 // base class for networking tests to make things easier.
-
 using System.Collections.Generic;
 using System.Linq;
-using Mirror;
+using _Darkland.Tests.Common;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace _Darkland.Tests.Common {
-
+namespace Mirror.Tests
+{
     // inherited by MirrorEditModeTest / MirrorPlayModeTest
     // to call SetUp/TearDown by [SetUp]/[UnitySetUp] as needed
-    public abstract class MirrorTest {
+    public abstract class MirrorTest
+    {
         // keep track of networked GameObjects so we don't have to clean them
         // up manually each time.
         // CreateNetworked() adds to the list automatically.
@@ -19,14 +19,16 @@ namespace _Darkland.Tests.Common {
         // we usually need the memory transport
         public MemoryTransport transport;
 
-        public virtual void SetUp() {
+        public virtual void SetUp()
+        {
             instantiated = new List<GameObject>();
 
             // need a transport to send & receive
             Transport.activeTransport = transport = new GameObject().AddComponent<MemoryTransport>();
         }
 
-        public virtual void TearDown() {
+        public virtual void TearDown()
+        {
             NetworkClient.Shutdown();
             NetworkServer.Shutdown();
 
@@ -40,22 +42,32 @@ namespace _Darkland.Tests.Common {
                 if (go != null)
                     GameObject.DestroyImmediate(go);
 
-            NetworkIdentity.spawned.Clear();
-
             GameObject.DestroyImmediate(transport.gameObject);
             Transport.activeTransport = null;
         }
 
         // create a tracked GameObject for tests without Networkidentity
-        protected void CreateGameObject(out GameObject go) {
+        // add to tracker list if needed (useful for cleanups afterwards)
+        protected void CreateGameObject(out GameObject go)
+        {
             go = new GameObject();
             // track
             instantiated.Add(go);
         }
 
+        // create GameObject + MonoBehaviour<T>
+        // add to tracker list if needed (useful for cleanups afterwards)
+        protected void CreateGameObject<T>(out GameObject go, out T component)
+            where T : MonoBehaviour
+        {
+            CreateGameObject(out go);
+            component = go.AddComponent<T>();
+        }
+
         // create GameObject + NetworkIdentity
         // add to tracker list if needed (useful for cleanups afterwards)
-        protected void CreateNetworked(out GameObject go, out NetworkIdentity identity) {
+        protected void CreateNetworked(out GameObject go, out NetworkIdentity identity)
+        {
             go = new GameObject();
             identity = go.AddComponent<NetworkIdentity>();
             // Awake is only called in play mode.
@@ -68,7 +80,8 @@ namespace _Darkland.Tests.Common {
         // create GameObject + NetworkIdentity + NetworkBehaviour<T>
         // add to tracker list if needed (useful for cleanups afterwards)
         protected void CreateNetworked<T>(out GameObject go, out NetworkIdentity identity, out T component)
-            where T : NetworkBehaviour {
+            where T : NetworkBehaviour
+        {
             go = new GameObject();
             identity = go.AddComponent<NetworkIdentity>();
             component = go.AddComponent<T>();
@@ -83,10 +96,10 @@ namespace _Darkland.Tests.Common {
 
         // create GameObject + NetworkIdentity + 2x NetworkBehaviour<T>
         // add to tracker list if needed (useful for cleanups afterwards)
-        protected void CreateNetworked<T, U>(out GameObject go, out NetworkIdentity identity, out T componentA,
-                                             out U componentB)
+        protected void CreateNetworked<T, U>(out GameObject go, out NetworkIdentity identity, out T componentA, out U componentB)
             where T : NetworkBehaviour
-            where U : NetworkBehaviour {
+            where U : NetworkBehaviour
+        {
             go = new GameObject();
             identity = go.AddComponent<NetworkIdentity>();
             componentA = go.AddComponent<T>();
@@ -103,11 +116,11 @@ namespace _Darkland.Tests.Common {
 
         // create GameObject + NetworkIdentity + 2x NetworkBehaviour<T>
         // add to tracker list if needed (useful for cleanups afterwards)
-        protected void CreateNetworked<T, U, V>(out GameObject go, out NetworkIdentity identity, out T componentA,
-                                                out U componentB, out V componentC)
+        protected void CreateNetworked<T, U, V>(out GameObject go, out NetworkIdentity identity, out T componentA, out U componentB, out V componentC)
             where T : NetworkBehaviour
             where U : NetworkBehaviour
-            where V : NetworkBehaviour {
+            where V : NetworkBehaviour
+        {
             go = new GameObject();
             identity = go.AddComponent<NetworkIdentity>();
             componentA = go.AddComponent<T>();
@@ -126,17 +139,59 @@ namespace _Darkland.Tests.Common {
 
         // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
         // => ownerConnection can be NetworkServer.localConnection if needed.
-        protected void CreateNetworkedAndSpawn<T>(out GameObject go, out NetworkIdentity identity, out T component,
-                                                  NetworkConnection ownerConnection = null)
-            where T : NetworkBehaviour {
+        protected void CreateNetworkedAndSpawn(out GameObject go, out NetworkIdentity identity, NetworkConnection ownerConnection = null)
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            CreateNetworked(out go, out identity);
+
+            // spawn
+            NetworkServer.Spawn(go, ownerConnection);
+            ProcessMessages();
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawn(
+            out GameObject serverGO, out NetworkIdentity serverIdentity,
+            out GameObject clientGO, out NetworkIdentity clientIdentity,
+            NetworkConnection ownerConnection = null)
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity);
+            CreateNetworked(out clientGO, out clientIdentity);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // spawn
+            NetworkServer.Spawn(serverGO, ownerConnection);
+            ProcessMessages();
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        protected void CreateNetworkedAndSpawn<T>(out GameObject go, out NetworkIdentity identity, out T component, NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+        {
             // server & client need to be active before spawning
             Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
             Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
 
             CreateNetworked(out go, out identity, out component);
-
-            // host mode object needs a connection to server for commands to work
-            identity.connectionToServer = NetworkClient.connection;
 
             // spawn
             NetworkServer.Spawn(go, ownerConnection);
@@ -144,17 +199,228 @@ namespace _Darkland.Tests.Common {
 
             // double check that we have authority if we passed an owner connection
             if (ownerConnection != null)
-                Debug.Assert(component.hasAuthority == true,
-                    $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results"
-                );
+                Debug.Assert(component.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawn<T>(
+            out GameObject serverGO, out NetworkIdentity serverIdentity, out T serverComponent,
+            out GameObject clientGO, out NetworkIdentity clientIdentity, out T clientComponent,
+            NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity, out serverComponent);
+            CreateNetworked(out clientGO, out clientIdentity, out clientComponent);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // spawn
+            NetworkServer.Spawn(serverGO, ownerConnection);
+            ProcessMessages();
+
+            // double check that we have authority if we passed an owner connection
+            if (ownerConnection != null)
+                Debug.Assert(serverComponent.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        protected void CreateNetworkedAndSpawn<T, U>(out GameObject go, out NetworkIdentity identity, out T componentA, out U componentB, NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+            where U : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            CreateNetworked(out go, out identity, out componentA, out componentB);
+
+            // spawn
+            NetworkServer.Spawn(go, ownerConnection);
+            ProcessMessages();
+
+            // double check that we have authority if we passed an owner connection
+            if (ownerConnection != null)
+            {
+                Debug.Assert(componentA.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(componentB.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+            }
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawn<T, U>(
+            out GameObject serverGO, out NetworkIdentity serverIdentity, out T serverComponentA, out U serverComponentB,
+            out GameObject clientGO, out NetworkIdentity clientIdentity, out T clientComponentA, out U clientComponentB,
+            NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+            where U : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity, out serverComponentA, out serverComponentB);
+            CreateNetworked(out clientGO, out clientIdentity, out clientComponentA, out clientComponentB);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // spawn
+            NetworkServer.Spawn(serverGO, ownerConnection);
+            ProcessMessages();
+
+            // double check that we have authority if we passed an owner connection
+            if (ownerConnection != null)
+            {
+                Debug.Assert(serverComponentA.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(serverComponentB.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+            }
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        protected void CreateNetworkedAndSpawn<T, U, V>(out GameObject go, out NetworkIdentity identity, out T componentA, out U componentB, out V componentC, NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+            where U : NetworkBehaviour
+            where V : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            CreateNetworked(out go, out identity, out componentA, out componentB, out componentC);
+
+            // spawn
+            NetworkServer.Spawn(go, ownerConnection);
+            ProcessMessages();
+
+            // double check that we have authority if we passed an owner connection
+            if (ownerConnection != null)
+            {
+                Debug.Assert(componentA.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(componentB.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(componentC.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+            }
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN
+        // => ownerConnection can be NetworkServer.localConnection if needed.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawn<T, U, V>(
+            out GameObject serverGO, out NetworkIdentity serverIdentity, out T serverComponentA, out U serverComponentB, out V serverComponentC,
+            out GameObject clientGO, out NetworkIdentity clientIdentity, out T clientComponentA, out U clientComponentB, out V clientComponentC,
+            NetworkConnection ownerConnection = null)
+            where T : NetworkBehaviour
+            where U : NetworkBehaviour
+            where V : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity, out serverComponentA, out serverComponentB, out serverComponentC);
+            CreateNetworked(out clientGO, out clientIdentity, out clientComponentA, out clientComponentB, out clientComponentC);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // spawn
+            NetworkServer.Spawn(serverGO, ownerConnection);
+            ProcessMessages();
+
+            // double check that we have authority if we passed an owner connection
+            if (ownerConnection != null)
+            {
+                Debug.Assert(serverComponentA.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(serverComponentB.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+                Debug.Assert(serverComponentC.hasAuthority == true, $"Behaviour Had Wrong Authority when spawned, This means that the test is broken and will give the wrong results");
+            }
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
         }
 
         // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN PLAYER.
         // often times, we really need a player object for the client to receive
         // certain messages.
-        protected void CreateNetworkedAndSpawnPlayer<T>(out GameObject go, out NetworkIdentity identity,
-                                                        out T component, NetworkConnection ownerConnection)
-            where T : NetworkBehaviour {
+        protected void CreateNetworkedAndSpawnPlayer(out GameObject go, out NetworkIdentity identity, NetworkConnection ownerConnection)
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create a networked object
+            CreateNetworked(out go, out identity);
+
+            // add as player & process spawn message on client.
+            NetworkServer.AddPlayerForConnection(ownerConnection, go);
+            ProcessMessages();
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN PLAYER.
+        // often times, we really need a player object for the client to receive
+        // certain messages.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawnPlayer(
+            out GameObject serverGO, out NetworkIdentity serverIdentity,
+            out GameObject clientGO, out NetworkIdentity clientIdentity,
+            NetworkConnection ownerConnection)
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity);
+            CreateNetworked(out clientGO, out clientIdentity);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // add as player & process spawn message on client.
+            NetworkServer.AddPlayerForConnection(ownerConnection, serverGO);
+            ProcessMessages();
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
+        }
+
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN PLAYER.
+        // often times, we really need a player object for the client to receive
+        // certain messages.
+        protected void CreateNetworkedAndSpawnPlayer<T>(out GameObject go, out NetworkIdentity identity, out T component, NetworkConnection ownerConnection)
+            where T : NetworkBehaviour
+        {
             // server & client need to be active before spawning
             Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
             Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
@@ -167,9 +433,42 @@ namespace _Darkland.Tests.Common {
             ProcessMessages();
         }
 
+        // create GameObject + NetworkIdentity + NetworkBehaviour & SPAWN PLAYER.
+        // often times, we really need a player object for the client to receive
+        // certain messages.
+        // => returns objects from client and from server.
+        //    will be same in host mode.
+        protected void CreateNetworkedAndSpawnPlayer<T>(
+            out GameObject serverGO, out NetworkIdentity serverIdentity, out T serverComponent,
+            out GameObject clientGO, out NetworkIdentity clientIdentity, out T clientComponent,
+            NetworkConnection ownerConnection)
+            where T : NetworkBehaviour
+        {
+            // server & client need to be active before spawning
+            Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
+            Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
+
+            // create one on server, one on client
+            // (spawning has to find it on client, it doesn't create it)
+            CreateNetworked(out serverGO, out serverIdentity, out serverComponent);
+            CreateNetworked(out clientGO, out clientIdentity, out clientComponent);
+
+            // give both a scene id and register it on client for spawnables
+            clientIdentity.sceneId = serverIdentity.sceneId = (ulong)serverGO.GetHashCode();
+            NetworkClient.spawnableObjects[clientIdentity.sceneId] = clientIdentity;
+
+            // add as player & process spawn message on client.
+            NetworkServer.AddPlayerForConnection(ownerConnection, serverGO);
+            ProcessMessages();
+
+            // make sure the client really spawned it.
+            Assert.That(NetworkClient.spawned.ContainsKey(serverIdentity.netId));
+        }
+
         // fully connect client to local server
         // gives out the server's connection to client for convenience if needed
-        protected void ConnectClientBlocking(out NetworkConnectionToClient connectionToClient) {
+        protected void ConnectClientBlocking(out NetworkConnectionToClient connectionToClient)
+        {
             NetworkClient.Connect("127.0.0.1");
             UpdateTransport();
 
@@ -178,7 +477,8 @@ namespace _Darkland.Tests.Common {
         }
 
         // fully connect client to local server & authenticate
-        protected void ConnectClientBlockingAuthenticated(out NetworkConnectionToClient connectionToClient) {
+        protected void ConnectClientBlockingAuthenticated(out NetworkConnectionToClient connectionToClient)
+        {
             ConnectClientBlocking(out connectionToClient);
 
             // authenticate server & client connections
@@ -187,7 +487,8 @@ namespace _Darkland.Tests.Common {
         }
 
         // fully connect client to local server & authenticate & set read
-        protected void ConnectClientBlockingAuthenticatedAndReady(out NetworkConnectionToClient connectionToClient) {
+        protected void ConnectClientBlockingAuthenticatedAndReady(out NetworkConnectionToClient connectionToClient)
+        {
             ConnectClientBlocking(out connectionToClient);
 
             // authenticate server & client connections
@@ -202,7 +503,8 @@ namespace _Darkland.Tests.Common {
 
         // fully connect HOST client to local server
         // sets NetworkServer.localConnection / NetworkClient.connection.
-        protected void ConnectHostClientBlocking() {
+        protected void ConnectHostClientBlocking()
+        {
             NetworkClient.ConnectHost();
             NetworkClient.ConnectLocalServer();
             UpdateTransport();
@@ -210,7 +512,8 @@ namespace _Darkland.Tests.Common {
         }
 
         // fully connect client to local server & authenticate & set read
-        protected void ConnectHostClientBlockingAuthenticatedAndReady() {
+        protected void ConnectHostClientBlockingAuthenticatedAndReady()
+        {
             ConnectHostClientBlocking();
 
             // authenticate server & client connections
@@ -223,12 +526,14 @@ namespace _Darkland.Tests.Common {
             Assert.That(NetworkServer.localConnection.isReady, Is.True);
         }
 
-        protected void UpdateTransport() {
+        protected void UpdateTransport()
+        {
             transport.ClientEarlyUpdate();
             transport.ServerEarlyUpdate();
         }
 
-        protected void ProcessMessages() {
+        protected void ProcessMessages()
+        {
             // server & client need to be active
             Debug.Assert(NetworkClient.active, "NetworkClient needs to be active before spawning.");
             Debug.Assert(NetworkServer.active, "NetworkServer needs to be active before spawning.");
@@ -242,13 +547,12 @@ namespace _Darkland.Tests.Common {
         }
 
         // helper function to create local connection pair
-        protected void CreateLocalConnectionPair(out LocalConnectionToClient connectionToClient,
-                                                 out LocalConnectionToServer connectionToServer) {
+        protected void CreateLocalConnectionPair(out LocalConnectionToClient connectionToClient, out LocalConnectionToServer connectionToServer)
+        {
             connectionToClient = new LocalConnectionToClient();
             connectionToServer = new LocalConnectionToServer();
             connectionToClient.connectionToServer = connectionToServer;
             connectionToServer.connectionToClient = connectionToClient;
         }
     }
-
 }

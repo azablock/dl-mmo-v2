@@ -2,7 +2,7 @@ using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using Random = UnityEngine.Random;
 
-namespace _Darkland.Sources.Scripts {
+namespace Sources.Scripts {
 
     public class DarklandBot : NetworkBehaviour {
 
@@ -16,4 +16,5 @@ namespace _Darkland.Sources.Scripts {
             NetworkClient.Send(new DarklandPlayerMessages.ActionRequestMessage {darklandPlayerNetId = netId});
         }
     }
+
 }

@@ -9,7 +9,7 @@ namespace _Darkland.Sources.Scripts {
 
         public static Action<NetworkConnection, DarklandPlayerMessages.ActionRequestMessage> serverReceived;
         public static Action<DarklandPlayerMessages.ActionResponseMessage> clientReceived;
-
+        
         public override void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandPlayerMessages.ActionRequestMessage>(ServerHandle);
         }
@@ -28,26 +28,17 @@ namespace _Darkland.Sources.Scripts {
 
         [Server]
         private static void ServerHandle(NetworkConnection conn, DarklandPlayerMessages.ActionRequestMessage msg) {
-            Debug.Log($"Server: ActionRequestMessage received from [netId={msg.darklandPlayerNetId}] at {NetworkTime.time}");
-            
-            serverReceived?.Invoke(conn, msg);
-            
-            //todo to chyba nie powinno byc w proxy
-            var sentActionRequestCounter = conn.identity.GetComponent<SentActionRequestCounter>();
-            sentActionRequestCounter.sentActionRequestMessagesCount++;
-
-            NetworkServer.SendToAll(new DarklandPlayerMessages.ActionResponseMessage
-                {
-                    darklandPlayerNetId = msg.darklandPlayerNetId,
-                    sentActionRequestMessagesCount = sentActionRequestCounter.sentActionRequestMessagesCount
-                }
+            Debug.Log(
+                $"DarklandPlayerMessagesProxy Server: ActionRequestMessage received from [netId={msg.darklandPlayerNetId}] at {NetworkTime.time}"
             );
+            serverReceived?.Invoke(conn, msg);
         }
 
         [Client]
         private static void ClientHandle(DarklandPlayerMessages.ActionResponseMessage msg) {
-            Debug.Log($"Client: ActionResponseMessage received from [netId={msg.darklandPlayerNetId}] at {NetworkTime.time}");
-
+            Debug.Log(
+                $"DarklandPlayerMessagesProxy Client: ActionResponseMessage received from [netId={msg.darklandPlayerNetId}] at {NetworkTime.time}"
+            );
             clientReceived?.Invoke(msg);
         }
     }

@@ -9,7 +9,7 @@ using UnityEngine;
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
-namespace _Darkland.Sources.Scripts {
+namespace Sources.Scripts {
 
     public class DarklandNetworkManager : NetworkManager {
 
@@ -20,7 +20,7 @@ namespace _Darkland.Sources.Scripts {
         [Space]
         [Header("Darkland Prefabs")]
         public GameObject darklandBotPrefab;
-        
+
         public override void OnValidate() {
             base.OnValidate();
         }
@@ -52,13 +52,13 @@ namespace _Darkland.Sources.Scripts {
             for (var i = 0; i < args.Length; i++) {
                 Debug.Log($"Command line Argument {i} = {args[i]}");
             }
-            
+
             yield return new WaitForSeconds(2.0f);
 
             if (args.Length > 3 && args[1] == "c") {
                 networkAddress = args[2];
             }
-            
+
             switch (args[1]) {
                 case "s":
                     StartServer();
@@ -81,14 +81,6 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         public override void OnDestroy() {
             base.OnDestroy();
-        }
-
-        /// <summary>
-        /// Set the frame rate for a headless server.
-        /// <para>Override if you wish to disable the behavior or set your own tick rate.</para>
-        /// </summary>
-        public override void ConfigureServerFrameRate() {
-            base.ConfigureServerFrameRate();
         }
 
         /// <summary>
@@ -178,11 +170,11 @@ namespace _Darkland.Sources.Scripts {
         /// <param name="conn">Connection from client.</param>
         public override void OnServerDisconnect(NetworkConnection conn) {
             Debug.Log($"Player [netId={conn.identity.netId}] disconnected from the server.");
-            
+
             // NetworkServer.SendToAll(new DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage {
             //     disconnectedPlayerNetworkIdentity = conn.identity
             // });
-            
+
             base.OnServerDisconnect(conn);
         }
 
@@ -194,10 +186,11 @@ namespace _Darkland.Sources.Scripts {
         public override void OnClientConnect(NetworkConnection conn) {
             base.OnClientConnect(conn);
             var args = Environment.GetCommandLineArgs();
-            
+
             conn.Send(new DarklandAuthMessages.DarklandAuthRequestMessage {
-                asBot = args.Length > 1 && args[1] == "c"
-            });
+                    asBot = args.Length > 1 && args[1] == "c"
+                }
+            );
         }
 
         /// <summary>
@@ -209,7 +202,7 @@ namespace _Darkland.Sources.Scripts {
             // conn.Send(new DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage());
             base.OnClientDisconnect(conn);
         }
-        
+
         /// <summary>
         /// Called on clients when a servers tells the client it is no longer ready.
         /// <para>This is commonly used when switching scenes.</para>
@@ -238,21 +231,29 @@ namespace _Darkland.Sources.Scripts {
             // NetworkServer.RegisterHandler<DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage>(ServerOnDisconnectDarklandPlayer);
         }
 
-        private static void ServerOnDisconnectDarklandPlayer(NetworkConnection conn, DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage msg) {
+        private static void ServerOnDisconnectDarklandPlayer(NetworkConnection conn,
+                                                             DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage
+                                                                 msg) {
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage {
-                disconnectedPlayerNetworkIdentity = conn.identity
-            });
+                    disconnectedPlayerNetworkIdentity = conn.identity
+                }
+            );
         }
 
         /// <summary>
         /// This is invoked when the client is started.
         /// </summary>
         public override void OnStartClient() {
-            NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandAuthResponseMessage>(ClientNotifyDarklandPlayerSpawned);
-            NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage>(ClientNotifyDarklandPlayerDisconnected);
+            NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandAuthResponseMessage>(
+                ClientNotifyDarklandPlayerSpawned
+            );
+            NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage>(
+                ClientNotifyDarklandPlayerDisconnected
+            );
         }
 
-        private static void ClientNotifyDarklandPlayerDisconnected(DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage msg) {
+        private static void ClientNotifyDarklandPlayerDisconnected(
+            DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage msg) {
             // clientDarklandPlayerDisconnected?.Invoke(msg.disconnectedPlayerNetworkIdentity);
         }
 
@@ -280,15 +281,17 @@ namespace _Darkland.Sources.Scripts {
         }
 
         [Server]
-        private void ServerSpawnDarklandPlayer(NetworkConnection conn, DarklandAuthMessages.DarklandAuthRequestMessage msg) {
+        private void ServerSpawnDarklandPlayer(NetworkConnection conn,
+                                               DarklandAuthMessages.DarklandAuthRequestMessage msg) {
             var botGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
             NetworkServer.AddPlayerForConnection(conn, botGameObject);
-            
+
             Debug.Log($"Player [netId={conn.identity.netId}] joined the server.");
-            
+
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
-                spawnedPlayerNetworkIdentity = conn.identity
-            });
+                    spawnedPlayerNetworkIdentity = conn.identity
+                }
+            );
         }
 
         [Client]

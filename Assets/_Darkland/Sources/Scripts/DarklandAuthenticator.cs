@@ -1,8 +1,8 @@
 using System;
-using _Darkland.Sources.Models;
 using Mirror;
+using Sources.Models;
 
-namespace _Darkland.Sources.Scripts {
+namespace Sources.Scripts {
 
     public class DarklandAuthenticator : NetworkAuthenticator {
 
@@ -67,7 +67,7 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         public override void OnClientAuthenticate() {
             var args = Environment.GetCommandLineArgs();
-            
+
             DarklandAuthRequestMessage darklandAuthRequestMessage = new DarklandAuthRequestMessage {
                 authData = new DarklandAuthData {isBot = args.Length > 1 && args[1] == "c"}
             };
