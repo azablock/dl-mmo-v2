@@ -19,11 +19,11 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         public override void OnStartServer() {
-            _playerDeathHandler.playerKilled += ServerOnPlayerKilled;
+            _playerDeathHandler.PlayerKilled += ServerOnPlayerKilled;
         }
 
         public override void OnStopServer() {
-            _playerDeathHandler.playerKilled -= ServerOnPlayerKilled;
+            _playerDeathHandler.PlayerKilled -= ServerOnPlayerKilled;
         }
 
         [Server]
