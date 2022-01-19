@@ -4,53 +4,65 @@ using Mirror;
 
 namespace _Darkland.Sources.Scripts.Unit {
     
-    public class HpBehaviour : NetworkBehaviour {
+    public class HpBehaviour : NetworkBehaviour, IHpHolder {
 
+        [field: SyncVar(hook = nameof(ClientSyncHp))]
+        public int hp { get; private set; }
+        [field: SyncVar(hook = nameof(ClientSyncMaxHp))]
+        public int maxHp { get; private set; }
+        public event Action<int> HpChanged;
+        public event Action<int> MaxHpChanged;
         public event Action<int> ClientHpChanged;
         public event Action<int> ClientMaxHpChanged;
-        
-        private IHpController _hpController;
 
+        private IHpCalculator _hpCalculator;
+        
         private void Awake() {
-            _hpController = new HpController(new HpHolder());
+            _hpCalculator = new HpCalculator();
         }
 
         public override void OnStartServer() {
-            _hpController.HpChanged += ClientRpcHpChanged;
-            _hpController.MaxHpChanged += ClientRpcMaxHpChanged;
+            MaxHpChanged += ServerOnMaxHpChanged;
         }
 
         public override void OnStopServer() {
-            _hpController.HpChanged -= ClientRpcHpChanged;
-            _hpController.MaxHpChanged -= ClientRpcMaxHpChanged;
+            MaxHpChanged -= ServerOnMaxHpChanged;
         }
 
         [Server]
         public void ServerChangeHp(int hpDelta) {
-            _hpController.ChangeHp(hpDelta);
+            hp = _hpCalculator.CalculateHp(this, hpDelta);
+            HpChanged?.Invoke(hp);
         }
 
         [Server]
         public void ServerChangeMaxHp(int maxHpDelta) {
-            _hpController.ChangeMaxHp(maxHpDelta);
+            maxHp = _hpCalculator.CalculateMaxHp(this, maxHpDelta);
+            MaxHpChanged?.Invoke(maxHp);
         }
 
         [Server]
         public void ServerRegainHpToMaxHp() {
-            _hpController.RegainHpToMax();
+            ServerChangeHp(maxHp);
         }
 
-        [ClientRpc]
-        private void ClientRpcHpChanged(int hp) {
-            ClientHpChanged?.Invoke(hp);
+        [Server]
+        private void ServerOnMaxHpChanged(int newMaxHp) {
+            if (newMaxHp >= hp) return;
+
+            hp = maxHp;
+            HpChanged?.Invoke(hp);
         }
 
-        [ClientRpc]
-        private void ClientRpcMaxHpChanged(int maxHp) {
-            ClientMaxHpChanged?.Invoke(maxHp);
+        [Client]
+        private void ClientSyncHp(int _, int newHp) {
+            ClientHpChanged?.Invoke(newHp);
         }
 
-        public IHpEventsHolder hpEventsHolder => _hpController; 
+        [Client]
+        private void ClientSyncMaxHp(int _, int newMaxHp) {
+            ClientMaxHpChanged?.Invoke(newMaxHp);
+        }
     }
 
 }

@@ -4,19 +4,15 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
-    [RequireComponent(
-        typeof(HpBehaviour),
-        typeof(DiscretePositionBehaviour))]
+    [RequireComponent(typeof(HpBehaviour))]
     public class PlayerDeathHandlerBehaviour : NetworkBehaviour {
         
         private HpBehaviour _hpBehaviour;
-        private DiscretePositionBehaviour _discretePositionBehaviour;
         private IPlayerDeathEventEmitter _playerDeathEventEmitter;
 
         private void Awake() {
             _hpBehaviour = GetComponent<HpBehaviour>();
-            _discretePositionBehaviour = GetComponent<DiscretePositionBehaviour>();
-            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_hpBehaviour.hpEventsHolder);
+            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_hpBehaviour);
         }
 
         public override void OnStartServer() {
@@ -30,7 +26,6 @@ namespace _Darkland.Sources.Scripts.Unit {
         [Server]
         private void ServerOnPlayerDead() {
             _hpBehaviour.ServerRegainHpToMaxHp();
-            _discretePositionBehaviour.ServerSet(Vector3Int.zero);
         }
     }
 

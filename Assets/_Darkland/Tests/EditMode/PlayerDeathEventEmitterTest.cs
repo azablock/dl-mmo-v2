@@ -14,7 +14,7 @@ namespace _Darkland.Tests.EditMode {
         public void HpChangedGivesValueEqualToZero_PlayerDeadEventCalledOnce() {
             //Arrange
             var eventCallCount = 0;
-            var hpHolder = Substitute.For<IHpEventsHolder>();
+            var hpHolder = Substitute.For<IHpHolder>();
             void OnPlayerDead() { eventCallCount++; }
 
             _playerDeathEventEmitter = new PlayerDeathEventEmitter(hpHolder);
@@ -32,7 +32,7 @@ namespace _Darkland.Tests.EditMode {
         public void HPChangedGivesValueGreaterThanZero_PlayerDeadEventNotCalled() {
             //Arrange
             var eventCallCount = 0;
-            var hpHolder = Substitute.For<IHpEventsHolder>();
+            var hpHolder = Substitute.For<IHpHolder>();
             void OnPlayerDead() { eventCallCount++; }
 
             _playerDeathEventEmitter = new PlayerDeathEventEmitter(hpHolder);

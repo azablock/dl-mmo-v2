@@ -5,20 +5,20 @@ namespace _Darkland.Sources.Models.Unit {
 
     public interface IPlayerDeathEventEmitter {
         event Action PlayerDead;
-        IHpEventsHolder HpEventsHolder { get; }
+        IHpHolder HpHolder { get; }
     }
-    
+
     public sealed class PlayerDeathEventEmitter : IPlayerDeathEventEmitter {
         public event Action PlayerDead;
-        public IHpEventsHolder HpEventsHolder { get; }
+        public IHpHolder HpHolder { get; }
 
-        public PlayerDeathEventEmitter(IHpEventsHolder hpEventsHolder) {
-            HpEventsHolder = hpEventsHolder;
-            HpEventsHolder.HpChanged += OnHpChanged;
+        public PlayerDeathEventEmitter(IHpHolder hpEventsHolder) {
+            HpHolder = hpEventsHolder;
+            HpHolder.HpChanged += OnHpChanged;
         }
 
         ~PlayerDeathEventEmitter() {
-            HpEventsHolder.HpChanged -= OnHpChanged;
+            HpHolder.HpChanged -= OnHpChanged;
         }
 
         private void OnHpChanged(int hp) {
