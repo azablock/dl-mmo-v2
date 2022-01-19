@@ -5,30 +5,32 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Unit {
 
     [RequireComponent(
-        // typeof(UnitHpBehaviour),
+        typeof(HpBehaviour),
         typeof(DiscretePositionBehaviour))]
     public class PlayerDeathHandlerBehaviour : NetworkBehaviour {
-
-        private PlayerDeathHandler _playerDeathHandler;
         
+        private HpBehaviour _hpBehaviour;
+        private DiscretePositionBehaviour _discretePositionBehaviour;
+        private IPlayerDeathEventEmitter _playerDeathEventEmitter;
+
         private void Awake() {
-            // _playerDeathHandler = new PlayerDeathHandler(
-                // GetComponent<UnitHpBehaviour>().unitHp,
-                // GetComponent<DiscretePositionBehaviour>().discretePosition
-            // );
+            _hpBehaviour = GetComponent<HpBehaviour>();
+            _discretePositionBehaviour = GetComponent<DiscretePositionBehaviour>();
+            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_hpBehaviour.hpEventsHolder);
         }
 
         public override void OnStartServer() {
-            _playerDeathHandler.PlayerKilled += ServerOnPlayerKilled;
+            _playerDeathEventEmitter.PlayerDead += ServerOnPlayerDead;
         }
 
         public override void OnStopServer() {
-            _playerDeathHandler.PlayerKilled -= ServerOnPlayerKilled;
+            _playerDeathEventEmitter.PlayerDead -= ServerOnPlayerDead;
         }
 
         [Server]
-        private void ServerOnPlayerKilled() {
-            // _playerDeathHandler.RespawnPlayer();
+        private void ServerOnPlayerDead() {
+            _hpBehaviour.ServerRegainHpToMaxHp();
+            _discretePositionBehaviour.ServerSet(Vector3Int.zero);
         }
     }
 

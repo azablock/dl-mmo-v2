@@ -1,61 +1,57 @@
 using System.Collections;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Scripts.Unit;
 using _Darkland.Tests.Common;
 using Mirror;
+using NSubstitute;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace _Darkland.Tests.PlayMode {
 
     public class UnitHpBehaviourTest : MirrorPlayModeTest {
-        //
-        // private UnitHpBehaviour2 _unitHpBehaviour;
-        // private int _serverHpChangedCalled;
-        // private int _clientHpChangedCalled;
-        //
-        // [UnitySetUp]
-        // public override IEnumerator UnitySetUp() {
-        //     yield return base.UnitySetUp();
-        //
-        //     NetworkServer.Listen(1);
-        //     ConnectHostClientBlockingAuthenticatedAndReady();
-        //     CreateNetworkedAndSpawnPlayer(out _, out _, out _unitHpBehaviour, NetworkServer.localConnection);
-        //
-        //     _serverHpChangedCalled = 0;
-        //     _clientHpChangedCalled = 0;
-        //     
-        //     _unitHpBehaviour.unitHpActions.serverHpChanged += hp => { _serverHpChangedCalled++; };
-        //     _unitHpBehaviour.unitHpActions.clientHpChanged += hp => { _clientHpChangedCalled++; };
-        // }
+
+        private HpBehaviour _hpBehaviour;
+
+        [UnitySetUp]
+        public override IEnumerator UnitySetUp() {
+            yield return base.UnitySetUp();
+        
+            NetworkServer.Listen(1);
+            ConnectHostClientBlockingAuthenticatedAndReady();
+            CreateNetworkedAndSpawnPlayer(out _, out _, out _hpBehaviour, NetworkServer.localConnection);
+        }
         //
         // [UnityTest]
-        // public IEnumerator WhenServerChangeHpCalled_HpChangedActionsCalled() {
+        // public IEnumerator HpSetToMaxHp_HpEqualToMaxHp() {
         //     //given
         //     var hpDelta = 10;
+        //     var discretePosition = Substitute.For<DiscretePositionBehaviour>();
         //
         //     //when
-        //     _unitHpBehaviour.ServerChangeMaxHp(hpDelta);
-        //     _unitHpBehaviour.ServerChangeHp(hpDelta);
+        //     _hpBehaviour.ServerChangeMaxHp(hpDelta);
+        //     _hpBehaviour.ServerChangeHp(hpDelta);
         //     
         //     //then
-        //     Assert.AreEqual(1, _serverHpChangedCalled);
-        //     Assert.AreEqual(1, _clientHpChangedCalled);
+        //     Assert.AreEqual(_hpBehaviour.maxHp, _hpBehaviour.hp);
+        //     Assert.AreEqual(hpDelta, _hpBehaviour.hp);
         //
         //     yield return null;
         // }
         //
         // [UnityTest]
-        // public IEnumerator WhenNewMaxHpLessThanHp_ServerChangeHpEqualToMaxHp() {
+        // public IEnumerator NewMaxHpLessThanHp_HpEqualToMaxHp() {
         //     //given
         //     var maxHpDelta = -5;
         //
         //     //when
-        //     _unitHpBehaviour.ServerChangeMaxHp(10);
-        //     _unitHpBehaviour.ServerChangeHp(10);
-        //     _unitHpBehaviour.ServerChangeMaxHp(maxHpDelta);
+        //     _hpBehaviour.ServerChangeMaxHp(10);
+        //     _hpBehaviour.ServerChangeHp(10);
+        //     _hpBehaviour.ServerChangeMaxHp(maxHpDelta);
         //
         //     //then
-        //     Assert.AreEqual(_unitHpBehaviour.hp, _unitHpBehaviour.maxHp);
+        //     Assert.AreEqual(_hpBehaviour.hp, _hpBehaviour.maxHp);
         //
         //     yield return null;
         // }
