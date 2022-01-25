@@ -9,7 +9,7 @@ using UnityEngine;
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
-namespace Sources.Scripts {
+namespace _Darkland.Sources.Scripts {
 
     public class DarklandNetworkManager : NetworkManager {
 
