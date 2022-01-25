@@ -1,8 +1,8 @@
 using System;
+using _Darkland.Sources.Models;
 using Mirror;
-using Sources.Models;
 
-namespace Sources.Scripts {
+namespace _Darkland.Sources.Scripts {
 
     public class DarklandAuthenticator : NetworkAuthenticator {
 
