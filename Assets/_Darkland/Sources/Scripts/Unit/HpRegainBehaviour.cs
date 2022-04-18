@@ -29,7 +29,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
             var hpToRegain = _hpRegainHolder.ResolveHpToRegain();
 
-            _hpBehaviour.ServerChangeHp(hpToRegain);
+            _hpBehaviour.ChangeHp(hpToRegain);
         }
     }
 

@@ -12,6 +12,9 @@ namespace _Darkland.Sources.Scripts.Unit {
         public int maxHp { get; private set; }
         public event Action<int> HpChanged;
         public event Action<int> MaxHpChanged;
+
+
+
         public event Action<int> ClientHpChanged;
         public event Action<int> ClientMaxHpChanged;
 
@@ -30,20 +33,20 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Server]
-        public void ServerChangeHp(int hpDelta) {
+        public void ChangeHp(int hpDelta) {
             hp = _hpCalculator.CalculateHp(this, hpDelta);
             HpChanged?.Invoke(hp);
         }
 
         [Server]
-        public void ServerChangeMaxHp(int maxHpDelta) {
+        public void ChangeMaxHp(int maxHpDelta) {
             maxHp = _hpCalculator.CalculateMaxHp(this, maxHpDelta);
             MaxHpChanged?.Invoke(maxHp);
         }
-
+        
         [Server]
         public void ServerRegainHpToMaxHp() {
-            ServerChangeHp(maxHp);
+            ChangeHp(maxHp);
         }
 
         [Server]
