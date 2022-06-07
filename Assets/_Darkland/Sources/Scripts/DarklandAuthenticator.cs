@@ -32,7 +32,7 @@ namespace _Darkland.Sources.Scripts {
         /// Called on server from OnServerAuthenticateInternal when a client needs to authenticate
         /// </summary>
         /// <param name="conn">Connection to client.</param>
-        public override void OnServerAuthenticate(NetworkConnection conn) {
+        public override void OnServerAuthenticate(NetworkConnectionToClient conn) {
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         /// <param name="conn">Connection to client.</param>
         /// <param name="msg">The message payload</param>
-        public void OnAuthRequestMessage(NetworkConnection conn, DarklandAuthRequestMessage msg) {
+        public void OnAuthRequestMessage(NetworkConnectionToClient conn, DarklandAuthRequestMessage msg) {
             DarklandAuthResponseMessage darklandAuthResponseMessage = new DarklandAuthResponseMessage();
 
             conn.Send(darklandAuthResponseMessage);

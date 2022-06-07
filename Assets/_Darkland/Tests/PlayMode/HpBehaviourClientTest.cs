@@ -63,7 +63,7 @@ namespace _Darkland.Tests.PlayMode {
         }
         
         [UnityTest]
-        public IEnumerator ServerChangeHp_ClientHpChangedCalledOnce() {
+        public IEnumerator ChangeHp_ClientHpChangedCalledOnce() {
             //given
             
             //when
@@ -76,7 +76,7 @@ namespace _Darkland.Tests.PlayMode {
         }      
 
         [UnityTest]
-        public IEnumerator ServerChangeMaxHp_ClientMaxHpChangedCalledOnce() {
+        public IEnumerator ChangeMaxHp_ClientMaxHpChangedCalledOnce() {
             //given
             
             //when
