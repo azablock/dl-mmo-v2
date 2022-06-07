@@ -67,8 +67,8 @@ namespace _Darkland.Tests.PlayMode {
             //given
             
             //when
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(2);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(2);
 
             //then
             yield return null;
@@ -80,7 +80,7 @@ namespace _Darkland.Tests.PlayMode {
             //given
             
             //when
-            _hpBehaviour.ChangeMaxHp(10);
+            _hpBehaviour.ServerChangeMaxHp(10);
 
             //then
             yield return null;

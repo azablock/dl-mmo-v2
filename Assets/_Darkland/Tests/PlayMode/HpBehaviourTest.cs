@@ -26,8 +26,8 @@ namespace _Darkland.Tests.PlayMode {
             var hpDelta = 10;
         
             //when
-            _hpBehaviour.ChangeMaxHp(hpDelta);
-            _hpBehaviour.ChangeHp(hpDelta);
+            _hpBehaviour.ServerChangeMaxHp(hpDelta);
+            _hpBehaviour.ServerChangeHp(hpDelta);
             
             //then
             yield return null;
@@ -42,9 +42,9 @@ namespace _Darkland.Tests.PlayMode {
             var maxHpDelta = -5;
         
             //when
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(10);
-            _hpBehaviour.ChangeMaxHp(maxHpDelta);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(10);
+            _hpBehaviour.ServerChangeMaxHp(maxHpDelta);
         
             //then
             yield return null;
@@ -57,8 +57,8 @@ namespace _Darkland.Tests.PlayMode {
             var hpDelta = 5000;
         
             //when
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(hpDelta);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(hpDelta);
         
             //then
             yield return null;
@@ -70,9 +70,9 @@ namespace _Darkland.Tests.PlayMode {
             //Arrange
         
             //Act
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(10);
-            _hpBehaviour.ChangeMaxHp(-1000);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(10);
+            _hpBehaviour.ServerChangeMaxHp(-1000);
             
             //Assert
             yield return null;
@@ -84,9 +84,9 @@ namespace _Darkland.Tests.PlayMode {
             //Arrange
         
             //Act
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(10);
-            _hpBehaviour.ChangeMaxHp(-5);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(10);
+            _hpBehaviour.ServerChangeMaxHp(-5);
         
             //Assert
             yield return null;
@@ -99,8 +99,8 @@ namespace _Darkland.Tests.PlayMode {
             const int initialMaxHp = 10;
         
             //Act
-            _hpBehaviour.ChangeMaxHp(initialMaxHp);
-            _hpBehaviour.ChangeHp(5);
+            _hpBehaviour.ServerChangeMaxHp(initialMaxHp);
+            _hpBehaviour.ServerChangeHp(5);
             
             //Assert
             yield return null;
@@ -113,7 +113,7 @@ namespace _Darkland.Tests.PlayMode {
             const int initialMaxHp = 10;
         
             //Act
-            _hpBehaviour.ChangeMaxHp(initialMaxHp);
+            _hpBehaviour.ServerChangeMaxHp(initialMaxHp);
             _hpBehaviour.ServerRegainHpToMaxHp();
             
             //Assert

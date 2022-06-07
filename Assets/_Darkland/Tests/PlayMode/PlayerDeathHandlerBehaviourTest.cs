@@ -29,8 +29,8 @@ namespace _Darkland.Tests.PlayMode {
             //Arrange
 
             //Act
-            _hpBehaviour.ChangeMaxHp(10);
-            _hpBehaviour.ChangeHp(0);
+            _hpBehaviour.ServerChangeMaxHp(10);
+            _hpBehaviour.ServerChangeHp(0);
             
             //Assert
             yield return null;

@@ -22,6 +22,11 @@ namespace _Darkland.Sources.Models.Unit.Traits {
         public UnitTraitValue WithBonus(int newBonus) {
             return new UnitTraitValue {basic = basic, bonus = newBonus};
         }
+
+        private UnitTraitValue(int basic, int bonus) {
+            this.basic = basic;
+            this.bonus = bonus;
+        }
     }
 
 }

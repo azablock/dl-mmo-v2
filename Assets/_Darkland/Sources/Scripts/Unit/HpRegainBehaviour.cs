@@ -12,7 +12,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         private void Awake() {
             _hpBehaviour = GetComponent<HpBehaviour>();
-            _hpRegainHolder = new HpRegainHolderHolder();
+            _hpRegainHolder = new HpRegainHolder();
         }
 
         public override void OnStartServer() {
@@ -29,7 +29,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
             var hpToRegain = _hpRegainHolder.ResolveHpToRegain();
 
-            _hpBehaviour.ChangeHp(hpToRegain);
+            _hpBehaviour.ServerChangeHp(hpToRegain);
         }
     }
 

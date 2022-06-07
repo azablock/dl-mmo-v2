@@ -6,7 +6,7 @@ namespace _Darkland.Sources.Models.Unit.Hp {
         int ResolveHpToRegain();
     }
 
-    public class HpRegainHolderHolder : IHpRegainHolder {
+    public class HpRegainHolder : IHpRegainHolder {
         private float _hpRegainSum;
 
         public float HpRegain => 1.0f;
