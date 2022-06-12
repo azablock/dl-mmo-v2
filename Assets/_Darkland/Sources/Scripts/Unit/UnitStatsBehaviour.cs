@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats;
 using _Darkland.Sources.Scripts.Unit.UnitStatsCounterHolder;
@@ -9,6 +10,8 @@ namespace _Darkland.Sources.Scripts.Unit {
     public class UnitStatsBehaviour : MonoBehaviour {
 
         private IUnitStatsProvider _unitStatsProvider;
+        private UnitStats _unitStats;
+        public event Action<UnitStats> Changed;
 
         private void Awake() {
             var unitStatsCounters = GetComponents<IUnitStatsCounterHolder>()
@@ -18,9 +21,15 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Server]
+        public void ServerUpdateStats() {
+            _unitStats = _unitStatsProvider.Get();
+            Changed?.Invoke(_unitStats);
+        }
+
+        [Server]
         public UnitStats ServerGet() {
-            return _unitStatsProvider.Get();
-        } 
+            return _unitStats;
+        }
     }
 
 }

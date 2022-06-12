@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models.Unit.Hp;
+using _Darkland.Sources.ScriptableObjects.RegainStrategy;
 using Mirror;
 using UnityEngine;
 
@@ -7,12 +8,14 @@ namespace _Darkland.Sources.Scripts.Unit {
     [RequireComponent(typeof(HpBehaviour))]
     public class HpRegainBehaviour : NetworkBehaviour {
 
+        public RegainStrategy hpRegainStrategy;
+
         private HpBehaviour _hpBehaviour;
-        private IHpRegainHolder _hpRegainHolder;
+        private IRegainController _hpRegainHolder;
 
         private void Awake() {
             _hpBehaviour = GetComponent<HpBehaviour>();
-            _hpRegainHolder = new HpRegainHolder();
+            _hpRegainHolder = new RegainController();
         }
 
         public override void OnStartServer() {
@@ -25,11 +28,9 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerRegainHp() {
-            _hpRegainHolder.IncrementHpRegain();
-
-            var hpToRegain = _hpRegainHolder.ResolveHpToRegain();
-
-            _hpBehaviour.ServerChangeHp(hpToRegain);
+            var regainRate = hpRegainStrategy.Get(gameObject);
+            var hpToRegain = _hpRegainHolder.GetRegain(regainRate);
+            _hpBehaviour.ServerChangeHp((int) hpToRegain);
         }
     }
 

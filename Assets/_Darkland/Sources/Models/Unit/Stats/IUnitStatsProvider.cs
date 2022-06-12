@@ -7,7 +7,6 @@ namespace _Darkland.Sources.Models.Unit.Stats {
 
     public interface IUnitStatsProvider {
         UnitStats Get();
-
         IEnumerable<IUnitStatsCounter> UnitStatsCounters { get; }
     }
 
@@ -19,11 +18,9 @@ namespace _Darkland.Sources.Models.Unit.Stats {
             UnitStatsCounters = unitStatsCounters;
         }
 
-        public UnitStats Get() {
-            return UnitStatsCounters
-                   .Select(counter => counter.Get())
-                   .Aggregate(new UnitStats(), (current, next) => current + next);
-        }
+        public UnitStats Get() => UnitStatsCounters
+                                  .Select(counter => counter.Get())
+                                  .Aggregate(new UnitStats(), (current, next) => current + next);
     }
 
 }
