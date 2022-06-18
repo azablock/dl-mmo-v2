@@ -1,31 +1,36 @@
 using System;
 using _Darkland.Sources.Models.Unit.Stats2;
+using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Stats2 {
 
-    public class CheckHealthOnMaxHealthStatChangeHook : DarklandStatChangeHook {
+    [CreateAssetMenu(
+        menuName = "DL/" + nameof(StatChangeHook) + "/" + nameof(CheckHealthOnMaxHealthStatChangeHook),
+        fileName = nameof(CheckHealthOnMaxHealthStatChangeHook))
+    ]
+    public class CheckHealthOnMaxHealthStatChangeHook : StatChangeHook {
 
-        public override void Register(IDarklandStatsHolder statsHolder) {
-            var healthApi = statsHolder.Stat(DarklandStatId.Health);
-            var maxHealthApi = statsHolder.Stat(DarklandStatId.MaxHealth);
+        public override void Register(IStatsHolder statsHolder) {
+            var healthStat = statsHolder.Stat(StatId.Health);
+            var maxHealthStat = statsHolder.Stat(StatId.MaxHealth);
             
-            maxHealthApi.Changed += maxHealthApiOnChanged(healthApi);
+            maxHealthStat.Changed += maxHealthStatOnChanged(healthStat, maxHealthStat);
         }
 
-        public override void Unregister(IDarklandStatsHolder statsHolder) {
-            var healthApi = statsHolder.Stat(DarklandStatId.Health);
-            var maxHealthApi = statsHolder.Stat(DarklandStatId.MaxHealth);
+        public override void Unregister(IStatsHolder statsHolder) {
+            var healthStat = statsHolder.Stat(StatId.Health);
+            var maxHealthStat = statsHolder.Stat(StatId.MaxHealth);
 
-            maxHealthApi.Changed -= maxHealthApiOnChanged(healthApi);
+            maxHealthStat.Changed -= maxHealthStatOnChanged(healthStat, maxHealthStat);
         }
 
-        private Action<FloatStat> maxHealthApiOnChanged(DarklandStat health) {
-            return stat => OnMaxHealthChanged(stat, health);
+        private static Action<StatValue> maxHealthStatOnChanged(Stat healthStat, Stat maxHealthStat) {
+            return _ => {
+                var healthValue = Math.Min(healthStat.Basic, maxHealthStat.Basic);
+                healthStat.Set(StatValue.OfBasic(healthValue));
+            };
         }
 
-        private void OnMaxHealthChanged(FloatStat stat, DarklandStat health) {
-            
-        }
     }
 
 }

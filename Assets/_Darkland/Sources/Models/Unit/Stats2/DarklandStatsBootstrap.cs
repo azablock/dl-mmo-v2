@@ -3,42 +3,58 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Mirror;
 
 namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public static class DarklandStatsBootstrap {
 
-        public static IEnumerable<DarklandStat> Init(IDarklandStatsHolder darklandStatsHolder) {
-            var type = darklandStatsHolder.GetType();
+        public static IEnumerable<Stat> Init(IStatsHolder statsHolder) {
+            var type = statsHolder.GetType();
+            var bindingFlags = BindingFlags.NonPublic
+                               | BindingFlags.Public
+                               | BindingFlags.Instance
+                               | BindingFlags.DeclaredOnly;
 
             return type
-                .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                .Select(it => it.GetCustomAttribute<DarklandStatAttribute>())
-                .Where(it => it != null)
-                .ToList()
-                .Select(attribute => {
-                        var getterMethodName = attribute.getter;
-                        var setterMethodName = attribute.setter;
-                        var statId = attribute.id;
+                   .GetFields(bindingFlags)
+                   .Where(fieldInfo => fieldInfo.GetCustomAttribute<DarklandStatAttribute>() != null)
+                   .Select(fieldInfo => {
+                           var attribute = fieldInfo.GetCustomAttribute<DarklandStatAttribute>();
+                           var statId = attribute.id;
 
-                        var getterMethodInfo = type.GetMethod(getterMethodName);
-                        var setterMethodInfo = type.GetMethod(setterMethodName);
+                           return new Stat(
+                               statId,
+                               () => (StatValue) fieldInfo.GetValue(statsHolder),
+                               // () => ServerWrapStatsApi.ServerGet(statsHolder, statId),
+                               val => {
+                                   var valAfterConstraints = statsHolder
+                                                             .StatConstraints(statId)
+                                                             .Aggregate(val,
+                                                                 (stat, constraint) => constraint.Apply(statsHolder, stat)
+                                                             );
 
-                        Debug.Assert(getterMethodInfo != null, nameof(getterMethodInfo) + " != null");
-                        Debug.Assert(setterMethodInfo != null, nameof(setterMethodInfo) + " != null");
+                                   fieldInfo.SetValue(statsHolder, valAfterConstraints);
+                                   // ServerWrapStatsApi.ServerSet(statsHolder, statId, valAfterConstraints);
+                               }
+                           );
+                       }
 
-                        var getterMethodInvoke = getterMethodInfo.Invoke(darklandStatsHolder, null);
-                        
-                        return new DarklandStat(
-                            statId,
-                            () => (FloatStat) getterMethodInvoke,
-                            val => {
-                                setterMethodInfo.Invoke(darklandStatsHolder, new object[] {val});
-                            }
-                        );
-                    }
-                )
-                .ToList();
+                   )
+                   .ToList();
+        }
+
+        private static class ServerWrapStatsApi {
+
+            [Server]
+            public static void ServerSet(IStatsHolder statsHolder, StatId statId, StatValue statValue) {
+                statsHolder.Stat(statId).Set(statValue);
+            }
+
+            [Server]
+            public static StatValue ServerGet(IStatsHolder statsHolder, StatId statId) {
+                return statsHolder.StatValue(statId);
+            }
         }
 
 

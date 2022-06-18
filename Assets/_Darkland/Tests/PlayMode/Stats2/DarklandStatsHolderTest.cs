@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Unit.Stats2;
@@ -8,22 +9,16 @@ using UnityEngine.TestTools;
 
 namespace _Darkland.Tests.PlayMode.Stats2 {
 
-    public class SimpleDarklandStatsHolder : DarklandStatsHolder {
+    public class SimpleStatsHolder : StatsHolder {
 
-        [DarklandStat(id = DarklandStatId.Health, getter = nameof(GetHealth), setter = nameof(SetHealth))]
-        private FloatStat _health;
-
-        public void SetHealth(FloatStat val) {
-            _health = val;
-        }
-
-        public FloatStat GetHealth() => _health;
+        [DarklandStat(StatId.Health)]
+        private StatValue _health;
     }
     
     [TestFixture]
     public class DarklandStatsHolderTest : MirrorPlayModeTest {
 
-        private SimpleDarklandStatsHolder _statsHolder;
+        private SimpleStatsHolder _statsHolder;
         
         [UnitySetUp]
         public override IEnumerator UnitySetUp() {
@@ -37,44 +32,54 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
         [UnityTest]
         public IEnumerator A() {
             //Arrange
-            var healthStatApi = _statsHolder.Stat(DarklandStatId.Health);
-            var healthStat = healthStatApi.getFunc();
+            var healthStat = _statsHolder.Stat(StatId.Health);
+            var healthStatValue = healthStat.Get();
 
             //Act
             
             //Assert
-            Assert.AreEqual(0.0f, healthStat.Basic);
-            Assert.AreEqual(0.0f, healthStat.Bonus);
+            Assert.AreEqual(0.0f, healthStatValue.Basic);
+            Assert.AreEqual(0.0f, healthStatValue.Bonus);
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator B() {
             //Arrange
-            var healthStatApi = _statsHolder.Stat(DarklandStatId.Health);
+            var healthStat = _statsHolder.Stat(StatId.Health);
 
             //Act
-            healthStatApi.setAction(FloatStat.Of(1.0f, 0.0f));
-            var healthStat = healthStatApi.getFunc();
+            healthStat.Set(StatValue.Of(1.0f, 0.0f));
+            var healthStatValue = healthStat.Get();
             
             //Assert
-            Assert.AreEqual(1.0f, healthStat.Basic);
-            Assert.AreEqual(0.0f, healthStat.Bonus);
+            Assert.AreEqual(1.0f, healthStatValue.Basic);
+            Assert.AreEqual(0.0f, healthStatValue.Bonus);
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator C() {
             //Arrange
-            var healthStatApi = _statsHolder.Stat(DarklandStatId.Health);
+            var healthStat = _statsHolder.Stat(StatId.Health);
             var changedCallCount = 0;
-            healthStatApi.Changed += stat => changedCallCount++;
+            healthStat.Changed += stat => changedCallCount++;
             
             //Act
-            healthStatApi.setAction(FloatStat.Of(1.0f, 0.0f));
+            healthStat.Set(StatValue.Of(1.0f, 0.0f));
 
             //Assert
             Assert.AreEqual(1, changedCallCount);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator whenDoesNotContainStatWithGivenId_ShouldThrowEx() {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Throws<ArgumentException>(() => _statsHolder.Stat(StatId.Hunger));
+            
             yield return null;
         }
         

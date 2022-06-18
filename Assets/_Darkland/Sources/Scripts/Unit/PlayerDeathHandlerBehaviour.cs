@@ -1,18 +1,23 @@
 using _Darkland.Sources.Models.Unit;
+using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Models.Unit.Stats2.StatEffect;
+using _Darkland.Sources.Scripts.Unit.Stats2;
 using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
-    [RequireComponent(typeof(HpBehaviour))]
+    [RequireComponent(typeof(IStatsHolder))]
     public class PlayerDeathHandlerBehaviour : NetworkBehaviour {
         
-        private HpBehaviour _hpBehaviour;
+        private IStatsHolder _statsHolder;
+        private IStatEffectHandler _statEffectHandler;
         private IPlayerDeathEventEmitter _playerDeathEventEmitter;
 
         private void Awake() {
-            _hpBehaviour = GetComponent<HpBehaviour>();
-            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_hpBehaviour);
+            _statsHolder = GetComponent<IStatsHolder>();
+            _statEffectHandler = GetComponent<IStatEffectHandler>();
+            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_statsHolder.Stat(StatId.Health));
         }
 
         public override void OnStartServer() {
@@ -25,7 +30,8 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnPlayerDead() {
-            _hpBehaviour.ServerRegainHpToMaxHp();
+            var maxHealthValue = _statsHolder.StatValue(StatId.MaxHealth);
+            _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(maxHealthValue, StatId.Health));
         }
     }
 

@@ -1,16 +1,19 @@
-namespace _Darkland.Sources.Models.Unit.Hp {
+namespace _Darkland.Sources.Models.Unit.Regain {
 
     public interface IRegainController {
-        float regainValue { get; }
         float GetRegain(float regainRate);
     }
 
     public class RegainController : IRegainController {
 
-        public float regainValue { get; }
+        private float _regainValue;
 
         public float GetRegain(float regainRate) {
-            throw new System.NotImplementedException();
+            _regainValue += regainRate;
+            var regainValueInt = (int) _regainValue;
+            _regainValue -= regainValueInt;
+
+            return regainValueInt;
         }
     }
 
