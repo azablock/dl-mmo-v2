@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Mirror;
@@ -25,8 +24,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
                            return new Stat(
                                statId,
-                               () => (StatValue) fieldInfo.GetValue(statsHolder),
-                               // () => ServerWrapStatsApi.ServerGet(statsHolder, statId),
+                               // () => (StatValue) fieldInfo.GetValue(statsHolder),
+                               () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
                                    var valAfterConstraints = statsHolder
                                                              .StatConstraints(statId)
@@ -34,8 +33,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                                                  (stat, constraint) => constraint.Apply(statsHolder, stat)
                                                              );
 
-                                   fieldInfo.SetValue(statsHolder, valAfterConstraints);
-                                   // ServerWrapStatsApi.ServerSet(statsHolder, statId, valAfterConstraints);
+                                   // fieldInfo.SetValue(statsHolder, valAfterConstraints);
+                                   ServerWrapStatsApi.ServerSet(() => fieldInfo.SetValue(statsHolder, valAfterConstraints));
                                }
                            );
                        }
@@ -47,25 +46,15 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
         private static class ServerWrapStatsApi {
 
             [Server]
-            public static void ServerSet(IStatsHolder statsHolder, StatId statId, StatValue statValue) {
-                statsHolder.Stat(statId).Set(statValue);
+            public static void ServerSet(Action setAction) {
+                setAction();
             }
 
             [Server]
-            public static StatValue ServerGet(IStatsHolder statsHolder, StatId statId) {
-                return statsHolder.StatValue(statId);
+            public static StatValue ServerGet(Func<StatValue> getFunc) {
+                return getFunc();
             }
         }
-
-
-        /*
-             control.GetType()
-           .GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-           .Where(method => method.GetCustomAttribute<RPC>() == null)
-           .Select(method => method.Name)
-           .ToList()
-           .ForEach(Console.WriteLine);
-         */
     }
 
 }

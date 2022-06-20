@@ -1,19 +1,19 @@
 using System;
-using _Darkland.Sources.Models.Unit.Hp;
 using _Darkland.Sources.Models.Unit.Stats2;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Unit {
 
     public interface IPlayerDeathEventEmitter {
         event Action PlayerDead;
-        Stat HealthStat { get; }
     }
 
     public sealed class PlayerDeathEventEmitter : IPlayerDeathEventEmitter {
         public event Action PlayerDead;
-        public Stat HealthStat { get; }
+        public IStat HealthStat { get; }
 
-        public PlayerDeathEventEmitter(Stat healthStat) {
+        public PlayerDeathEventEmitter(IStat healthStat) {
+            Debug.Assert(healthStat.id == StatId.Health, "argument stat is not a Health stat");
             HealthStat = healthStat;
             HealthStat.Changed += OnHealthChanged;
         }
