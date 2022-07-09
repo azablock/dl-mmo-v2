@@ -11,8 +11,11 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
 
     public class SimpleStatsHolder : StatsHolder {
 
-        [DarklandStat(StatId.Health)]
+        [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
         private StatValue _health;
+
+        [Server]
+        private void ServerSetHealth(StatValue val) => _health = val;
     }
     
     [TestFixture]

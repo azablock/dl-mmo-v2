@@ -8,24 +8,24 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
     public class PlayerStatsHolder : StatsHolder {
 
         [SyncVar(hook = nameof(ClientSyncHealth))]
-        [DarklandStat(StatId.Health)]
+        [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
         private StatValue _health;
         
         [SyncVar]
-        [DarklandStat(StatId.MaxHealth)]
+        [DarklandStat(StatId.MaxHealth, nameof(ServerSetMaxHealth))]
         private StatValue _maxHealth;
         
-        [DarklandStat(StatId.HealthRegain)]
-        private StatValue _hpRegain;
+        [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
+        private StatValue _healthRegain;
 
         //todo nowy interface z tego
         public event Action<StatId, StatValue> ClientChanged;
 
         //todo tmp - remove!!!
         public override void OnStartServer() {
-            // Stat(StatId.HealthRegain).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
-            // Stat(StatId.MaxHealth).Set(Models.Unit.Stats2.StatValue.OfBasic(20));
-            // Stat(StatId.Health).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
+            Stat(StatId.HealthRegain).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
+            Stat(StatId.MaxHealth).Set(Models.Unit.Stats2.StatValue.OfBasic(20));
+            Stat(StatId.Health).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
         }
 
         //todo tmp - remove!!!
@@ -41,7 +41,14 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             Stat(StatId.Health).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
         }
 
-        //todo tmp - remove!!!
+        [Server]
+        private void ServerSetHealth(StatValue val) => _health = val;
+        [Server]
+        private void ServerSetMaxHealth(StatValue val) => _maxHealth = val;
+        [Server]
+        private void ServerSetHealthRegain(StatValue val) => _healthRegain = val;
+
+            //todo tmp - remove!!!
         private void Update() {
             if (Input.GetKeyDown(KeyCode.F1)) {
                 CmdChangeStat(StatId.MaxHealth, 1);
@@ -68,6 +75,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         [Client]
         private void ClientSyncHealth(StatValue _, StatValue val) {
+            Debug.Log($"ClientSyncHealth {Time.time} {val.Current}", this);
             ClientChanged?.Invoke(StatId.Health, val);
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Mirror;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Unit.Stats2 {
 
@@ -22,19 +23,20 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                            var attribute = fieldInfo.GetCustomAttribute<DarklandStatAttribute>();
                            var statId = attribute.id;
 
+                           var setterMethodName = attribute.setter;
+                           var setterMethodInfo = type.GetMethod(setterMethodName, bindingFlags);
+
+                           Debug.Assert(setterMethodInfo != null, nameof(setterMethodInfo) + " != null");
+
                            return new Stat(
                                statId,
-                               // () => (StatValue) fieldInfo.GetValue(statsHolder),
                                () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
                                    var valAfterConstraints = statsHolder
                                                              .StatConstraints(statId)
-                                                             .Aggregate(val,
-                                                                 (stat, constraint) => constraint.Apply(statsHolder, stat)
-                                                             );
+                                                             .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   // fieldInfo.SetValue(statsHolder, valAfterConstraints);
-                                   ServerWrapStatsApi.ServerSet(() => fieldInfo.SetValue(statsHolder, valAfterConstraints));
+                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
                                }
                            );
                        }

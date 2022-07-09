@@ -63,7 +63,6 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                 return (Basic.GetHashCode() * 397) ^ Bonus.GetHashCode();
             }
         }
-
     }
 
 }
