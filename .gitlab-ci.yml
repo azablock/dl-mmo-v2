@@ -1,6 +1,20 @@
-run_tests:
-    image: unity-ci/editor:ubuntu-2021.3.6f1-ios-1.0.1
-    before_script:
-        - sudo apt-get install xvfb
-    script:
-        - xvfb-run /opt/Unity/Editor/Unity -batchmode -nographics -projectPath ~/dl-mmo-builds
+#run_tests:
+#    image: unity-ci/editor:ubuntu-2021.3.6f1-ios-1.0.1
+#    before_script:
+#        - sudo apt-get install xvfb
+#    script:
+#        - xvfb-run /opt/Unity/Editor/Unity -batchmode -nographics -projectPath ~/dl-mmo-builds
+
+stages:
+  - test
+  - build
+  - deploy
+unit-test:
+  stage: test
+  script: echo 'Testing...'
+unity-build:
+  stage: build
+  script: echo 'Building...'
+playstore:
+  stage: deploy
+  script: echo 'Deploying...'
