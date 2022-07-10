@@ -18,28 +18,11 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
         private StatValue _healthRegain;
 
+        [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
+        private StatValue _movementSpeed;
+
         //todo nowy interface z tego
         public event Action<StatId, StatValue> ClientChanged;
-
-        //todo tmp - remove!!!
-        public override void OnStartServer() {
-            Stat(StatId.HealthRegain).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
-            Stat(StatId.MaxHealth).Set(Models.Unit.Stats2.StatValue.OfBasic(20));
-            Stat(StatId.Health).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
-        }
-
-        //todo tmp - remove!!!
-        public override void OnStartLocalPlayer() {
-            CmdInit();
-        }
-
-        //todo tmp - remove!!!
-        [Command]
-        private void CmdInit() {
-            Stat(StatId.HealthRegain).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
-            Stat(StatId.MaxHealth).Set(Models.Unit.Stats2.StatValue.OfBasic(20));
-            Stat(StatId.Health).Set(Models.Unit.Stats2.StatValue.OfBasic(1));
-        }
 
         [Server]
         private void ServerSetHealth(StatValue val) => _health = val;
@@ -47,31 +30,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ServerSetMaxHealth(StatValue val) => _maxHealth = val;
         [Server]
         private void ServerSetHealthRegain(StatValue val) => _healthRegain = val;
-
-            //todo tmp - remove!!!
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.F1)) {
-                CmdChangeStat(StatId.MaxHealth, 1);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F2)) {
-                CmdChangeStat(StatId.MaxHealth, -1);
-            }
-            
-            if (Input.GetKeyDown(KeyCode.F3)) {
-                CmdChangeStat(StatId.Health, 5);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F4)) {
-                CmdChangeStat(StatId.Health, -5);
-            }
-        }
-
-        //todo tmp - remove!!!
-        [Command]
-        private void CmdChangeStat(StatId statId, int delta) {
-            Stat(statId).Add(Models.Unit.Stats2.StatValue.OfBasic(delta));
-        }
+        [Server]
+        private void ServerSetMovementSpeed(StatValue val) => _movementSpeed = val;
 
         [Client]
         private void ClientSyncHealth(StatValue _, StatValue val) {

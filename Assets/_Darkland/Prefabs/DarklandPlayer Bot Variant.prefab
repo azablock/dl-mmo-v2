@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2127121604236763162
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3688468114088847578, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946952310470066369, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462364082648414307, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_AssetId
+      value: 64827c9f0e99a7f4fbb993dda1d61dd1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
+      propertyPath: m_Name
+      value: DarklandPlayer Bot Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 208270ef800c3f344abc684091beacec, type: 3}
+--- !u!1 &5329301702517875642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
+  m_PrefabInstance: {fileID: 2127121604236763162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1802167429098240444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329301702517875642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44dbbe368b6840d5aaaf1593fbffffde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &3986897237962396072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329301702517875642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393264d2f86147aea58ccc2b356cf8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,24 +12,24 @@ namespace _Darkland.Sources.Scripts.Unit {
         
         private IStatsHolder _statsHolder;
         private IStatEffectHandler _statEffectHandler;
-        private IPlayerDeathEventEmitter _playerDeathEventEmitter;
+        private IDeathEventEmitter _deathEventEmitter;
 
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _statEffectHandler = GetComponent<IStatEffectHandler>();
-            _playerDeathEventEmitter = new PlayerDeathEventEmitter(_statsHolder.Stat(StatId.Health));
+            _deathEventEmitter = new DeathEventEmitter(_statsHolder.Stat(StatId.Health));
         }
 
         public override void OnStartServer() {
-            _playerDeathEventEmitter.PlayerDead += ServerOnPlayerDead;
+            _deathEventEmitter.Death += ServerOnDead;
         }
 
         public override void OnStopServer() {
-            _playerDeathEventEmitter.PlayerDead -= ServerOnPlayerDead;
+            _deathEventEmitter.Death -= ServerOnDead;
         }
 
         [Server]
-        private void ServerOnPlayerDead() {
+        private void ServerOnDead() {
             var maxHealthValue = _statsHolder.StatValue(StatId.MaxHealth);
             _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(maxHealthValue, StatId.Health));
         }

@@ -36,7 +36,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                                              .StatConstraints(statId)
                                                              .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
+                                   ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
                                }
                            );
                        }
