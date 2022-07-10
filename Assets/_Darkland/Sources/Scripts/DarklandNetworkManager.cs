@@ -43,6 +43,10 @@ namespace _Darkland.Sources.Scripts {
 
 #if UNITY_SERVER
         StartCoroutine("StartHeadless");
+        
+        //localhost connections
+        //dl-mmo-2021.exe s
+        //dl-mmo-2021.exe c
 #endif
         }
 
@@ -295,7 +299,7 @@ namespace _Darkland.Sources.Scripts {
 
         [Client]
         private static void ClientNotifyDarklandPlayerSpawned(DarklandAuthMessages.DarklandAuthResponseMessage msg) {
-            // clientDarklandPlayerConnected?.Invoke(msg.spawnedPlayerNetworkIdentity);
+            clientDarklandPlayerConnected?.Invoke(msg.spawnedPlayerNetworkIdentity);
         }
     }
 
