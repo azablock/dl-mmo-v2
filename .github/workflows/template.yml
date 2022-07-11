@@ -203,6 +203,8 @@ jobs:
 #    needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
+      - name: list files
+        run: ls -al
 #      - name: checkout
 #        uses: actions/checkout@v2
 #      - name: setup demo
@@ -213,7 +215,8 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/StandaloneLinux64
+          local: test
+#          local: build/StandaloneLinux64
           remote: dl-mmo-builds
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
