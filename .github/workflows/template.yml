@@ -194,6 +194,8 @@ jobs:
     name: create temp file
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
       - name: make the temp file
         run: mkdir test && touch test/oof.txt
 
@@ -203,11 +205,11 @@ jobs:
 #    needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
       - name: list files
         run: ls -al
-#      - name: checkout
-#        uses: actions/checkout@v2
-#      - name: setup demo
+      #      - name: setup demo
 #        run: |
 #          mkdir test
 #          touch test/oof.txt
