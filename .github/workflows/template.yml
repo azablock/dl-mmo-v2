@@ -194,13 +194,12 @@ jobs:
     name: create temp file
     runs-on: ubuntu-latest
     steps:
-#      - name: checkout
-#        uses: actions/checkout@v2
       - name: make the temp file
         run: mkdir test && touch test/olek_test_file.txt
       - name: list files
         run: ls -al
-       - uses: actions/upload-artifact@v2
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
         with:
           name: olek_test_file.txt
           path: test/olek_test_file.txt
