@@ -145,91 +145,84 @@ jobs:
 #          name: build-StandaloneWindows64
 #          path: build/StandaloneWindows64
   
-#  buildLinuxHeadlessServer:
-##    needs: testRunner
-#    name: Build for Linux Headless Server 🖥️
-#    runs-on: ubuntu-latest
-#    strategy:
-#      fail-fast: false
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Create LFS file list
-#        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-#
-#      - name: Restore LFS cache
-#        uses: actions/cache@v2
-#        id: lfs-cache
-#        with:
-#          path: .git/lfs
-#          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-#
-#      - name: Git LFS Pull
-#        run: |
-#          git lfs pull
-#          git add .
-#          git reset --hard
-#
-#      - name: Restore Library cache
-#        uses: actions/cache@v2
-#        with:
-#          path: Library
-#          key: Library-build-StandaloneLinux64
-#          restore-keys: |
-#            Library-build-
-#            Library-
-#
-#      - uses: game-ci/unity-builder@v2
-#        with:
-#          targetPlatform: StandaloneLinux64
-#          customParameters: -EnableHeadlessMode
-#
-#      - uses: actions/upload-artifact@v2
-#        with:
-#          name: build-StandaloneLinux64
-#          path: build/StandaloneLinux64
-
-  createTempFile:
-    name: create temp file
+  buildLinuxHeadlessServer:
+#    needs: testRunner
+    name: Build for Linux Headless Server 🖥️
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
-      - name: make the temp file
-        run: mkdir test && touch test/olek_test_file.txt
-      - name: list files
-        run: ls -al
-      - name: upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
         with:
-          name: olek_test_file.txt
-          path: test/olek_test_file.txt
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-build-StandaloneLinux64
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: StandaloneLinux64
+          customParameters: -EnableHeadlessMode
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
+
+#  createTempFile:
+#    name: create temp file
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: make the temp file
+#        run: mkdir test && touch test/olek_test_file.txt
+#      - name: list files
+#        run: ls -al
+#      - name: upload artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: olek_test_file.txt
+#          path: test/olek_test_file.txt
 
   copyLinuxBuildViaSshTEMP:
     name: Copy Linux Build via ssh
-    needs: createTempFile
-#    needs: buildLinuxHeadlessServer
+    needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: checkout #to chyba niepotrzebne
         uses: actions/checkout@v2
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: olek_test_file.txt
-          path: olek_test_file.txt
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
       - name: list files
         run: ls -al
-      #      - name: setup demo
-#        run: |
-#          mkdir test
-#          touch test/oof.txt
-#          touch test/.dot.txt
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: olek_test_file.txt
-#          local: build/StandaloneLinux64
-          remote: dl-mmo-builds/olek_test_file.txt
+          local: build/StandaloneLinux64
+          remote: dl-mmo-builds
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
