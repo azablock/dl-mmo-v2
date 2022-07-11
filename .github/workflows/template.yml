@@ -195,9 +195,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: make the temp file
-        run: |
-        mkdir test
-        touch test/oof.txt
+        run: mkdir test && touch test/oof.txt
 
   copyLinuxBuildViaSshTEMP:
     name: Copy Linux Build via ssh
