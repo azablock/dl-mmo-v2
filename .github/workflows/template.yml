@@ -216,7 +216,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: olek_test_file.txt
-          path: olek_test_file____________
+          path: olek_test_file.txt
       - name: list files
         run: ls -al
       #      - name: setup demo
@@ -227,9 +227,9 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: test
+          local: olek_test_file.txt
 #          local: build/StandaloneLinux64
-          remote: dl-mmo-builds
+          remote: dl-mmo-builds/olek_test_file.txt
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
