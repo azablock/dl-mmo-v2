@@ -19,7 +19,7 @@ jobs:
           touch test/oof.txt
           touch test/.dot.txt
       - name: Copy folder content recursively to remote
-        uses: ./
+        uses: garygrossgarten/github-action-scp@release
         with:
           local: test
           remote: dl-mmo-builds
