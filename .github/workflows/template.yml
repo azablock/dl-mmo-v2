@@ -190,6 +190,36 @@ jobs:
           name: build-StandaloneLinux64
           path: build/StandaloneLinux64
 
+  copyLinuxBuildViaSsh:
+    needs: buildLinuxHeadlessServer
+    name: Copy Linux Build via ssh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/StandaloneLinux64
+          remote: dl-mmo-builds
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+
+
+#  copyLinuxBuildViaSsh_V2:
+#    needs: buildLinuxHeadlessServer
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: SSH Remote Commands
+#      - uses: appleboy/ssh-action@v0.1.4
+#        
+
+
+
+#      - name: Copy via ssh
+#        uses: garygrossgarten/github-action-scp@v0.7.3
+
+
+
 #  buildAndroid:
 #    needs: testRunner
 #    name: Build for Android 📱
