@@ -215,8 +215,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: olek_test_file
-          path: olek_test_file.txt
+          name: olek_test_file.txt
+          path: olek_test_file____________
       - name: list files
         run: ls -al
       #      - name: setup demo
