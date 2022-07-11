@@ -6,6 +6,26 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
+  copyLinuxBuildViaSshTEMP:
+    needs: buildLinuxHeadlessServer
+    name: Copy Linux Build via ssh
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup demo
+        run: |
+          mkdir test
+          touch test/oof.txt
+          touch test/.dot.txt
+      - name: Copy folder content recursively to remote
+        uses: ./
+        with:
+          local: test
+          remote: dl-mmo-builds
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
 #  testRunner:
 #    name: Test in ${{ matrix.testMode }} ✨
 #    runs-on: ubuntu-latest
@@ -205,27 +225,6 @@ jobs:
 #          password: ${{ secrets.SSH_PASSWORD }}
 
 
-  copyLinuxBuildViaSshTEMP:
-    needs: buildLinuxHeadlessServer
-    name: Copy Linux Build via ssh
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup demo
-        run: |
-          mkdir test
-          touch test/oof.txt
-          touch test/.dot.txt
-      - name: Copy folder content recursively to remote
-        uses: ./
-        with:
-          local: test
-          remote: dl-mmo-builds
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}    
-    
 #    steps:
 #      - name: Copy folder content recursively to remote
 #        uses: garygrossgarten/github-action-scp@release
