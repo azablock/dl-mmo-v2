@@ -198,6 +198,8 @@ jobs:
         uses: actions/checkout@v2
       - name: make the temp file
         run: mkdir test && touch test/oof.txt
+      - name: list files
+        run: ls -al
 
   copyLinuxBuildViaSshTEMP:
     name: Copy Linux Build via ssh
