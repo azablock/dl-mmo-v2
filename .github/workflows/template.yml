@@ -222,7 +222,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: build/StandaloneLinux64
-          remote: dl-mmo-builds
+          remote: dl-mmo-builds-2
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
