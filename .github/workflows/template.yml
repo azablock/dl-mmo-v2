@@ -180,15 +180,16 @@ jobs:
             Library-build-
             Library-
 
-      - uses: game-ci/unity-builder@v2
+      - name: Run Unity builder
+        uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
           customParameters: -EnableHeadlessMode
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-StandaloneLinux64
-          path: build/StandaloneLinux64
+          name: build-dl-mmo-server-StandaloneLinux64
+          path: build/dl-mmo-server-StandaloneLinux64
 
 #  createTempFile:
 #    name: create temp file
@@ -204,29 +205,42 @@ jobs:
 #          name: olek_test_file.txt
 #          path: test/olek_test_file.txt
 
-  copyLinuxBuildViaSshTEMP:
+  copyLinuxBuildViaScp:
     name: Copy Linux Build via ssh
     needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
       - name: checkout #to chyba niepotrzebne
         uses: actions/checkout@v2
+
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
           name: build-StandaloneLinux64
           path: build/StandaloneLinux64
+          
       - name: list files
         run: ls -al
+        
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/StandaloneLinux64
-          remote: dl-mmo-builds-3
+          local: build/dl-mmo-server-StandaloneLinux64
+          remote: dl-mmo-builds
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-
+  
+  restartGameServerViaSsh:
+    runs-on: ubuntu-latest
+    steps:
+    - name: restart game server via ssh
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: ./restart-dl-mmo-server.sh
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        passphrase: ${{ secrets.SSH_PASSWORD }}
 
 #  copyLinuxBuildViaSsh_V2:
 #    needs: buildLinuxHeadlessServer
