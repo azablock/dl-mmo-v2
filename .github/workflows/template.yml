@@ -226,13 +226,13 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: build/dl-mmo-server-StandaloneLinux64
-          remote: dl-mmo-builds
+          remote: dl-mmo-server-build-upload
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
   
   restartGameServerViaSsh:
-#    needs: copyLinuxBuildViaScp
+    needs: copyLinuxBuildViaScp
     runs-on: ubuntu-latest
     steps:
     - name: restart game server via ssh
