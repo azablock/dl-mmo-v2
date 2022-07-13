@@ -232,15 +232,16 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
   
   restartGameServerViaSsh:
+#    needs: copyLinuxBuildViaScp
     runs-on: ubuntu-latest
     steps:
     - name: restart game server via ssh
-      uses: garygrossgarten/github-action-ssh@release
+      uses: appleboy/ssh-action@master
       with:
-        command: ./restart-dl-mmo-server.sh
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         passphrase: ${{ secrets.SSH_PASSWORD }}
+        script: ./restart-dl-mmo-server.sh
 
 #  copyLinuxBuildViaSsh_V2:
 #    needs: buildLinuxHeadlessServer
