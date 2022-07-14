@@ -187,14 +187,12 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         /// <param name="conn">Connection from client.</param>
         public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-            // Debug.Log($"{GetType()}.OnServerDisconnect()\tPlayer [netId={conn.identity.netId}] disconnected from the server.");
-
             // NetworkServer.SendToAll(new DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage {
             //     disconnectedPlayerNetworkIdentity = conn.identity
             // });
 
+            Debug.Log($"{GetType()}.OnServerDisconnect()\tPlayer [netId={conn.identity.netId}] disconnected from the server.");
             base.OnServerDisconnect(conn);
-            Debug.Log("OnServerDisconnect: Client disconnected.");
         }
 
         
