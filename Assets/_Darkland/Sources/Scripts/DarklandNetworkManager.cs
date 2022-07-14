@@ -46,7 +46,7 @@ namespace _Darkland.Sources.Scripts {
             var args = Environment.GetCommandLineArgs().ToList();
             
             for (var i = 0; i < args.Count; i++) {
-                Debug.Log($"Command line Argument {i} = {args[i]}");
+                Debug.Log($"{GetType()}.Start()\tCommand line Argument {i} = {args[i]}");
             }
             
             var remoteServerAddressFlagArgIndex = args.FindIndex(it => it == "dl-server-address");
@@ -76,7 +76,7 @@ namespace _Darkland.Sources.Scripts {
             
             yield return new WaitForSeconds(2.0f);
 
-            var isBot = args.Contains("dl-run-as-bot");
+            var isBot = IsBot(args);
 
             // if (args.Length > 3 && args[1] == "c") {
                 // networkAddress = args[2];
@@ -97,6 +97,10 @@ namespace _Darkland.Sources.Scripts {
             //         StartClient();
             //         break;
             // }
+        }
+
+        private static bool IsBot(ICollection<string> args) {
+            return args.Contains("dl-run-as-bot");
         }
 
         /// <summary>
@@ -173,6 +177,7 @@ namespace _Darkland.Sources.Scripts {
         /// <param name="conn">Connection from client.</param>
         public override void OnServerConnect(NetworkConnectionToClient conn) {
             base.OnServerConnect(conn);
+            Debug.Log($"{GetType()}.OnServerConnect()\tPlayer [netId={conn.identity.netId}] connected to the server.");
         }
 
         /// <summary>
@@ -199,7 +204,7 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         /// <param name="conn">Connection from client.</param>
         public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-            Debug.Log($"Player [netId={conn.identity.netId}] disconnected from the server.");
+            Debug.Log($"{GetType()}.OnServerDisconnect()\tPlayer [netId={conn.identity.netId}] disconnected from the server.");
 
             // NetworkServer.SendToAll(new DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage {
             //     disconnectedPlayerNetworkIdentity = conn.identity
@@ -215,11 +220,11 @@ namespace _Darkland.Sources.Scripts {
         public override void OnClientConnect() {
             base.OnClientConnect();
             var args = Environment.GetCommandLineArgs();
+            var isBot = IsBot(args);
 
-            NetworkClient.connection.Send(new DarklandAuthMessages.DarklandAuthRequestMessage {
-                    asBot = args.Length > 1 && args[1] == "c"
-                }
-            );
+            Debug.Log($"{GetType()}.OnClientConnect()\t (isBot={isBot})");
+
+            NetworkClient.connection.Send(new DarklandAuthMessages.DarklandAuthRequestMessage {asBot = isBot});
         }
 
         /// <summary>
@@ -315,7 +320,7 @@ namespace _Darkland.Sources.Scripts {
             var botGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
             NetworkServer.AddPlayerForConnection(conn, botGameObject);
 
-            Debug.Log($"Player [netId={conn.identity.netId}] joined the server.");
+            Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned.");
 
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
                     spawnedPlayerNetworkIdentity = conn.identity
