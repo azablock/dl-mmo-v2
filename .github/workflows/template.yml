@@ -206,7 +206,7 @@ jobs:
 #          path: test/olek_test_file.txt
 
   copyLinuxBuildViaScp:
-    name: Copy Linux Build via ssh
+    name: Copy Linux Build via scp
     needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
@@ -242,7 +242,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        script: ./restart-dl-mmo-server.sh
+        script: ./restart-dl-mmo-server.sh &
 
 #  copyLinuxBuildViaSsh_V2:
 #    needs: buildLinuxHeadlessServer
