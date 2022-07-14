@@ -231,18 +231,18 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
   
-  restartGameServerViaSsh:
-    name: restart game server via ssh
-    needs: copyLinuxBuildViaScp
-    runs-on: ubuntu-latest
-    steps:
-    - name: restart game server via ssh
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: ./restart-dl-mmo-server.sh
+#  restartGameServerViaSsh:
+#    name: restart game server via ssh
+#    needs: copyLinuxBuildViaScp
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: restart game server via ssh
+#      uses: appleboy/ssh-action@master
+#      with:
+#        host: ${{ secrets.SSH_HOST }}
+#        username: ${{ secrets.SSH_USER }}
+#        password: ${{ secrets.SSH_PASSWORD }}
+#        script: ./restart-dl-mmo-server.sh
 
 #  copyLinuxBuildViaSsh_V2:
 #    needs: buildLinuxHeadlessServer
