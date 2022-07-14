@@ -50,59 +50,36 @@ namespace _Darkland.Sources.Scripts {
             }
             
             var remoteServerAddressFlagArgIndex = args.FindIndex(it => it == "dl-server-address");
-            networkAddress = remoteServerAddressFlagArgIndex > -1 && args.Count > remoteServerAddressFlagArgIndex
-                ? args[remoteServerAddressFlagArgIndex + 1]
-                : "localhost";
-            
-            Debug.Log($"NETWORK ADDRESS SET TO {networkAddress}");
-            
+
+            if (remoteServerAddressFlagArgIndex > -1 && args.Count > remoteServerAddressFlagArgIndex) {
+                networkAddress = args[remoteServerAddressFlagArgIndex + 1];
+                Debug.Log($"{GetType()}.Start() NETWORK ADDRESS CHANGED TO {networkAddress}");
+            }
+
 
             var portFlagArgIndex = args.FindIndex(it => it == "dl-server-port");
-            var port = portFlagArgIndex > -1 && args.Count > portFlagArgIndex
-                ? args[portFlagArgIndex + 1]
-                : "7777";
             
-
-            ((KcpTransport) transport).Port = Convert.ToUInt16(port);
-            Debug.Log($"NETWORK PORT SET TO {((KcpTransport) transport).Port}");
-
-            
+            if (portFlagArgIndex > -1 && args.Count > portFlagArgIndex) {
+                ((KcpTransport) transport).Port = Convert.ToUInt16(args[portFlagArgIndex + 1]);
+                Debug.Log($"NETWORK PORT CHANGED TO {((KcpTransport) transport).Port}");
+            }
             base.Start();
 
-#if UNITY_SERVER
+#if !UNITY_EDITOR_64 && UNITY_SERVER
         StartCoroutine(StartHeadless(args));
-        
-        //localhost connections
-        //dl-mmo-2021.exe s
-        //dl-mmo-2021.exe c
 #endif
         }
 
-        private IEnumerator StartHeadless(List<string> args) {
-            
+        private IEnumerator StartHeadless(ICollection<string> args) {
             yield return new WaitForSeconds(2.0f);
 
             var isBot = IsBot(args);
-
-            // if (args.Length > 3 && args[1] == "c") {
-                // networkAddress = args[2];
-            // }
 
             if (isBot) {
                 StartClient();
             } else {
                 StartServer();
             }
-            
-            
-            // switch (args[1]) {
-            //     case "s":
-            //         StartServer();
-            //         break;
-            //     case "c":
-            //         StartClient();
-            //         break;
-            // }
         }
 
         private static bool IsBot(ICollection<string> args) {
@@ -228,7 +205,7 @@ namespace _Darkland.Sources.Scripts {
             var args = Environment.GetCommandLineArgs();
             var isBot = IsBot(args);
 
-            // Debug.Log($"{GetType()}.OnClientConnect()\t (isBot={isBot})");
+            Debug.Log($"{GetType()}.OnClientConnect()\t (isBot={isBot})");
 
             NetworkClient.connection.Send(new DarklandAuthMessages.DarklandAuthRequestMessage {asBot = isBot});
         }
