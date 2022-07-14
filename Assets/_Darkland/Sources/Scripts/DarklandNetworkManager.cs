@@ -177,7 +177,7 @@ namespace _Darkland.Sources.Scripts {
         /// <param name="conn">Connection from client.</param>
         public override void OnServerConnect(NetworkConnectionToClient conn) {
             base.OnServerConnect(conn);
-            Debug.Log($"{GetType()}.OnServerConnect()\tPlayer [netId={conn.identity.netId}] connected to the server.");
+            Debug.Log($"{GetType()}.OnServerConnect()\tPlayer [connectionId={conn.connectionId}] connected to the server.");
         }
 
         /// <summary>
