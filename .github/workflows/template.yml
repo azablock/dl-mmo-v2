@@ -183,10 +183,17 @@ jobs:
       - name: Run Unity builder
         uses: game-ci/unity-builder@v2
         with:
+#          buildPath : /
+          
           targetPlatform: StandaloneLinux64
-          buildMethod: UnityBuilderAction.BuildScript.Build
+          buildMethod: UnityBuilderAction.BuildScript2.BuildProject
+#          buildMethod: UnityBuilderAction.BuildScript.Build
           customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
-
+#          customParameters: -EnableHeadlessMode -buildTarget StandaloneLinux64 -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
+#  -customBuildPath
+#  /github/workspace/build/StandaloneLinux64/StandaloneLinux64
+  
+  
       - uses: actions/upload-artifact@v2
         with:
           name: build-dl-mmo-server-StandaloneLinux64
