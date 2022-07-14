@@ -183,21 +183,13 @@ jobs:
       - name: Run Unity builder
         uses: game-ci/unity-builder@v2
         with:
-#          buildPath : /
-          
           targetPlatform: StandaloneLinux64
-#          buildMethod: UnityBuilderAction.BuildScript2.BuildProject
-#          buildMethod: UnityBuilderAction.BuildScript.Build
           customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
-#          customParameters: -EnableHeadlessMode -buildTarget StandaloneLinux64 -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
-#  -customBuildPath
-#  /github/workspace/build/StandaloneLinux64/StandaloneLinux64
-  
   
       - uses: actions/upload-artifact@v2
         with:
-          name: build-dl-mmo-server-StandaloneLinux64
-          path: build/dl-mmo-server-StandaloneLinux64
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
 
 #  createTempFile:
 #    name: create temp file
@@ -224,8 +216,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-dl-mmo-server-StandaloneLinux64
-          path: build/dl-mmo-server-StandaloneLinux64
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
           
       - name: list files
         run: ls -al
@@ -233,7 +225,7 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/dl-mmo-server-StandaloneLinux64
+          local: build/StandaloneLinux64
           remote: dl-mmo-server-build-upload
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
