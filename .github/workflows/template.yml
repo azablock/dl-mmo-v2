@@ -233,6 +233,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
   
   restartGameServerViaSsh:
+    name: restart game server via ssh
     needs: copyLinuxBuildViaScp
     runs-on: ubuntu-latest
     steps:
