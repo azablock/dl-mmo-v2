@@ -194,8 +194,11 @@ namespace _Darkland.Sources.Scripts {
             // });
 
             base.OnServerDisconnect(conn);
+            Debug.Log("OnServerDisconnect: Client disconnected.");
         }
 
+        
+        
         /// <summary>
         /// Called on the client when connected to a server.
         /// <para>The default implementation of this function sets the client as ready and adds a player. Override the function to dictate what happens when the client connects.</para>
@@ -245,7 +248,7 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         public override void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandAuthMessages.DarklandAuthRequestMessage>(ServerSpawnDarklandPlayer);
-            // NetworkServer.RegisterHandler<DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage>(ServerOnDisconnectDarklandPlayer);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.DarklandPlayerDisconnectRequestMessage>(ServerOnDisconnectDarklandPlayer);
         }
 
         private static void ServerOnDisconnectDarklandPlayer(NetworkConnection conn,
@@ -271,6 +274,7 @@ namespace _Darkland.Sources.Scripts {
 
         private static void ClientNotifyDarklandPlayerDisconnected(
             DarklandAuthMessages.DarklandPlayerDisconnectResponseMessage msg) {
+            Debug.Log("Player disconnected with netId=" + msg.disconnectedPlayerNetworkIdentity != null ? msg.disconnectedPlayerNetworkIdentity.netId : (uint?) null);
             // clientDarklandPlayerDisconnected?.Invoke(msg.disconnectedPlayerNetworkIdentity);
         }
 
@@ -303,7 +307,7 @@ namespace _Darkland.Sources.Scripts {
             var botGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
             NetworkServer.AddPlayerForConnection(conn, botGameObject);
 
-            // Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned.");
+            Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned.");
 
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
                     spawnedPlayerNetworkIdentity = conn.identity

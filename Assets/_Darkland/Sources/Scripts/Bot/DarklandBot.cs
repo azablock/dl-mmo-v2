@@ -13,10 +13,6 @@ namespace _Darkland.Sources.Scripts.Bot {
             _availableMovesDummyHandler = GetComponent<AvailableMovesDummyHandler>();
         }
 
-        public override void OnStopServer() {
-            NetworkServer.Destroy(gameObject);
-        }
-
         public override void OnStartLocalPlayer() {
             var randomRepeatRate = Random.Range(1.5f, 3.0f);
             InvokeRepeating(nameof(ClientSendMoveRequest), 0.0f, randomRepeatRate);
