@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using _Darkland.Sources.NetworkMessages;
+using kcp2k;
 using Mirror;
+using NSubstitute.Extensions;
 using UnityEngine;
 
 /*
@@ -39,10 +43,28 @@ namespace _Darkland.Sources.Scripts {
         /// Networking is NOT initialized when this fires
         /// </summary>
         public override void Start() {
+            var args = Environment.GetCommandLineArgs().ToList();
+            
+            for (var i = 0; i < args.Count; i++) {
+                Debug.Log($"Command line Argument {i} = {args[i]}");
+            }
+            
+            var remoteServerAddressFlagArgIndex = args.FindIndex(it => it == "dl-server-address");
+            networkAddress = remoteServerAddressFlagArgIndex > -1 && args.Count > remoteServerAddressFlagArgIndex
+                ? args[remoteServerAddressFlagArgIndex + 1]
+                : "localhost";
+
+            var portFlagArgIndex = args.FindIndex(it => it == "dl-server-port");
+            var port = portFlagArgIndex > -1 && args.Count > portFlagArgIndex
+                ? args[portFlagArgIndex + 1]
+                : "7777";
+    
+            ((KcpTransport) transport).Port = Convert.ToUInt16(port);
+            
             base.Start();
 
 #if UNITY_SERVER
-        StartCoroutine("StartHeadless");
+        StartCoroutine(StartHeadless(args));
         
         //localhost connections
         //dl-mmo-2021.exe s
@@ -50,27 +72,31 @@ namespace _Darkland.Sources.Scripts {
 #endif
         }
 
-        private IEnumerator StartHeadless() {
-            var args = Environment.GetCommandLineArgs();
-
-            for (var i = 0; i < args.Length; i++) {
-                Debug.Log($"Command line Argument {i} = {args[i]}");
-            }
-
+        private IEnumerator StartHeadless(List<string> args) {
+            
             yield return new WaitForSeconds(2.0f);
 
-            if (args.Length > 3 && args[1] == "c") {
-                networkAddress = args[2];
-            }
+            var isBot = args.Contains("dl-run-as-bot");
 
-            switch (args[1]) {
-                case "s":
-                    StartServer();
-                    break;
-                case "c":
-                    StartClient();
-                    break;
+            // if (args.Length > 3 && args[1] == "c") {
+                // networkAddress = args[2];
+            // }
+
+            if (isBot) {
+                StartClient();
+            } else {
+                StartServer();
             }
+            
+            
+            // switch (args[1]) {
+            //     case "s":
+            //         StartServer();
+            //         break;
+            //     case "c":
+            //         StartClient();
+            //         break;
+            // }
         }
 
         /// <summary>

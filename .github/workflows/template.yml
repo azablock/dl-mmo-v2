@@ -184,7 +184,8 @@ jobs:
         uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
-          customParameters: -EnableHeadlessMode
+          buildMethod: UnityBuilderAction.BuildScript.Build
+          customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
 
       - uses: actions/upload-artifact@v2
         with:
@@ -216,8 +217,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-StandaloneLinux64
-          path: build/StandaloneLinux64
+          name: build-dl-mmo-server-StandaloneLinux64
+          path: build/dl-mmo-server-StandaloneLinux64
           
       - name: list files
         run: ls -al

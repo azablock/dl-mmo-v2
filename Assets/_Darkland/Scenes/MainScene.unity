@@ -262,6 +262,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
     - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
+      propertyPath: remoteServerAddress
+      value: 70.34.242.30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: autoStartServerBuild
       value: 0
       objectReference: {fileID: 0}
