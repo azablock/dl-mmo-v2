@@ -186,7 +186,7 @@ jobs:
 #          buildPath : /
           
           targetPlatform: StandaloneLinux64
-          buildMethod: UnityBuilderAction.BuildScript2.BuildProject
+#          buildMethod: UnityBuilderAction.BuildScript2.BuildProject
 #          buildMethod: UnityBuilderAction.BuildScript.Build
           customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
 #          customParameters: -EnableHeadlessMode -buildTarget StandaloneLinux64 -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
