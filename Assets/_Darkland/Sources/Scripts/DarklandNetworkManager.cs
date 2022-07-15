@@ -81,20 +81,20 @@ namespace _Darkland.Sources.Scripts {
 #endif
         }
 
-        // private IEnumerator StartHeadless(ICollection<string> args) {
-        //     Debug.Log($"{GetType()}.StartHeadless()");
-        //     yield return new WaitForSeconds(2.0f);
-        //
-        //     var isBot = IsBot(args);
-        //
-        //     if (isBot) {
-        //         Debug.Log($"{GetType()}: StartHeadless() - Starting Client");
-        //         StartClient();
-        //     } else {
-        //         Debug.Log($"{GetType()}: StartHeadless() - Starting Server");
-        //         StartServer();
-        //     }
-        // }
+        private IEnumerator StartHeadless(ICollection<string> args) {
+            Debug.Log($"{GetType()}.StartHeadless()");
+            yield return new WaitForSeconds(2.0f);
+        
+            var isBot = IsBot(args);
+        
+            if (isBot) {
+                Debug.Log($"{GetType()}: StartHeadless() - Starting Client");
+                StartClient();
+            } else {
+                Debug.Log($"{GetType()}: StartHeadless() - Starting Server");
+                StartServer();
+            }
+        }
 
         private static bool IsBot(ICollection<string> args) {
             return args.Contains("dl-run-as-bot");
