@@ -50,7 +50,7 @@ namespace _Darkland.Sources.Scripts.Terminal {
             }
         }
 
-        [Server]
+        // [Server] todo? 
         private void ServerProcessInput() {
             //Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("You entered {0}", inputBuffer);

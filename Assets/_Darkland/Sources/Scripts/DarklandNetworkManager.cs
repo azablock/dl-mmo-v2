@@ -71,23 +71,31 @@ namespace _Darkland.Sources.Scripts {
                 Debug.Log($"NETWORK PORT CHANGED TO {((KcpTransport) transport).Port}");
             }
             base.Start();
+            
+            
 
 #if !UNITY_EDITOR_64 && UNITY_SERVER
-        StartCoroutine(StartHeadless(args));
+            Debug.Log($"{GetType()}: Start() - Server Starting...");
+            StartServer();
+            Debug.Log($"{GetType()}: Start() - Server Started!");
+        // StartCoroutine(StartHeadless(args));
 #endif
         }
 
-        private IEnumerator StartHeadless(ICollection<string> args) {
-            yield return new WaitForSeconds(2.0f);
-
-            var isBot = IsBot(args);
-
-            if (isBot) {
-                StartClient();
-            } else {
-                StartServer();
-            }
-        }
+        // private IEnumerator StartHeadless(ICollection<string> args) {
+        //     Debug.Log($"{GetType()}.StartHeadless()");
+        //     yield return new WaitForSeconds(2.0f);
+        //
+        //     var isBot = IsBot(args);
+        //
+        //     if (isBot) {
+        //         Debug.Log($"{GetType()}: StartHeadless() - Starting Client");
+        //         StartClient();
+        //     } else {
+        //         Debug.Log($"{GetType()}: StartHeadless() - Starting Server");
+        //         StartServer();
+        //     }
+        // }
 
         private static bool IsBot(ICollection<string> args) {
             return args.Contains("dl-run-as-bot");
@@ -309,8 +317,8 @@ namespace _Darkland.Sources.Scripts {
         [Server]
         private void ServerSpawnDarklandPlayer(NetworkConnectionToClient conn,
                                                DarklandAuthMessages.DarklandAuthRequestMessage msg) {
-            var botGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
-            NetworkServer.AddPlayerForConnection(conn, botGameObject);
+            var darklandPlayerGameObject = Instantiate(playerPrefab);
+            NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
 
             Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned.");
 
