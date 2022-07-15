@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Bot;
 using kcp2k;
 using Mirror;
 using NSubstitute.Extensions;
@@ -25,6 +26,12 @@ namespace _Darkland.Sources.Scripts {
         [Header("Darkland Prefabs")]
         public GameObject darklandBotPrefab;
 
+        [SerializeField]
+        private DarklandBotManager darklandBotManager;
+
+        public DarklandBotManager DarklandBotManager => darklandBotManager;
+        public static DarklandNetworkManager self => singleton as DarklandNetworkManager;
+        
         public override void OnValidate() {
             base.OnValidate();
         }

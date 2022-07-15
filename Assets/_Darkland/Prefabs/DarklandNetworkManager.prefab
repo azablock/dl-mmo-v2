@@ -79,6 +79,7 @@ Transform:
   - {fileID: 6097536976285556239}
   - {fileID: 7106586895984044144}
   - {fileID: 1113142560390626836}
+  - {fileID: 488738434170365928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -168,6 +169,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
   darklandBotPrefab: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
+  darklandBotManager: {fileID: 8506046741210286716}
 --- !u!1 &5765169350605857508
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +214,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad004ca3ba249caa3f8b05eeb473ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6880163000251860788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 488738434170365928}
+  - component: {fileID: 8506046741210286716}
+  m_Layer: 0
+  m_Name: DarklandBotManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &488738434170365928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880163000251860788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 530370294835301867}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8506046741210286716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880163000251860788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d90466b89c74e18a758a4a13bd61cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darklandBotPrefab: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
 --- !u!1 &8478637462618185614
 GameObject:
   m_ObjectHideFlags: 0

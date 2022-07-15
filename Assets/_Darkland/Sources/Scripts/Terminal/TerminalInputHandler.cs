@@ -5,7 +5,7 @@ using Mirror;
 namespace _Darkland.Sources.Scripts.Terminal {
 
     public class TerminalInputHandler : MonoBehaviour {
-#if UNITY_SERVER
+#if UNITY_SERVER && !UNITY_EDITOR_64
         private string inputBuffer = "";
 
         private void Update() {
@@ -27,7 +27,7 @@ namespace _Darkland.Sources.Scripts.Terminal {
                     if (inputBuffer.Length > 0) {
                         Console.WriteLine();
                         inputBuffer = inputBuffer.Trim();
-                        ProcessInput();
+                        ServerProcessInput();
                         inputBuffer = "";
                     }
 
@@ -50,7 +50,8 @@ namespace _Darkland.Sources.Scripts.Terminal {
             }
         }
 
-        private void ProcessInput() {
+        [Server]
+        private void ServerProcessInput() {
             //Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("You entered {0}", inputBuffer);
             //Console.ResetColor();
@@ -58,12 +59,20 @@ namespace _Darkland.Sources.Scripts.Terminal {
             if (inputBuffer == "hello") {
                 Console.WriteLine("\n\nHELLO FROM CONSOLE\n\n");
             }
+
+            if (inputBuffer == "spawn bot") {
+                DarklandNetworkManager.self.DarklandBotManager.ServerSpawnBot();
+            }
+
+            if (inputBuffer == "unspawn bot") {
+                DarklandNetworkManager.self.DarklandBotManager.ServerSpawnBot();
+            }
             
             if (inputBuffer == "stop") {
                 Debug.Log("ProcessInput stop");
                 if (NetworkManager.singleton) {
                     NetworkManager.singleton.StopServer();
-                    // NetworkManager.singleton.StopHost();
+                    Application.Quit();
                 }
             }
         }
