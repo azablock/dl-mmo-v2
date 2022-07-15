@@ -13,6 +13,8 @@ namespace _Darkland.Sources.Scripts.Terminal {
         }
 
         private void GetInput() {
+            if (!Console.KeyAvailable) return;
+            
             ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
             switch (consoleKeyInfo.Key) {
                 case ConsoleKey.Backspace:
