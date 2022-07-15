@@ -531,7 +531,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[xxx]
 
-    (debug tag)'
+    (debug tag)
+
+    name'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
   m_sharedMaterial: {fileID: -2605557638916339833, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
@@ -558,8 +560,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
