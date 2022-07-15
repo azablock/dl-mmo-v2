@@ -230,6 +230,32 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
+          
+  copyWindowsBuildViaScp:
+    name: Copy Windows Build via scp
+    needs: buildWindows
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout #to chyba niepotrzebne
+        uses: actions/checkout@v2
+
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-StandaloneWindows64
+          path: build/StandaloneWindows64
+
+      - name: list files
+        run: ls -al
+
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/StandaloneWindows64
+          remote: dl-mmo-client-build-upload
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
   
 #  restartGameServerViaSsh:
 #    name: Restart game server via ssh
