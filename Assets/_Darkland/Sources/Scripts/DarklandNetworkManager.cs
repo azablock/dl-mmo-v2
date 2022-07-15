@@ -76,9 +76,8 @@ namespace _Darkland.Sources.Scripts {
 
 #if !UNITY_EDITOR_64 && UNITY_SERVER
             Debug.Log($"{GetType()}: Start() - Server Starting...");
-            StartServer();
+            StartCoroutine(StartHeadless(args));
             Debug.Log($"{GetType()}: Start() - Server Started!");
-        // StartCoroutine(StartHeadless(args));
 #endif
         }
 
@@ -317,10 +316,11 @@ namespace _Darkland.Sources.Scripts {
         [Server]
         private void ServerSpawnDarklandPlayer(NetworkConnectionToClient conn,
                                                DarklandAuthMessages.DarklandAuthRequestMessage msg) {
-            var darklandPlayerGameObject = Instantiate(playerPrefab);
+            var darklandPlayerGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
+            
             NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
 
-            Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned.");
+            Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned. (asBot={msg.asBot})");
 
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
                     spawnedPlayerNetworkIdentity = conn.identity

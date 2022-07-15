@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 
@@ -16,24 +17,32 @@ namespace _Darkland.Sources.Scripts.Bot {
             _botNetIds = new List<uint>();
             // NetworkManager.singleton.spawnPrefabs.Add(darklandBotPrefab);
         }
+        
+        
+        
 
         [Server]
         public void ServerSpawnBot() {
-            var botGameObject = Instantiate(darklandBotPrefab);
-            NetworkServer.Spawn(botGameObject);
-
-            _botNetIds.Add(botGameObject.GetComponent<NetworkIdentity>().netId);
+            // var botGameObject = Instantiate(darklandBotPrefab);
+            // NetworkServer.Spawn(botGameObject);
+            // _botNetIds.Add(botGameObject.GetComponent<NetworkIdentity>().netId);
         }
 
         [Server]
         public void ServerUnSpawnBot() {
-            if (_botNetIds.Count == 0) return; 
-            
-            var randomBotNetId = Random.Range(0, _botNetIds.Count - 1);
-            var botNetId = _botNetIds[randomBotNetId];
+            // if (_botNetIds.Count == 0) return; 
+            // var randomBotNetId = Random.Range(0, _botNetIds.Count - 1);
+            // var botNetId = _botNetIds[randomBotNetId];
 
-            var botNetworkIdentity = NetworkServer.spawned[botNetId];
-            NetworkServer.UnSpawn(botNetworkIdentity.gameObject);
+            var bots = FindObjectsOfType<DarklandBot>();
+            
+            if (bots.Length == 0) return;
+
+            NetworkServer.Destroy(bots.First().gameObject);
+            
+            // NetworkServer.RemovePlayerForConnection(botNetworkIdentity.connectionToServer, true);
+            
+            // NetworkServer.UnSpawn(botNetworkIdentity.gameObject);
         }
     }
 

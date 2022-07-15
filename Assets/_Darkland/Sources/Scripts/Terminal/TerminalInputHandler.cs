@@ -63,15 +63,17 @@ namespace _Darkland.Sources.Scripts.Terminal {
             }
 
             if (inputBuffer == "spawn bot") {
+                Console.WriteLine("[spawn bot] terminal command");
                 DarklandNetworkManager.self.DarklandBotManager.ServerSpawnBot();
             }
 
             if (inputBuffer == "unspawn bot") {
-                DarklandNetworkManager.self.DarklandBotManager.ServerSpawnBot();
+                Console.WriteLine("[unspawn bot] terminal command");
+                DarklandNetworkManager.self.DarklandBotManager.ServerUnspawnBot();
             }
             
             if (inputBuffer == "stop") {
-                Debug.Log("ProcessInput stop");
+                Console.WriteLine("[stop] terminal command");
                 if (NetworkManager.singleton) {
                     NetworkManager.singleton.StopServer();
                     Application.Quit();
