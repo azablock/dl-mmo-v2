@@ -30,7 +30,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
             var botSymbol = isBot ? "*" : "";
             var characterName = _darklandPlayer.characterName;
 
-            debugText.text = $"[{netId}]\n({debugTag})\n{botSymbol}{characterName}";
+            debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{characterName}";
         }
     }
 

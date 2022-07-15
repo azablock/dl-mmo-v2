@@ -1,6 +1,7 @@
 using System;
 using _Darkland.Sources.Models;
 using Mirror;
+using Random = UnityEngine.Random;
 
 namespace _Darkland.Sources.Scripts {
 
@@ -16,7 +17,8 @@ namespace _Darkland.Sources.Scripts {
         public static DarklandPlayer localPlayer;
 
         public override void OnStartServer() {
-            characterName = $"{CharacterNames.RandomName()} {CharacterNames.RandomName()}";
+            var isSingleName = Random.Range(0, 10) % 3 == 0;
+            characterName = isSingleName ? $"{CharacterNames.RandomName()}" : $"{CharacterNames.RandomName()} {CharacterNames.RandomName()}";
         }
 
         public override void OnStartClient() {
