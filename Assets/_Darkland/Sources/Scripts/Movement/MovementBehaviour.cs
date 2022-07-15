@@ -10,9 +10,9 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         private IDiscretePosition _discretePosition;
         private Vector3Int _movementVector;
-        private bool _isReadyForNextMove;
         private Coroutine _movementCoroutine;
         private IStatsHolder _statsHolder;
+        private bool _isReadyForNextMove = true;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();

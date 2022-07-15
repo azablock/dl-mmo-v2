@@ -14,12 +14,14 @@ namespace _Darkland.Sources.Scripts.Input {
             moveAction.Enable();
             
             moveAction.performed += ClientSendMoveInput;
+            moveAction.canceled += ClientSendStopMoveInput;
         }
 
         private void OnDisable() {
             moveAction.Disable();
             
             moveAction.performed -= ClientSendMoveInput;
+            moveAction.canceled -= ClientSendStopMoveInput;
         }
 
         [Client]
@@ -28,6 +30,11 @@ namespace _Darkland.Sources.Scripts.Input {
             var moveDelta = new Vector3Int((int) input.x, (int) input.y, 0);
 
             NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {moveDelta = moveDelta});
+        }
+        
+        [Client]
+        private static void ClientSendStopMoveInput(InputAction.CallbackContext context) {
+            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {moveDelta = Vector3Int.zero});
         }
     }
 

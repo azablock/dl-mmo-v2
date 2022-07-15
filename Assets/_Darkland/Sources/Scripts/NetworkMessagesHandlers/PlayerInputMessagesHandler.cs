@@ -22,7 +22,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandlers {
             var movementBehaviour = conn.identity.GetComponent<MovementBehaviour>();
             var newPos = conn.identity.GetComponent<IDiscretePosition>().Pos + message.moveDelta;
             
-            movementBehaviour.ServerSetDiscretePosition(newPos);
+            // movementBehaviour.ServerSetDiscretePosition(newPos);
+            movementBehaviour.ServerSetMovementVector(message.moveDelta);
         }
     }
 

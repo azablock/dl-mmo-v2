@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
-using _Darkland.Sources.Scripts.Bot;
+using _Darkland.Sources.Scripts.Unit.Stats2;
 using kcp2k;
 using Mirror;
-using NSubstitute.Extensions;
 using UnityEngine;
 
 /*
@@ -26,10 +26,6 @@ namespace _Darkland.Sources.Scripts {
         [Header("Darkland Prefabs")]
         public GameObject darklandBotPrefab;
 
-        [SerializeField]
-        private DarklandBotManager darklandBotManager;
-
-        public DarklandBotManager DarklandBotManager => darklandBotManager;
         public static DarklandNetworkManager self => singleton as DarklandNetworkManager;
         
         public override void OnValidate() {
@@ -317,6 +313,14 @@ namespace _Darkland.Sources.Scripts {
         private void ServerSpawnDarklandPlayer(NetworkConnectionToClient conn,
                                                DarklandAuthMessages.DarklandAuthRequestMessage msg) {
             var darklandPlayerGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
+            
+            //todo init/bootstrap process
+            darklandPlayerGameObject.GetComponent<StatsHolder>().Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(1.0f));
+            
+            
+            
+            
+            
             
             NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
 
