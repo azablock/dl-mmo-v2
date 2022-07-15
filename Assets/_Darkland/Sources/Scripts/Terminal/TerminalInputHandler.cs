@@ -69,7 +69,7 @@ namespace _Darkland.Sources.Scripts.Terminal {
 
             if (inputBuffer == "unspawn bot") {
                 Console.WriteLine("[unspawn bot] terminal command");
-                DarklandNetworkManager.self.DarklandBotManager.ServerUnspawnBot();
+                DarklandNetworkManager.self.DarklandBotManager.ServerUnSpawnBot();
             }
             
             if (inputBuffer == "stop") {
