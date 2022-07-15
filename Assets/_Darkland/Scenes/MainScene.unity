@@ -250,37 +250,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: autoCreatePlayer
-      value: 0
+      propertyPath: networkAddress
+      value: localhost
       objectReference: {fileID: 0}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: darklandBotPrefab
-      value: 
-      objectReference: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: remoteServerAddress
-      value: 70.34.242.30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: autoStartServerBuild
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: darklandPlayerPrefab
-      value: 
-      objectReference: {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: spawnPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: spawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
     - target: {fileID: 530370294835301396, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Name
       value: Darkland Network Manager
@@ -328,10 +300,6 @@ PrefabInstance:
     - target: {fileID: 530370294835301867, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6124874782482307507, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: Timeout
-      value: 600000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
