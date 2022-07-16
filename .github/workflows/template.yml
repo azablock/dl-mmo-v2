@@ -252,7 +252,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: build/StandaloneWindows64
-          remote: dl-mmo-client-build-upload
+          remote: dl-mmo-client-build-upload/dl-client
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
