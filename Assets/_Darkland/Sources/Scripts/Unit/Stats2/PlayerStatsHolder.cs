@@ -18,6 +18,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
         private StatValue _healthRegain;
 
+        [SyncVar]
         [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
         private StatValue _movementSpeed;
 
