@@ -256,6 +256,19 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
+
+  packWindowsBuildViaSsh:
+    name: Pack Windows Build via ssh
+    needs: copyWindowsBuildViaScp
+    runs-on: ubuntu-latest
+    steps:
+      - name: run build zipping script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: ./pack-dl-mmo-windows-client.sh
   
 #  restartGameServerViaSsh:
 #    name: Restart game server via ssh
@@ -268,7 +281,7 @@ jobs:
 #        host: ${{ secrets.SSH_HOST }}
 #        username: ${{ secrets.SSH_USER }}
 #        password: ${{ secrets.SSH_PASSWORD }}
-#        script: ./restart-dl-mmo-server.sh &
+#        script: ./restart-dl-mmo-server.sh &  
 
 #  copyLinuxBuildViaSsh_V2:
 #    needs: buildLinuxHeadlessServer
