@@ -16,6 +16,9 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [SerializeField]
         private List<StatConstraintDefinition> statConstraintDefinitions;
         
+        //todo nowy interface z tego
+        public event Action<StatId, StatValue> ClientChanged;
+        
         private void Awake() {
             stats = new HashSet<Stat>();
 
@@ -36,7 +39,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         }
 
         [Server]
-        public StatValue StatValue(StatId id) => Stat(id).Get();
+        public StatValue ValueOf(StatId id) => Stat(id).Get();
 
         [Server]
         public IEnumerable<IStatConstraint> StatConstraints(StatId id) {
@@ -57,6 +60,11 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [Server]
         public Tuple<Stat, Stat> Stats(StatId firstId, StatId secondId) =>
             Tuple.Create(Stat(firstId), Stat(secondId));
+
+        [Client]
+        protected void InvokeClientChanged(StatId statId, StatValue statValue) {
+            ClientChanged?.Invoke(statId, statValue);
+        }
     }
 
 }

@@ -27,7 +27,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         [Server]
         private void ServerRegainHealth() {
-            var healthRegainRate = _statsHolder.StatValue(StatId.HealthRegain).Current;
+            var healthRegainRate = _statsHolder.ValueOf(StatId.HealthRegain).Current;
             var regain = _regainController.GetRegain(healthRegainRate);
             var healthDelta = StatValue.OfBasic(regain);
             var healthDirectEffect = new DirectStatEffect(healthDelta, StatId.Health);

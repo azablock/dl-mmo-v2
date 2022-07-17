@@ -30,13 +30,16 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
                            return new Stat(
                                statId,
-                               () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
+                               () => (StatValue) fieldInfo.GetValue(statsHolder),
+                               // () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
                                    var valAfterConstraints = statsHolder
                                                              .StatConstraints(statId)
                                                              .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
+
+                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
+                                   // ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
                                }
                            );
                        }

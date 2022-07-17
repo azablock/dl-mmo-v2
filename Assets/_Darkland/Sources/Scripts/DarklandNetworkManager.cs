@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.DiscretePosition;
 using _Darkland.Sources.Scripts.Unit.Stats2;
 using kcp2k;
 using Mirror;
@@ -314,16 +316,12 @@ namespace _Darkland.Sources.Scripts {
                                                DarklandAuthMessages.DarklandAuthRequestMessage msg) {
             var darklandPlayerGameObject = Instantiate(msg.asBot ? darklandBotPrefab : playerPrefab);
             
-            //todo init/bootstrap process
-            darklandPlayerGameObject.GetComponent<StatsHolder>().Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(1.0f));
-            
-            
-            
-            
-            
             
             NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
 
+            //todo init/bootstrap process
+            // darklandPlayerGameObject.GetComponent<StatsHolder>().Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(1.0f));
+            
             Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned. (asBot={msg.asBot})");
 
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
