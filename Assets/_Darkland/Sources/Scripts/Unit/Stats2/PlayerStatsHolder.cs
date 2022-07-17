@@ -33,6 +33,15 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [Server]
         private void ServerSetMovementSpeed(StatValue val) => _movementSpeed = val;
 
+        public override void OnStartServer() {
+            Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(2.0f));
+            Debug.Log($"Server: movement speed {_movementSpeed.Current}");
+        }
+
+        public override void OnStartClient() {
+            Debug.Log($"Client: movement speed {_movementSpeed.Current}");
+        }
+
         [Client]
         private void ClientSyncHealth(StatValue _, StatValue val) {
             Debug.Log($"ClientSyncHealth {Time.time} {val.Current}", this);

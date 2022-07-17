@@ -16,8 +16,8 @@ namespace _Darkland.Sources.ScriptableObjects.StatConstraint {
 
 
         public override StatValue Apply(IStatsHolder statsHolder, StatValue val) {
-            var newBasic = checkBasic ? Mathf.Max(minBasicValue, val.Basic) : val.Basic;
-            var newBonus = checkBonus ? Mathf.Max(minBonusValue, val.Bonus) : val.Bonus;
+            var newBasic = checkBasic ? Mathf.Max(minBasicValue, val.basic) : val.basic;
+            var newBonus = checkBonus ? Mathf.Max(minBonusValue, val.bonus) : val.bonus;
 
             return StatValue.Of(newBasic, newBonus);
         }

@@ -318,10 +318,10 @@ namespace _Darkland.Sources.Scripts {
             
             
             NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
-
+            
             //todo init/bootstrap process
             // darklandPlayerGameObject.GetComponent<StatsHolder>().Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(1.0f));
-            
+
             Debug.Log($"{GetType()}.ServerSpawnDarklandPlayer()\tPlayer [netId={conn.identity.netId}] spawned. (asBot={msg.asBot})");
 
             NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {

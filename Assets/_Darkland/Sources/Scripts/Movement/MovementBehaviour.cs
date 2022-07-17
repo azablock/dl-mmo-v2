@@ -40,19 +40,16 @@ namespace _Darkland.Sources.Scripts.Movement {
         [Server]
         public void ServerSetDiscretePosition(Vector3Int pos) {
             _discretePosition.Set(pos);
-
-            //todo inny skrpyt, zapiąć się na _discretePosition.Changed
-            // if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
-            // transform.position = pos;
-            // }
         }
-        
+
         [Server]
         private IEnumerator ServerMove() {
             while (_movementVector != Vector3Int.zero) {
                 _isReadyForNextMove = false;
 
                 var possibleNextPosition = _discretePosition.Pos + _movementVector;
+                var movementSpeed = _statsHolder.ValueOf(StatId.MovementSpeed).Current;
+                var timeBetweenMoves = 1.0f / movementSpeed;
 
                 //todo check wall
                 // if (!FindObjectOfType<DarklandWorldTileHolder>().ServerIsWallAtPosition(possibleNextPosition)) {
@@ -65,9 +62,7 @@ namespace _Darkland.Sources.Scripts.Movement {
             }
         }
 
-        [Server]
-        private float ServerTimeBetweenMoves() => 1.0f / 1.0f;
-        // private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOfStat(StatId.MovementSpeed).Current;
+        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed).Current;
     }
 
 }

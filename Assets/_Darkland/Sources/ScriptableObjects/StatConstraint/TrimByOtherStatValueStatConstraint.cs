@@ -14,7 +14,7 @@ namespace _Darkland.Sources.ScriptableObjects.StatConstraint {
 
         public override StatValue Apply(IStatsHolder statsHolder, StatValue val) {
             var trimmedByStat = statsHolder.Stat(trimByStatId);
-            var trimmedValue = Math.Min(val.Basic, trimmedByStat.Basic);
+            var trimmedValue = Math.Min(val.basic, trimmedByStat.Basic);
 
             return StatValue.OfBasic(trimmedValue);
         }

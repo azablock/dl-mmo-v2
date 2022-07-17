@@ -23,7 +23,7 @@ namespace _Darkland.Sources.Models.Unit {
         }
 
         private void OnHealthChanged(StatValue health) {
-            if (health.Basic == 0) {
+            if (health.basic == 0) {
                 Death?.Invoke();
             }
         }

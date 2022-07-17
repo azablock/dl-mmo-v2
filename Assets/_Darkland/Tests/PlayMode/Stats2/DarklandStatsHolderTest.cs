@@ -41,8 +41,8 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             //Act
             
             //Assert
-            Assert.AreEqual(0.0f, healthStatValue.Basic);
-            Assert.AreEqual(0.0f, healthStatValue.Bonus);
+            Assert.AreEqual(0.0f, healthStatValue.basic);
+            Assert.AreEqual(0.0f, healthStatValue.bonus);
             yield return null;
         }
 
@@ -56,8 +56,8 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             var healthStatValue = healthStat.Get();
             
             //Assert
-            Assert.AreEqual(1.0f, healthStatValue.Basic);
-            Assert.AreEqual(0.0f, healthStatValue.Bonus);
+            Assert.AreEqual(1.0f, healthStatValue.basic);
+            Assert.AreEqual(0.0f, healthStatValue.bonus);
             yield return null;
         }
 

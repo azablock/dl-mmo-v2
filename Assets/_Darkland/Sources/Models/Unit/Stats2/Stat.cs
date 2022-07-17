@@ -24,8 +24,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
             Set(Get() + delta);
         }
 
-        public float Basic => Get().Basic;
-        public float Bonus => Get().Bonus;
+        public float Basic => Get().basic;
+        public float Bonus => Get().bonus;
         public float Current => Get().Current;
     }
 

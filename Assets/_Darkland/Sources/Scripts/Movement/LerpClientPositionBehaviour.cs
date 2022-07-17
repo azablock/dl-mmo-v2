@@ -16,11 +16,8 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
         
         public override void OnStartServer() {
-            // _movementSpeedStat = GetComponent<IStatsHolder>().Stat(StatId.MovementSpeed);
+            _movementSpeedStat = GetComponent<IStatsHolder>().Stat(StatId.MovementSpeed);
             _discretePosition.Changed += ServerOnDiscretePositionChanged;
-            
-            //pomysl
-            //tutaj raz wywolanie ClientRpc z pierwsza pozycja 
         }
 
         public override void OnStopServer() {
@@ -29,17 +26,16 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private void ServerOnDiscretePositionChanged(Vector3Int pos) {
-            // StartCoroutine(ServerChangePosition(pos, _movementSpeedStat.Current));
-            // ClientRpcChangePosition(pos, _movementSpeedStat.Current);
+            ClientRpcChangePosition(pos, _movementSpeedStat.Current);
         }
 
-        // [ClientRpc]
-        // private void ClientRpcChangePosition(Vector3Int newPosition, float movementSpeed) {
-        //     StartCoroutine(ServerChangePosition(newPosition, movementSpeed));
-        // }
+        [ClientRpc]
+        private void ClientRpcChangePosition(Vector3Int newPosition, float movementSpeed) {
+            StartCoroutine(ClientChangePosition(newPosition, movementSpeed));
+        }
 
-        [Server]
-        private IEnumerator ServerChangePosition(Vector3Int newPosition, float movementSpeed) {
+        [Client]
+        private IEnumerator ClientChangePosition(Vector3Int newPosition, float movementSpeed) {
             var oldTransformPosition = Vector3.zero + transform.position;
             var newTransformPosition = Vector3.zero + newPosition;
             var t = 0.0f;

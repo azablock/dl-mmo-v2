@@ -31,7 +31,7 @@ namespace _Darkland.Tests.EditMode {
             var result = _constraint.Apply(statsHolder, healthStatValue);
 
             //Assert
-            Assert.AreEqual(maxHealthValue, result.Basic);
+            Assert.AreEqual(maxHealthValue, result.basic);
         }
     }
 
