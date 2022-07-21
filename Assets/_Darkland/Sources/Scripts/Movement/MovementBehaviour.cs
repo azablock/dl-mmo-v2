@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -13,6 +14,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         private Coroutine _movementCoroutine;
         private IStatsHolder _statsHolder;
         private bool _isReadyForNextMove = true;
+        public event Action<Vector3Int> MovementVectorChanged;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -27,6 +29,8 @@ namespace _Darkland.Sources.Scripts.Movement {
                 _movementVector *= new Vector3Int(1, 0, 1);
             }
 
+            MovementVectorChanged?.Invoke(_movementVector);
+            
             if (!_isReadyForNextMove) return;
 
             if (_movementCoroutine != null) {
@@ -45,11 +49,10 @@ namespace _Darkland.Sources.Scripts.Movement {
         [Server]
         private IEnumerator ServerMove() {
             while (_movementVector != Vector3Int.zero) {
+
                 _isReadyForNextMove = false;
 
                 var possibleNextPosition = _discretePosition.Pos + _movementVector;
-                var movementSpeed = _statsHolder.ValueOf(StatId.MovementSpeed).Current;
-                var timeBetweenMoves = 1.0f / movementSpeed;
 
                 //todo check wall
                 // if (!FindObjectOfType<DarklandWorldTileHolder>().ServerIsWallAtPosition(possibleNextPosition)) {

@@ -51,7 +51,7 @@ namespace _Darkland.Sources.Scripts {
             var args = Environment.GetCommandLineArgs().ToList();
             
             for (var i = 0; i < args.Count; i++) {
-                Debug.Log($"{GetType()}.Start()\tCommand line Argument {i} = {args[i]}");
+                // Debug.Log($"{GetType()}.Start()\tCommand line Argument {i} = {args[i]}");
             }
             
             var remoteServerAddressFlagArgIndex = args.FindIndex(it => it == "dl-server-address");
@@ -217,8 +217,6 @@ namespace _Darkland.Sources.Scripts {
             base.OnClientConnect();
             var args = Environment.GetCommandLineArgs();
             var isBot = IsBot(args);
-
-            Debug.Log($"{GetType()}.OnClientConnect()\t (isBot={isBot})");
 
             NetworkClient.connection.Send(new DarklandAuthMessages.DarklandAuthRequestMessage {asBot = isBot});
         }

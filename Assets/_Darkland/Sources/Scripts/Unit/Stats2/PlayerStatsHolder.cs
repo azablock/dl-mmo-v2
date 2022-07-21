@@ -34,7 +34,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ServerSetMovementSpeed(StatValue val) => _movementSpeed = val;
 
         public override void OnStartServer() {
-            Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(2.0f));
+            Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(5.5f));
             Debug.Log($"Server: movement speed {_movementSpeed.Current}");
         }
 

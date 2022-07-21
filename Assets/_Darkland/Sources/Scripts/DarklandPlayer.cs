@@ -24,6 +24,7 @@ namespace _Darkland.Sources.Scripts {
 
         public override void OnStartClient() {
             ClientStarted?.Invoke();
+            Debug.Log("OnStartClient " + NetworkTime.time);
         }
 
         public override void OnStartLocalPlayer() {
