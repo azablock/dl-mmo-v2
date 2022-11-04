@@ -25,16 +25,16 @@ namespace _Darkland.Sources.Scripts.Input {
         }
 
         [Client]
-        private static void ClientSendMoveInput(InputAction.CallbackContext context) {
+        private void ClientSendMoveInput(InputAction.CallbackContext context) {
             var input = context.ReadValue<Vector2>();
-            var moveDelta = new Vector3Int((int) input.x, (int) input.y, 0);
+            var movementVector = new Vector3Int((int) input.x, (int) input.y, 0);
 
-            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {moveDelta = moveDelta});
+            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {movementVector = movementVector});
         }
         
         [Client]
-        private static void ClientSendStopMoveInput(InputAction.CallbackContext context) {
-            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {moveDelta = Vector3Int.zero});
+        private void ClientSendStopMoveInput(InputAction.CallbackContext context) {
+            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {movementVector = Vector3Int.zero});
         }
     }
 

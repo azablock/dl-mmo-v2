@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -14,7 +13,6 @@ namespace _Darkland.Sources.Scripts.Movement {
         private Coroutine _movementCoroutine;
         private IStatsHolder _statsHolder;
         private bool _isReadyForNextMove = true;
-        public event Action<Vector3Int> MovementVectorChanged;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -29,8 +27,6 @@ namespace _Darkland.Sources.Scripts.Movement {
                 _movementVector *= new Vector3Int(1, 0, 1);
             }
 
-            MovementVectorChanged?.Invoke(_movementVector);
-            
             if (!_isReadyForNextMove) return;
 
             if (_movementCoroutine != null) {

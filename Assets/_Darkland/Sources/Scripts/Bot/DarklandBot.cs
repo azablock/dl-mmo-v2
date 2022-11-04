@@ -20,7 +20,7 @@ namespace _Darkland.Sources.Scripts.Bot {
 
         [Client]
         private void ClientSendMoveRequest() {
-            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {moveDelta = _availableMovesDummyHandler.ClientNextMoveDelta()});
+            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {movementVector = _availableMovesDummyHandler.ClientNextMoveDelta()});
         }
     }
 
