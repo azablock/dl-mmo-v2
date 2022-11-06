@@ -1,10 +1,10 @@
 namespace _Darkland.Sources.Models.Unit.Regain {
 
-    public interface IRegainController {
+    public interface IRegainState {
         float GetRegain(float regainRate);
     }
 
-    public class RegainController : IRegainController {
+    public class RegainState : IRegainState {
 
         private float _regainValue;
 

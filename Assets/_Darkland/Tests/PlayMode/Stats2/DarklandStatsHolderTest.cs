@@ -12,10 +12,10 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
     public class SimpleStatsHolder : StatsHolder {
 
         [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
-        private StatValue _health;
+        private float _health;
 
         [Server]
-        private void ServerSetHealth(StatValue val) => _health = val;
+        private void ServerSetHealth(float val) => _health = val;
     }
     
     [TestFixture]
@@ -41,8 +41,8 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             //Act
             
             //Assert
-            Assert.AreEqual(0.0f, healthStatValue.basic);
-            Assert.AreEqual(0.0f, healthStatValue.bonus);
+            Assert.AreEqual(0.0f, healthStatValue);
+            Assert.AreEqual(0.0f, healthStatValue);
             yield return null;
         }
 
@@ -52,12 +52,12 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             var healthStat = _statsHolder.Stat(StatId.Health);
 
             //Act
-            healthStat.Set(StatValue.Of(1.0f, 0.0f));
+            healthStat.Set(1.0f);
             var healthStatValue = healthStat.Get();
             
             //Assert
-            Assert.AreEqual(1.0f, healthStatValue.basic);
-            Assert.AreEqual(0.0f, healthStatValue.bonus);
+            Assert.AreEqual(1.0f, healthStatValue);
+            Assert.AreEqual(0.0f, healthStatValue);
             yield return null;
         }
 
@@ -69,7 +69,7 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             healthStat.Changed += stat => changedCallCount++;
             
             //Act
-            healthStat.Set(StatValue.Of(1.0f, 0.0f));
+            healthStat.Set(1.0f);
 
             //Assert
             Assert.AreEqual(1, changedCallCount);

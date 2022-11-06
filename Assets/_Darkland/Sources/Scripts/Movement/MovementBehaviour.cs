@@ -40,6 +40,10 @@ namespace _Darkland.Sources.Scripts.Movement {
         [Server]
         public void ServerSetDiscretePosition(Vector3Int pos) {
             _discretePosition.Set(pos);
+
+            if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
+                transform.position = pos;
+            }
         }
 
         [Server]
@@ -61,7 +65,7 @@ namespace _Darkland.Sources.Scripts.Movement {
             }
         }
 
-        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed).Current;
+        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed);
     }
 
 }

@@ -3,30 +3,26 @@ using System;
 namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public interface IStat {
-        event Action<StatValue> Changed;
+        event Action<float> Changed;
         StatId id { get; }
     }
     
     public class Stat : IStat {
-        public readonly Func<StatValue> Get;
-        public readonly Action<StatValue> Set;
-        public event Action<StatValue> Changed;
+        public readonly Func<float> Get;
+        public readonly Action<float> Set;
+        public event Action<float> Changed;
         public StatId id { get; }
 
-        public Stat(StatId id, Func<StatValue> get, Action<StatValue> set) {
+        public Stat(StatId id, Func<float> get, Action<float> set) {
             this.id = id;
             Get = get;
             Set = set;
             Set += _ => Changed?.Invoke(Get());
         }
 
-        public void Add(StatValue delta) {
+        public void Add(float delta) {
             Set(Get() + delta);
         }
-
-        public float Basic => Get().basic;
-        public float Bonus => Get().bonus;
-        public float Current => Get().Current;
     }
 
 }

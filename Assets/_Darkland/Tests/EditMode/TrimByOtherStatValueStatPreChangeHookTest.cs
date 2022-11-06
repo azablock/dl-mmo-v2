@@ -8,13 +8,13 @@ using Assert = UnityEngine.Assertions.Assert;
 namespace _Darkland.Tests.EditMode {
 
     [TestFixture]
-    public class TrimByOtherStatValueStatConstraintTest {
+    public class TrimByOtherStatValueStatPreChangeHookTest {
 
-        private TrimByOtherStatValueStatConstraint _constraint;
+        private TrimByOtherStatValueStatPreChangeHook _preChangeHook;
 
         [OneTimeSetUp]
         public void SetUp() {
-            _constraint = ScriptableObject.CreateInstance<TrimByOtherStatValueStatConstraint>();
+            _preChangeHook = ScriptableObject.CreateInstance<TrimByOtherStatValueStatPreChangeHook>();
         }
 
         [Test]
@@ -22,16 +22,16 @@ namespace _Darkland.Tests.EditMode {
             //Arrange
             const int maxHealthValue = 10;
             var statsHolder = Substitute.For<IStatsHolder>();
-            var healthStatValue = StatValue.OfBasic(maxHealthValue + 1);
-            var maxHealthStat = new Stat(StatId.MaxHealth, () => StatValue.OfBasic(maxHealthValue), value => { });
+            var healthStatValue = maxHealthValue + 1;
+            var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { });
             statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
-            _constraint.trimByStatId = StatId.MaxHealth;
+            _preChangeHook.trimByStatId = StatId.MaxHealth;
 
             //Act
-            var result = _constraint.Apply(statsHolder, healthStatValue);
+            var result = _preChangeHook.Apply(statsHolder, healthStatValue);
 
             //Assert
-            Assert.AreEqual(maxHealthValue, result.basic);
+            Assert.AreEqual(maxHealthValue, result);
         }
     }
 

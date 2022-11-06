@@ -13,7 +13,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
         public override IEnumerator<float> Apply(IStatsHolder statsHolder) {
             var hungerStat = statsHolder.Stat(StatId.Hunger);
 
-            hungerStat.Add(StatValue.OfBasic(-1)); //todo change "-1" to hunger rate
+            hungerStat.Add(-1); //todo change "-1" to hunger rate
 
             yield return rate;
         }
