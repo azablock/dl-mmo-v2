@@ -1,4 +1,3 @@
-using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxies;
@@ -19,10 +18,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandlers {
 
         [Server]
         private static void ServerProcess(NetworkConnectionToClient conn, PlayerInputMessages.MoveRequestMessage message) {
-            var movementBehaviour = conn.identity.GetComponent<MovementBehaviour>();
-            var newPos = conn.identity.GetComponent<IDiscretePosition>().Pos + message.moveDelta;
-            
-            movementBehaviour.ServerSetDiscretePosition(newPos);
+            conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
         }
     }
 

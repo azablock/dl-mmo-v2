@@ -16,7 +16,6 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         [SerializeField]
         private PersistentStatEffect[] persistentStatEffects;
-
         private IStatsHolder _statsHolder;
 
         private void Awake() {

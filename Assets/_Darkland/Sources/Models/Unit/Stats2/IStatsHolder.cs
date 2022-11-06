@@ -5,11 +5,13 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public interface IStatsHolder {
         Stat Stat(StatId id);
-        StatValue StatValue(StatId id);
+        float ValueOf(StatId id);
+        Tuple<float, float> Values(StatId firstId, StatId secondId);
         Tuple<Stat, Stat> Stats(StatId firstId, StatId secondId);
-        IEnumerable<IStatConstraint> StatConstraints(StatId id);
         HashSet<Stat> stats { get; }
         HashSet<StatId> statIds { get; }
+        IStatPreChangeHooksHolder statPreChangeHooksHolder { get; }
+        event Action<StatId, float> ClientChanged;
     }
 
 }

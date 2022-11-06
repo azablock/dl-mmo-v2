@@ -292,12 +292,13 @@ GameObject:
   - component: {fileID: 4462364082648414307}
   - component: {fileID: 5587096426269246242}
   - component: {fileID: 3382711714051517869}
+  - component: {fileID: 4716659205440055620}
   - component: {fileID: 7320425550237296429}
   - component: {fileID: 7238438236066071988}
   - component: {fileID: 6027673817127416247}
   - component: {fileID: 8613070362011562632}
-  - component: {fileID: 5291321099021813361}
-  - component: {fileID: 7837105458184964847}
+  - component: {fileID: 2367031762826027735}
+  - component: {fileID: -7389362793666909981}
   m_Layer: 0
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -370,7 +371,33 @@ MonoBehaviour:
   statConstraintDefinitions:
   - id: 0
     constraints:
+    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
+  - id: 1
+    constraints:
     - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
+    - {fileID: 11400000, guid: 1f6e532251841ce4ebfeabc3f5800071, type: 2}
+  health: 0
+  maxHealth: 0
+  healthRegain: 0
+  movementSpeed: 0
+--- !u!114 &4716659205440055620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9582c0737d6a47bc8f768332786c6d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statConstraintDefinitions:
+  - id: 0
+    constraints:
+    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
     - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
   - id: 1
@@ -422,6 +449,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  statRegainEntries:
+  - regainStatId: 4
+    applyRegainToStatId: 0
 --- !u!114 &8613070362011562632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d960d72a3f74fd297cfe4c7ad4911f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5291321099021813361
+  syncMode: 0
+  syncInterval: 0
+  startPos: {x: 0, y: 0, z: 0}
+--- !u!114 &2367031762826027735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77dfeef162814a0093deb36efd77a89f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7837105458184964847
+--- !u!114 &-7389362793666909981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,7 +488,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6084493378536407968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07593199332a4acebd1330cd7743d7c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 79bf98791a754f55a0580e14c4e6229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
@@ -529,7 +562,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[xxx]
 
-    (debug tag)'
+    (debug tag)
+
+    name'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
   m_sharedMaterial: {fileID: -2605557638916339833, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
@@ -556,8 +591,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 1.7
+  m_fontSizeBase: 1.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

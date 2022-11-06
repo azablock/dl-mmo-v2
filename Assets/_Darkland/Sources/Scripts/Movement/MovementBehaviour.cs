@@ -10,9 +10,9 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         private IDiscretePosition _discretePosition;
         private Vector3Int _movementVector;
-        private bool _isReadyForNextMove;
         private Coroutine _movementCoroutine;
         private IStatsHolder _statsHolder;
+        private bool _isReadyForNextMove = true;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -41,15 +41,15 @@ namespace _Darkland.Sources.Scripts.Movement {
         public void ServerSetDiscretePosition(Vector3Int pos) {
             _discretePosition.Set(pos);
 
-            //todo inny skrpyt, zapiąć się na _discretePosition.Changed
-            // if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
-            // transform.position = pos;
-            // }
+            if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
+                transform.position = pos;
+            }
         }
-        
+
         [Server]
         private IEnumerator ServerMove() {
             while (_movementVector != Vector3Int.zero) {
+
                 _isReadyForNextMove = false;
 
                 var possibleNextPosition = _discretePosition.Pos + _movementVector;
@@ -65,8 +65,7 @@ namespace _Darkland.Sources.Scripts.Movement {
             }
         }
 
-        [Server]
-        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.StatValue(StatId.MovementSpeed).Current;
+        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed);
     }
 
 }

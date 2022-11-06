@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Movement {
 
+    [RequireComponent(typeof(IStatsHolder), typeof(IDiscretePosition))]
     public class LerpClientPositionBehaviour : NetworkBehaviour {
 
         private IDiscretePosition _discretePosition;
@@ -13,10 +14,10 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
-            _movementSpeedStat = GetComponent<IStatsHolder>().Stat(StatId.MovementSpeed);
         }
-        
+
         public override void OnStartServer() {
+            _movementSpeedStat = GetComponent<IStatsHolder>().Stat(StatId.MovementSpeed);
             _discretePosition.Changed += ServerOnDiscretePositionChanged;
         }
 
@@ -26,7 +27,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private void ServerOnDiscretePositionChanged(Vector3Int pos) {
-            ClientRpcChangePosition(pos, _movementSpeedStat.Current);
+            ClientRpcChangePosition(pos, _movementSpeedStat.Get());
         }
 
         [ClientRpc]

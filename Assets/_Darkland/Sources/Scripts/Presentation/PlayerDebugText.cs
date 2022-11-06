@@ -26,9 +26,11 @@ namespace _Darkland.Sources.Scripts.Presentation {
             var isLocal = _darklandPlayer.isLocalPlayer;
             var isBot = _darklandPlayer.GetComponent<DarklandBot>() != null;
             var netId = _darklandPlayer.netId;
-            var debugTag = isLocal ? "local" : isBot ? "bot" : "";
+            var debugTag = isLocal ? "local" : "client";
+            var botSymbol = isBot ? "*" : "";
+            var characterName = _darklandPlayer.characterName;
 
-            debugText.text = $"[{netId}]\n({debugTag})";
+            debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{characterName}";
         }
     }
 

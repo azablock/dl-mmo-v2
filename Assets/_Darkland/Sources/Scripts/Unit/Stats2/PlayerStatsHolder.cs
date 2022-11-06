@@ -1,4 +1,3 @@
-using System;
 using _Darkland.Sources.Models.Unit.Stats2;
 using Mirror;
 using UnityEngine;
@@ -9,34 +8,52 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         [SyncVar(hook = nameof(ClientSyncHealth))]
         [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
-        private StatValue _health;
-        
-        [SyncVar]
+        [SerializeField]
+        private float health;
+
+        [SyncVar(hook = nameof(ClientSyncMaxHealth))]
         [DarklandStat(StatId.MaxHealth, nameof(ServerSetMaxHealth))]
-        private StatValue _maxHealth;
-        
+        [SerializeField]
+        private float maxHealth;
+
         [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
-        private StatValue _healthRegain;
+        [SerializeField]
+        private float healthRegain;
 
+        [SyncVar(hook = nameof(ClientSyncMovementSpeed))]
         [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
-        private StatValue _movementSpeed;
+        [SerializeField]
+        private float movementSpeed;
 
-        //todo nowy interface z tego
-        public event Action<StatId, StatValue> ClientChanged;
+        public override void OnStartServer() {
+            ServerSetMovementSpeed(1);
+        }
 
         [Server]
-        private void ServerSetHealth(StatValue val) => _health = val;
+        private void ServerSetHealth(float val) => health = val;
+
         [Server]
-        private void ServerSetMaxHealth(StatValue val) => _maxHealth = val;
+        private void ServerSetMaxHealth(float val) => maxHealth = val;
+
         [Server]
-        private void ServerSetHealthRegain(StatValue val) => _healthRegain = val;
+        private void ServerSetHealthRegain(float val) => healthRegain = val;
+
         [Server]
-        private void ServerSetMovementSpeed(StatValue val) => _movementSpeed = val;
+        private void ServerSetMovementSpeed(float val) => movementSpeed = val;
 
         [Client]
-        private void ClientSyncHealth(StatValue _, StatValue val) {
-            Debug.Log($"ClientSyncHealth {Time.time} {val.Current}", this);
-            ClientChanged?.Invoke(StatId.Health, val);
+        private void ClientSyncHealth(float _, float val) {
+            InvokeClientChanged(StatId.Health, val);
+        }
+
+        [Client]
+        private void ClientSyncMaxHealth(float _, float val) {
+            InvokeClientChanged(StatId.MaxHealth, val);
+        }
+
+        [Client]
+        private void ClientSyncMovementSpeed(float _, float val) {
+            InvokeClientChanged(StatId.MovementSpeed, val);
         }
     }
 
@@ -67,6 +84,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
      mana regain,
      traits,  
      stats (movement speed, attack speed, cast speed)
+     xp,
+     
      */
 
 }

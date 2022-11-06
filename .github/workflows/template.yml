@@ -180,15 +180,123 @@ jobs:
             Library-build-
             Library-
 
-      - uses: game-ci/unity-builder@v2
+      - name: Run Unity builder
+        uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
-          customParameters: -EnableHeadlessMode
-
+          customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
+  
       - uses: actions/upload-artifact@v2
         with:
-          name: build-LinuxHeadlessServer
-          path: build/LinuxHeadlessServer
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
+
+#  createTempFile:
+#    name: create temp file
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: make the temp file
+#        run: mkdir test && touch test/olek_test_file.txt
+#      - name: list files
+#        run: ls -al
+#      - name: upload artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: olek_test_file.txt
+#          path: test/olek_test_file.txt
+
+  copyLinuxBuildViaScp:
+    name: Copy Linux Build via scp
+    needs: buildLinuxHeadlessServer
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout #to chyba niepotrzebne
+        uses: actions/checkout@v2
+
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
+          
+      - name: list files
+        run: ls -al
+        
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/StandaloneLinux64
+          remote: dl-mmo-server-build-upload
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          
+  copyWindowsBuildViaScp:
+    name: Copy Windows Build via scp
+    needs: buildWindows
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout #to chyba niepotrzebne
+        uses: actions/checkout@v2
+
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-StandaloneWindows64
+          path: build/StandaloneWindows64
+
+      - name: list files
+        run: ls -al
+
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/StandaloneWindows64
+          remote: dl-mmo-client-build-upload/dl-client
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+
+  packWindowsBuildViaSsh:
+    name: Pack Windows Build via ssh
+    needs: copyWindowsBuildViaScp
+    runs-on: ubuntu-latest
+    steps:
+      - name: run build zipping script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: ./pack-dl-mmo-windows-client.sh
+  
+#  restartGameServerViaSsh:
+#    name: Restart game server via ssh
+#    needs: copyLinuxBuildViaScp
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: restart game server via ssh
+#      uses: appleboy/ssh-action@master
+#      with:
+#        host: ${{ secrets.SSH_HOST }}
+#        username: ${{ secrets.SSH_USER }}
+#        password: ${{ secrets.SSH_PASSWORD }}
+#        script: ./restart-dl-mmo-server.sh &  
+
+#  copyLinuxBuildViaSsh_V2:
+#    needs: buildLinuxHeadlessServer
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: SSH Remote Commands
+#      - uses: appleboy/ssh-action@v0.1.4
+#        
+
+
+
+#      - name: Copy via ssh
+#        uses: garygrossgarten/github-action-scp@v0.7.3
+
+
 
 #  buildAndroid:
 #    needs: testRunner

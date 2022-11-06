@@ -10,6 +10,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
     public static class DarklandStatsBootstrap {
 
         public static IEnumerable<Stat> Init(IStatsHolder statsHolder) {
+            var statConstrainsHolder = statsHolder.statPreChangeHooksHolder;
             var type = statsHolder.GetType();
             var bindingFlags = BindingFlags.NonPublic
                                | BindingFlags.Public
@@ -30,13 +31,16 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
                            return new Stat(
                                statId,
-                               () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
+                               () => (float) fieldInfo.GetValue(statsHolder),
+                               // () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
-                                   var valAfterConstraints = statsHolder
-                                                             .StatConstraints(statId)
+                                   var valAfterConstraints = statConstrainsHolder
+                                                             .PreChangeHooks(statId)
                                                              .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
+
+                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
+                                   // ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
                                }
                            );
                        }
@@ -53,7 +57,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
             }
 
             [Server]
-            public static StatValue ServerGet(Func<StatValue> getFunc) {
+            public static float ServerGet(Func<float> getFunc) {
                 return getFunc();
             }
         }
