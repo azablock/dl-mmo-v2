@@ -6,17 +6,19 @@ using static JetBrains.Annotations.ImplicitUseTargetFlags;
 namespace _Darkland.Sources.Models.Persistence {
 
     [UsedImplicitly(Members)]
-    public record DarklandAccountEntity {
+    public record MongoEntity {
         [BsonId]
         public ObjectId id { get; private set; }
+    }
+    
+    [UsedImplicitly(Members)]
+    public record DarklandAccountEntity : MongoEntity {
         [BsonRequired]
         public string name;
     }
 
     [UsedImplicitly(Members)]
-    public record DarklandPlayerCharacterEntity {
-        [BsonId]
-        public ObjectId id { get; private set; }
+    public record DarklandPlayerCharacterEntity : MongoEntity {
         [BsonRequired]
         public ObjectId darklandAccountId;
         [BsonRequired]

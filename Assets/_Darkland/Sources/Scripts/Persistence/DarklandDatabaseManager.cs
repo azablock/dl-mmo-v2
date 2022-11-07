@@ -1,13 +1,17 @@
+using System.Linq;
 using _Darkland.Sources.Models.Persistence;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Persistence {
-    
+
     public class DarklandDatabaseManager : MonoBehaviour {
-        private IMongoDatabase _db;
-        private MongoClient _client;
+
+        public static readonly DarklandAccountRepository darklandAccountRepository = new();
+        public static readonly DarklandPlayerCharacterRepository darklandPlayerCharacterRepository = new();
+
+        private static IMongoDatabase _db;
+        private static MongoClient _client;
 
         private void Awake() {
             const string hostname = "70.34.242.30";
@@ -19,33 +23,27 @@ namespace _Darkland.Sources.Scripts.Persistence {
 
             Debug.LogWarning("================ DB connected ================");
 
-            var darklandAccountsCollection = _db.GetCollection<DarklandAccountEntity>("darklandAccount");
-            var darklandAccounts = darklandAccountsCollection.FindAsync(entity => true);
-            darklandAccounts.Result.ForEachAsync((entity, i) => {
-                Debug.LogWarning($"[{i}] {entity}");
-            });
+            var darklandAccountEntities = darklandAccountRepository
+                                          .FindAll()
+                                          .ToList();
 
-            var darklandPlayerCharactersCollection =
-                _db.GetCollection<DarklandPlayerCharacterEntity>("darklandPlayerCharacter");
+            for (var i = 0; i < darklandAccountEntities.Count; i++) Debug.LogWarning($"[{i}] {darklandAccountEntities[i]}");
+
 
             const string accountName = "azab";
-            var darklandAccount = darklandAccountsCollection
-                .FindAsync(entity => entity.name == accountName)
-                .Result
-                .FirstAsync()
-                .Result;
-
+            var darklandAccount = darklandAccountRepository.FindByName(accountName);
             Debug.LogWarning($"[{accountName}] account characters:");
-            
-            darklandPlayerCharactersCollection
-                .FindAsync(entity => entity.darklandAccountId.Equals(darklandAccount.id))
-                .Result
-                .ForEachAsync((entity, i) => {
-                    Debug.LogWarning($"[{i}] {entity}");
-                });
 
-            var e = new DarklandPlayerCharacterEntity{name = "asd", darklandAccountId = ObjectId.Empty};
+            var playerCharacterEntities = darklandPlayerCharacterRepository
+                .FindAllByDarklandAccountId(darklandAccount.id)
+                .ToList();
+
+            for (var i = 0; i < playerCharacterEntities.Count; i++) Debug.LogWarning($"[{i}] {playerCharacterEntities[i]}");
+
+            // var e = new DarklandPlayerCharacterEntity { name = "asd", darklandAccountId = ObjectId.Empty };
         }
+
+        public static IMongoCollection<T> GetCollection<T>(string collectionName) => _db.GetCollection<T>(collectionName);
     }
 
 }
