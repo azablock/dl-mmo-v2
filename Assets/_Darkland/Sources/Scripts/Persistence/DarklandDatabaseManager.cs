@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.Persistence;
 using MongoDB.Driver;
 using UnityEngine;
 
@@ -19,7 +20,14 @@ namespace _Darkland.Sources.Scripts.Persistence {
             Debug.LogWarning("================ DB connected ================");
 
             _db.ListCollectionNames()
-               .ForEachAsync((s, i) => { Debug.LogWarning($"collection[{i}] name: {s}"); });
+               .ForEachAsync((s, i) => { Debug.LogWarning($"collection[{i}] name: {s}\n"); });
+
+            var mongoCollection = _db.GetCollection<DarklandAccountEntity>("darkland-account");
+            var findAsync = mongoCollection.FindAsync(entity => true);
+
+            findAsync.Result.ForEachAsync((entity, i) => {
+                Debug.LogWarning($"entity[{i}] {entity}");
+            });
         }
     }
 
