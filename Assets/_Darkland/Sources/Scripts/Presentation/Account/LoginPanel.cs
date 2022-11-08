@@ -1,4 +1,5 @@
 ﻿using System;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,22 +18,36 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
 
         private void OnEnable() {
             loginButton.onClick.AddListener(SubmitLogin);
+            DarklandNetworkAuthenticator.ClientAuthSuccess += OnClientAuthSuccess;
+            DarklandNetworkAuthenticator.ClientAuthFailure += OnClientAuthFailure;
+            
             loginStatusText.text = "Status";
         }
 
         private void OnDisable() {
             loginButton.onClick.RemoveListener(SubmitLogin);
+            DarklandNetworkAuthenticator.ClientAuthSuccess -= OnClientAuthSuccess;
+            DarklandNetworkAuthenticator.ClientAuthFailure -= OnClientAuthFailure;
         }
 
         private void SubmitLogin() {
+            loginStatusText.text = "Loading...";
             LoginClicked?.Invoke(accountNameInputField.text);
-            // if (darklandAccountEntity == null) {
-            //     loginStatusText.text = "Account does not exist!";
-            // }
-            // else {
-            //     loginStatusText.text = $"Found {darklandAccountEntity.name} account";
-            // }
         }
+
+        private void OnClientAuthSuccess() {
+            loginStatusText.text = "Login successful!";
+            
+            Debug.Log("client authenticated at " + NetworkTime.time);
+        }
+
+        private void OnClientAuthFailure() {
+            loginStatusText.text = "Account does not exist!";
+
+            Debug.Log("client rejected at " + NetworkTime.time);
+            DarklandNetworkManager.self.StopClient();
+        }
+
     }
 
 }

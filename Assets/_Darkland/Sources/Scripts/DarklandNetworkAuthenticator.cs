@@ -9,7 +9,8 @@ namespace _Darkland.Sources.Scripts {
     public class DarklandNetworkAuthenticator : NetworkAuthenticator {
 
         public string accountName;
-        public static Action ClientAuthRejected;
+        public static Action ClientAuthSuccess;
+        public static Action ClientAuthFailure;
         
         #region Messages
 
@@ -108,9 +109,10 @@ namespace _Darkland.Sources.Scripts {
             if (msg.response.success) {
                 // Authentication has been accepted
                 ClientAccept();
+                ClientAuthSuccess?.Invoke();
             }
             else {
-                ClientAuthRejected?.Invoke();
+                ClientAuthFailure?.Invoke();
 
                 if (NetworkClient.connection != null) {
                     ClientReject();

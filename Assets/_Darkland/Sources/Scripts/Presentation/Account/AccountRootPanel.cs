@@ -1,5 +1,4 @@
-﻿using _Darkland.Sources.Models;
-using Mirror;
+﻿using Mirror;
 using MongoDB.Bson;
 using UnityEngine;
 
@@ -20,16 +19,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             playerCharactersPanel.BackClicked += PlayerCharactersPanelOnBackClicked;
             newCharacterPanel.CreateClicked += NewCharacterPanelOnCreateClicked;
             newCharacterPanel.BackClicked += NewCharacterPanelOnBackClicked;
-            
-            
-            DarklandNetworkAuthenticator.ClientAuthRejected += OnClientAuthRejected;
         }
-
-        private static void OnClientAuthRejected() {
-            Debug.Log("client rejected at " + NetworkTime.time);
-            DarklandNetworkManager.self.StopClient();
-        }
-
+        
         private void OnDisable() {
             loginPanel.LoginClicked -= LoginPanelOnLoginClicked;
             playerCharactersPanel.CreateCharacterClicked -= PlayerCharactersPanelOnCreateCharacterClicked;
@@ -37,8 +28,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             playerCharactersPanel.BackClicked -= PlayerCharactersPanelOnBackClicked;
             newCharacterPanel.CreateClicked -= NewCharacterPanelOnCreateClicked;
             newCharacterPanel.BackClicked -= NewCharacterPanelOnBackClicked;
-            
-            DarklandNetworkAuthenticator.ClientAuthRejected -= OnClientAuthRejected;
+
         }
 
         private void LoginPanelOnLoginClicked(string accountName) {
