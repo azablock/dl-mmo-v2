@@ -24,8 +24,8 @@ namespace _Darkland.Sources.Scripts.Persistence {
             Debug.LogWarning("================ DB connected ================");
 
             var darklandAccountEntities = darklandAccountRepository
-                                          .FindAll()
-                                          .ToList();
+                .FindAll()
+                .ToList();
 
             for (var i = 0; i < darklandAccountEntities.Count; i++) Debug.LogWarning($"[{i}] {darklandAccountEntities[i]}");
 
