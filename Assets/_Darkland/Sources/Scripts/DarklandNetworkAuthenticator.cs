@@ -1,26 +1,37 @@
 using System;
 using System.Collections;
-using _Darkland.Sources.Models;
+using _Darkland.Sources.Models.Account;
 using _Darkland.Sources.Scripts.Persistence;
 using Mirror;
+using UnityEngine;
 
 namespace _Darkland.Sources.Scripts {
 
     public class DarklandNetworkAuthenticator : NetworkAuthenticator {
 
-        public string accountName;
-        public static Action ClientAuthSuccess;
-        public static Action ClientAuthFailure;
-        
+        public bool clientIsRegister;
+        public string clientAccountName;
+        public static Action clientAuthSuccess;
+        public static Action clientAuthFailure;
+        public static Action clientTimeout;
+
+        [Range(0, 60), Tooltip("Timeout to auto-disconnect in seconds. Set to 0 for no timeout.")]
+        public float clientTimeoutSeconds = 2;
+
         #region Messages
 
         public struct DarklandAuthRequestMessage : NetworkMessage {
-            public DarklandAuthRequest request;
+            public bool isBot;
+            public bool isRegister;
+            public string accountName;
         }
 
         public struct DarklandAuthResponseMessage : NetworkMessage {
-            public DarklandAuthResponse response;
+            public bool success;
+            public string message;
         }
+
+
 
         #endregion
 
@@ -49,21 +60,49 @@ namespace _Darkland.Sources.Scripts {
         /// <param name="conn">Connection to client.</param>
         /// <param name="msg">The message payload</param>
         public void OnAuthRequestMessage(NetworkConnectionToClient conn, DarklandAuthRequestMessage msg) {
-            var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(msg.request.accountName);
-            var accountExists = darklandAccountEntity != null;
-            var response = new DarklandAuthResponse {success = accountExists};
-            var darklandAuthResponseMessage = new DarklandAuthResponseMessage {response = response};
+            if (msg.isRegister && !msg.isBot) {
+                ServerResolveRegister(conn, msg);
+            }
+            else {
+                ServerResolveLogin(conn, msg);
+            }
+        }
 
-            conn.authenticationData = response;
-            conn.Send(darklandAuthResponseMessage);
-            
-            if (accountExists) {
+        private void ServerResolveRegister(NetworkConnectionToClient conn, DarklandAuthRequestMessage msg) {
+            var accountName = msg.accountName;
+            var accountNameEmpty = string.IsNullOrEmpty(accountName);
+            var accountExists = DarklandDatabaseManager.darklandAccountRepository.ExistsByName(accountName);
+            var isValid = !accountNameEmpty && !accountExists;
+
+            if (isValid) {
                 // Accept the successful authentication
-                ServerAccept(conn);    
+                DarklandDatabaseManager.darklandAccountRepository.Create(accountName);
+                ServerAccept(conn);
             }
             else {
                 StartCoroutine(nameof(ServerRejectAfterFrame), conn);
             }
+
+            conn.authenticationData = new DarklandAuthState {accountName = accountName};
+            conn.Send(new DarklandAuthResponseMessage {success = isValid});
+        }
+
+        private void ServerResolveLogin(NetworkConnectionToClient conn, DarklandAuthRequestMessage msg) {
+            var accountName = msg.accountName;
+            var accountExists = DarklandDatabaseManager.darklandAccountRepository.ExistsByName(accountName);
+            var isBot = msg.isBot;
+            var isValid = accountExists || isBot;
+
+            if (isValid) {
+                // Accept the successful authentication
+                ServerAccept(conn); //todo not yet
+            }
+            else {
+                StartCoroutine(nameof(ServerRejectAfterFrame), conn);
+            }
+
+            conn.authenticationData = new DarklandAuthState {accountName = accountName};
+            conn.Send(new DarklandAuthResponseMessage {success = isValid});
         }
 
         private IEnumerator ServerRejectAfterFrame(NetworkConnectionToClient conn) {
@@ -91,14 +130,20 @@ namespace _Darkland.Sources.Scripts {
         /// Called on client from OnClientAuthenticateInternal when a client needs to authenticate
         /// </summary>
         public override void OnClientAuthenticate() {
+            base.OnClientAuthenticate();
+            if (clientTimeoutSeconds > 0)
+                StartCoroutine(BeginAuthentication(NetworkClient.connection));
+            
             var args = Environment.GetCommandLineArgs();
             var isBot = args.Length > 1 && args[1] == "c";
 
-            var darklandAuthRequestMessage = new DarklandAuthRequestMessage {
-                request = new DarklandAuthRequest {isBot = isBot, accountName = accountName},
-            };
+            NetworkClient.Send(new DarklandAuthRequestMessage {
+                accountName = clientAccountName,
+                isRegister = clientIsRegister,
+                isBot = isBot
+            });
+            
 
-            NetworkClient.Send(darklandAuthRequestMessage);
         }
 
         /// <summary>
@@ -106,19 +151,34 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         /// <param name="msg">The message payload</param>
         public void OnAuthResponseMessage(DarklandAuthResponseMessage msg) {
-            if (msg.response.success) {
+            if (msg.success) {
                 // Authentication has been accepted
-                ClientAccept();
-                ClientAuthSuccess?.Invoke();
+                ClientAccept(); //todo not yet
+                clientAuthSuccess?.Invoke();
             }
             else {
-                ClientAuthFailure?.Invoke();
+                clientAuthFailure?.Invoke();
 
                 if (NetworkClient.connection != null) {
                     ClientReject();
                 }
             }
         }
+
+        private IEnumerator BeginAuthentication(NetworkConnection conn)
+        {
+            Debug.Log($"Authentication countdown started {conn} {clientTimeout}");
+            yield return new WaitForSecondsRealtime(clientTimeoutSeconds);
+
+            if (!conn.isAuthenticated)
+            {
+                Debug.LogError($"Authentication Timeout - Disconnecting {conn}");
+                conn.Disconnect();
+                clientTimeout?.Invoke();
+                
+            }
+        }
+
 
         #endregion
 

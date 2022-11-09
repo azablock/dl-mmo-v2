@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -15,6 +16,9 @@ namespace _Darkland.Sources.Models.Persistence {
     public record DarklandAccountEntity : MongoEntity {
         [BsonRequired]
         public string name;
+        [BsonRequired]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime createDate;
     }
 
     [UsedImplicitly(Members)]

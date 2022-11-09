@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Mirror;
 
 namespace _Darkland.Sources.NetworkMessages {
@@ -10,6 +11,12 @@ namespace _Darkland.Sources.NetworkMessages {
 
         public struct DarklandAuthResponseMessage : NetworkMessage {
             public NetworkIdentity spawnedPlayerNetworkIdentity;
+        }
+
+        public struct GetPlayerCharactersRequestMessage : NetworkMessage { }
+
+        public struct GetPlayerCharactersResponseMessage : NetworkMessage {
+            public List<string> playerCharacterNames;
         }
 
         public struct DarklandPlayerDisconnectRequestMessage : NetworkMessage {

@@ -1,4 +1,6 @@
-﻿using Mirror;
+﻿using System.Collections.Generic;
+using _Darkland.Sources.NetworkMessages;
+using Mirror;
 using MongoDB.Bson;
 using UnityEngine;
 
@@ -8,82 +10,117 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         [SerializeField]
         private LoginPanel loginPanel;
         [SerializeField]
+        private RegisterPanel registerPanel;
+        [SerializeField]
         private PlayerCharactersPanel playerCharactersPanel;
         [SerializeField]
         private NewCharacterPanel newCharacterPanel;
 
         private void OnEnable() {
             loginPanel.LoginClicked += LoginPanelOnLoginClicked;
+            loginPanel.RegisterClicked += LoginPanelOnRegisterClicked;
+            loginPanel.LoginSuccess += GetPlayerCharacters;
+
+            registerPanel.RegisterClicked += RegisterPanelOnRegisterClicked;
+            registerPanel.BackClicked += BackToLogin;
+            registerPanel.RegisterSuccess += GetPlayerCharacters;
+
             playerCharactersPanel.StartClicked += PlayerCharactersPanelOnStartClicked;
             playerCharactersPanel.CreateCharacterClicked += PlayerCharactersPanelOnCreateCharacterClicked;
-            playerCharactersPanel.BackClicked += PlayerCharactersPanelOnBackClicked;
+            playerCharactersPanel.BackClicked += BackToLogin;
+
             newCharacterPanel.CreateClicked += NewCharacterPanelOnCreateClicked;
-            newCharacterPanel.BackClicked += NewCharacterPanelOnBackClicked;
+            newCharacterPanel.BackClicked += GetPlayerCharacters;
+
+            DarklandNetworkManager.clientGetPlayerCharactersSuccess += ClientGetPlayerCharactersSuccess;
+            DarklandNetworkManager.clientDisconnected += OnClientDisconnected;
         }
-        
+
         private void OnDisable() {
             loginPanel.LoginClicked -= LoginPanelOnLoginClicked;
+            loginPanel.RegisterClicked -= LoginPanelOnRegisterClicked;
+            loginPanel.LoginSuccess -= GetPlayerCharacters;
+
+            registerPanel.RegisterClicked -= RegisterPanelOnRegisterClicked;
+            registerPanel.BackClicked -= BackToLogin;
+            registerPanel.RegisterSuccess -= GetPlayerCharacters;
+
             playerCharactersPanel.CreateCharacterClicked -= PlayerCharactersPanelOnCreateCharacterClicked;
             playerCharactersPanel.StartClicked -= PlayerCharactersPanelOnStartClicked;
-            playerCharactersPanel.BackClicked -= PlayerCharactersPanelOnBackClicked;
-            newCharacterPanel.CreateClicked -= NewCharacterPanelOnCreateClicked;
-            newCharacterPanel.BackClicked -= NewCharacterPanelOnBackClicked;
+            playerCharactersPanel.BackClicked -= BackToLogin;
 
+            newCharacterPanel.CreateClicked -= NewCharacterPanelOnCreateClicked;
+            newCharacterPanel.BackClicked -= GetPlayerCharacters;
+
+            DarklandNetworkManager.clientGetPlayerCharactersSuccess -= ClientGetPlayerCharactersSuccess;
+            DarklandNetworkManager.clientDisconnected -= OnClientDisconnected;
         }
 
         private void LoginPanelOnLoginClicked(string accountName) {
-            DarklandNetworkManager.self.darklandNetworkAuthenticator.accountName = accountName;
+            DarklandNetworkManager.self.darklandNetworkAuthenticator.clientIsRegister = false;
+            DarklandNetworkManager.self.darklandNetworkAuthenticator.clientAccountName = accountName;
 
-            //todo
+            StartHostOrClient();
+        }
+
+        private void LoginPanelOnRegisterClicked() => ShowChildPanel(registerPanel);
+
+        private void RegisterPanelOnRegisterClicked(string accountName) {
+            DarklandNetworkManager.self.darklandNetworkAuthenticator.clientIsRegister = true;
+            DarklandNetworkManager.self.darklandNetworkAuthenticator.clientAccountName = accountName;
+
+            StartHostOrClient();
+        }
+        
+        private void PlayerCharactersPanelOnCreateCharacterClicked() => ShowChildPanel(newCharacterPanel);
+
+        private void PlayerCharactersPanelOnStartClicked(ObjectId playerCharacterId) {
+            // ClientAccountStateBehaviour._.accountState.selectedPlayerCharacterId = playerCharacterId;
+            //todo enter game
+        }
+
+        private void NewCharacterPanelOnCreateClicked(string characterName) {
+            //request for player characters list and return to playerCharactersPanel
+        }
+
+        private void ClientGetPlayerCharactersSuccess(List<string> playerCharacterNames) {
+            ShowChildPanel(playerCharactersPanel);
+            playerCharactersPanel.Init(playerCharacterNames);
+        }
+        
+        private void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
+            // throw new System.NotImplementedException();
+            ShowChildPanel(loginPanel);
+            loginPanel.OnClientDisconnected(disconnectStatus);
+        }
+
+        private void BackToLogin() {
+            DarklandNetworkManager.self.StopClient();
+            ShowChildPanel(loginPanel);
+        }
+
+        private static void GetPlayerCharacters() => NetworkClient.Send(new DarklandAuthMessages.GetPlayerCharactersRequestMessage());
+
+        private static void StartHostOrClient() {
+// #if UNITY_EDITOR_64 && !UNITY_SERVER
+// #endif
+
+            DarklandNetworkManager.self.StartClient();
             // if (!NetworkServer.active) {
             //     DarklandNetworkManager.self.StartHost();
             // }
             // else {
             //     DarklandNetworkManager.self.StartClient();
             // }
-            DarklandNetworkManager.self.StartClient();
-
-            
-            
-            
-            // ClientAccountStateBehaviour._.accountState.playerCharacters = DarklandDatabaseManager
-            //     .darklandPlayerCharacterRepository
-            //     .FindAllByDarklandAccountId(ClientAccountStateBehaviour._.accountState.accountId)
-            //     .Select(it => new PlayerCharacterState {name = it.name, playerCharacterId = it.id});
-
-            // loginPanel.gameObject.SetActive(false);
-            // playerCharactersPanel.gameObject.SetActive(true);
         }
 
-        private void PlayerCharactersPanelOnCreateCharacterClicked() {
-            playerCharactersPanel.gameObject.SetActive(false);
-            newCharacterPanel.gameObject.SetActive(true);
+        private void ShowChildPanel(Component panelComponent) {
+            for (var i = 0; i < transform.childCount; i++) {
+                var childPanelGameObject = transform.GetChild(i).gameObject;
+                childPanelGameObject.SetActive(Equals(panelComponent.gameObject, childPanelGameObject));
+            }
         }
 
-        private void PlayerCharactersPanelOnBackClicked() {
-            playerCharactersPanel.gameObject.SetActive(false);
-            loginPanel.gameObject.SetActive(true);
-        }
-
-        private void PlayerCharactersPanelOnStartClicked(ObjectId playerCharacterId) {
-            // ClientAccountStateBehaviour._.accountState.selectedPlayerCharacterId = playerCharacterId;
-            //todo
-        }
-
-        private void NewCharacterPanelOnCreateClicked(string characterName) {
-            newCharacterPanel.gameObject.SetActive(false);
-            playerCharactersPanel.gameObject.SetActive(true);
-        }
-
-        private void NewCharacterPanelOnBackClicked() {
-            newCharacterPanel.gameObject.SetActive(false);
-            playerCharactersPanel.gameObject.SetActive(true);
-
-
-            // var darklandNetworkAuthenticator = DarklandNetworkManager.authenticator;
-            // NetworkClient.Send(new DarklandNetworkAuthenticator.DarklandAuthRequestMessage{request = new DarklandAuthRequest{isBot = false}});
-            // darklandNetworkAuthenticator.
-        }
     }
 
 }

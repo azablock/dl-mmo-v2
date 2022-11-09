@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using _Darkland.Sources.Models;
+using _Darkland.Sources.Models.Account;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Persistence;
 using kcp2k;
 using Mirror;
 using UnityEngine;
@@ -12,9 +13,6 @@ namespace _Darkland.Sources.Scripts {
 
     public class DarklandNetworkManager : NetworkManager {
 
-        public static Action<NetworkIdentity> clientDarklandPlayerConnected;
-        public static Action clientDarklandManagerStopped;
-
         [Space]
         [Header("Darkland Prefabs")]
         public GameObject darklandBotPrefab;
@@ -22,6 +20,13 @@ namespace _Darkland.Sources.Scripts {
         public static DarklandNetworkManager self => singleton as DarklandNetworkManager;
         public DarklandNetworkAuthenticator darklandNetworkAuthenticator => authenticator as DarklandNetworkAuthenticator;
 
+        public struct DisconnectStatus {
+            public bool fromServer;
+        }
+        
+        public static Action<DisconnectStatus> clientDisconnected;
+        public static Action<List<string>> clientGetPlayerCharactersSuccess;
+        
         /// <summary>
         /// Runs on both Server and Client
         /// Networking is NOT initialized when this fires
@@ -40,7 +45,6 @@ namespace _Darkland.Sources.Scripts {
                 Debug.Log($"{GetType()}.Start() NETWORK ADDRESS CHANGED TO {networkAddress}");
             }
 
-
             var portFlagArgIndex = args.FindIndex(it => it == "dl-server-port");
             
             if (portFlagArgIndex > -1 && args.Count > portFlagArgIndex) {
@@ -56,15 +60,40 @@ namespace _Darkland.Sources.Scripts {
 #endif
         }
 
-        // public override void OnClientDisconnect() {
-        //     base.OnClientDisconnect();
-        //     var authData = (DarklandAuthResponse)NetworkClient.connection.authenticationData;
-        //
-        //     if (!authData.success) {
-        //         DarklandNetworkAuthenticator.ClientAuthRejected?.Invoke();
-        //     }
-        // }
+        public override void OnStartServer() {
+            NetworkServer.RegisterHandler<DarklandAuthMessages.GetPlayerCharactersRequestMessage>(ServerGetPlayerCharacters);
+        }
+        
+        [Server]
+        private void ServerGetPlayerCharacters(NetworkConnectionToClient conn,
+                                               DarklandAuthMessages.GetPlayerCharactersRequestMessage msg) {
+            var accountName = ((DarklandAuthState) conn.authenticationData).accountName;
+            var darklandAccountEntity = DarklandDatabaseManager
+                .darklandAccountRepository
+                .FindByName(accountName);
+            var playerCharacterNames = DarklandDatabaseManager
+                .darklandPlayerCharacterRepository
+                .FindAllByDarklandAccountId(darklandAccountEntity.id)
+                .Select(it => it.name)
+                .ToList();
 
+            ((DarklandAuthState) conn.authenticationData).playerCharacterNames = playerCharacterNames;
+            
+            conn.Send(new DarklandAuthMessages.GetPlayerCharactersResponseMessage {playerCharacterNames = playerCharacterNames});
+        }
+
+        public override void OnStartClient() {
+            NetworkClient.RegisterHandler<DarklandAuthMessages.GetPlayerCharactersResponseMessage>(ClientOnGetPlayerCharacters);
+        }
+        
+        public override void OnClientDisconnect() {
+            //todo somehow handle timeout
+            if (NetworkClient.connection.isAuthenticated) {
+                clientDisconnected?.Invoke(new DisconnectStatus {fromServer = NetworkClient.active});
+            }
+
+            base.OnClientDisconnect();
+        }
 
         [Server]
         private void ServerSpawnDarklandPlayer(NetworkConnectionToClient conn,
@@ -84,7 +113,12 @@ namespace _Darkland.Sources.Scripts {
                 }
             );
         }
-        
+
+        [Client]
+        private void ClientOnGetPlayerCharacters(DarklandAuthMessages.GetPlayerCharactersResponseMessage msg) {
+            clientGetPlayerCharactersSuccess?.Invoke(msg.playerCharacterNames);
+        }
+
         private IEnumerator StartHeadless(ICollection<string> args) {
             Debug.Log($"{GetType()}.StartHeadless()");
             yield return new WaitForSeconds(2.0f);

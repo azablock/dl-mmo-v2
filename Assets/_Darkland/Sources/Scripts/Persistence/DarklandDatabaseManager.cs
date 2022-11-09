@@ -1,4 +1,3 @@
-using System.Linq;
 using _Darkland.Sources.Models.Persistence;
 using MongoDB.Driver;
 using UnityEngine;
@@ -20,27 +19,6 @@ namespace _Darkland.Sources.Scripts.Persistence {
 
             _client = new MongoClient(uri);
             _db = _client.GetDatabase(dbName);
-
-            Debug.LogWarning("================ DB connected ================");
-
-            var darklandAccountEntities = darklandAccountRepository
-                .FindAll()
-                .ToList();
-
-            for (var i = 0; i < darklandAccountEntities.Count; i++) Debug.LogWarning($"[{i}] {darklandAccountEntities[i]}");
-
-
-            const string accountName = "azab";
-            var darklandAccount = darklandAccountRepository.FindByName(accountName);
-            Debug.LogWarning($"[{accountName}] account characters:");
-
-            var playerCharacterEntities = darklandPlayerCharacterRepository
-                .FindAllByDarklandAccountId(darklandAccount.id)
-                .ToList();
-
-            for (var i = 0; i < playerCharacterEntities.Count; i++) Debug.LogWarning($"[{i}] {playerCharacterEntities[i]}");
-
-            // var e = new DarklandPlayerCharacterEntity { name = "asd", darklandAccountId = ObjectId.Empty };
         }
 
         public static IMongoCollection<T> GetCollection<T>(string collectionName) => _db.GetCollection<T>(collectionName);

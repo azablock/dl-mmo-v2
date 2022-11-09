@@ -12,33 +12,46 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         [SerializeField]
         private Button loginButton;
         [SerializeField]
+        private Button registerButton;
+        [SerializeField]
         private TMP_Text loginStatusText;
 
         public event Action<string> LoginClicked;
+        public event Action LoginSuccess;
+        public event Action RegisterClicked;
 
         private void OnEnable() {
             loginButton.onClick.AddListener(SubmitLogin);
-            DarklandNetworkAuthenticator.ClientAuthSuccess += OnClientAuthSuccess;
-            DarklandNetworkAuthenticator.ClientAuthFailure += OnClientAuthFailure;
-            
-            loginStatusText.text = "Status";
+            registerButton.onClick.AddListener(OnRegisterClicked);
+            DarklandNetworkAuthenticator.clientAuthSuccess += OnClientAuthSuccess;
+            DarklandNetworkAuthenticator.clientAuthFailure += OnClientAuthFailure;
+
+            accountNameInputField.text = string.Empty;
+            loginStatusText.text = "Login Status";
         }
 
         private void OnDisable() {
             loginButton.onClick.RemoveListener(SubmitLogin);
-            DarklandNetworkAuthenticator.ClientAuthSuccess -= OnClientAuthSuccess;
-            DarklandNetworkAuthenticator.ClientAuthFailure -= OnClientAuthFailure;
+            registerButton.onClick.RemoveListener(OnRegisterClicked);
+            DarklandNetworkAuthenticator.clientAuthSuccess -= OnClientAuthSuccess;
+            DarklandNetworkAuthenticator.clientAuthFailure -= OnClientAuthFailure;
         }
-
+        
         private void SubmitLogin() {
             loginStatusText.text = "Loading...";
             LoginClicked?.Invoke(accountNameInputField.text);
         }
 
+        private void OnRegisterClicked() {
+            RegisterClicked?.Invoke();
+        }
+
         private void OnClientAuthSuccess() {
             loginStatusText.text = "Login successful!";
-            
+
             Debug.Log("client authenticated at " + NetworkTime.time);
+
+            LoginSuccess?.Invoke();
         }
 
         private void OnClientAuthFailure() {
@@ -47,7 +60,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             Debug.Log("client rejected at " + NetworkTime.time);
             DarklandNetworkManager.self.StopClient();
         }
+        
+        public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
+            if (disconnectStatus.fromServer) {
+                loginStatusText.text = "Disconnected from server!";
+                Debug.Log("server stopped at " + NetworkTime.time);
+            }
+            else {
+                loginStatusText.text = "Login Status - client triggered";
+                Debug.Log("client disconnected from server at " + NetworkTime.time);
+            }
 
+            DarklandNetworkManager.self.StopClient();
+        }
     }
 
 }
