@@ -52,8 +52,9 @@ namespace _Darkland.Sources.Scripts {
             var portFlagArgIndex = args.FindIndex(it => it == "dl-server-port");
 
             if (portFlagArgIndex > -1 && args.Count > portFlagArgIndex) {
-                ((KcpTransport) transport).Port = Convert.ToUInt16(args[portFlagArgIndex + 1]);
-                Debug.Log($"NETWORK PORT CHANGED TO {((KcpTransport) transport).Port}");
+                //todo co z tym zrobic
+                // ((KcpTransport) transport).Port = Convert.ToUInt16(args[portFlagArgIndex + 1]);
+                // Debug.Log($"NETWORK PORT CHANGED TO {((KcpTransport) transport).Port}");
             }
 
             base.Start();

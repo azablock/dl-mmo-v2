@@ -90,8 +90,8 @@ namespace Mirror
 
         void Update()
         {
-            // if (Input.GetKeyDown(hotKey))
-                // visible = !visible;
+            if (Input.GetKeyDown(hotKey))
+                visible = !visible;
         }
 
         void OnGUI()
