@@ -164,7 +164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name...
+  m_text: Character Name...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
   m_sharedMaterial: {fileID: -2605557638916339833, guid: d15a15590c827e54093c9d4a240a9523, type: 2}
@@ -1299,7 +1299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.12103952, g: 0.16301766, b: 0.3018868, a: 0.7294118}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1332,6 +1332,7 @@ MonoBehaviour:
   registerPanel: {fileID: 290567903640806770}
   playerCharactersPanel: {fileID: 2938351953795258180}
   newCharacterPanel: {fileID: 2851773743825086501}
+  _backgroundImage: {fileID: 2938351953498269319}
 --- !u!1 &2938351953506057806
 GameObject:
   m_ObjectHideFlags: 0

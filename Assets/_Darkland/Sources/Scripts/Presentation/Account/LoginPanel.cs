@@ -64,7 +64,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
             if (disconnectStatus.fromServer) {
                 loginStatusText.text = "Disconnected from server!";
-                Debug.Log("server stopped at " + NetworkTime.time);
+                Debug.Log("Disconnected from server at " + NetworkTime.time);
             }
             else {
                 loginStatusText.text = "Login Status - client triggered";

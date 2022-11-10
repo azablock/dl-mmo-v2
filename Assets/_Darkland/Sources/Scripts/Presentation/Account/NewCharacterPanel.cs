@@ -1,5 +1,4 @@
 ﻿using System;
-using _Darkland.Sources.Scripts.Persistence;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,30 +17,43 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
 
         public event Action<string> CreateClicked;
         public event Action BackClicked;
-        
+        public event Action NewPlayerCharacterSuccess;
+
         private void OnEnable() {
             createButton.onClick.AddListener(CreateCharacter);
             backButton.onClick.AddListener(BackToPlayerCharacters);
+
+            DarklandNetworkManager.clientNewPlayerCharacterSuccess += ClientNewPlayerCharacterSuccess;
+            DarklandNetworkManager.clientNewPlayerCharacterFailure += ClientNewPlayerCharacterFailure;
+
+            createButton.interactable = true;
+            statusText.text = "Create Character Status";
+            characterNameInputField.text = string.Empty;
         }
 
         private void OnDisable() {
-            createButton.onClick.RemoveListener(BackToPlayerCharacters);
+            createButton.onClick.RemoveListener(CreateCharacter);
             backButton.onClick.RemoveListener(BackToPlayerCharacters);
+
+            DarklandNetworkManager.clientNewPlayerCharacterSuccess -= ClientNewPlayerCharacterSuccess;
+            DarklandNetworkManager.clientNewPlayerCharacterFailure -= ClientNewPlayerCharacterFailure;
         }
 
         private void CreateCharacter() {
+            createButton.interactable = false;
+            
             var characterName = characterNameInputField.text;
-            var alreadyExists = DarklandDatabaseManager.darklandPlayerCharacterRepository.ExistsByName(characterName);
+            CreateClicked?.Invoke(characterName);
+        }
 
-            if (alreadyExists) {
-                statusText.text = "Name taken!";
-            }
-            else {
-                statusText.text = "Name valid!";
-                
-                //todo db add
-                CreateClicked?.Invoke(characterName);
-            }
+        private void ClientNewPlayerCharacterSuccess() {
+            createButton.interactable = true;
+            NewPlayerCharacterSuccess?.Invoke();
+        }
+
+        private void ClientNewPlayerCharacterFailure(string message) {
+            createButton.interactable = true;
+            statusText.text = message;
         }
 
         private void BackToPlayerCharacters() {

@@ -7,6 +7,7 @@ namespace _Darkland.Sources.Models.Account {
         public List<string> playerCharacterNames;
         public string selectedPlayerCharacterName;
         public bool isRegister;
+        public bool isBot;
     }
 
 }

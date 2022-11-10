@@ -9,14 +9,13 @@ namespace _Darkland.Sources.Scripts {
 
     public class DarklandNetworkAuthenticator : NetworkAuthenticator {
 
+        [HideInInspector]
         public bool clientIsRegister;
+        [HideInInspector]
         public string clientAccountName;
         public static Action clientAuthSuccess;
         public static Action clientAuthFailure;
         public static Action clientTimeout;
-
-        [Range(0, 60), Tooltip("Timeout to auto-disconnect in seconds. Set to 0 for no timeout.")]
-        public float clientTimeoutSeconds = 2;
 
         #region Messages
 
@@ -83,7 +82,7 @@ namespace _Darkland.Sources.Scripts {
                 StartCoroutine(nameof(ServerRejectAfterFrame), conn);
             }
 
-            conn.authenticationData = new DarklandAuthState {accountName = accountName};
+            conn.authenticationData = new DarklandAuthState {accountName = accountName, isBot = false};
             conn.Send(new DarklandAuthResponseMessage {success = isValid});
         }
 
@@ -101,7 +100,7 @@ namespace _Darkland.Sources.Scripts {
                 StartCoroutine(nameof(ServerRejectAfterFrame), conn);
             }
 
-            conn.authenticationData = new DarklandAuthState {accountName = accountName};
+            conn.authenticationData = new DarklandAuthState {accountName = accountName, isBot = isBot};
             conn.Send(new DarklandAuthResponseMessage {success = isValid});
         }
 
@@ -131,8 +130,8 @@ namespace _Darkland.Sources.Scripts {
         /// </summary>
         public override void OnClientAuthenticate() {
             base.OnClientAuthenticate();
-            if (clientTimeoutSeconds > 0)
-                StartCoroutine(BeginAuthentication(NetworkClient.connection));
+            // if (clientTimeoutSeconds > 0)
+                // StartCoroutine(BeginAuthentication(NetworkClient.connection));
             
             var args = Environment.GetCommandLineArgs();
             var isBot = args.Length > 1 && args[1] == "c";
@@ -165,19 +164,19 @@ namespace _Darkland.Sources.Scripts {
             }
         }
 
-        private IEnumerator BeginAuthentication(NetworkConnection conn)
-        {
-            Debug.Log($"Authentication countdown started {conn} {clientTimeout}");
-            yield return new WaitForSecondsRealtime(clientTimeoutSeconds);
-
-            if (!conn.isAuthenticated)
-            {
-                Debug.LogError($"Authentication Timeout - Disconnecting {conn}");
-                conn.Disconnect();
-                clientTimeout?.Invoke();
-                
-            }
-        }
+        // private IEnumerator BeginAuthentication(NetworkConnection conn)
+        // {
+        //     Debug.Log($"Authentication countdown started {conn} {clientTimeout}");
+        //     yield return new WaitForSecondsRealtime(clientTimeoutSeconds);
+        //
+        //     if (!conn.isAuthenticated)
+        //     {
+        //         Debug.LogError($"Authentication Timeout - Disconnecting {conn}");
+        //         conn.Disconnect();
+        //         clientTimeout?.Invoke();
+        //         
+        //     }
+        // }
 
 
         #endregion

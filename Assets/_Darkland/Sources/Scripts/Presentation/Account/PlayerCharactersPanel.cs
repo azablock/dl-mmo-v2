@@ -18,8 +18,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         [SerializeField]
         private Button backButton;
         
-        public event Action CreateCharacterClicked;
-        public event Action<ObjectId> StartClicked;
+        public event Action NewCharacterClicked;
+        public event Action<string> StartClicked;
         public event Action BackClicked;
 
         private void OnEnable() {
@@ -40,18 +40,20 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             .Select(it => new TMP_Dropdown.OptionData(it))
             .ToList();
 
-            playerCharactersDropdown.interactable = options.Count > 0;
+            var hasOptions = options.Count > 0;
+            playerCharactersDropdown.interactable = hasOptions;
+            startButton.interactable = hasOptions;
             playerCharactersDropdown.AddOptions(options);
-        }
-        
-        private void EnterGame() {
-            var idx = playerCharactersDropdown.value;
-            // var playerCharacterId = ClientAccountStateBehaviour._.accountState.playerCharacters.ToList()[idx].playerCharacterId;
-            // StartClicked?.Invoke(playerCharacterId);
+
+            if (hasOptions) {
+                playerCharactersDropdown.value = 0;
+            }
         }
 
+        private void EnterGame() => StartClicked?.Invoke(playerCharactersDropdown.captionText.text);
+
         private void CreateCharacter() {
-            CreateCharacterClicked?.Invoke();
+            NewCharacterClicked?.Invoke();
         }
 
         private void BackToLogin() {
