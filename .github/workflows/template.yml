@@ -94,7 +94,8 @@ jobs:
 
       - uses: game-ci/unity-builder@v2
         with:
-          unityVersion: 2022.1.8f1
+          customImage: 'unityci/editor:2022.1.8f1-base-1.0.1'
+#          unityVersion: 2022.1.8f1
           targetPlatform: StandaloneWindows64
 
       - uses: actions/upload-artifact@v2
