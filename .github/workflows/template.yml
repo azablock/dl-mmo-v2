@@ -94,7 +94,7 @@ jobs:
 
       - uses: game-ci/unity-builder@v2
         with:
-          unityVersion: 2020.3.24f1
+          unityVersion: 2022.1.8f1
           targetPlatform: StandaloneWindows64
 
       - uses: actions/upload-artifact@v2
@@ -141,7 +141,7 @@ jobs:
         uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
-          unityVersion: 2020.3.24f1
+          unityVersion: 2022.1.8f1
           customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
   
       - uses: actions/upload-artifact@v2
