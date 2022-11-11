@@ -10,7 +10,6 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
     public static class DarklandStatsBootstrap {
 
         public static IEnumerable<Stat> Init(IStatsHolder statsHolder) {
-            var statConstrainsHolder = statsHolder.statPreChangeHooksHolder;
             var type = statsHolder.GetType();
             var bindingFlags = BindingFlags.NonPublic
                                | BindingFlags.Public
@@ -34,6 +33,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                () => (float) fieldInfo.GetValue(statsHolder),
                                // () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
+                                   var statConstrainsHolder = statsHolder.statPreChangeHooksHolder;
                                    var valAfterConstraints = statConstrainsHolder
                                                              .PreChangeHooks(statId)
                                                              .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
