@@ -56,6 +56,12 @@ namespace _Darkland.Sources.Scripts {
                 // ((KcpTransport) transport).Port = Convert.ToUInt16(args[portFlagArgIndex + 1]);
                 // Debug.Log($"NETWORK PORT CHANGED TO {((KcpTransport) transport).Port}");
             }
+            
+#if !UNITY_EDITOR_64 && !UNITY_SERVER
+            networkAddress = "70.34.242.30";
+#else
+            networkAddress = "localhost";
+#endif
 
             base.Start();
 
