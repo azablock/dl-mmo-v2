@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 8613070362011562632}
   - component: {fileID: 2367031762826027735}
   - component: {fileID: -7389362793666909981}
+  - component: {fileID: -2298945933162806613}
   m_Layer: 0
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -336,9 +337,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
+  _assetId: 3010654776
   serverOnly: 0
   visible: 0
-  m_AssetId: 208270ef800c3f344abc684091beacec
   hasSpawned: 0
 --- !u!114 &5587096426269246242
 MonoBehaviour:
@@ -352,8 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3dd78b1b3d84aaeae713d31f00bb267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  heroName: 
 --- !u!114 &3382711714051517869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,18 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c660add8e9645ad89300f4109ba9c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  statConstraintDefinitions:
-  - id: 0
-    constraints:
-    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
-    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
-    - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
-  - id: 1
-    constraints:
-    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
-    - {fileID: 11400000, guid: 1f6e532251841ce4ebfeabc3f5800071, type: 2}
   health: 0
   maxHealth: 0
   healthRegain: 0
@@ -394,16 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9582c0737d6a47bc8f768332786c6d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statConstraintDefinitions:
-  - id: 0
-    constraints:
-    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
-    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
-    - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
-  - id: 1
-    constraints:
-    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
-    - {fileID: 11400000, guid: 1f6e532251841ce4ebfeabc3f5800071, type: 2}
+  preChangeHooks: []
 --- !u!114 &7320425550237296429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,10 +401,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c830c151527b4024bc047e58123f33cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  statChangeHooks:
-  - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
+  statPostChangeHooks: []
 --- !u!114 &7238438236066071988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92f8fae74a149e484f6f75afae3c8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   persistentStatEffects: []
@@ -447,11 +433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bbdb5a4b984eb4bf57948f58a7edfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  statRegainEntries:
-  - regainStatId: 4
-    applyRegainToStatId: 0
 --- !u!114 &8613070362011562632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d960d72a3f74fd297cfe4c7ad4911f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   startPos: {x: 0, y: 0, z: 0}
@@ -491,8 +476,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bf98791a754f55a0580e14c4e6229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &-2298945933162806613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14d1054e4cb4926aee031e74e42241a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8739879269285926711
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,8 +589,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.7
-  m_fontSizeBase: 1.7
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

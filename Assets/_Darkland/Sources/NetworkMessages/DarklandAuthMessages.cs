@@ -5,26 +5,26 @@ namespace _Darkland.Sources.NetworkMessages {
 
     public static class DarklandAuthMessages {
 
-        public struct GetPlayerCharactersRequestMessage : NetworkMessage { }
+        public struct GetHeroesRequestMessage : NetworkMessage { }
 
-        public struct GetPlayerCharactersResponseMessage : NetworkMessage {
-            public List<string> playerCharacterNames;
+        public struct GetDarklandHeroesResponseMessage : NetworkMessage {
+            public List<string> heroNames;
         }
 
-        public struct NewPlayerCharacterRequestMessage : NetworkMessage {
-            public string playerCharacterName;
+        public struct NewHeroRequestMessage : NetworkMessage {
+            public string heroName;
         }
 
-        public struct NewPlayerCharacterResponseMessage : NetworkMessage {
+        public struct NewDarklandHeroResponseMessage : NetworkMessage {
             public bool success;
             public string message;
         }
         
-        public struct PlayerEnterGameRequestMessage : NetworkMessage {
-            public string selectedPlayerCharacterName;
+        public struct HeroEnterGameRequestMessage : NetworkMessage {
+            public string selectedHeroName;
         }
         
-        public struct PlayerEnterGameResponseMessage : NetworkMessage {
+        public struct DarklandHeroEnterGameResponseMessage : NetworkMessage {
             
         }
 

@@ -12,53 +12,53 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         [SerializeField]
         private RegisterPanel registerPanel;
         [SerializeField]
-        private PlayerCharactersPanel playerCharactersPanel;
+        private HeroesPanel heroesPanel;
         [SerializeField]
-        private NewCharacterPanel newCharacterPanel;
+        private NewHeroPanel newHeroPanel;
         [SerializeField]
         private Image backgroundImage;
 
         private void OnEnable() {
             loginPanel.LoginClicked += LoginPanelOnLoginClicked;
             loginPanel.RegisterClicked += LoginPanelOnRegisterClicked;
-            loginPanel.LoginSuccess += GetPlayerCharacters;
+            loginPanel.LoginSuccess += GetHero;
 
             registerPanel.RegisterClicked += RegisterPanelOnRegisterClicked;
             registerPanel.BackClicked += BackToLogin;
-            registerPanel.RegisterSuccess += GetPlayerCharacters;
+            registerPanel.RegisterSuccess += GetHero;
 
-            playerCharactersPanel.StartClicked += PlayerCharactersPanelOnStartClicked;
-            playerCharactersPanel.NewCharacterClicked += PlayerCharactersPanelOnNewCharacterClicked;
-            playerCharactersPanel.BackClicked += BackToLogin;
+            heroesPanel.StartClicked += HeroesPanelOnStartClicked;
+            heroesPanel.NewHeroClicked += HeroesPanelOnNewHeroClicked;
+            heroesPanel.BackClicked += BackToLogin;
 
-            newCharacterPanel.CreateClicked += NewCharacterPanelOnCreateClicked;
-            newCharacterPanel.BackClicked += GetPlayerCharacters;
-            newCharacterPanel.NewPlayerCharacterSuccess += GetPlayerCharacters;
+            newHeroPanel.CreateClicked += NewHeroPanelOnCreateClicked;
+            newHeroPanel.BackClicked += GetHero;
+            newHeroPanel.NewHeroSuccess += GetHero;
 
-            DarklandNetworkManager.clientGetPlayerCharactersSuccess += ClientGetPlayerCharactersSuccess;
-            DarklandNetworkManager.clientPlayerEnterGameSuccess += ClientPlayerEnterGameSuccess;
+            DarklandNetworkManager.clientGetHeroesSuccess += ClientGetHeroesSuccess;
+            DarklandNetworkManager.clientHeroEnterGameSuccess += ClientHeroEnterGameSuccess;
             DarklandNetworkManager.clientDisconnected += OnClientDisconnected;
         }
 
         private void OnDisable() {
             loginPanel.LoginClicked -= LoginPanelOnLoginClicked;
             loginPanel.RegisterClicked -= LoginPanelOnRegisterClicked;
-            loginPanel.LoginSuccess -= GetPlayerCharacters;
+            loginPanel.LoginSuccess -= GetHero;
 
             registerPanel.RegisterClicked -= RegisterPanelOnRegisterClicked;
             registerPanel.BackClicked -= BackToLogin;
-            registerPanel.RegisterSuccess -= GetPlayerCharacters;
+            registerPanel.RegisterSuccess -= GetHero;
 
-            playerCharactersPanel.StartClicked -= PlayerCharactersPanelOnStartClicked;
-            playerCharactersPanel.NewCharacterClicked -= PlayerCharactersPanelOnNewCharacterClicked;
-            playerCharactersPanel.BackClicked -= BackToLogin;
+            heroesPanel.StartClicked -= HeroesPanelOnStartClicked;
+            heroesPanel.NewHeroClicked -= HeroesPanelOnNewHeroClicked;
+            heroesPanel.BackClicked -= BackToLogin;
 
-            newCharacterPanel.CreateClicked -= NewCharacterPanelOnCreateClicked;
-            newCharacterPanel.BackClicked -= GetPlayerCharacters;
-            newCharacterPanel.NewPlayerCharacterSuccess -= GetPlayerCharacters;
+            newHeroPanel.CreateClicked -= NewHeroPanelOnCreateClicked;
+            newHeroPanel.BackClicked -= GetHero;
+            newHeroPanel.NewHeroSuccess -= GetHero;
 
-            DarklandNetworkManager.clientGetPlayerCharactersSuccess -= ClientGetPlayerCharactersSuccess;
-            DarklandNetworkManager.clientPlayerEnterGameSuccess -= ClientPlayerEnterGameSuccess;
+            DarklandNetworkManager.clientGetHeroesSuccess -= ClientGetHeroesSuccess;
+            DarklandNetworkManager.clientHeroEnterGameSuccess -= ClientHeroEnterGameSuccess;
             DarklandNetworkManager.clientDisconnected -= OnClientDisconnected;
         }
 
@@ -78,20 +78,20 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             NetworkManager.singleton.StartClient();
         }
 
-        private void PlayerCharactersPanelOnNewCharacterClicked() => ShowChildPanel(newCharacterPanel);
+        private void HeroesPanelOnNewHeroClicked() => ShowChildPanel(newHeroPanel);
 
-        private static void PlayerCharactersPanelOnStartClicked(string playerCharacterName) =>
-            NetworkClient.Send(new DarklandAuthMessages.PlayerEnterGameRequestMessage {selectedPlayerCharacterName = playerCharacterName});
+        private static void HeroesPanelOnStartClicked(string heroName) =>
+            NetworkClient.Send(new DarklandAuthMessages.HeroEnterGameRequestMessage {selectedHeroName = heroName});
 
-        private static void NewCharacterPanelOnCreateClicked(string playerCharacterName) =>
-            NetworkClient.Send(new DarklandAuthMessages.NewPlayerCharacterRequestMessage {playerCharacterName = playerCharacterName});
+        private static void NewHeroPanelOnCreateClicked(string heroName) =>
+            NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage {heroName = heroName});
 
-        private void ClientGetPlayerCharactersSuccess(List<string> playerCharacterNames) {
-            ShowChildPanel(playerCharactersPanel);
-            playerCharactersPanel.Init(playerCharacterNames);
+        private void ClientGetHeroesSuccess(List<string> heroNames) {
+            ShowChildPanel(heroesPanel);
+            heroesPanel.Init(heroNames);
         }
 
-        private void ClientPlayerEnterGameSuccess() => Hide();
+        private void ClientHeroEnterGameSuccess() => Hide();
 
         private void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
             backgroundImage.enabled = true;
@@ -104,7 +104,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             ShowChildPanel(loginPanel);
         }
 
-        private static void GetPlayerCharacters() => NetworkClient.Send(new DarklandAuthMessages.GetPlayerCharactersRequestMessage());
+        private static void GetHero() => NetworkClient.Send(new DarklandAuthMessages.GetHeroesRequestMessage());
 
         private void ShowChildPanel(Component panelComponent) {
             for (var i = 0; i < transform.childCount; i++) {

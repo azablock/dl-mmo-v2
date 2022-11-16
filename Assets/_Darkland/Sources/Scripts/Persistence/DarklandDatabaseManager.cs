@@ -7,7 +7,7 @@ namespace _Darkland.Sources.Scripts.Persistence {
     public class DarklandDatabaseManager : MonoBehaviour {
 
         public static readonly DarklandAccountRepository darklandAccountRepository = new();
-        public static readonly DarklandPlayerCharacterRepository darklandPlayerCharacterRepository = new();
+        public static readonly DarklandHeroRepository darklandHeroRepository = new();
 
         private static IMongoDatabase _db;
         private static MongoClient _client;

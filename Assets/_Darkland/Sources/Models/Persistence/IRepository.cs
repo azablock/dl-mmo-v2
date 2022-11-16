@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.Scripts.Persistence;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -10,6 +11,7 @@ namespace _Darkland.Sources.Models.Persistence {
         IEnumerable<T> FindAll();
         T FindById(ObjectId id);
         void Create(T entity);
+        void ReplaceById(T entity);
     }
 
     public abstract class Repository<T> : IRepository<T> where T : MongoEntity {
@@ -26,6 +28,8 @@ namespace _Darkland.Sources.Models.Persistence {
 
         public void Create(T entity) => GetCollection().InsertOne(entity);
 
+        public void ReplaceById(T entity) => GetCollection().ReplaceOne(it => it.id.Equals(entity.id), entity);
+        
         public abstract string collectionName { get; }
     }
 

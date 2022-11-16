@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Account;
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Persistence;
-using kcp2k;
 using Mirror;
 using UnityEngine;
 
@@ -26,10 +26,10 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public static Action<DisconnectStatus> clientDisconnected;
-        public static Action<List<string>> clientGetPlayerCharactersSuccess;
-        public static Action clientNewPlayerCharacterSuccess;
-        public static Action<string> clientNewPlayerCharacterFailure;
-        public static Action clientPlayerEnterGameSuccess;
+        public static Action<List<string>> clientGetHeroesSuccess;
+        public static Action clientNewHeroSuccess;
+        public static Action<string> clientNewHeroFailure;
+        public static Action clientHeroEnterGameSuccess;
 
         /// <summary>
         /// Runs on both Server and Client
@@ -73,87 +73,86 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public override void OnStartServer() {
-            NetworkServer.RegisterHandler<DarklandAuthMessages.GetPlayerCharactersRequestMessage>(ServerGetPlayerCharacters);
-            NetworkServer.RegisterHandler<DarklandAuthMessages.NewPlayerCharacterRequestMessage>(ServerNewPlayerCharacter);
-            NetworkServer.RegisterHandler<DarklandAuthMessages.PlayerEnterGameRequestMessage>(ServerOnPlayerEnterGame);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.GetHeroesRequestMessage>(ServerGetHeroes);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.NewHeroRequestMessage>(ServerNewHero);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>(ServerHeroEnterGame);
+        }
+
+        public override void OnServerDisconnect(NetworkConnectionToClient conn) {
+            DarklandHeroService.ServerSaveDarklandHero(conn.identity.gameObject);
+            base.OnServerDisconnect(conn);
         }
 
         [Server]
-        private void ServerGetPlayerCharacters(NetworkConnectionToClient conn,
-                                               DarklandAuthMessages.GetPlayerCharactersRequestMessage msg) {
+        private void ServerGetHeroes(NetworkConnectionToClient conn,
+                                             DarklandAuthMessages.GetHeroesRequestMessage msg) {
             var accountName = ((DarklandAuthState) conn.authenticationData).accountName;
             var darklandAccountEntity = DarklandDatabaseManager
                 .darklandAccountRepository
                 .FindByName(accountName);
-            var playerCharacterNames = DarklandDatabaseManager
-                .darklandPlayerCharacterRepository
+            var heroNames = DarklandDatabaseManager
+                .darklandHeroRepository
                 .FindAllByDarklandAccountId(darklandAccountEntity.id)
                 .Select(it => it.name)
                 .ToList();
 
-            ((DarklandAuthState) conn.authenticationData).playerCharacterNames = playerCharacterNames;
+            ((DarklandAuthState) conn.authenticationData).heroNames = heroNames;
 
-            conn.Send(new DarklandAuthMessages.GetPlayerCharactersResponseMessage {playerCharacterNames = playerCharacterNames});
+            conn.Send(new DarklandAuthMessages.GetDarklandHeroesResponseMessage {heroNames = heroNames});
         }
 
         [Server]
-        private void ServerNewPlayerCharacter(NetworkConnectionToClient conn,
-                                              DarklandAuthMessages.NewPlayerCharacterRequestMessage msg) {
-            var playerCharacterName = msg.playerCharacterName;
-            var nameExists = DarklandDatabaseManager.darklandPlayerCharacterRepository.ExistsByName(playerCharacterName);
-            var isNameEmpty = string.IsNullOrEmpty(playerCharacterName);
+        private void ServerNewHero(NetworkConnectionToClient conn,
+                                              DarklandAuthMessages.NewHeroRequestMessage msg) {
+            var heroName = msg.heroName;
+            var nameExists = DarklandDatabaseManager.darklandHeroRepository.ExistsByName(heroName);
+            var isNameEmpty = string.IsNullOrEmpty(heroName);
 
             if (nameExists) {
-                conn.Send(new DarklandAuthMessages.NewPlayerCharacterResponseMessage {success = false, message = "Name taken!"});
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {success = false, message = "Name taken!"});
             }
             else if (isNameEmpty) {
-                conn.Send(new DarklandAuthMessages.NewPlayerCharacterResponseMessage {success = false, message = "Name empty!"});
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {success = false, message = "Name empty!"});
             }
             else {
                 var accountName = ((DarklandAuthState) (conn.authenticationData)).accountName;
                 var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(accountName);
 
-                var darklandPlayerCharacterEntity = new DarklandPlayerCharacterEntity {
-                    name = playerCharacterName,
+                var darklandHeroEntity = new DarklandHeroEntity {
+                    name = heroName,
                     darklandAccountId = darklandAccountEntity.id
                 };
 
-                DarklandDatabaseManager.darklandPlayerCharacterRepository.Create(darklandPlayerCharacterEntity);
+                DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
 
-                conn.Send(new DarklandAuthMessages.NewPlayerCharacterResponseMessage {
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {
                     success = true,
-                    message = "Player Character Created!"
+                    message = "Darkland Hero Created!"
                 });
             }
         }
 
         [Server]
-        private void ServerOnPlayerEnterGame(NetworkConnectionToClient conn,
-                                             DarklandAuthMessages.PlayerEnterGameRequestMessage msg) {
+        private void ServerHeroEnterGame(NetworkConnectionToClient conn,
+                                             DarklandAuthMessages.HeroEnterGameRequestMessage msg) {
             var isBot = ((DarklandAuthState) conn.authenticationData).isBot; 
-            var darklandPlayerGameObject = Instantiate(isBot ? darklandBotPrefab : playerPrefab);
-        
-            NetworkServer.AddPlayerForConnection(conn, darklandPlayerGameObject);
-            conn.Send(new DarklandAuthMessages.PlayerEnterGameResponseMessage());
-        
-            //todo init/bootstrap process
-            // darklandPlayerGameObject.GetComponent<StatsHolder>().Stat(StatId.MovementSpeed).Set(StatValue.OfBasic(1.0f));
-        
-            // NetworkServer.SendToAll(new DarklandAuthMessages.DarklandAuthResponseMessage {
-                // spawnedPlayerNetworkIdentity = conn.identity
-            // });
+            var selectedHeroName = msg.selectedHeroName; //todo save in auth data this value 
+            var darklandHeroGameObject = Instantiate(isBot ? darklandBotPrefab : playerPrefab);
+            NetworkServer.AddPlayerForConnection(conn, darklandHeroGameObject);
+
+            if (!isBot) {
+                DarklandHeroService.ServerLoadDarklandHero(darklandHeroGameObject, selectedHeroName);
+            }
+            
+            conn.Send(new DarklandAuthMessages.DarklandHeroEnterGameResponseMessage());
+            
+            Debug.Log($"Hero [{conn.identity.netId}] entered at {NetworkTime.time}");
         }
 
         public override void OnStartClient() {
-            NetworkClient.RegisterHandler<DarklandAuthMessages.GetPlayerCharactersResponseMessage>(ClientOnGetPlayerCharacters);
-            NetworkClient.RegisterHandler<DarklandAuthMessages.NewPlayerCharacterResponseMessage>(ClientOnNewPlayerCharacter);
-            NetworkClient.RegisterHandler<DarklandAuthMessages.PlayerEnterGameResponseMessage>(ClientOnPlayerEnterGame);
-        }
-
-        public override void OnClientConnect() {
-            base.OnClientConnect();
-
-            Debug.Log($"OnClientConnect (ready state) at {NetworkTime.time}");
+            NetworkClient.RegisterHandler<DarklandAuthMessages.GetDarklandHeroesResponseMessage>(ClientOnGetDarklandHeroes);
+            NetworkClient.RegisterHandler<DarklandAuthMessages.NewDarklandHeroResponseMessage>(ClientOnNewDarklandHero);
+            NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandHeroEnterGameResponseMessage>(ClientOnDarklandHeroEnterGame);
         }
 
         public override void OnClientDisconnect() {
@@ -167,23 +166,23 @@ namespace _Darkland.Sources.Scripts {
 
 
         [Client]
-        private static void ClientOnGetPlayerCharacters(DarklandAuthMessages.GetPlayerCharactersResponseMessage msg) =>
-            clientGetPlayerCharactersSuccess?.Invoke(msg.playerCharacterNames);
+        private static void ClientOnGetDarklandHeroes(DarklandAuthMessages.GetDarklandHeroesResponseMessage msg) =>
+            clientGetHeroesSuccess?.Invoke(msg.heroNames);
 
         [Client]
-        private static void ClientOnNewPlayerCharacter(DarklandAuthMessages.NewPlayerCharacterResponseMessage msg) {
+        private static void ClientOnNewDarklandHero(DarklandAuthMessages.NewDarklandHeroResponseMessage msg) {
             if (msg.success) {
-                clientNewPlayerCharacterSuccess?.Invoke();
+                clientNewHeroSuccess?.Invoke();
             }
             else {
-                clientNewPlayerCharacterFailure?.Invoke(msg.message);
+                clientNewHeroFailure?.Invoke(msg.message);
             }
         }
         
         [Client]
-        private void ClientOnPlayerEnterGame(DarklandAuthMessages.PlayerEnterGameResponseMessage msg) {
-            Debug.Log($"ClientOnPlayerEnterGame {msg} at + {NetworkTime.time}");
-            clientPlayerEnterGameSuccess?.Invoke();
+        private void ClientOnDarklandHeroEnterGame(DarklandAuthMessages.DarklandHeroEnterGameResponseMessage msg) {
+            Debug.Log($"ClientOnDarklandHeroEnterGame {msg} at + {NetworkTime.time}");
+            clientHeroEnterGameSuccess?.Invoke();
         }
 
         private IEnumerator StartHeadless(ICollection<string> args) {

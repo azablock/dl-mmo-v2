@@ -10,27 +10,26 @@ namespace _Darkland.Sources.Scripts.Presentation {
         [SerializeField]
         private TextMeshProUGUI debugText;
 
-        private DarklandPlayer _darklandPlayer;
+        private DarklandHero _darklandHero;
 
         private void Awake() {
-            _darklandPlayer = GetComponentInParent<DarklandPlayer>();
-            _darklandPlayer.ClientStarted += ClientOnClientStarted;
+            _darklandHero = GetComponentInParent<DarklandHero>();
+            _darklandHero.ClientHeroNameSet += ClientOnHeroNameSet;
         }
 
         private void OnDestroy() {
-            _darklandPlayer.ClientStarted -= ClientOnClientStarted;
+            _darklandHero.ClientHeroNameSet -= ClientOnHeroNameSet;
         }
 
         [Client]
-        private void ClientOnClientStarted() {
-            var isLocal = _darklandPlayer.isLocalPlayer;
-            var isBot = _darklandPlayer.GetComponent<DarklandBot>() != null;
-            var netId = _darklandPlayer.netId;
+        private void ClientOnHeroNameSet(string heroName) {
+            var isLocal = _darklandHero.isLocalPlayer;
+            var isBot = _darklandHero.GetComponent<DarklandBot>() != null;
+            var netId = _darklandHero.netId;
             var debugTag = isLocal ? "local" : "client";
             var botSymbol = isBot ? "*" : "";
-            var characterName = _darklandPlayer.characterName;
 
-            debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{characterName}";
+            debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{heroName}";
         }
     }
 
