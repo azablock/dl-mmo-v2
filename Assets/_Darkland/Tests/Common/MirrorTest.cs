@@ -24,7 +24,7 @@ namespace Mirror.Tests
             instantiated = new List<GameObject>();
 
             // need a transport to send & receive
-            Transport.activeTransport = transport = new GameObject().AddComponent<MemoryTransport>();
+            Transport.active = transport = new GameObject().AddComponent<MemoryTransport>();
         }
 
         public virtual void TearDown()
@@ -43,7 +43,7 @@ namespace Mirror.Tests
                     GameObject.DestroyImmediate(go);
 
             GameObject.DestroyImmediate(transport.gameObject);
-            Transport.activeTransport = null;
+            Transport.active = null;
         }
 
         // create a tracked GameObject for tests without Networkidentity

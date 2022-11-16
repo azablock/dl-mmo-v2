@@ -10,7 +10,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         public HashSet<Stat> stats { get; private set; }
         public HashSet<StatId> statIds { get; private set; }
-        public IStatPreChangeHooksHolder statPreChangeHooksHolder { get; private set; }
+        public virtual IStatPreChangeHooksHolder statPreChangeHooksHolder { get; private set; }
 
         //todo nowy interface z tego
         public event Action<StatId, float> ClientChanged;

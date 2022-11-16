@@ -1,21 +1,32 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Unit.Stats2;
 using _Darkland.Tests.Common;
 using Mirror;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
 namespace _Darkland.Tests.PlayMode.Stats2 {
 
     public class SimpleStatsHolder : StatsHolder {
-
+        
         [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
         private float _health;
 
+        private IStatPreChangeHooksHolder _statPreChangeHooksHolder;
+
         [Server]
         private void ServerSetHealth(float val) => _health = val;
+
+        private void Start() {
+            _statPreChangeHooksHolder = Substitute.For<IStatPreChangeHooksHolder>();
+            _statPreChangeHooksHolder.PreChangeHooks(Arg.Any<StatId>()).Returns(new List<IStatPreChangeHook>());
+        }
+
+        public override IStatPreChangeHooksHolder statPreChangeHooksHolder => _statPreChangeHooksHolder;
     }
     
     [TestFixture]
@@ -42,7 +53,6 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             
             //Assert
             Assert.AreEqual(0.0f, healthStatValue);
-            Assert.AreEqual(0.0f, healthStatValue);
             yield return null;
         }
 
@@ -57,7 +67,6 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             
             //Assert
             Assert.AreEqual(1.0f, healthStatValue);
-            Assert.AreEqual(0.0f, healthStatValue);
             yield return null;
         }
 
