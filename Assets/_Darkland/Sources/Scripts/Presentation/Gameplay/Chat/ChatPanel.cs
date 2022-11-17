@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +24,22 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         private readonly List<string> chatHistory = new();
 
+        public event Action<string> MessageInputFieldValueChanged;
+
         private void OnEnable() {
             NetworkServer.RegisterHandler<ChatMessages.ChatMessageRequestMessage>(ServerHandleChatMessage);
             NetworkClient.RegisterHandler<ChatMessages.ChatMessageResponseMessage>(ClientHandleChatMessage);
             NetworkClient.RegisterHandler<ChatMessages.ServerLogResponseMessage>(ClientHandleServerLogMessage);
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
+            messageInputField.onValueChanged.AddListener(ClientOnMessageInputFieldValueChanged);
         }
-
+        
         private void OnDisable() {
             NetworkServer.UnregisterHandler<ChatMessages.ChatMessageRequestMessage>();
             NetworkClient.UnregisterHandler<ChatMessages.ChatMessageResponseMessage>();
             NetworkClient.UnregisterHandler<ChatMessages.ServerLogResponseMessage>();
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
+            messageInputField.onValueChanged.RemoveListener(ClientOnMessageInputFieldValueChanged);
 
             chatHistory.Clear();
             chatHistoryText.text = string.Empty;
@@ -75,6 +80,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             messageInputField.Select();
             messageInputField.ActivateInputField();
         }
+
+        [Client]
+        private void ClientOnMessageInputFieldValueChanged(string val) => MessageInputFieldValueChanged?.Invoke(val);
 
         [Client]
         private IEnumerator ClientUpdateScrollbar() {

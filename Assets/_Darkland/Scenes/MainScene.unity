@@ -384,38 +384,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_margin.w
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_margin.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_margin.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_margin.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 432.9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 216.49995
-      objectReference: {fileID: 0}
     - target: {fileID: 5266772924925758664, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -503,38 +471,6 @@ PrefabInstance:
     - target: {fileID: 5266772924925758668, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_Name
       value: Darkland Root Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772925870536310, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_Inertia
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772925870536310, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_MovementType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772926587887050, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5266772926587887050, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8060646128488910814, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
