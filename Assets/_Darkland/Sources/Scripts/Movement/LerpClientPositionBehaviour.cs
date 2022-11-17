@@ -26,14 +26,23 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        private void ServerOnDiscretePositionChanged(Vector3Int pos) {
-            ClientRpcChangePosition(pos, _movementSpeedStat.Get());
+        private void ServerOnDiscretePositionChanged(PositionChangeData data) {
+            var isClientImmediate = data.clientImmediate;
+
+            if (isClientImmediate) {
+                ClientRpcImmediateChangePosition(data.pos);
+            } else {
+                ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get());
+            }
         }
 
         [ClientRpc]
-        private void ClientRpcChangePosition(Vector3Int newPosition, float movementSpeed) {
+        private void ClientRpcLerpPosition(Vector3Int newPosition, float movementSpeed) {
             StartCoroutine(ClientChangePosition(newPosition, movementSpeed));
         }
+
+        [ClientRpc]
+        private void ClientRpcImmediateChangePosition(Vector3Int newPosition) => transform.position = newPosition;
 
         [Client]
         private IEnumerator ClientChangePosition(Vector3Int newPosition, float movementSpeed) {

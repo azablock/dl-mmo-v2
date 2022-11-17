@@ -18,8 +18,8 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        private void ServerOnDiscretePositionChanged(Vector3Int pos) {
-            ClientRpcChangePosition(pos);
+        private void ServerOnDiscretePositionChanged(PositionChangeData data) {
+            ClientRpcChangePosition(data.pos);
         }
 
         [ClientRpc]
