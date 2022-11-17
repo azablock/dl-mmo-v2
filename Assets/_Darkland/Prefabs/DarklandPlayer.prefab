@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4130173737674582242}
   - component: {fileID: 5560752418698053298}
+  - component: {fileID: 6717632378520939464}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
   m_Color: {r: 0.3700605, g: 0.5970362, b: 0.7924528, a: 1}
   m_FlipX: 0
@@ -85,6 +86,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6717632378520939464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832562923141189791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4ff0788399450fa4a0c6e9c65d3680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroDebugCanvas: {fileID: 4919863777184171392}
+  heroSpriteRenderer: {fileID: 5560752418698053298}
 --- !u!1 &2586022512654985377
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +160,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &3745647225156825748
 MonoBehaviour:
@@ -451,7 +466,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  startPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2367031762826027735
 MonoBehaviour:
   m_ObjectHideFlags: 0
