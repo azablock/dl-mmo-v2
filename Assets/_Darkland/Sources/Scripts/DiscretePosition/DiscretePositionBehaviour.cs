@@ -7,31 +7,26 @@ namespace _Darkland.Sources.Scripts.DiscretePosition {
 
     public class DiscretePositionBehaviour : NetworkBehaviour, IDiscretePosition {
 
-        //todo tmp
-        public Vector3Int startPos;
-        
-        [field: SyncVar(hook = nameof(ClientSyncPos))]
+        [field: SyncVar]
         public Vector3Int Pos { get; private set; }
 
-        public event Action<Vector3Int> Changed;
-
-        public override void OnStartServer() {
-            Set(startPos);
-        }
+        public event Action<PositionChangeData> Changed;
 
         [Server]
         public void Set(Vector3Int pos) {
             Pos = pos;
-            Changed?.Invoke(Pos);
+            Changed?.Invoke(new PositionChangeData {pos = Pos, clientImmediate = false});
+        }
+
+        [Server]
+        public void SetClientImmediate(Vector3Int pos) {
+            Pos = pos;
+            Changed?.Invoke(new PositionChangeData {pos = Pos, clientImmediate = true});
         }
 
         [Server]
         public void ServerAdd(Vector3Int delta) {
             Set(Pos + delta);
-        }
-
-        private void ClientSyncPos(Vector3Int _, Vector3Int newPos) {
-            Debug.Log($"netId[{netId}] changed pos on client: {newPos.ToString()}");
         }
     }
 

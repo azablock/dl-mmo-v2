@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using TMPro;
@@ -41,12 +42,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         [Server]
         private static void ServerHandleChatMessage(NetworkConnectionToClient conn, ChatMessages.ChatMessageRequestMessage msg) {
-            var heroName = conn.identity.GetComponent<DarklandHero>().heroName;
-            NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage { message = msg.message, heroName = heroName });
+            var netIdentity = conn.identity;
+            var heroName = netIdentity.GetComponent<DarklandHero>().heroName;
+            var netId = netIdentity.netId;
+            NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage { message = msg.message, heroName = heroName, senderNetId = netId });
         }
 
         [Client]
-        private void ClientHandleChatMessage(ChatMessages.ChatMessageResponseMessage msg) => ClientUpdateChat($"{msg.heroName}: {msg.message}");
+        private void ClientHandleChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
+            var isLocalPlayer = msg.senderNetId == DarklandHero.localHero.netId;
+            ClientUpdateChat(ChatMessagesFormatter.FormatChatMessage(msg.heroName, msg.message, isLocalPlayer));
+        }
 
         [Client]
         private void ClientHandleServerLogMessage(ChatMessages.ServerLogResponseMessage msg) => ClientUpdateChat($"{msg.message}");

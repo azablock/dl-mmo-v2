@@ -35,7 +35,7 @@ namespace _Darkland.Sources.Models.Persistence {
             darklandHero.GetComponent<MongoIdHolder>().ServerSetMongoId(entity.id);
 
             var pos = new Vector3Int(entity.posX, entity.posY, entity.posZ);
-            darklandHero.GetComponent<IDiscretePosition>().Set(pos);
+            darklandHero.GetComponent<IDiscretePosition>().SetClientImmediate(pos);
             darklandHero.transform.position = pos;
 
             darklandHero.heroName = heroName;
