@@ -26,18 +26,24 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         public event Action<string> MessageInputFieldValueChanged;
 
-        private void OnEnable() {
+        private void Awake() {
             NetworkServer.RegisterHandler<ChatMessages.ChatMessageRequestMessage>(ServerHandleChatMessage);
             NetworkClient.RegisterHandler<ChatMessages.ChatMessageResponseMessage>(ClientHandleChatMessage);
             NetworkClient.RegisterHandler<ChatMessages.ServerLogResponseMessage>(ClientHandleServerLogMessage);
+        }
+
+        private void OnDestroy() {
+            NetworkServer.UnregisterHandler<ChatMessages.ChatMessageRequestMessage>();
+            NetworkClient.UnregisterHandler<ChatMessages.ChatMessageResponseMessage>();
+            NetworkClient.UnregisterHandler<ChatMessages.ServerLogResponseMessage>();
+        }
+
+        private void OnEnable() {
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
             messageInputField.onValueChanged.AddListener(ClientOnMessageInputFieldValueChanged);
         }
         
         private void OnDisable() {
-            NetworkServer.UnregisterHandler<ChatMessages.ChatMessageRequestMessage>();
-            NetworkClient.UnregisterHandler<ChatMessages.ChatMessageResponseMessage>();
-            NetworkClient.UnregisterHandler<ChatMessages.ServerLogResponseMessage>();
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
             messageInputField.onValueChanged.RemoveListener(ClientOnMessageInputFieldValueChanged);
 
