@@ -325,6 +325,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 524122901, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
+      propertyPath: visRange
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 530370294835301396, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Name
       value: Darkland Network Manager
@@ -392,9 +396,37 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5266772924673982742, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000007763505
+    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_margin.w
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_margin.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_margin.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884251, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_margin.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 432.9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772924691884252, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 216.49995
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924925758664, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_Pivot.x
@@ -484,12 +516,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Darkland Root Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5266772925870536310, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_Inertia
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772925870536310, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266772925961343832, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
     - target: {fileID: 5266772926587887050, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5266772926587887050, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060646128488910814, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
