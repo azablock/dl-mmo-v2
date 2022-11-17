@@ -23,30 +23,41 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         private readonly List<string> chatHistory = new();
 
         private void OnEnable() {
-            NetworkServer.RegisterHandler<ChatMessages.ChatMessageRequestMessage>(ServeHandleChatMessage);
+            NetworkServer.RegisterHandler<ChatMessages.ChatMessageRequestMessage>(ServerHandleChatMessage);
             NetworkClient.RegisterHandler<ChatMessages.ChatMessageResponseMessage>(ClientHandleChatMessage);
+            NetworkClient.RegisterHandler<ChatMessages.ServerLogResponseMessage>(ClientHandleServerLogMessage);
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
         }
 
         private void OnDisable() {
             NetworkServer.UnregisterHandler<ChatMessages.ChatMessageRequestMessage>();
             NetworkClient.UnregisterHandler<ChatMessages.ChatMessageResponseMessage>();
+            NetworkClient.UnregisterHandler<ChatMessages.ServerLogResponseMessage>();
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
+
             chatHistory.Clear();
             chatHistoryText.text = string.Empty;
         }
 
         [Server]
-        private static void ServeHandleChatMessage(NetworkConnectionToClient conn, ChatMessages.ChatMessageRequestMessage msg) {
+        private static void ServerHandleChatMessage(NetworkConnectionToClient conn, ChatMessages.ChatMessageRequestMessage msg) {
             var heroName = conn.identity.GetComponent<DarklandHero>().heroName;
             NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage { message = msg.message, heroName = heroName });
         }
 
         [Client]
-        private void ClientHandleChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
+        private void ClientHandleChatMessage(ChatMessages.ChatMessageResponseMessage msg) => ClientUpdateChat($"{msg.heroName}: {msg.message}");
+
+        [Client]
+        private void ClientHandleServerLogMessage(ChatMessages.ServerLogResponseMessage msg) => ClientUpdateChat($"{msg.message}");
+
+        [Client]
+        private void ClientUpdateChat(string message) {
             if (chatHistory.Count == chatMessagesLimit) chatHistory.RemoveAt(0);
-            chatHistory.Add($"{msg.heroName}: {msg.message}");
+            chatHistory.Add(message);
             chatHistoryText.text = chatHistory.Aggregate(string.Empty, (current, it) => current + $"{it}\n");
+
+            StartCoroutine(ClientUpdateScrollbar());
         }
 
         [Client]
@@ -57,13 +68,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             messageInputField.text = string.Empty;
             messageInputField.Select();
             messageInputField.ActivateInputField();
-
-            StartCoroutine(ClientUpdateScrollbar());
         }
 
         [Client]
         private IEnumerator ClientUpdateScrollbar() {
-            yield return new WaitForSeconds(0.05f);
+            yield return null;
+            yield return null;
             chatScrollbar.value = 0;
         }
     }

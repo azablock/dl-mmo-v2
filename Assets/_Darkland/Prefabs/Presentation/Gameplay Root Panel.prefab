@@ -189,7 +189,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 128
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -478,8 +478,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5791975187001812517}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99997926
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6837f0ef09044bb918d656e7dba9eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatMessagesLimit: 15
+  chatMessagesLimit: 30
   messageInputField: {fileID: 5791975186031319418}
   chatHistoryText: {fileID: 5791975186178986804}
   chatScrollbar: {fileID: 5791975186387670635}

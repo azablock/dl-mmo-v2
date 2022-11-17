@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Account;
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Persistence;
 using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.NetworkMessages;
@@ -79,7 +80,14 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-            DarklandHeroService.ServerSaveDarklandHero(conn.identity.gameObject);
+            var netIdentity = conn.identity;
+            var heroName = netIdentity.GetComponent<DarklandHero>().heroName;
+            var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has left the game.");
+
+            NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
+            DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
+            Debug.Log(message);
+            
             base.OnServerDisconnect(conn);
         }
 
@@ -146,7 +154,11 @@ namespace _Darkland.Sources.Scripts {
             
             conn.Send(new DarklandAuthMessages.DarklandHeroEnterGameResponseMessage());
             
-            Debug.Log($"Hero [{conn.identity.netId}] entered at {NetworkTime.time}");
+            var heroName = conn.identity.GetComponent<DarklandHero>().heroName;
+            var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has joined the game.");
+
+            NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
+            Debug.Log(message);
         }
 
         public override void OnStartClient() {
@@ -178,12 +190,10 @@ namespace _Darkland.Sources.Scripts {
                 clientNewHeroFailure?.Invoke(msg.message);
             }
         }
-        
+
         [Client]
-        private void ClientOnDarklandHeroEnterGame(DarklandAuthMessages.DarklandHeroEnterGameResponseMessage msg) {
-            Debug.Log($"ClientOnDarklandHeroEnterGame {msg} at + {NetworkTime.time}");
+        private void ClientOnDarklandHeroEnterGame(DarklandAuthMessages.DarklandHeroEnterGameResponseMessage msg) =>
             clientHeroEnterGameSuccess?.Invoke();
-        }
 
         private IEnumerator StartHeadless(ICollection<string> args) {
             Debug.Log($"{GetType()}.StartHeadless()");

@@ -12,6 +12,10 @@ namespace _Darkland.Sources.NetworkMessages {
             public string message;
             public string heroName;
         }
+
+        public struct ServerLogResponseMessage : NetworkMessage {
+            public string message;
+        }
     }
 
 }

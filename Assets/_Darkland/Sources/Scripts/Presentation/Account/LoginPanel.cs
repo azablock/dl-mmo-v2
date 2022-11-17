@@ -36,7 +36,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             DarklandNetworkAuthenticator.clientAuthSuccess -= OnClientAuthSuccess;
             DarklandNetworkAuthenticator.clientAuthFailure -= OnClientAuthFailure;
         }
-        
+
+        public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
+            if (disconnectStatus.fromServer) {
+                loginStatusText.text = "Disconnected from server!";
+                Debug.Log("Disconnected from server at " + NetworkTime.time);
+            } else {
+                loginStatusText.text = "Login Status - client triggered";
+                Debug.Log("client disconnected from server at " + NetworkTime.time);
+            }
+
+            DarklandNetworkManager.self.StopClient();
+        }
+
         private void SubmitLogin() {
             loginStatusText.text = "Loading...";
             LoginClicked?.Invoke(accountNameInputField.text);
@@ -58,19 +70,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             loginStatusText.text = "Account does not exist!";
 
             Debug.Log("client rejected at " + NetworkTime.time);
-            DarklandNetworkManager.self.StopClient();
-        }
-        
-        public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
-            if (disconnectStatus.fromServer) {
-                loginStatusText.text = "Disconnected from server!";
-                Debug.Log("Disconnected from server at " + NetworkTime.time);
-            }
-            else {
-                loginStatusText.text = "Login Status - client triggered";
-                Debug.Log("client disconnected from server at " + NetworkTime.time);
-            }
-
             DarklandNetworkManager.self.StopClient();
         }
     }
