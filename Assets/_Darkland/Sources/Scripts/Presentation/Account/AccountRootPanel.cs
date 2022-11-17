@@ -36,7 +36,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             newHeroPanel.NewHeroSuccess += GetHero;
 
             DarklandNetworkManager.clientGetHeroesSuccess += ClientGetHeroesSuccess;
-            DarklandNetworkManager.clientHeroEnterGameSuccess += ClientHeroEnterGameSuccess;
             DarklandNetworkManager.clientDisconnected += OnClientDisconnected;
         }
 
@@ -58,7 +57,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             newHeroPanel.NewHeroSuccess -= GetHero;
 
             DarklandNetworkManager.clientGetHeroesSuccess -= ClientGetHeroesSuccess;
-            DarklandNetworkManager.clientHeroEnterGameSuccess -= ClientHeroEnterGameSuccess;
             DarklandNetworkManager.clientDisconnected -= OnClientDisconnected;
         }
 
@@ -91,10 +89,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             heroesPanel.Init(heroNames);
         }
 
-        private void ClientHeroEnterGameSuccess() => Hide();
+        // private void ClientHeroEnterGameSuccess() => Hide();
 
-        private void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
-            backgroundImage.enabled = true;
+        public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
+            // backgroundImage.enabled = true;
             ShowChildPanel(loginPanel);
             loginPanel.OnClientDisconnected(disconnectStatus);
         }
@@ -113,14 +111,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             }
         }
 
-        private void Hide() {
-            for (var i = 0; i < transform.childCount; i++) {
-                var childPanelGameObject = transform.GetChild(i).gameObject;
-                childPanelGameObject.SetActive(false);
-            }
-
-            backgroundImage.enabled = false;
-        }
+        // private void Hide() {
+        //     for (var i = 0; i < transform.childCount; i++) {
+        //         var childPanelGameObject = transform.GetChild(i).gameObject;
+        //         childPanelGameObject.SetActive(false);
+        //     }
+        //
+        //     backgroundImage.enabled = false;
+        // }
 
     }
 

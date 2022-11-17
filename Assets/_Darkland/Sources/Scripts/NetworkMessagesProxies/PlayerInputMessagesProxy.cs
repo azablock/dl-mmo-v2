@@ -19,8 +19,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxies {
 
         [Server]
         private static void ServerHandle(NetworkConnectionToClient conn,
-                                         PlayerInputMessages.MoveRequestMessage message) =>
-            ServerReceived?.Invoke(conn, message);
+                                         PlayerInputMessages.MoveRequestMessage message) => ServerReceived?.Invoke(conn, message);
     }
 
 }
