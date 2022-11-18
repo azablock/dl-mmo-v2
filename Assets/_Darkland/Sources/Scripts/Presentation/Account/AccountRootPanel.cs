@@ -61,13 +61,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             DarklandNetworkManager.self.darklandNetworkAuthenticator.clientIsRegister = false;
             DarklandNetworkManager.self.darklandNetworkAuthenticator.clientAccountName = accountName;
 
-            if (!NetworkServer.active) {
-                DarklandNetworkManager.self.StartHost();
-            }
-            else {
-                DarklandNetworkManager.self.StartClient();
-            }
-            // NetworkManager.singleton.StartClient();
+            StartConnection();
         }
 
         private void LoginPanelOnRegisterClicked() => ShowChildPanel(registerPanel);
@@ -76,22 +70,16 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             DarklandNetworkManager.self.darklandNetworkAuthenticator.clientIsRegister = true;
             DarklandNetworkManager.self.darklandNetworkAuthenticator.clientAccountName = accountName;
 
-            if (!NetworkServer.active) {
-                DarklandNetworkManager.self.StartHost();
-            }
-            else {
-                DarklandNetworkManager.self.StartClient();
-            }
-            // NetworkManager.singleton.StartClient();
+            StartConnection();
         }
 
         private void HeroesPanelOnNewHeroClicked() => ShowChildPanel(newHeroPanel);
 
         private static void HeroesPanelOnStartClicked(string heroName) =>
-            NetworkClient.Send(new DarklandAuthMessages.HeroEnterGameRequestMessage {selectedHeroName = heroName});
+            NetworkClient.Send(new DarklandAuthMessages.HeroEnterGameRequestMessage { selectedHeroName = heroName });
 
         private static void NewHeroPanelOnCreateClicked(string heroName) =>
-            NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage {heroName = heroName});
+            NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage { heroName = heroName });
 
         private void ClientGetHeroesSuccess(List<string> heroNames) {
             ShowChildPanel(heroesPanel);
@@ -115,6 +103,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
                 var childPanelGameObject = transform.GetChild(i).gameObject;
                 childPanelGameObject.SetActive(Equals(panelComponent.gameObject, childPanelGameObject));
             }
+        }
+
+        private static void StartConnection() {
+#if UNITY_EDITOR_64 && !UNITY_SERVER
+            if (!NetworkServer.active) {
+                DarklandNetworkManager.self.StartHost();
+            } else {
+                DarklandNetworkManager.self.StartClient();
+            }
+#else
+                NetworkManager.singleton.StartClient();
+#endif
         }
     }
 
