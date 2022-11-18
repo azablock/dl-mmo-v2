@@ -14,6 +14,9 @@ namespace _Darkland.Sources.Scripts.Presentation {
         private void Awake() {
             _discretePositionBehaviour = GetComponentInParent<DiscretePositionBehaviour>();
             _discretePositionBehaviour.ClientChanged += ClientOnChangePosition;
+            
+            //todo hack usunac to
+            ClientOnChangePosition(_discretePositionBehaviour.Pos);
         }
 
         private void OnDestroy() {

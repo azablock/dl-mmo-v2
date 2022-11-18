@@ -133,11 +133,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 513640949507898861, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 513640949507898861, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 515924185094650325, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_IsActive
@@ -153,27 +153,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630253990281279409, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1630253990281279409, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127151996864803464, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4127151996864803464, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127151996864803464, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6551554248197918369, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6551554248197918369, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6580754936756582854, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_RootOrder
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94089d22f181466abb3776de86b2d328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffsetZ: -0.9
+  cameraOffsetZ: 0.1
   cameraOfflinePosition: {x: 0, y: 0, z: -10}
 --- !u!1001 &530370295703698667
 PrefabInstance:

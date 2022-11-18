@@ -31,6 +31,8 @@ namespace _Darkland.Sources.Scripts.PlayerCamera {
             var cameraTransform = Camera.main.transform;
             cameraTransform.SetParent(DarklandHero.localHero.transform);
             cameraTransform.localPosition = new Vector3(0, 0, cameraTransform.position.z);
+
+            ClientOnLocalPlayerPosChanged(DarklandHero.localHero.GetComponent<IDiscretePosition>().Pos);
         }
 
         private void OnLocalHeroStopped() {
