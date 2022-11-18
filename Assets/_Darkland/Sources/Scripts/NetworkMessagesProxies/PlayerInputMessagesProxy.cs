@@ -7,10 +7,12 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxies {
 
     public class PlayerInputMessagesProxy : MonoBehaviour {
 
-        public static event Action<NetworkConnectionToClient, PlayerInputMessages.MoveRequestMessage> ServerReceived;
+        public static event Action<NetworkConnectionToClient, PlayerInputMessages.MoveRequestMessage> ServerMoveReceived;
+        public static event Action<NetworkConnectionToClient, PlayerInputMessages.ChangeFloorRequestMessage> ServerChangeFloorReceived;
 
         private void Awake() {
-            NetworkServer.RegisterHandler<PlayerInputMessages.MoveRequestMessage>(ServerHandle);
+            NetworkServer.RegisterHandler<PlayerInputMessages.MoveRequestMessage>(ServerHandleMove);
+            NetworkServer.RegisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>(ServerHandleChangeFloor);
         }
 
         private void OnDestroy() {
@@ -18,8 +20,14 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxies {
         }
 
         [Server]
-        private static void ServerHandle(NetworkConnectionToClient conn,
-                                         PlayerInputMessages.MoveRequestMessage message) => ServerReceived?.Invoke(conn, message);
+        private static void ServerHandleMove(NetworkConnectionToClient conn, 
+                                             PlayerInputMessages.MoveRequestMessage message) => 
+            ServerMoveReceived?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleChangeFloor(NetworkConnectionToClient conn, 
+                                                    PlayerInputMessages.ChangeFloorRequestMessage message) => 
+            ServerChangeFloorReceived?.Invoke(conn, message);
     }
 
 }

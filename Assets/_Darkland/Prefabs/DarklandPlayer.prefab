@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
   m_Color: {r: 0.3700605, g: 0.5970362, b: 0.7924528, a: 1}
   m_FlipX: 0
@@ -160,7 +160,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &3745647225156825748
 MonoBehaviour:
@@ -293,6 +293,39 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Move
+      m_Flags: 8
+    m_Flags: 0
+  changeFloorAction:
+    m_Name: Change Floor
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 92fb1f4a-1139-4d09-b217-8849417c7b8e
+    m_Processors: 
+    m_Interactions: Press
+    m_SingletonActionBindings:
+    - m_Name: Upper, Lower Floors
+      m_Id: 529e6f49-44e0-44e4-98ef-944edb0ddca6
+      m_Path: 1DAxis
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Floor
+      m_Flags: 4
+    - m_Name: Negative
+      m_Id: d2d21003-b992-45d5-90ec-fd7bcb253bd6
+      m_Path: <Keyboard>/numpadPlus
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Floor
+      m_Flags: 8
+    - m_Name: Positive
+      m_Id: af59aa43-a741-4da0-a864-103595d241b8
+      m_Path: <Keyboard>/numpadMinus
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Floor
       m_Flags: 8
     m_Flags: 0
 --- !u!1 &6084493378536407968

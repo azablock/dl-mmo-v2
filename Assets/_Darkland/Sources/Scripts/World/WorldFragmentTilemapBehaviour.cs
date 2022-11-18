@@ -7,9 +7,10 @@ namespace _Darkland.Sources.Scripts.World {
     [RequireComponent(typeof(Tilemap))]
     public class WorldFragmentTilemapBehaviour : MonoBehaviour {
 
-        private Tilemap tilemap;
+        public Tilemap tilemap { get; private set; }
 
         public List<Vector3Int> staticObstaclePositions { get; private set; }
+        public List<Vector3Int> allFieldPositions { get; private set; }
 
         private void Awake() {
             tilemap = GetComponent<Tilemap>();
@@ -18,8 +19,14 @@ namespace _Darkland.Sources.Scripts.World {
             for (var y = 0; y < 64; y++) {
                 for (var x = 0; x < 64; x++) {
                     var pos = new Vector3Int(x, y, 0);
-    
-                    if (tilemap.HasTile(pos) && tilemap.GetTile(pos).name.StartsWith("o_")) {
+
+                    var hasTile = tilemap.HasTile(pos);
+
+                    if (hasTile) {
+                        allFieldPositions.Add(pos);
+                    }
+                    
+                    if (hasTile && tilemap.GetTile(pos).name.StartsWith("o_")) {
                         staticObstaclePositions.Add(pos);
                     }
                 }

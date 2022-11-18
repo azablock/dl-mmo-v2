@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.World {
@@ -15,10 +16,10 @@ namespace _Darkland.Sources.Scripts.World {
 
         private void Awake() => _ = this;
 
+        public static Vector2Int ChunkCoordinatesByGlobalPos(Vector3Int pos) => new(pos.x / ChunkSize, pos.y / ChunkSize);
 
-        public static Vector2Int ChunkCoordinatesByGlobalPos(Vector3Int pos) {
-            return new Vector2Int(pos.x / ChunkSize, pos.y / ChunkSize);
-        }
+        public WorldChunkBehaviour ChunkByGlobalPos(Vector3Int pos) =>
+            worldChunks.FirstOrDefault(it => it.coordinates.Equals(ChunkCoordinatesByGlobalPos(pos)));
     }
 
 }

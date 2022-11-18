@@ -13,6 +13,7 @@ namespace _Darkland.Sources.Models.DiscretePosition {
         void Set(Vector3Int pos);
         void SetClientImmediate(Vector3Int pos);
         event Action<PositionChangeData> Changed;
+        event Action<Vector3Int> ClientChanged;
     }
 
 }

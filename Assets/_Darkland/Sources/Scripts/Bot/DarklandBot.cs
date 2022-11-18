@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Ai;
 using Mirror;
@@ -11,6 +12,12 @@ namespace _Darkland.Sources.Scripts.Bot {
 
         private void Awake() {
             _availableMovesDummyHandler = GetComponent<AvailableMovesDummyHandler>();
+        }
+
+        public override void OnStartServer() {
+            var isSingleName = Random.Range(0, 10) % 3 == 0;
+            var heroName = isSingleName ? $"{CharacterNames.RandomName()}" : $"{CharacterNames.RandomName()} {CharacterNames.RandomName()}";
+            GetComponent<DarklandHero>().heroName = heroName;
         }
 
         public override void OnStartLocalPlayer() {
