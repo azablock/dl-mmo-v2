@@ -22,16 +22,11 @@ namespace _Darkland.Sources.Scripts {
         public override void OnStartLocalPlayer() {
             localHero = this;
             LocalHeroStarted?.Invoke();
-            if (Camera.main == null) return;
 
-            var cameraTransform = Camera.main.transform;
-            cameraTransform.SetParent(transform);
-            cameraTransform.localPosition = new Vector3(0, 0, cameraTransform.position.z);
         }
 
         public override void OnStopLocalPlayer() {
             LocalHeroStopped?.Invoke();
-            if (Camera.main != null) Camera.main.transform.SetParent(null);
         }
 
         [Client]

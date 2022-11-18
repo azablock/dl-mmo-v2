@@ -47,7 +47,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
                 var possibleNextPosition = _discretePosition.Pos + _movementVector;
 
-                if (MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour._, _discretePosition.Pos, possibleNextPosition)) {
+                if (MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour2._, _discretePosition.Pos, possibleNextPosition)) {
                     ServerSetDiscretePosition(possibleNextPosition);
                 }
                 
@@ -59,6 +59,8 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private void ServerSetDiscretePosition(Vector3Int pos) {
+            if (!MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour2._, _discretePosition.Pos, pos)) return;
+            
             _discretePosition.Set(pos);
 
             if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
