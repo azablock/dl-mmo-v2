@@ -15,11 +15,6 @@ namespace _Darkland.Sources.Scripts {
         public static event Action LocalHeroStopped;
         public static DarklandHero localHero;
 
-        public override void OnStartServer() {
-            // var isSingleName = Random.Range(0, 10) % 3 == 0;
-            // heroName = isSingleName ? $"{CharacterNames.RandomName()}" : $"{CharacterNames.RandomName()} {CharacterNames.RandomName()}";
-        }
-
         public override void OnStartClient() {
             ClientStarted?.Invoke();
         }
@@ -27,6 +22,7 @@ namespace _Darkland.Sources.Scripts {
         public override void OnStartLocalPlayer() {
             localHero = this;
             LocalHeroStarted?.Invoke();
+
         }
 
         public override void OnStopLocalPlayer() {

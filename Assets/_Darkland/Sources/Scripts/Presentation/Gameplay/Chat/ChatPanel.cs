@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -22,57 +23,43 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         [SerializeField]
         private Scrollbar chatScrollbar;
 
-        private readonly List<string> chatHistory = new();
+        private readonly List<string> _chatHistory = new();
 
         public event Action<string> MessageInputFieldValueChanged;
-
-        private void Awake() {
-            NetworkServer.RegisterHandler<ChatMessages.ChatMessageRequestMessage>(ServerHandleChatMessage);
-            NetworkClient.RegisterHandler<ChatMessages.ChatMessageResponseMessage>(ClientHandleChatMessage);
-            NetworkClient.RegisterHandler<ChatMessages.ServerLogResponseMessage>(ClientHandleServerLogMessage);
-        }
-
-        private void OnDestroy() {
-            NetworkServer.UnregisterHandler<ChatMessages.ChatMessageRequestMessage>();
-            NetworkClient.UnregisterHandler<ChatMessages.ChatMessageResponseMessage>();
-            NetworkClient.UnregisterHandler<ChatMessages.ServerLogResponseMessage>();
-        }
 
         private void OnEnable() {
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
             messageInputField.onValueChanged.AddListener(ClientOnMessageInputFieldValueChanged);
+
+            ChatMessagesProxy.ClientChatMessageReceived += ClientAddChatMessage;
+            ChatMessagesProxy.ClientServerLogReceived += ClientAddServerLogMessage;
         }
         
         private void OnDisable() {
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
             messageInputField.onValueChanged.RemoveListener(ClientOnMessageInputFieldValueChanged);
 
-            chatHistory.Clear();
+            ChatMessagesProxy.ClientChatMessageReceived -= ClientAddChatMessage;
+            ChatMessagesProxy.ClientServerLogReceived -= ClientAddServerLogMessage;
+            
+            _chatHistory.Clear();
             chatHistoryText.text = string.Empty;
         }
 
-        [Server]
-        private static void ServerHandleChatMessage(NetworkConnectionToClient conn, ChatMessages.ChatMessageRequestMessage msg) {
-            var netIdentity = conn.identity;
-            var heroName = netIdentity.GetComponent<DarklandHero>().heroName;
-            var netId = netIdentity.netId;
-            NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage { message = msg.message, heroName = heroName, senderNetId = netId });
-        }
-
         [Client]
-        private void ClientHandleChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
+        private void ClientAddChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
             var isLocalPlayer = msg.senderNetId == DarklandHero.localHero.netId;
             ClientUpdateChat(ChatMessagesFormatter.FormatChatMessage(msg.heroName, msg.message, isLocalPlayer));
         }
 
         [Client]
-        private void ClientHandleServerLogMessage(ChatMessages.ServerLogResponseMessage msg) => ClientUpdateChat($"{msg.message}");
+        private void ClientAddServerLogMessage(ChatMessages.ServerLogResponseMessage msg) => ClientUpdateChat($"{msg.message}");
 
         [Client]
         private void ClientUpdateChat(string message) {
-            if (chatHistory.Count == chatMessagesLimit) chatHistory.RemoveAt(0);
-            chatHistory.Add(message);
-            chatHistoryText.text = chatHistory.Aggregate(string.Empty, (current, it) => current + $"{it}\n");
+            if (_chatHistory.Count == chatMessagesLimit) _chatHistory.RemoveAt(0);
+            _chatHistory.Add(message);
+            chatHistoryText.text = _chatHistory.Aggregate(string.Empty, (current, it) => current + $"{it}\n");
 
             StartCoroutine(ClientUpdateScrollbar());
         }
