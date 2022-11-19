@@ -10,23 +10,23 @@ namespace _Darkland.Sources.Scripts.Presentation {
         public SpriteRenderer heroSpriteRenderer;
         
         private IDiscretePosition _discretePosition;
+        private DarklandHero _darklandHero;
 
         private void Awake() {
+            _darklandHero = GetComponentInParent<DarklandHero>();
             _discretePosition = GetComponentInParent<IDiscretePosition>();
 
-            DarklandHero.LocalHeroStarted += ClientOnLocalHeroStarted;
             _discretePosition.ClientChanged += ClientOnChangePosition;
+            _darklandHero.ClientStarted += DarklandHeroOnClientStarted;
         }
 
         private void OnDestroy() {
-            DarklandHero.LocalHeroStarted -= ClientOnLocalHeroStarted;
             _discretePosition.ClientChanged -= ClientOnChangePosition;
+            _darklandHero.ClientStarted -= DarklandHeroOnClientStarted;
         }
 
         [Client]
-        private void ClientOnLocalHeroStarted() {
-            ClientOnChangePosition(_discretePosition.Pos);
-        }
+        private void DarklandHeroOnClientStarted() => ClientOnChangePosition(_discretePosition.Pos);
 
         [Client]
         private void ClientOnChangePosition(Vector3Int pos) {
