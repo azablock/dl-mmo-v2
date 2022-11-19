@@ -443,6 +443,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 530370294835301396, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Name
       value: Darkland Network Manager

@@ -3,21 +3,30 @@ using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Scripts.NetworkMessagesProxies {
+namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
 
-    public class PlayerInputMessagesProxy : MonoBehaviour {
+    public class PlayerInputMessagesProxy : MonoBehaviour, INetworkMessagesProxy {
 
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.MoveRequestMessage> ServerMoveReceived;
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.ChangeFloorRequestMessage> ServerChangeFloorReceived;
 
-        private void Awake() {
+        [Server]
+        public void OnStartServer() {
             NetworkServer.RegisterHandler<PlayerInputMessages.MoveRequestMessage>(ServerHandleMove);
             NetworkServer.RegisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>(ServerHandleChangeFloor);
         }
 
-        private void OnDestroy() {
+        [Server]
+        public void OnStopServer() {
             NetworkServer.UnregisterHandler<PlayerInputMessages.MoveRequestMessage>();
+            NetworkServer.UnregisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>();
         }
+
+        [Client]
+        public void OnStartClient() {}
+
+        [Client]
+        public void OnStopClient() {}
 
         [Server]
         private static void ServerHandleMove(NetworkConnectionToClient conn, 

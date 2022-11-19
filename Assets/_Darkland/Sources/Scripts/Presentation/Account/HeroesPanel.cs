@@ -33,6 +33,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             heroesDropdown.ClearOptions();
             startButton.onClick.RemoveListener(EnterGame);
             createHeroButton.onClick.RemoveListener(CreateHero);
+            backButton.onClick.RemoveListener(BackToLogin);
         }
 
         public void Init(IEnumerable<string> heroNames) {

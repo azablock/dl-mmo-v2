@@ -7,6 +7,7 @@ using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Persistence;
 using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Persistence;
 using Mirror;
 using UnityEngine;
@@ -26,6 +27,8 @@ namespace _Darkland.Sources.Scripts {
             public bool fromServer;
         }
 
+        private List<INetworkMessagesProxy> _networkMessagesProxies;
+
         public static Action<DisconnectStatus> clientDisconnected;
         public static Action<List<string>> clientGetHeroesSuccess;
         public static Action clientNewHeroSuccess;
@@ -37,6 +40,8 @@ namespace _Darkland.Sources.Scripts {
         /// Networking is NOT initialized when this fires
         /// </summary>
         public override void Start() {
+            _networkMessagesProxies = GetComponentsInChildren<INetworkMessagesProxy>().ToList();
+            
             var args = Environment.GetCommandLineArgs().ToList();
 
             for (var i = 0; i < args.Count; i++) {
@@ -77,16 +82,29 @@ namespace _Darkland.Sources.Scripts {
             NetworkServer.RegisterHandler<DarklandAuthMessages.GetHeroesRequestMessage>(ServerGetHeroes);
             NetworkServer.RegisterHandler<DarklandAuthMessages.NewHeroRequestMessage>(ServerNewHero);
             NetworkServer.RegisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>(ServerHeroEnterGame);
+            
+            _networkMessagesProxies.ForEach(it => it.OnStartServer());
+        }
+
+        public override void OnStopServer() {
+            NetworkServer.UnregisterHandler<DarklandAuthMessages.GetHeroesRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandAuthMessages.NewHeroRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>();
+            
+            _networkMessagesProxies.ForEach(it => it.OnStopServer());
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn) {
             var netIdentity = conn.identity;
-            var heroName = netIdentity.GetComponent<DarklandHero>().heroName;
-            var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has left the game.");
 
-            NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
-            DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
-            Debug.Log(message);
+            if (netIdentity != null) {
+                var heroName = netIdentity.GetComponent<DarklandHero>().heroName;
+                var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has left the game.");
+
+                NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
+                DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
+                Debug.Log(message);
+            }
             
             base.OnServerDisconnect(conn);
         }
@@ -157,7 +175,12 @@ namespace _Darkland.Sources.Scripts {
             var heroName = conn.identity.GetComponent<DarklandHero>().heroName;
             var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has joined the game.");
 
-            NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
+            NetworkServer.SendToReadyObservers(
+                conn.identity,
+                new ChatMessages.ServerLogResponseMessage { message = message },
+                false
+            );
+            
             Debug.Log(message);
         }
 
@@ -165,6 +188,16 @@ namespace _Darkland.Sources.Scripts {
             NetworkClient.RegisterHandler<DarklandAuthMessages.GetDarklandHeroesResponseMessage>(ClientOnGetDarklandHeroes);
             NetworkClient.RegisterHandler<DarklandAuthMessages.NewDarklandHeroResponseMessage>(ClientOnNewDarklandHero);
             NetworkClient.RegisterHandler<DarklandAuthMessages.DarklandHeroEnterGameResponseMessage>(ClientOnDarklandHeroEnterGame);
+            
+            _networkMessagesProxies.ForEach(it => it.OnStartClient());
+        }
+
+        public override void OnStopClient() {
+            NetworkClient.UnregisterHandler<DarklandAuthMessages.GetDarklandHeroesResponseMessage>();
+            NetworkClient.UnregisterHandler<DarklandAuthMessages.NewDarklandHeroResponseMessage>();
+            NetworkClient.UnregisterHandler<DarklandAuthMessages.DarklandHeroEnterGameResponseMessage>();
+
+            _networkMessagesProxies.ForEach(it => it.OnStopClient());
         }
 
         public override void OnClientDisconnect() {

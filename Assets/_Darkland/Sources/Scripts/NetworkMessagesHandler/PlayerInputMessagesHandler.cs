@@ -2,12 +2,12 @@ using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Movement;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Movement;
-using _Darkland.Sources.Scripts.NetworkMessagesProxies;
+using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Scripts.NetworkMessagesHandlers {
+namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
 
     public class PlayerInputMessagesHandler : MonoBehaviour {
 

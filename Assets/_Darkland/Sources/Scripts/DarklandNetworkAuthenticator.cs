@@ -45,6 +45,10 @@ namespace _Darkland.Sources.Scripts {
             NetworkServer.RegisterHandler<DarklandAuthRequestMessage>(OnAuthRequestMessage, false);
         }
 
+        public override void OnStopServer() {
+            NetworkServer.UnregisterHandler<DarklandAuthRequestMessage>();
+        }
+
         /// <summary>
         /// Called on server from OnServerAuthenticateInternal when a client needs to authenticate
         /// </summary>
@@ -123,6 +127,10 @@ namespace _Darkland.Sources.Scripts {
         public override void OnStartClient() {
             // register a handler for the authentication response we expect from server
             NetworkClient.RegisterHandler<DarklandAuthResponseMessage>(OnAuthResponseMessage, false);
+        }
+
+        public override void OnStopClient() {
+            NetworkClient.UnregisterHandler<DarklandAuthResponseMessage>();
         }
 
         /// <summary>

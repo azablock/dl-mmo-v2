@@ -1,4 +1,4 @@
-using _Darkland.Sources.Scripts.DiscretePosition;
+using _Darkland.Sources.Models.DiscretePosition;
 using Mirror;
 using UnityEngine;
 
@@ -9,18 +9,23 @@ namespace _Darkland.Sources.Scripts.Presentation {
         public Canvas heroDebugCanvas;
         public SpriteRenderer heroSpriteRenderer;
         
-        private DiscretePositionBehaviour _discretePositionBehaviour;
+        private IDiscretePosition _discretePosition;
 
         private void Awake() {
-            _discretePositionBehaviour = GetComponentInParent<DiscretePositionBehaviour>();
-            _discretePositionBehaviour.ClientChanged += ClientOnChangePosition;
-            
-            //todo hack usunac to
-            ClientOnChangePosition(_discretePositionBehaviour.Pos);
+            _discretePosition = GetComponentInParent<IDiscretePosition>();
+
+            DarklandHero.LocalHeroStarted += ClientOnLocalHeroStarted;
+            _discretePosition.ClientChanged += ClientOnChangePosition;
         }
 
         private void OnDestroy() {
-            _discretePositionBehaviour.ClientChanged -= ClientOnChangePosition;
+            DarklandHero.LocalHeroStarted -= ClientOnLocalHeroStarted;
+            _discretePosition.ClientChanged -= ClientOnChangePosition;
+        }
+
+        [Client]
+        private void ClientOnLocalHeroStarted() {
+            ClientOnChangePosition(_discretePosition.Pos);
         }
 
         [Client]
