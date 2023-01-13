@@ -1,6 +1,8 @@
+using System;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
@@ -10,19 +12,19 @@ using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
-
     public class PlayerInputMessagesHandler : MonoBehaviour {
-
         private void Awake() {
-            PlayerInputMessagesProxy.ServerMoveReceived += ServerProcessMove;
-            PlayerInputMessagesProxy.ServerChangeFloorReceived += ServerProcessChangeFloor;
-            PlayerInputMessagesProxy.ServerNpcClickReceived += ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerMove += ServerProcessMove;
+            PlayerInputMessagesProxy.ServerChangeFloor += ServerProcessChangeFloor;
+            PlayerInputMessagesProxy.ServerNpcClick += ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
         }
-        
+
         private void OnDestroy() {
-            PlayerInputMessagesProxy.ServerMoveReceived -= ServerProcessMove;
-            PlayerInputMessagesProxy.ServerChangeFloorReceived -= ServerProcessChangeFloor;
-            PlayerInputMessagesProxy.ServerNpcClickReceived -= ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
+            PlayerInputMessagesProxy.ServerChangeFloor -= ServerProcessChangeFloor;
+            PlayerInputMessagesProxy.ServerNpcClick -= ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerGetHealthStats -= ServerProcessGetHealthStats;
         }
 
         [Server]
@@ -44,13 +46,20 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
 
         [Server]
         private static void ServerProcessNpcClick(NetworkConnectionToClient conn,
-                                                  PlayerInputMessages.NpcClickRequestMessage msg){
+                                                  PlayerInputMessages.NpcClickRequestMessage msg) {
             var message = ChatMessagesFormatter.FormatServerLog($"Npc netId[{msg.npcNetId}] clicked.");
-            conn.Send(new ChatMessages.ServerLogResponseMessage {message = message});
-            
+            conn.Send(new ChatMessages.ServerLogResponseMessage { message = message });
+
             conn.identity.GetComponent<TargetNetIdHolderBehaviour>().ServerSet(msg.npcNetId);
         }
 
-    }
+        [Server]
+        private static void ServerProcessGetHealthStats(NetworkConnectionToClient conn,
+                                                        PlayerInputMessages.GetHealthStatsRequestMessage message) {
+            var statsHolder = conn.identity.GetComponent<IStatsHolder>();
+            var (health, maxHealth) = statsHolder.Values(StatId.Health, StatId.MaxHealth);
 
+            conn.Send(new PlayerInputMessages.GetHealthStatsResponseMessage { health = health, maxHealth = maxHealth });
+        }
+    }
 }

@@ -2,7 +2,7 @@ using System;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
-namespace _Darkland.Sources.ScriptableObjects.Stats2 {
+namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
     [CreateAssetMenu(
             menuName = "DL/" + nameof(StatPostChangeHook) + "/" + nameof(CheckHealthOnMaxHealthStatPostChangeHook),

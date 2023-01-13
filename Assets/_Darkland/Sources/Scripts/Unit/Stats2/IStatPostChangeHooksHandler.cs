@@ -1,6 +1,7 @@
 using System;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.ScriptableObjects.Stats2;
+using _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook;
 
 namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 

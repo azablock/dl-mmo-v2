@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
-namespace _Darkland.Sources.ScriptableObjects.Stats2 {
+namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
     public abstract class StatPostChangeHook : ScriptableObject {
         public StatId[] requiredStatIds;
