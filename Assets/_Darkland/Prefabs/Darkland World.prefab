@@ -186,6 +186,7 @@ Transform:
   - {fileID: 7436624194335373444}
   - {fileID: 4900493965855784815}
   - {fileID: 4118814509026429250}
+  - {fileID: 7323156147552841385}
   m_Father: {fileID: 6580754936756582854}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -837,6 +838,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3b285486bf47c190223cd3f14e2af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4098177889047306264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7323156147552841385}
+  m_Layer: 0
+  m_Name: Teleport Tiles 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7323156147552841385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098177889047306264}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7640437374246755918}
+  m_Father: {fileID: 1059869474049067740}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5531538991643862123
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,7 +886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1630253990281279409
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,7 +1142,7 @@ GameObject:
   - component: {fileID: 6580754936756582854}
   - component: {fileID: 8739375901275613104}
   m_Layer: 0
-  m_Name: World
+  m_Name: Darkland World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2117,16 +2150,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 4, y: 8, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 5
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
@@ -2139,7 +2162,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 27d596c2bd5a8f740a4b6532b861c061, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 571c1b5dde90e8d4d97054f513632402, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -2152,10 +2175,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1918449675, guid: b3db5d38f70d4dc4784bb5809b46df76, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 1207746912, guid: b3db5d38f70d4dc4784bb5809b46df76, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data:
       e00: 1
       e01: 0
@@ -2174,7 +2197,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2451,3 +2474,83 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1001 &9012324504635249525
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 7323156147552841385}
+    m_Modifications:
+    - target: {fileID: 829068061307287362, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 829068061307287362, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 829068061307287362, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 536408327
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612850655037610777, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: m_Name
+      value: Teleport Tile Ladder Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721969650871514969, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+      propertyPath: delta.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+--- !u!4 &7640437374246755918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1664779543368273211, guid: 3b3205322ef6be14081efb9c32f091e2, type: 3}
+  m_PrefabInstance: {fileID: 9012324504635249525}
+  m_PrefabAsset: {fileID: 0}

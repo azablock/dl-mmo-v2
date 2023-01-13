@@ -1,6 +1,6 @@
 using System.Collections;
 using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Movement;
+using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
@@ -40,6 +40,13 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
+        public void ServerMoveClientImmediate(Vector3Int movementVector) {
+            if (!_isReadyForNextMove) return;
+            
+            _discretePosition.Set(_discretePosition.Pos + movementVector, true);
+        }
+
+        [Server]
         private IEnumerator ServerMove() {
             while (_movementVector != Vector3Int.zero) {
 
@@ -47,9 +54,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
                 var possibleNextPosition = _discretePosition.Pos + _movementVector;
 
-                if (MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour2._, _discretePosition.Pos, possibleNextPosition)) {
-                    ServerSetDiscretePosition(possibleNextPosition);
-                }
+                ServerSetDiscretePosition(possibleNextPosition);
                 
                 yield return new WaitForSeconds(ServerTimeBetweenMoves());
 
@@ -59,8 +64,8 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private void ServerSetDiscretePosition(Vector3Int pos) {
-            if (!MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour2._, _discretePosition.Pos, pos)) return;
-            
+            if (!WorldInteractionFilters.IsEmptyField(DarklandWorldBehaviour._, pos)) return;
+
             _discretePosition.Set(pos);
 
             if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {

@@ -30,8 +30,6 @@ namespace _Darkland.Sources.Scripts {
             public string message;
         }
 
-
-
         #endregion
 
         #region Server
@@ -172,23 +170,7 @@ namespace _Darkland.Sources.Scripts {
             }
         }
 
-        // private IEnumerator BeginAuthentication(NetworkConnection conn)
-        // {
-        //     Debug.Log($"Authentication countdown started {conn} {clientTimeout}");
-        //     yield return new WaitForSecondsRealtime(clientTimeoutSeconds);
-        //
-        //     if (!conn.isAuthenticated)
-        //     {
-        //         Debug.LogError($"Authentication Timeout - Disconnecting {conn}");
-        //         conn.Disconnect();
-        //         clientTimeout?.Invoke();
-        //         
-        //     }
-        // }
-
-
         #endregion
-
     }
 
 }

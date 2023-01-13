@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
-    public class PlayerStatsHolder : StatsHolder {
+    public class SimpleStatsHolder : StatsHolder {
 
         [SyncVar(hook = nameof(ClientSyncHealth))]
         [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
@@ -42,19 +42,13 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ServerSetMovementSpeed(float val) => movementSpeed = val;
 
         [Client]
-        private void ClientSyncHealth(float _, float val) {
-            InvokeClientChanged(StatId.Health, val);
-        }
+        private void ClientSyncHealth(float _, float val) => InvokeClientChanged(StatId.Health, val);
 
         [Client]
-        private void ClientSyncMaxHealth(float _, float val) {
-            InvokeClientChanged(StatId.MaxHealth, val);
-        }
+        private void ClientSyncMaxHealth(float _, float val) => InvokeClientChanged(StatId.MaxHealth, val);
 
         [Client]
-        private void ClientSyncMovementSpeed(float _, float val) {
-            InvokeClientChanged(StatId.MovementSpeed, val);
-        }
+        private void ClientSyncMovementSpeed(float _, float val) => InvokeClientChanged(StatId.MovementSpeed, val);
     }
 
     /*

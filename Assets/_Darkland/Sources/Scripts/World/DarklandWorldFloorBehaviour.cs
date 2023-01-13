@@ -1,20 +1,21 @@
 using System.Collections.Generic;
+using _Darkland.Sources.Models.World;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace _Darkland.Sources.Scripts.World {
 
     [RequireComponent(typeof(Tilemap))]
-    public class WorldFragmentTilemapBehaviour : MonoBehaviour {
+    public class DarklandWorldFloorBehaviour : MonoBehaviour, IDarklandWorldFloor {
 
         private Tilemap _tilemap;
 
-        public List<Vector3Int> staticObstaclePositions { get; private set; }
+        public List<Vector3Int> obstaclePositions { get; private set; }
         public List<Vector3Int> allFieldPositions { get; private set; }
 
         private void Awake() {
             _tilemap = GetComponent<Tilemap>();
-            staticObstaclePositions = new List<Vector3Int>();
+            obstaclePositions = new List<Vector3Int>();
             allFieldPositions = new List<Vector3Int>();
 
             for (var y = _tilemap.cellBounds.yMin; y < _tilemap.cellBounds.yMax; y++) {
@@ -29,7 +30,7 @@ namespace _Darkland.Sources.Scripts.World {
                     allFieldPositions.Add(worldPos);
 
                     if (_tilemap.GetTile(pos).name.StartsWith("o_")) {
-                        staticObstaclePositions.Add(worldPos);
+                        obstaclePositions.Add(worldPos);
                     }
                 }
             }

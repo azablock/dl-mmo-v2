@@ -1,6 +1,6 @@
 using System;
+using _Darkland.Sources.Models.Unit;
 using Mirror;
-using UnityEngine;
 
 namespace _Darkland.Sources.Scripts {
 
@@ -9,15 +9,10 @@ namespace _Darkland.Sources.Scripts {
         [SyncVar(hook = nameof(ClientSyncHeroName))]
         public string heroName;
 
-        public event Action ClientStarted;
         public event Action<string> ClientHeroNameSet;
         public static event Action LocalHeroStarted;
         public static event Action LocalHeroStopped;
         public static DarklandHero localHero;
-
-        public override void OnStartClient() {
-            ClientStarted?.Invoke();
-        }
 
         public override void OnStartLocalPlayer() {
             localHero = this;

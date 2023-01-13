@@ -1,6 +1,8 @@
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Movement;
+using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.World;
@@ -14,15 +16,18 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private void Awake() {
             PlayerInputMessagesProxy.ServerMoveReceived += ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloorReceived += ServerProcessChangeFloor;
+            PlayerInputMessagesProxy.ServerNpcClickReceived += ServerProcessNpcClick;
         }
-
+        
         private void OnDestroy() {
             PlayerInputMessagesProxy.ServerMoveReceived -= ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloorReceived -= ServerProcessChangeFloor;
+            PlayerInputMessagesProxy.ServerNpcClickReceived -= ServerProcessNpcClick;
         }
 
         [Server]
-        private static void ServerProcessMove(NetworkConnectionToClient conn, PlayerInputMessages.MoveRequestMessage message) {
+        private static void ServerProcessMove(NetworkConnectionToClient conn,
+                                              PlayerInputMessages.MoveRequestMessage message) {
             conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
         }
 
@@ -32,10 +37,20 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var discretePosition = conn.identity.GetComponent<IDiscretePosition>();
             var possibleNextPosition = discretePosition.Pos + message.movementVector;
 
-            if (MovementStaticObstacleFilter.ServerCanMove(WorldRootBehaviour2._, discretePosition.Pos, possibleNextPosition)) {
-                discretePosition.SetClientImmediate(possibleNextPosition);
+            if (WorldInteractionFilters.IsEmptyField(DarklandWorldBehaviour._, possibleNextPosition)) {
+                discretePosition.Set(possibleNextPosition, true);
             }
         }
+
+        [Server]
+        private static void ServerProcessNpcClick(NetworkConnectionToClient conn,
+                                                  PlayerInputMessages.NpcClickRequestMessage msg){
+            var message = ChatMessagesFormatter.FormatServerLog($"Npc netId[{msg.npcNetId}] clicked.");
+            conn.Send(new ChatMessages.ServerLogResponseMessage {message = message});
+            
+            conn.identity.GetComponent<TargetNetIdHolderBehaviour>().ServerSet(msg.npcNetId);
+        }
+
     }
 
 }

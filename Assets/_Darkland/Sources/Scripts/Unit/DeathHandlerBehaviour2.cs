@@ -1,3 +1,4 @@
+using System;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.Unit.Stats2.StatEffect;
@@ -6,26 +7,29 @@ using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
-
+    
     [RequireComponent(typeof(IStatsHolder))]
-    public class PlayerDeathHandlerBehaviour : NetworkBehaviour {
+    public class DeathHandlerBehaviour2 : NetworkBehaviour, IDeathEventEmitter {
         
         private IStatsHolder _statsHolder;
         private IStatEffectHandler _statEffectHandler;
-        private IDeathEventEmitter _deathEventEmitter;
+        private Stat _healthStat;
+        public event Action Death;
 
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _statEffectHandler = GetComponent<IStatEffectHandler>();
-            _deathEventEmitter = new DeathEventEmitter(_statsHolder.Stat(StatId.Health));
         }
 
         public override void OnStartServer() {
-            _deathEventEmitter.Death += ServerOnDead;
+            _healthStat = _statsHolder.Stat(StatId.Health);
+            _healthStat.Changed += ServerOnHealthChanged;
+            Death += ServerOnDead;
         }
 
         public override void OnStopServer() {
-            _deathEventEmitter.Death -= ServerOnDead;
+            _healthStat.Changed -= ServerOnHealthChanged;
+            Death -= ServerOnDead;
         }
 
         [Server]
@@ -33,6 +37,12 @@ namespace _Darkland.Sources.Scripts.Unit {
             var maxHealthValue = _statsHolder.ValueOf(StatId.MaxHealth);
             _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(maxHealthValue, StatId.Health));
         }
-    }
 
+        [Server]
+        private void ServerOnHealthChanged(float health) {
+            if (health == 0) {
+                Death?.Invoke();
+            }
+        }
+    }
 }
