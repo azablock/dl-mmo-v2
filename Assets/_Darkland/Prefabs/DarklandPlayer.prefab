@@ -232,7 +232,6 @@ GameObject:
   - component: {fileID: 4716659205440055620}
   - component: {fileID: 7320425550237296429}
   - component: {fileID: 7238438236066071988}
-  - component: {fileID: 6027673817127416247}
   - component: {fileID: 8613070362011562632}
   - component: {fileID: 2367031762826027735}
   - component: {fileID: -7389362793666909981}
@@ -240,6 +239,7 @@ GameObject:
   - component: {fileID: 7740574148441116403}
   - component: {fileID: 3594306894045255747}
   - component: {fileID: 4485592242522042216}
+  - component: {fileID: 690681927740294499}
   m_Layer: 0
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -341,7 +341,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9582c0737d6a47bc8f768332786c6d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preChangeHooks: []
+  preChangeHooks:
+  - id: 0
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
+    - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
+  - id: 1
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
 --- !u!114 &7320425550237296429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +366,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  statPostChangeHooks: []
+  statPostChangeHooks:
+  - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
 --- !u!114 &7238438236066071988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,21 +384,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   persistentStatEffects: []
---- !u!114 &6027673817127416247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6084493378536407968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8bbdb5a4b984eb4bf57948f58a7edfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &8613070362011562632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +486,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   unitName: 
+--- !u!114 &690681927740294499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8bbdb5a4b984eb4bf57948f58a7edfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &8739879269285926711
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
         public float min;
 
-        public override float Apply(IStatsHolder statsHolder, float val) => Mathf.Min(min, val);
+        public override float Apply(IStatsHolder statsHolder, float val) => Mathf.Max(min, val);
     }
 
 }

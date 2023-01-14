@@ -45,6 +45,8 @@ namespace _Darkland.Sources.Models.Persistence {
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.Stat(StatId.MaxHealth).Set(10);
             statsHolder.Stat(StatId.Health).Set(2);
+            statsHolder.Stat(StatId.HealthRegain).Set(1);
+            statsHolder.Stat(StatId.MovementSpeed).Set(4);
         }
     }
 

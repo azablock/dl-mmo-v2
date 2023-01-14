@@ -118,12 +118,12 @@ namespace _Darkland.Sources.Scripts {
             var isBot = ((DarklandAuthState) conn.authenticationData).isBot; 
             var selectedHeroName = msg.selectedHeroName; //todo save in auth data this value 
             var darklandHeroGameObject = Instantiate(isBot ? darklandBotPrefab : darklandPlayerPrefab);
-            NetworkServer.AddPlayerForConnection(conn, darklandHeroGameObject);
 
             if (!isBot) {
                 DarklandHeroService.ServerLoadDarklandHero(darklandHeroGameObject, selectedHeroName);
             }
             
+            NetworkServer.AddPlayerForConnection(conn, darklandHeroGameObject);
             conn.Send(new DarklandAuthMessages.DarklandHeroEnterGameResponseMessage());
             
             var heroName = conn.identity.GetComponent<UnitNameBehaviour>().unitName;

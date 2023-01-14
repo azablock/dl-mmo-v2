@@ -26,7 +26,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private float movementSpeed;
 
         public override void OnStartServer() {
-            ServerSetMovementSpeed(4);
+            // ServerSetMovementSpeed(4);
         }
 
         [Server]
