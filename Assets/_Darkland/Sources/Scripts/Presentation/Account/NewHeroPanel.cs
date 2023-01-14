@@ -23,8 +23,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             createButton.onClick.AddListener(CreateHero);
             backButton.onClick.AddListener(BackToHeroes);
 
-            DarklandNetworkManager.clientNewHeroSuccess += ClientNewHeroSuccess;
-            DarklandNetworkManager.clientNewHeroFailure += ClientNewHeroFailure;
+            DarklandNetworkAuthenticator.clientNewHeroSuccess += ClientNewHeroSuccess;
+            DarklandNetworkAuthenticator.clientNewHeroFailure += ClientNewHeroFailure;
 
             createButton.interactable = true;
             statusText.text = "Create Darkland Hero Status";
@@ -35,8 +35,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             createButton.onClick.RemoveListener(CreateHero);
             backButton.onClick.RemoveListener(BackToHeroes);
 
-            DarklandNetworkManager.clientNewHeroSuccess -= ClientNewHeroSuccess;
-            DarklandNetworkManager.clientNewHeroFailure -= ClientNewHeroFailure;
+            DarklandNetworkAuthenticator.clientNewHeroSuccess -= ClientNewHeroSuccess;
+            DarklandNetworkAuthenticator.clientNewHeroFailure -= ClientNewHeroFailure;
         }
 
         private void CreateHero() {

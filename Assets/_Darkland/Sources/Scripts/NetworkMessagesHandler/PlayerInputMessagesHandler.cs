@@ -7,18 +7,22 @@ using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
+using _Darkland.Sources.Scripts.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
+
     public class PlayerInputMessagesHandler : MonoBehaviour {
+
         private void Awake() {
             PlayerInputMessagesProxy.ServerMove += ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloor += ServerProcessChangeFloor;
             PlayerInputMessagesProxy.ServerNpcClick += ServerProcessNpcClick;
             PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
         }
+
 
         private void OnDestroy() {
             PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
@@ -31,6 +35,15 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerProcessMove(NetworkConnectionToClient conn,
                                               PlayerInputMessages.MoveRequestMessage message) {
             conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
+
+            if (message.movementVector.magnitude == 0) return;
+
+            //todo TEST TEST TEST
+            var targetNetIdentity = conn.identity.GetComponent<ITargetNetIdHolder>().targetNetIdentity;
+            if (targetNetIdentity != null) {
+                var healthStat = targetNetIdentity.GetComponent<IStatsHolder>().Stat(StatId.Health);
+                healthStat.Set(healthStat.Get() - 1);
+            }
         }
 
         [Server]
@@ -56,10 +69,19 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         [Server]
         private static void ServerProcessGetHealthStats(NetworkConnectionToClient conn,
                                                         PlayerInputMessages.GetHealthStatsRequestMessage message) {
-            var statsHolder = conn.identity.GetComponent<IStatsHolder>();
+            var statsHolderNetId = message.statsHolderNetId;
+            var statsHolderNetIdentity = NetworkServer.spawned[statsHolderNetId];
+            var statsHolder = statsHolderNetIdentity.GetComponent<IStatsHolder>();
             var (health, maxHealth) = statsHolder.Values(StatId.Health, StatId.MaxHealth);
+            var unitName = statsHolderNetIdentity.GetComponent<UnitNameBehaviour>().unitName;
 
-            conn.Send(new PlayerInputMessages.GetHealthStatsResponseMessage { health = health, maxHealth = maxHealth });
+            conn.Send(new PlayerInputMessages.GetHealthStatsResponseMessage {
+                health = health,
+                maxHealth = maxHealth,
+                statsHolderNetId = statsHolderNetId,
+                unitName = unitName
+            });
         }
     }
+
 }

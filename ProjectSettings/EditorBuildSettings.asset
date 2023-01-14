@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Darkland/Scenes/MainScene.unity
     guid: 438807ddf38c99f4ea554ac3c291fc3b
+  - enabled: 1
+    path: Assets/_Darkland/Scenes/MainScene Offline.unity
+    guid: a0b673136dbbc1a40ade2bb572c6d5b9
+  - enabled: 1
+    path: Assets/_Darkland/Scenes/MainScene Online.unity
+    guid: 5c774447cb0cae442b4eda5c930f305f
   m_configObjects: {}

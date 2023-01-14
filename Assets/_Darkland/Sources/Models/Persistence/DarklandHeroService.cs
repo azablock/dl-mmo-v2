@@ -2,6 +2,7 @@
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Persistence;
+using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using UnityEngine;
 
@@ -11,12 +12,12 @@ namespace _Darkland.Sources.Models.Persistence {
 
         [Server]
         public static void ServerSaveDarklandHero(GameObject darklandHeroGameObject) {
-            var darklandHero = darklandHeroGameObject.GetComponent<DarklandHero>();
+            var heroName = darklandHeroGameObject.GetComponent<UnitNameBehaviour>().unitName;
             var entity = DarklandDatabaseManager
                 .darklandHeroRepository
-                .FindByName(darklandHero.heroName);
+                .FindByName(heroName);
 
-            var position = darklandHero.GetComponent<IDiscretePosition>().Pos;
+            var position = darklandHeroGameObject.GetComponent<IDiscretePosition>().Pos;
             entity.posX = position.x;
             entity.posY = position.y;
             entity.posZ = position.z;
@@ -39,7 +40,7 @@ namespace _Darkland.Sources.Models.Persistence {
             darklandHero.GetComponent<IDiscretePosition>().Set(pos, true);
             darklandHero.transform.position = pos;
 
-            darklandHero.heroName = heroName;
+            darklandHero.GetComponent<UnitNameBehaviour>().ServerSet(heroName);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.Stat(StatId.MaxHealth).Set(10);

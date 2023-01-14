@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 8095480955623110607}
   - component: {fileID: 3336841614088503935}
   - component: {fileID: 1140317225064950296}
-  - component: {fileID: 9016595066775560128}
   - component: {fileID: 5164315505321520540}
   - component: {fileID: 2006617567216398544}
   - component: {fileID: 6972356571735058417}
+  - component: {fileID: 585354991192703992}
+  - component: {fileID: 3924853209046254753}
   m_Layer: 0
   m_Name: Ai Rat
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_Children:
   - {fileID: 2442241971747655680}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8095480955623110607
 MonoBehaviour:
@@ -87,18 +88,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
---- !u!114 &9016595066775560128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119151979988157374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5bc7e6b09a496093f81149dfded4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5164315505321520540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +138,37 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &585354991192703992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b1e3e8d9f44bd2a73dbfa423098688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitName: Rat
+--- !u!114 &3924853209046254753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde59f422f274a2fb5c9ee5ad85ed213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &288256680686236835
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +180,7 @@ GameObject:
   - component: {fileID: 2442241971747655680}
   - component: {fileID: 4993769725109058151}
   - component: {fileID: 6386603044192068588}
+  - component: {fileID: 5707633642701658311}
   m_Layer: 0
   m_Name: Rat View
   m_TagString: Untagged
@@ -249,6 +270,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitDebugCanvas: {fileID: 2353525760673585909}
   unitSpriteRenderer: {fileID: 4993769725109058151}
+--- !u!65 &5707633642701658311
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288256680686236835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3981014745765721449
 GameObject:
   m_ObjectHideFlags: 0

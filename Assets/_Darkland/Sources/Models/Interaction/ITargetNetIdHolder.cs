@@ -7,6 +7,7 @@ namespace _Darkland.Sources.Models.Interaction {
         NetworkIdentity targetNetIdentity { get; }
         event Action<NetworkIdentity> ServerChanged;
         event Action<NetworkIdentity> ClientChanged;
+        event Action<NetworkIdentity> ClientCleared;
     }
 
 }

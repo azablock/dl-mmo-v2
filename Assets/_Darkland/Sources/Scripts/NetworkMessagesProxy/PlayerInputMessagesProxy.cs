@@ -63,5 +63,6 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         [Client]
         private static void ClientHandleGetHealthStats(PlayerInputMessages.GetHealthStatsResponseMessage message) =>
             ClientGetHealthStats?.Invoke(message);
+
     }
 }
