@@ -95,7 +95,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
         [Server]
         private void ServerCheckDistance(Vector3Int holderPos, Vector3Int targetPos) {
-            if (!ServerIsInTargetDistance(holderPos, targetPos)) {
+            if (!ServerIsInTargetDistance(holderPos, targetPos) || holderPos.z != targetPos.z) {
                 ServerClearTarget();
             }
         }
