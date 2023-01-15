@@ -14,12 +14,12 @@ namespace _Darkland.Sources.Scripts.Presentation {
 
         private void OnEnable() {
             DarklandNetworkManager.clientHeroEnterGameSuccess += ClientHeroEnterGameSuccess;
-            DarklandNetworkManager.clientDisconnected += OnClientDisconnected;
+            DarklandNetworkManager.clientOnPlayerDisconnected += OnClientDisconnected;
         }
 
         private void OnDisable() {
             DarklandNetworkManager.clientHeroEnterGameSuccess -= ClientHeroEnterGameSuccess;
-            DarklandNetworkManager.clientDisconnected -= OnClientDisconnected;
+            DarklandNetworkManager.clientOnPlayerDisconnected -= OnClientDisconnected;
         }
         
         [Client]

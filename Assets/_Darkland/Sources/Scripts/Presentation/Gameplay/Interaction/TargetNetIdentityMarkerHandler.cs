@@ -23,13 +23,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Interaction {
         }
 
         private void DarklandHeroOnLocalHeroStarted() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientCleared += OnClientCleared;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
         }
 
         private void DarklandHeroOnLocalHeroStopped() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientCleared -= OnClientCleared;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
 
             ClearMarker();
         }

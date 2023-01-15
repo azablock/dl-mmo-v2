@@ -7,7 +7,7 @@ namespace _Darkland.Sources.Models.Chat {
     public static class ChatMessagesFormatter {
 
         public static string FormatServerLog(string message) {
-            var networkTimeStr = $"{NetworkTime.time:0.0000}";
+            var networkTimeStr = $"{NetworkTime.time:0.000}";
             var serverPrefix = Colored("[Server]", DarklandColorSet._.info);
 
             return $"{serverPrefix} ({networkTimeStr}): {message}";

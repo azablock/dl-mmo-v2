@@ -17,6 +17,11 @@ GameObject:
   - component: {fileID: 6972356571735058417}
   - component: {fileID: 585354991192703992}
   - component: {fileID: 3924853209046254753}
+  - component: {fileID: 8555989389243704630}
+  - component: {fileID: 7806717631113445499}
+  - component: {fileID: 2980336169064357239}
+  - component: {fileID: 3154160925708691126}
+  - component: {fileID: 1598996541946964017}
   m_Layer: 0
   m_Name: Ai Rat
   m_TagString: Untagged
@@ -38,7 +43,7 @@ Transform:
   m_Children:
   - {fileID: 2442241971747655680}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8095480955623110607
 MonoBehaviour:
@@ -169,6 +174,77 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &8555989389243704630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a006df18c5144167ad3d785b8c0a1c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  maxTargetDistance: 4
+--- !u!114 &7806717631113445499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01ef29e45da4b57a494c51b725a14f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reactionRate: 1
+  fsmBlueprint: {fileID: 11400000, guid: 164605af32d47cf4c9cd58b482761b38, type: 2}
+--- !u!114 &2980336169064357239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a117239998cc4aa7b2136a262de798bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3154160925708691126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1598996541946964017
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &288256680686236835
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +355,7 @@ BoxCollider:
   m_GameObject: {fileID: 288256680686236835}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

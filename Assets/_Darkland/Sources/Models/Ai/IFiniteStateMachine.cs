@@ -1,26 +1,22 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Ai {
 
     public interface IFsmDecision {
-        bool Decide();
+        bool Decide(GameObject parent);
+        bool IsValid(GameObject parent);
+        bool Reverted { get; }
     }
 
     public interface IFsmTransition {
-        IFsmDecision decision { get; }
-        int targetStateId { get; }
+        List<IFsmDecision> Decisions { get; }
+        IFsmState TargetState { get; }
     }
     
     public interface IFsmState {
-        void UpdateSelf();
-        int id { get; }
-        List<IFsmTransition> transitions { get; }
-    }
-    
-    public interface IFiniteStateMachine {
-        void UpdateCurrentState();
-        IFsmState currentState { get; }
-        List<IFsmState> states { get; }
+        void UpdateSelf(GameObject parent);
+        List<IFsmTransition> Transitions { get; }
     }
 
 }

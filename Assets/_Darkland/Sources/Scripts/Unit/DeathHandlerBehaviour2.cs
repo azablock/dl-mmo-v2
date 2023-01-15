@@ -1,4 +1,5 @@
 using System;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.Unit.Stats2.StatEffect;
@@ -13,12 +14,14 @@ namespace _Darkland.Sources.Scripts.Unit {
         
         private IStatsHolder _statsHolder;
         private IStatEffectHandler _statEffectHandler;
+        private IDiscretePosition _discretePosition;
         private Stat _healthStat;
         public event Action Death;
 
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _statEffectHandler = GetComponent<IStatEffectHandler>();
+            _discretePosition = GetComponent<IDiscretePosition>();
         }
 
         public override void OnStartServer() {
@@ -36,6 +39,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         private void ServerOnDead() {
             var maxHealthValue = _statsHolder.ValueOf(StatId.MaxHealth);
             _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(maxHealthValue, StatId.Health));
+            _discretePosition.Set(Vector3Int.zero, true);
         }
 
         [Server]

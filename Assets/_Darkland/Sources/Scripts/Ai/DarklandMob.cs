@@ -6,9 +6,17 @@ namespace _Darkland.Sources.Scripts.Ai {
 
     public class DarklandMob : NetworkBehaviour {
 
-        public override void OnStartServer() {
-            GetComponent<IDiscretePosition>().Set(Vector3Int.FloorToInt(transform.position));
+        private IDiscretePosition _discretePosition;
+
+        private void Awake() {
+            _discretePosition = GetComponent<IDiscretePosition>();
         }
+
+        public override void OnStartServer() {
+            _discretePosition.Set(Vector3Int.FloorToInt(transform.position));
+        }
+        
+        
     }
 
 }

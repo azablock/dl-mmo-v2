@@ -29,8 +29,8 @@ namespace _Darkland.Sources.Scripts {
 
         private List<INetworkMessagesProxy> _networkMessagesProxies;
 
-        public static Action<DisconnectStatus> clientDisconnected;
-        public static Action<NetworkIdentity> serverOnClientDisconnected;
+        public static Action<NetworkIdentity> serverOnPlayerDisconnected;
+        public static Action<DisconnectStatus> clientOnPlayerDisconnected;
         public static Action clientHeroEnterGameSuccess;
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace _Darkland.Sources.Scripts {
                 NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
                 DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
                 
-                serverOnClientDisconnected?.Invoke(netIdentity);
+                serverOnPlayerDisconnected?.Invoke(netIdentity);
                 
                 Debug.Log(message);
             }
@@ -151,7 +151,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public override void OnClientDisconnect() {
-            clientDisconnected?.Invoke(NetworkClient.connection.isAuthenticated
+            clientOnPlayerDisconnected?.Invoke(NetworkClient.connection.isAuthenticated
                                            ? new DisconnectStatus {fromServer = NetworkClient.active}
                                            : new DisconnectStatus {fromServer = true});
             base.OnClientDisconnect();

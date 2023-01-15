@@ -39,7 +39,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             if (message.movementVector.magnitude == 0) return;
 
             //todo TEST TEST TEST
-            var targetNetIdentity = conn.identity.GetComponent<ITargetNetIdHolder>().targetNetIdentity;
+            var targetNetIdentity = conn.identity.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
             if (targetNetIdentity != null) {
                 var healthStat = targetNetIdentity.GetComponent<IStatsHolder>().Stat(StatId.Health);
                 healthStat.Set(healthStat.Get() - 1);
@@ -63,7 +63,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var message = ChatMessagesFormatter.FormatServerLog($"Npc netId[{msg.npcNetId}] clicked.");
             conn.Send(new ChatMessages.ServerLogResponseMessage { message = message });
 
-            conn.identity.GetComponent<TargetNetIdHolderBehaviour>().ServerSet(msg.npcNetId);
+            conn.identity.GetComponent<TargetNetIdHolderBehaviour>().Set(msg.npcNetId);
         }
 
         [Server]

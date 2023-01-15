@@ -15,14 +15,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private TargetNetIdPanel targetNetIdPanel;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientCleared += OnClientCleared;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
             PlayerInputMessagesProxy.ClientGetHealthStats += Call;
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdHolder>().ClientCleared -= OnClientCleared;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
+            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
             PlayerInputMessagesProxy.ClientGetHealthStats -= Call;
             
             targetNetIdPanel.gameObject.SetActive(false);
