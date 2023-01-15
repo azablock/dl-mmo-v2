@@ -29,6 +29,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         [Server]
         private void ServerOnMobDeath() {
             _mob.GetComponent<IDeathEventEmitter>().Death -= ServerOnMobDeath;
+            
             NetworkServer.Destroy(_mob);
             
             Invoke(nameof(ServerRespawnMob), respawnTime);

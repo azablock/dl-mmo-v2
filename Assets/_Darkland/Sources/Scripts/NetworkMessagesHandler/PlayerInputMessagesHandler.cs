@@ -4,6 +4,7 @@ using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
@@ -36,14 +37,29 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                                               PlayerInputMessages.MoveRequestMessage message) {
             conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
 
+            //todo TEST TEST TEST ----------------------------------------------------------------------
             if (message.movementVector.magnitude == 0) return;
 
-            //todo TEST TEST TEST
             var targetNetIdentity = conn.identity.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
-            if (targetNetIdentity != null) {
+            if (targetNetIdentity != null && targetNetIdentity.GetComponent<DarklandMob>() != null) {
                 var healthStat = targetNetIdentity.GetComponent<IStatsHolder>().Stat(StatId.Health);
-                healthStat.Set(healthStat.Get() - 1);
+                var newHealthValue = healthStat.Get() - 1;
+                healthStat.Set(newHealthValue);
+
+                if (newHealthValue == 0) {
+                    var heroXpHolder = conn.identity.GetComponent<XpHolderBehaviour>();
+                    var heroName = heroXpHolder.GetComponent<UnitNameBehaviour>().unitName;
+                    var xpGain = targetNetIdentity.GetComponent<XpGiverBehaviour>().xp;
+                    heroXpHolder.ServerGain(xpGain);
+
+                    var xpChatMessage = ChatMessagesFormatter.FormatServerLog($"Hero {heroName} has {heroXpHolder.xp} xp!");
+
+                    NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {
+                        message = xpChatMessage
+                    });
+                }
             }
+            //todo TEST TEST TEST ----------------------------------------------------------------------
         }
 
         [Server]

@@ -1,4 +1,5 @@
-﻿using _Darkland.Sources.Models.DiscretePosition;
+﻿using System;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Persistence;
@@ -22,6 +23,13 @@ namespace _Darkland.Sources.Models.Persistence {
             entity.posY = position.y;
             entity.posZ = position.z;
 
+            var (health, maxHealth) = darklandHeroGameObject.GetComponent<IStatsHolder>().Values(StatId.Health, StatId.MaxHealth);
+            entity.health = (int) health;
+            entity.maxHealth = (int) maxHealth;
+
+            var xp = darklandHeroGameObject.GetComponent<XpHolderBehaviour>().xp;
+            entity.xp = xp;
+
             DarklandDatabaseManager
                 .darklandHeroRepository
                 .ReplaceById(entity);
@@ -43,10 +51,13 @@ namespace _Darkland.Sources.Models.Persistence {
             darklandHero.GetComponent<UnitNameBehaviour>().ServerSet(heroName);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
-            statsHolder.Stat(StatId.MaxHealth).Set(10);
-            statsHolder.Stat(StatId.Health).Set(2);
+            statsHolder.Stat(StatId.MaxHealth).Set(entity.maxHealth);
+            statsHolder.Stat(StatId.Health).Set(entity.health);
             statsHolder.Stat(StatId.HealthRegain).Set(1);
             statsHolder.Stat(StatId.MovementSpeed).Set(4);
+
+            var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
+            xpHolder.ServerSet(entity.xp);
         }
     }
 
