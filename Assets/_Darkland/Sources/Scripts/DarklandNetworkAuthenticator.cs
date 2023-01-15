@@ -164,7 +164,13 @@ namespace _Darkland.Sources.Scripts {
 
                 var darklandHeroEntity = new DarklandHeroEntity {
                     name = heroName,
-                    darklandAccountId = darklandAccountEntity.id
+                    darklandAccountId = darklandAccountEntity.id,
+                    health = 10,
+                    maxHealth = 10,
+                    xp = 0,
+                    posX = 0,
+                    posY = 0,
+                    posZ = 0
                 };
 
                 DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
