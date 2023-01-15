@@ -1,15 +1,12 @@
-using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Presentation.Unit;
-using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
 
-    [CreateAssetMenu(fileName = nameof(AttackState), menuName = "DL/Ai/" + nameof(AttackState))]
-    public class AttackState : FsmState {
+    [CreateAssetMenu(fileName = nameof(AttackFsmState), menuName = "DL/Ai/" + nameof(AttackFsmState))]
+    public class AttackFsmState : FsmState {
 
         public override void UpdateSelf(GameObject parent) {
             var targetNetIdHolder = parent.GetComponent<ITargetNetIdHolder>();
@@ -18,10 +15,6 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
 
             healthStat.Set(healthStat.Get() - 3);
 
-            // var message = ChatMessagesFormatter.FormatServerLog($"AttackState (dmg 2)");
-            // NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {message = message});
-
-            
             
             
             //todo gdzies indziej to wyniesc - dalsza czesc combatu...

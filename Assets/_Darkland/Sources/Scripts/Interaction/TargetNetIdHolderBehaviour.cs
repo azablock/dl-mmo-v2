@@ -17,7 +17,6 @@ namespace _Darkland.Sources.Scripts.Interaction {
         public NetworkIdentity TargetNetIdentity { get; private set; }
 
         public event Action<NetworkIdentity> ServerChanged;
-
         public event Action<NetworkIdentity> ServerCleared;
 
         public override void OnStartServer() {
