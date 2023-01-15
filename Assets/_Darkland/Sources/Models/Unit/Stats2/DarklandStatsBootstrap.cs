@@ -34,10 +34,12 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                // () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
                                    var statConstrainsHolder = statsHolder.statPreChangeHooksHolder;
-                                   var valAfterConstraints = statConstrainsHolder
-                                                             .PreChangeHooks(statId)
-                                                             .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
-
+                                   var hooks = statConstrainsHolder != null
+                                       ? statConstrainsHolder.PreChangeHooks(statId)
+                                       : new List<IStatPreChangeHook>();
+                                   
+                                   var valAfterConstraints = hooks
+                                       .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
                                    setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
                                    // ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));

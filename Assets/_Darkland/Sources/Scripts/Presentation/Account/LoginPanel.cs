@@ -46,7 +46,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
                 Debug.Log("client disconnected from server at " + NetworkTime.time);
             }
 
-            DarklandNetworkManager.self.StopClient();
+            // DarklandNetworkManager.self.StopClient();
         }
 
         private void SubmitLogin() {

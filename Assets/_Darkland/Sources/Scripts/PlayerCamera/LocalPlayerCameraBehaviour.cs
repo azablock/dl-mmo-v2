@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using _Darkland.Sources.Models.DiscretePosition;
+﻿using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.PlayerCamera;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
@@ -47,17 +47,9 @@ namespace _Darkland.Sources.Scripts.PlayerCamera {
 
         [Client]
         private void ClientOnLocalPlayerPosChanged(Vector3Int pos) {
-            var positionsBelowPlayer = WorldRootBehaviour2
-                                       ._
-                                       .AllFieldPositions
-                                       .Where(it => pos.x == it.x && pos.y == it.y) //z axis is "flipped"
-                                       .Where(it => pos.z > it.z) //z axis is "flipped"
-                                       .OrderBy(it => it.z)
-                                       .ToList();
-
             if (Camera.main == null) return;
 
-            var newCameraPosZ = positionsBelowPlayer.Count > 0 ? positionsBelowPlayer[0].z : -10.0f;
+            var newCameraPosZ = LocalPlayerCameraPositionResolver.ResolveCameraPositionZ(DarklandWorldBehaviour._.allFieldPositions, pos);
             var cameraTransform = Camera.main.transform;
             var cameraPos = new Vector3(0, 0, newCameraPosZ + cameraOffsetZ);
 

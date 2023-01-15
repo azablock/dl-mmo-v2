@@ -1,4 +1,5 @@
 using _Darkland.Sources.Scripts.Bot;
+using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -10,26 +11,27 @@ namespace _Darkland.Sources.Scripts.Presentation {
         [SerializeField]
         private TextMeshProUGUI debugText;
 
-        private DarklandHero _darklandHero;
+        private UnitNameBehaviour _unitNameBehaviour;
 
         private void Awake() {
-            _darklandHero = GetComponentInParent<DarklandHero>();
-            _darklandHero.ClientHeroNameSet += ClientOnHeroNameSet;
+            _unitNameBehaviour = GetComponentInParent<UnitNameBehaviour>();
+            _unitNameBehaviour.ClientUnitNameReceived += ClientOnHeroNameReceived;
         }
 
         private void OnDestroy() {
-            _darklandHero.ClientHeroNameSet -= ClientOnHeroNameSet;
+            _unitNameBehaviour.ClientUnitNameReceived -= ClientOnHeroNameReceived;
         }
 
         [Client]
-        private void ClientOnHeroNameSet(string heroName) {
-            var isLocal = _darklandHero.isLocalPlayer;
-            var isBot = _darklandHero.GetComponent<DarklandBot>() != null;
-            var netId = _darklandHero.netId;
+        private void ClientOnHeroNameReceived(string heroName) {
+            var isLocal = _unitNameBehaviour.isLocalPlayer;
+            var isBot = _unitNameBehaviour.GetComponent<DarklandBot>() != null;
+            var netId = _unitNameBehaviour.netId;
             var debugTag = isLocal ? "local" : "client";
             var botSymbol = isBot ? "*" : "";
 
-            debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{heroName}";
+            debugText.text = $"({heroName}{botSymbol}";
+            // debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{heroName}";
         }
     }
 

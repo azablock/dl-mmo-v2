@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.ScriptableObjects.StatConstraint;
+using _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook;
 using Mirror;
 using UnityEngine;
 

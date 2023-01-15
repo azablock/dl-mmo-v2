@@ -1,6 +1,7 @@
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.ScriptableObjects.Stats2;
+using _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook;
 using Mirror;
 using UnityEngine;
 

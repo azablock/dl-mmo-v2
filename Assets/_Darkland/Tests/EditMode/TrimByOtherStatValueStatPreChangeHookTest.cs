@@ -1,5 +1,5 @@
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.ScriptableObjects.StatConstraint;
+using _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;

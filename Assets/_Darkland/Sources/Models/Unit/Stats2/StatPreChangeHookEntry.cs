@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Darkland.Sources.ScriptableObjects.StatConstraint;
+using _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook;
 using UnityEngine;
 
 namespace _Darkland.Sources.Models.Unit.Stats2 {

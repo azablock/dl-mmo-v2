@@ -1,6 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using _Darkland.Sources.Models.Account;
+using _Darkland.Sources.Models.Persistence.Entity;
+using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Persistence;
 using Mirror;
 using UnityEngine;
@@ -16,6 +20,10 @@ namespace _Darkland.Sources.Scripts {
         public static Action clientAuthSuccess;
         public static Action clientAuthFailure;
         public static Action clientTimeout;
+        
+        public static Action<List<string>> clientGetHeroesSuccess;
+        public static Action clientNewHeroSuccess;
+        public static Action<string> clientNewHeroFailure;
 
         #region Messages
 
@@ -30,8 +38,6 @@ namespace _Darkland.Sources.Scripts {
             public string message;
         }
 
-
-
         #endregion
 
         #region Server
@@ -43,10 +49,14 @@ namespace _Darkland.Sources.Scripts {
         public override void OnStartServer() {
             // register a handler for the authentication request we expect from client
             NetworkServer.RegisterHandler<DarklandAuthRequestMessage>(OnAuthRequestMessage, false);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.GetHeroesRequestMessage>(ServerGetHeroes);
+            NetworkServer.RegisterHandler<DarklandAuthMessages.NewHeroRequestMessage>(ServerNewHero);
         }
 
         public override void OnStopServer() {
             NetworkServer.UnregisterHandler<DarklandAuthRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandAuthMessages.GetHeroesRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandAuthMessages.NewHeroRequestMessage>();
         }
 
         /// <summary>
@@ -98,7 +108,8 @@ namespace _Darkland.Sources.Scripts {
 
             if (isValid) {
                 // Accept the successful authentication
-                ServerAccept(conn); //todo not yet
+                ServerAccept(conn);
+                // conn.Send();
             }
             else {
                 StartCoroutine(nameof(ServerRejectAfterFrame), conn);
@@ -116,6 +127,55 @@ namespace _Darkland.Sources.Scripts {
             ServerReject(conn);
         }
 
+          [Server]
+        private void ServerGetHeroes(NetworkConnectionToClient conn,
+                                             DarklandAuthMessages.GetHeroesRequestMessage msg) {
+            var accountName = ((DarklandAuthState) conn.authenticationData).accountName;
+            var darklandAccountEntity = DarklandDatabaseManager
+                .darklandAccountRepository
+                .FindByName(accountName);
+            var heroNames = DarklandDatabaseManager
+                .darklandHeroRepository
+                .FindAllByDarklandAccountId(darklandAccountEntity.id)
+                .Select(it => it.name)
+                .ToList();
+
+            ((DarklandAuthState) conn.authenticationData).heroNames = heroNames;
+
+            conn.Send(new DarklandAuthMessages.GetDarklandHeroesResponseMessage {heroNames = heroNames});
+        }
+
+        [Server]
+        private void ServerNewHero(NetworkConnectionToClient conn,
+                                              DarklandAuthMessages.NewHeroRequestMessage msg) {
+            var heroName = msg.heroName;
+            var nameExists = DarklandDatabaseManager.darklandHeroRepository.ExistsByName(heroName);
+            var isNameEmpty = string.IsNullOrEmpty(heroName);
+
+            if (nameExists) {
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {success = false, message = "Name taken!"});
+            }
+            else if (isNameEmpty) {
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {success = false, message = "Name empty!"});
+            }
+            else {
+                var accountName = ((DarklandAuthState) (conn.authenticationData)).accountName;
+                var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(accountName);
+
+                var darklandHeroEntity = new DarklandHeroEntity {
+                    name = heroName,
+                    darklandAccountId = darklandAccountEntity.id
+                };
+
+                DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
+
+                conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {
+                    success = true,
+                    message = "Darkland Hero Created!"
+                });
+            }
+        }
+
         #endregion
 
         #region Client
@@ -127,10 +187,14 @@ namespace _Darkland.Sources.Scripts {
         public override void OnStartClient() {
             // register a handler for the authentication response we expect from server
             NetworkClient.RegisterHandler<DarklandAuthResponseMessage>(OnAuthResponseMessage, false);
+            NetworkClient.RegisterHandler<DarklandAuthMessages.GetDarklandHeroesResponseMessage>(ClientOnGetDarklandHeroes);
+            NetworkClient.RegisterHandler<DarklandAuthMessages.NewDarklandHeroResponseMessage>(ClientOnNewDarklandHero);
         }
 
         public override void OnStopClient() {
             NetworkClient.UnregisterHandler<DarklandAuthResponseMessage>();
+            NetworkClient.UnregisterHandler<DarklandAuthMessages.GetDarklandHeroesResponseMessage>();
+            NetworkClient.UnregisterHandler<DarklandAuthMessages.NewDarklandHeroResponseMessage>();
         }
 
         /// <summary>
@@ -171,24 +235,24 @@ namespace _Darkland.Sources.Scripts {
                 }
             }
         }
+        
+        [Client]
+        private static void ClientOnGetDarklandHeroes(DarklandAuthMessages.GetDarklandHeroesResponseMessage msg) =>
+            clientGetHeroesSuccess?.Invoke(msg.heroNames);
 
-        // private IEnumerator BeginAuthentication(NetworkConnection conn)
-        // {
-        //     Debug.Log($"Authentication countdown started {conn} {clientTimeout}");
-        //     yield return new WaitForSecondsRealtime(clientTimeoutSeconds);
-        //
-        //     if (!conn.isAuthenticated)
-        //     {
-        //         Debug.LogError($"Authentication Timeout - Disconnecting {conn}");
-        //         conn.Disconnect();
-        //         clientTimeout?.Invoke();
-        //         
-        //     }
-        // }
+        [Client]
+        private static void ClientOnNewDarklandHero(DarklandAuthMessages.NewDarklandHeroResponseMessage msg) {
+            if (msg.success) {
+                clientNewHeroSuccess?.Invoke();
+            }
+            else {
+                clientNewHeroFailure?.Invoke(msg.message);
+            }
+        }
+
 
 
         #endregion
-
     }
 
 }

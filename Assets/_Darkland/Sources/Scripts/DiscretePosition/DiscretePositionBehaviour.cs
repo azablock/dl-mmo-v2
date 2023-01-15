@@ -13,23 +13,21 @@ namespace _Darkland.Sources.Scripts.DiscretePosition {
         public event Action<PositionChangeData> Changed;
         public event Action<Vector3Int> ClientChanged;
 
+        public bool readStartPosFromTransform;
+
+        public override void OnStartServer() {
+            if (readStartPosFromTransform) {
+                Set(Vector3Int.FloorToInt(transform.position));
+            }
+        }
+
         [Server]
-        public void Set(Vector3Int pos) {
+        public void Set(Vector3Int pos, bool clientImmediate = false) {
             Pos = pos;
-            Changed?.Invoke(new PositionChangeData {pos = Pos, clientImmediate = false});
+            Changed?.Invoke(new PositionChangeData {pos = Pos, clientImmediate = clientImmediate});
         }
 
-        [Server]
-        public void SetClientImmediate(Vector3Int pos) {
-            Pos = pos;
-            Changed?.Invoke(new PositionChangeData {pos = Pos, clientImmediate = true});
-        }
-
-        [Server]
-        public void ServerAdd(Vector3Int delta) {
-            Set(Pos + delta);
-        }
-
+        [Client]
         private void ClientSyncPos(Vector3Int _, Vector3Int pos) {
             ClientChanged?.Invoke(pos);
         }

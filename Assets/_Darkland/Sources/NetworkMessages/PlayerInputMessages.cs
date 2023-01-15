@@ -12,6 +12,27 @@ namespace _Darkland.Sources.NetworkMessages {
         public struct ChangeFloorRequestMessage : NetworkMessage {
             public Vector3Int movementVector;
         }
+        
+        public struct NpcClickRequestMessage : NetworkMessage {
+            public uint npcNetId;
+        }
+
+        public struct GetHealthStatsRequestMessage : NetworkMessage {
+            public uint statsHolderNetId;
+        }
+
+        public struct GetHealthStatsResponseMessage : NetworkMessage {
+            public float health;
+            public float maxHealth;
+            public uint statsHolderNetId;
+            public string unitName; //todo change message struct name
+
+        }
+
+        public struct LeftMouseClickRequestMessage : NetworkMessage {
+            public Vector2Int clickWorldPosition;
+        }
+
     }
 
 }

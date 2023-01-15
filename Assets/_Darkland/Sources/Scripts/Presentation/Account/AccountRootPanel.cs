@@ -32,8 +32,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             newHeroPanel.BackClicked += GetHeroes;
             newHeroPanel.NewHeroSuccess += GetHeroes;
 
-            DarklandNetworkManager.clientGetHeroesSuccess += ClientGetHeroesSuccess;
-            DarklandNetworkManager.clientDisconnected += OnClientDisconnected;
+            DarklandNetworkAuthenticator.clientGetHeroesSuccess += ClientGetHeroesSuccess;
         }
 
         private void OnDisable() {
@@ -53,8 +52,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             newHeroPanel.BackClicked -= GetHeroes;
             newHeroPanel.NewHeroSuccess -= GetHeroes;
 
-            DarklandNetworkManager.clientGetHeroesSuccess -= ClientGetHeroesSuccess;
-            DarklandNetworkManager.clientDisconnected -= OnClientDisconnected;
+            DarklandNetworkAuthenticator.clientGetHeroesSuccess -= ClientGetHeroesSuccess;
         }
 
         private static void LoginPanelOnLoginClicked(string accountName) {

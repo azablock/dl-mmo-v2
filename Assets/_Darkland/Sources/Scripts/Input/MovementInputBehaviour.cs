@@ -13,6 +13,16 @@ namespace _Darkland.Sources.Scripts.Input {
         private InputAction changeFloorAction;
 
         private void OnEnable() {
+            DarklandHero.LocalHeroStarted += Connect;
+            DarklandHero.LocalHeroStopped += Disconnect;
+        }
+
+        private void OnDisable() {
+            DarklandHero.LocalHeroStarted -= Connect;
+            DarklandHero.LocalHeroStopped -= Disconnect;
+        }
+
+        private void Connect() {
             moveAction.Enable();
             moveAction.performed += ClientSendMoveInput;
             moveAction.canceled += ClientSendStopMoveInput;
@@ -21,7 +31,7 @@ namespace _Darkland.Sources.Scripts.Input {
             changeFloorAction.performed += ClientSendChangeFloorMoveInput;
         }
 
-        private void OnDisable() {
+        private void Disconnect() {
             moveAction.Disable();
             moveAction.performed -= ClientSendMoveInput;
             moveAction.canceled -= ClientSendStopMoveInput;
