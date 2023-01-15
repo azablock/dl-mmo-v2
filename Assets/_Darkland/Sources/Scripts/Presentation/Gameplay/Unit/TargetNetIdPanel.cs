@@ -41,8 +41,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         private void OnClientStatsChanged(StatId statId, float val) {
-            Debug.Log($"OnClientStatsChanged {NetworkTime.time}");
-            
             if (statId == StatId.Health) {
                 targetNetIdentityPanel.ClientSetHealth(val);
             }

@@ -1,16 +1,19 @@
 using System;
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace _Darkland.Sources.Scripts.Interaction {
 
     public class TargetNetIdHolderBehaviour : NetworkBehaviour, ITargetNetIdHolder {
 
-        public float maxTargetDistance = 4.0f; //should be equal to NetworkServer.aoi range
+        [SerializeField]
+        private float maxTargetDistance;
         private IDiscretePosition _discretePosition;
         private IDeathEventEmitter _deathEventEmitter;
         
@@ -38,18 +41,17 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
         [Server]
         public void Set(uint newTargetNetId) {
-            if (!NetworkServer.spawned.ContainsKey(newTargetNetId)) return;
+            Assert.IsTrue(NetworkServer.spawned.ContainsKey(newTargetNetId));
+
             if (netId == newTargetNetId) return;
 
             var holderPos = _discretePosition.Pos;
             var newTargetNetIdentity = NetworkServer.spawned[newTargetNetId];
             var targetPos = newTargetNetIdentity.GetComponent<IDiscretePosition>().Pos;
 
-            if (!ServerIsInTargetDistance(holderPos, targetPos)) return;
+            if (!ServerPositionsValid(holderPos, targetPos)) return;
 
-            if (TargetNetIdentity != null && TargetNetIdentity.netId == newTargetNetId) return;
-
-            if (TargetNetIdentity != null) Clear();
+            if (TargetNetIdentity != null && TargetNetIdentity.netId != newTargetNetId) Clear();
 
             TargetNetIdentity = newTargetNetIdentity;
             ServerChanged?.Invoke(TargetNetIdentity);
@@ -78,31 +80,31 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
         [Server]
         private void ServerOnClientDisconnected(NetworkIdentity identity) {
-            if (TargetNetIdentity != null && TargetNetIdentity.netId == identity.netId) {
-                Clear();
-            }
+            if (TargetNetIdentity != null && TargetNetIdentity.netId == identity.netId) Clear();
         }
 
         [Server]
         private void ServerOnTargetPosChanged(PositionChangeData data) =>
-            ServerCheckDistance(_discretePosition.Pos, data.pos);
+            ServerCheckPositions(_discretePosition.Pos, data.pos);
 
         [Server]
         private void ServerOnOwnerPosChanged(PositionChangeData data) {
             if (TargetNetIdentity == null) return;
-            ServerCheckDistance(data.pos, TargetNetIdentity.GetComponent<IDiscretePosition>().Pos);
+            ServerCheckPositions(data.pos, TargetNetIdentity.GetComponent<IDiscretePosition>().Pos);
         }
 
         [Server]
-        private void ServerCheckDistance(Vector3Int holderPos, Vector3Int targetPos) {
-            if (!ServerIsInTargetDistance(holderPos, targetPos) || holderPos.z != targetPos.z) {
-                Clear();
-            }
+        private void ServerCheckPositions(Vector3Int holderPos, Vector3Int targetPos) {
+            if (!ServerPositionsValid(holderPos, targetPos)) Clear();
         }
 
         [Server]
-        private bool ServerIsInTargetDistance(Vector3Int holderPos, Vector3Int targetPos) =>
-            Vector3.Distance(holderPos, targetPos) < maxTargetDistance;
+        private bool ServerPositionsValid(Vector3Int holderPos, Vector3Int targetPos) {
+            var isInTargetDistance = Vector3.Distance(holderPos, targetPos) < maxTargetDistance;
+            var zPositionsMEqual = holderPos.z == targetPos.z;
+
+            return isInTargetDistance && zPositionsMEqual;
+        }
         
     }
 
