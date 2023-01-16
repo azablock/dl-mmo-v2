@@ -52,9 +52,9 @@ namespace _Darkland.Sources.Scripts.Ai {
                 .FirstOrDefault(it => it.Decisions.All(d => d.Decide(gameObject)));
 
             if (fsmTransition != null) {
-                var msg = ChatMessagesFormatter.FormatServerLog($"changed state from " +
-                                                                            $"{_currentState.GetType().Name} to " +
-                                                                            $"{fsmTransition.TargetState.GetType().FullName}");
+                var msg = ChatMessagesFormatter.FormatServerLog($"changed state: " +
+                                                                            $"{_currentState.GetType().Name} -> " +
+                                                                            $"{fsmTransition.TargetState.GetType().Name}");
 
                 NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = msg});
 

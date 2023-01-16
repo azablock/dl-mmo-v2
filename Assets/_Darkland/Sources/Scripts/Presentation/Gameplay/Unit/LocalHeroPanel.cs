@@ -21,6 +21,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         
         private void OnDisable() {
             DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged -= ClientOnStatsChanged;
+            DarklandHero.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnPosChanged;
         }
 
         [Client]

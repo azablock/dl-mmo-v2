@@ -19,7 +19,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             //todo tutaj dodatkowy check bo byl bug ze szur atakowal gracza stojacego pietro wyzej
             var targetPlayerPos = playerNetIdentity.GetComponent<IDiscretePosition>().Pos;
             var parentPos = aiDarklandUnit.GetComponent<IDiscretePosition>().Pos;
-            Assert.IsTrue(targetPlayerPos.z != parentPos.z);
+            Assert.IsTrue(targetPlayerPos.z == parentPos.z);
 
             healthStat.Set(healthStat.Get() - 3);
 
