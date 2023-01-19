@@ -1,3 +1,4 @@
+using System;
 using _Darkland.Sources.Models.Presentation;
 using _Darkland.Sources.Models.World;
 using UnityEngine;
@@ -18,7 +19,10 @@ namespace _Darkland.Sources.Scripts.World {
         // [ExecuteAlways]
         private void Awake() {
             spriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(position);
-            gameObject.name = $"Teleport Tile {position}";
+        }
+
+        private void Start() {
+            gameObject.name += $" ({position})";
         }
         //
         // [UnityEditor.Callbacks.DidReloadScripts]

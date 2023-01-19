@@ -44,6 +44,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
             Assert.IsTrue(NetworkServer.spawned.ContainsKey(newTargetNetId));
 
             if (netId == newTargetNetId) return;
+            if (TargetNetIdentity != null && TargetNetIdentity.netId == newTargetNetId) return;
 
             var holderPos = _discretePosition.Pos;
             var newTargetNetIdentity = NetworkServer.spawned[newTargetNetId];

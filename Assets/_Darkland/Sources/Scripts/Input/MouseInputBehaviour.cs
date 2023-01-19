@@ -1,5 +1,6 @@
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Presentation.Unit;
+using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -40,12 +41,22 @@ namespace _Darkland.Sources.Scripts.Input {
             if (!hit) return;
 
             ClientHandleUnitClick(raycastHit);
+            ClientHandleInfoBoardClick(raycastHit);
             //todo handle other collider hit "types"
         }
 
         private static void ClientHandleUnitClick(RaycastHit raycastHit) {
             var darklandUnit = raycastHit.collider.GetComponentInParent<DarklandUnit>();
+            if (darklandUnit == null) return;
+            
             NetworkClient.Send(new PlayerInputMessages.NpcClickRequestMessage() {npcNetId = darklandUnit.netId});
+        }
+
+        private static void ClientHandleInfoBoardClick(RaycastHit raycastHit) {
+            var infoText = raycastHit.collider.GetComponentInParent<InfoTextBehaviour>();
+            if (infoText == null) return;
+
+            infoText.Toggle();
         }
 
     }

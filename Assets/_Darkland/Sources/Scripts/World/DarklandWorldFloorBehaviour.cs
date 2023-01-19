@@ -34,6 +34,8 @@ namespace _Darkland.Sources.Scripts.World {
                     }
                 }
             }
+
+            _tilemap.color = Color.white;
         }
     }
 

@@ -50,3 +50,6 @@ TagManager:
   - name: Level -1
     uniqueID: 1931842669
     locked: 0
+  - name: Level -2
+    uniqueID: 3051836145
+    locked: 0
