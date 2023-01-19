@@ -1,4 +1,5 @@
 using System;
+using _Darkland.Sources.Models.Persistence;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 
@@ -21,6 +22,8 @@ namespace _Darkland.Sources.Scripts {
 
         public override void OnStopServer() {
             _unitNameBehaviour.ServerUnitNameChanged -= ServerTagGameObjectName;
+            
+            DarklandHeroService.ServerSaveDarklandHero(gameObject);
         }
 
         public override void OnStartLocalPlayer() {

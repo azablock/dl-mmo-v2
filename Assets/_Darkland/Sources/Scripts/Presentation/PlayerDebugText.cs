@@ -30,7 +30,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
             var debugTag = isLocal ? "local" : "client";
             var botSymbol = isBot ? "*" : "";
 
-            debugText.text = $"({heroName}{botSymbol}";
+            debugText.text = $"{heroName}{botSymbol}";
             // debugText.text = $"[{netId}]\n({debugTag}{botSymbol})\n{heroName}";
         }
     }

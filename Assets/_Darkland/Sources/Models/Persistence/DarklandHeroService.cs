@@ -1,5 +1,6 @@
 ﻿using System;
 using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Persistence;
@@ -27,8 +28,10 @@ namespace _Darkland.Sources.Models.Persistence {
             entity.health = (int) health;
             entity.maxHealth = (int) maxHealth;
 
-            var xp = darklandHeroGameObject.GetComponent<XpHolderBehaviour>().xp;
+            var xpHolder = darklandHeroGameObject.GetComponent<IXpHolder>();
+            var xp = xpHolder.xp;
             entity.xp = xp;
+            entity.level = xpHolder.level;
 
             DarklandDatabaseManager
                 .darklandHeroRepository
@@ -57,7 +60,7 @@ namespace _Darkland.Sources.Models.Persistence {
             statsHolder.Stat(StatId.MovementSpeed).Set(4);
 
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
-            xpHolder.ServerSet(entity.xp);
+            xpHolder.ServerInit(entity.xp, entity.level);
         }
     }
 

@@ -246,8 +246,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip
+    ggfhjhjjtyjtyjrtyjrtyj
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -274,8 +273,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -325,7 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8274110207167174425}
-  - component: {fileID: 1551190049827143762}
+  - component: {fileID: 746204381981406948}
   m_Layer: 0
   m_Name: Info Board
   m_TagString: Untagged
@@ -350,7 +349,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1551190049827143762
+--- !u!114 &746204381981406948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -359,13 +358,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8188198025965627841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a583ece3561e46748dfc8c255baf3bc8, type: 3}
+  m_Script: {fileID: 11500000, guid: b16b6ba1d8784f43b1b626f4243f7cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoMessage: 
+  infoMessage: some text
   infoCanvas: {fileID: 355766429515922524}
   infoText: {fileID: 7304376139835550626}
-  canvasOffset: {x: 0, y: 0.75, z: 0}
+  canvasOffset: {x: 0, y: 1, z: 0}
   maxVisibleDistance: 2
 --- !u!1 &8965378070924914077
 GameObject:

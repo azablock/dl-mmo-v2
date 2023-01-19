@@ -1,12 +1,11 @@
-﻿using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.DiscretePosition;
 using TMPro;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.World {
 
-    //todo tmp
-    public class InfoTextBehaviour : MonoBehaviour {
-
+    public class InfoTextBehaviour2 : MonoBehaviour {
+        
         [TextArea]
         public string infoMessage;
         public GameObject infoCanvas;
@@ -48,6 +47,8 @@ namespace _Darkland.Sources.Scripts.World {
         }
 
         private bool LocalPlayerInDistance(Vector3Int localPlayerPos) => Vector3.Distance(localPlayerPos, transform.position) < maxVisibleDistance;
+
+
     }
 
 }

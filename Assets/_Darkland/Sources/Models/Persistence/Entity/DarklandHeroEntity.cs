@@ -27,6 +27,8 @@ namespace _Darkland.Sources.Models.Persistence.Entity {
         //other
         [BsonRequired]
         public int xp;
+        [BsonRequired]
+        public int level;
 
     }
 

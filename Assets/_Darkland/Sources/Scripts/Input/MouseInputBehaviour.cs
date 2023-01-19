@@ -53,7 +53,7 @@ namespace _Darkland.Sources.Scripts.Input {
         }
 
         private static void ClientHandleInfoBoardClick(RaycastHit raycastHit) {
-            var infoText = raycastHit.collider.GetComponentInParent<InfoTextBehaviour>();
+            var infoText = raycastHit.collider.GetComponentInParent<InfoTextBehaviour2>();
             if (infoText == null) return;
 
             infoText.Toggle();

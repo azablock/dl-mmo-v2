@@ -258,7 +258,7 @@ MonoBehaviour:
   visRange: 16
   rebuildInterval: 1
   checkMethod: 1
-  showSlider: 1
+  showSlider: 0
 --- !u!1 &5765169350605857508
 GameObject:
   m_ObjectHideFlags: 0
