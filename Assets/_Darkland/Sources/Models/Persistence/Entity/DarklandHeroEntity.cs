@@ -21,8 +21,6 @@ namespace _Darkland.Sources.Models.Persistence.Entity {
         //stats
         [BsonRequired]
         public int health;
-        [BsonRequired]
-        public int maxHealth; //todo to bedzie wyliczane, wiec bez zapisu do bazy w przyszlosci?
 
         //other
         [BsonRequired]
@@ -30,6 +28,17 @@ namespace _Darkland.Sources.Models.Persistence.Entity {
         [BsonRequired]
         public int level;
 
+        //traits
+        [BsonRequired]
+        public int might;
+        [BsonRequired]
+        public int constitution;
+        [BsonRequired]
+        public int dexterity;
+        [BsonRequired]
+        public int intellect;
+        [BsonRequired]
+        public int soul;
     }
 
 }

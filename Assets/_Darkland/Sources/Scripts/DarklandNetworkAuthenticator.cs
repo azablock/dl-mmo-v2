@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Account;
+using _Darkland.Sources.Models.Persistence;
 using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Persistence;
@@ -162,18 +163,7 @@ namespace _Darkland.Sources.Scripts {
                 var accountName = ((DarklandAuthState) (conn.authenticationData)).accountName;
                 var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(accountName);
 
-                var darklandHeroEntity = new DarklandHeroEntity {
-                    name = heroName,
-                    darklandAccountId = darklandAccountEntity.id,
-                    health = 10,
-                    maxHealth = 10,
-                    xp = 0,
-                    posX = 0,
-                    posY = 0,
-                    posZ = 0
-                };
-
-                DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
+                DarklandHeroService.ServerCreateNewHero(darklandAccountEntity.id, heroName);
 
                 conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {
                     success = true,

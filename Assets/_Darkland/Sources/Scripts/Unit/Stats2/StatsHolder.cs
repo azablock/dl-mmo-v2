@@ -27,6 +27,12 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         }
 
         [Server]
+        public IStatsHolder Set(StatId id, float val) {
+            Stat(id).Set(val);
+            return this;
+        }
+
+        [Server]
         public Stat Stat(StatId id) {
             if (!statIds.Contains(id)) {
                 throw new ArgumentException($"StatsHolder does not contain stat of id {id}");
@@ -38,8 +44,21 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [Server]
         public float ValueOf(StatId id) => Stat(id).Get();
 
+        [Server]
         public Tuple<float, float> Values(StatId firstId, StatId secondId) =>
             Tuple.Create(ValueOf(firstId), ValueOf(secondId));
+
+        [Server]
+        public Tuple<float, float, float> Values(Tuple<StatId, StatId, StatId> ids) =>
+            Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3));
+        
+        [Server]
+        public Tuple<float, float, float, float> Values(Tuple<StatId, StatId, StatId, StatId> ids) =>
+            Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3), ValueOf(ids.Item4));
+
+        [Server]
+        public Tuple<float, float, float, float, float> Values(Tuple<StatId, StatId, StatId, StatId, StatId> ids) =>
+            Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3), ValueOf(ids.Item4), ValueOf(ids.Item5));
 
         [Server]
         public Tuple<Stat, Stat> Stats(StatId firstId, StatId secondId) =>

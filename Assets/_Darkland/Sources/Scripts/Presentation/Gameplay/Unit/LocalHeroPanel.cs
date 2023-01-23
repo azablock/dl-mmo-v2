@@ -2,6 +2,7 @@ using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
+using TMPro;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
@@ -10,6 +11,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [SerializeField]
         private DarklandUnitInfoPanel localHeroInfoPanel;
+
+        [SerializeField]
+        private TMP_Text positionText;
 
         private void OnEnable() {
             DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged += ClientOnStatsChanged;
@@ -40,12 +44,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
                 localHeroInfoPanel.ClientSetMaxHealth(val);
             }
         }
-        
+
         [Client]
-        private void ClientOnPosChanged(Vector3Int pos) {
-            //todo
-            // localPlayerPosText.text = $"Pos {pos}";
-        }
+        private void ClientOnPosChanged(Vector3Int pos) => positionText.text = $"{pos}";
 
 
     }

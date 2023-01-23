@@ -60,6 +60,24 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 }
             }
             //todo TEST TEST TEST ----------------------------------------------------------------------
+            
+            
+            //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+            if (message.movementVector.x != 0) {
+                conn.identity.GetComponent<IStatsHolder>()
+                    .Stat(StatId.Might)
+                    .Add(message.movementVector.x);
+            }
+            
+            if (message.movementVector.y != 0) {
+                conn.identity.GetComponent<IStatsHolder>()
+                    .Stat(StatId.Constitution)
+                    .Add(message.movementVector.y);
+            }
+            
+            //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
         }
 
         [Server]
