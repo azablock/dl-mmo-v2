@@ -1,4 +1,5 @@
-﻿using _Darkland.Sources.Models.DiscretePosition;
+﻿using System;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.Models.Unit;
@@ -21,6 +22,9 @@ namespace _Darkland.Sources.Models.Persistence {
                 .darklandHeroRepository
                 .FindByName(heroName);
 
+            var vocation = darklandHeroGameObject.GetComponent<DarklandHero>().vocation;
+            e.vocation = vocation.ToString();
+            
             var position = darklandHeroGameObject.GetComponent<IDiscretePosition>().Pos;
             e.posX = position.x;
             e.posY = position.y;
@@ -59,6 +63,7 @@ namespace _Darkland.Sources.Models.Persistence {
             darklandHero.GetComponent<IDiscretePosition>().Set(pos, true);
             darklandHero.transform.position = pos;
 
+            darklandHero.ServerSetVocation(Enum.Parse<HeroVocation>(e.vocation));
             darklandHero.GetComponent<UnitNameBehaviour>().ServerSet(heroName);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
@@ -80,10 +85,11 @@ namespace _Darkland.Sources.Models.Persistence {
             xpHolder.ServerInit(e.xp, e.level);
         }
 
-        public static void ServerCreateNewHero(ObjectId darklandAccountId, string heroName) {
+        public static void ServerCreateNewHero(ObjectId darklandAccountId, string heroName, HeroVocation heroVocation) {
           var darklandHeroEntity = new DarklandHeroEntity {
                 name = heroName,
                 darklandAccountId = darklandAccountId,
+                vocation = heroVocation.ToString(),
                 health = 1,
                 xp = 0,
                 level = 1,
@@ -98,7 +104,6 @@ namespace _Darkland.Sources.Models.Persistence {
             };
             
             DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
-
         }
 
     }

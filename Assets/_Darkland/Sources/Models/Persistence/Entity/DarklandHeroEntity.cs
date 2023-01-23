@@ -12,6 +12,8 @@ namespace _Darkland.Sources.Models.Persistence.Entity {
         [BsonRequired]
         public string name;
         [BsonRequired]
+        public string vocation;
+        [BsonRequired]
         public int posX;
         [BsonRequired]
         public int posY;
