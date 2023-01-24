@@ -37,8 +37,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnDead() {
-            var maxHealthValue = _statsHolder.ValueOf(StatId.MaxHealth);
-            _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(maxHealthValue, StatId.Health));
+            _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(1, StatId.Health));
             _discretePosition.Set(Vector3Int.zero, true);
         }
 
