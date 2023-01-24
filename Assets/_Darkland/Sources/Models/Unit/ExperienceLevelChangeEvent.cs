@@ -4,7 +4,8 @@ namespace _Darkland.Sources.Models.Unit {
 
         public int level;
         public int currentXp;
-        public int nextLevelXp;
+        public int currentLevelXpCap;
+        public int nextLevelXpCap;
 
     }
 

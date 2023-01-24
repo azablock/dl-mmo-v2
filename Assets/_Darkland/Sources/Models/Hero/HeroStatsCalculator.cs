@@ -30,13 +30,13 @@ namespace _Darkland.Sources.Models.Hero {
         public static readonly StatsFormulas statsFormulas = new() {
             {
                 StatId.Might, new StatModifiersDict {
-                    { StatId.MaxHealth, v => v * 3 },
+                    { StatId.MaxHealth, v => v * 4 },
                     // { StatId.ActionPower, v => Mathf.Floor(v / 10) }
                 }
             },
             {
                 StatId.Constitution, new StatModifiersDict {
-                    { StatId.MaxHealth, v => v * 50 },
+                    { StatId.MaxHealth, v => v * 10 },
                 }
             }
         };
@@ -49,8 +49,8 @@ namespace _Darkland.Sources.Models.Hero {
         public static StatsFormulas statsFormulas2 = new() {
             {
                 StatId.MaxHealth, new StatModifiersDict {
-                    { StatId.Might, v => v * 3 },
-                    { StatId.Constitution, v => v * 40 }
+                    { StatId.Might, v => v * 4 },
+                    { StatId.Constitution, v => v * 10 }
                 }
             }
         };

@@ -25,7 +25,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [Client]
         private void ClientOnLevelChanged(ExperienceLevelChangeEvent evt) {
-            xpSlider.maxValue = evt.nextLevelXp;
+            xpSlider.minValue = evt.currentLevelXpCap;
+            xpSlider.maxValue = evt.nextLevelXpCap;
             xpSlider.value = evt.currentXp;
             ClientSetSliderText();
         }

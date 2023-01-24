@@ -76,26 +76,28 @@ namespace _Darkland.Sources.Scripts.Unit {
             /*
                  next level cap     2000
                  current level cap  800
-                 current xp         850
+                 current xp         1400
                  
                  calculate:
-                 (2000 - 800)   = 1200
-                 (850 - 800)    = 50
-                 50 / 10        = 5
+                 (2000 - 800)       = 1200
+                 (1400 - 800)       = 600
+                 600 / 1200         = 0.5 progress [0, 1]
+                 
              */
 
-            var nextLevelXpCap = ServerNextLevelXpCap();
-            var currentLevelXpCap = LevelXpCap(level);
-            var capDiff = nextLevelXpCap - currentLevelXpCap;
-            var currentXpProgress = capDiff - xp;
-            var xpDeltaOnDeath = currentXpProgress / 10;
+            // var nextLevelXpCap = ServerNextLevelXpCap();
+            // var currentLevelXpCap = LevelXpCap(level);
+            // var capDiff = nextLevelXpCap - currentLevelXpCap;
+            // var currentXpProgress = capDiff - xp;
+            // var xpDeltaOnDeath = currentXpProgress / 10;
 
-            ServerLose(xpDeltaOnDeath);
+            ServerSetXp(Math.Max(LevelXpCap(level), xp - (ServerNextLevelXpCap() / 4)));
         }
         
         [Server]
         private ExperienceLevelChangeEvent ServerEvt() => new() {
-            nextLevelXp = ServerNextLevelXpCap(),
+            nextLevelXpCap = ServerNextLevelXpCap(),
+            currentLevelXpCap = LevelXpCap(level),
             level = level,
             currentXp = xp
         };
