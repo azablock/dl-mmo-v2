@@ -13,14 +13,6 @@ namespace _Darkland.Sources.Scripts.DiscretePosition {
         public event Action<PositionChangeData> Changed;
         public event Action<Vector3Int> ClientChanged;
 
-        public bool readStartPosFromTransform;
-
-        public override void OnStartServer() {
-            if (readStartPosFromTransform) {
-                Set(Vector3Int.FloorToInt(transform.position));
-            }
-        }
-
         [Server]
         public void Set(Vector3Int pos, bool clientImmediate = false) {
             Pos = pos;

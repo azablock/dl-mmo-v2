@@ -11,13 +11,13 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
 
         public override void Process(GameObject caster) {
             //todo mock - get from equipment, somehow calculate by weapon stats and unit stats(traits?)
-            var weaponDamage = 7;
+            var weaponDamage = Random.Range(3, 7);
 
             var targetNetIdentity = caster.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
 
             caster
-                .GetComponent<DamageDealerBehaviour>()
-                .ServerDealDamage(new UnitAttackEvent {
+                .GetComponent<IDamageDealer>()
+                .DealDamage(new UnitAttackEvent {
                     target = targetNetIdentity,
                     damage = weaponDamage,
                     damageType = DamageType.Physical

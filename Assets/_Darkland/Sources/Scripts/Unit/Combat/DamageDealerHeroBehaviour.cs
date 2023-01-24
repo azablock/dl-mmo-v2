@@ -14,12 +14,11 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
         public DamageType damageType;
 
     }
-    
-    public class DamageDealerBehaviour : NetworkBehaviour {
+
+    public class DamageDealerHeroBehaviour : NetworkBehaviour, IDamageDealer {
 
         [Server]
-        public void ServerDealDamage(UnitAttackEvent evt) {
-
+        public void DealDamage(UnitAttackEvent evt) {
             var healthStat = evt.target.GetComponent<IStatsHolder>().Stat(StatId.Health);
             var newHealthValue = healthStat.Get() - evt.damage;
             healthStat.Set(newHealthValue);

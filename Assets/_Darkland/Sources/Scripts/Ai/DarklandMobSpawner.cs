@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit;
 using Mirror;
 using UnityEngine;
@@ -20,8 +21,10 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void ServerRespawnMob() {
             Assert.IsNull(_mob);
             
-            _mob = Instantiate(darklandMobPrefab, transform);
+            _mob = Instantiate(darklandMobPrefab, transform.position, Quaternion.identity);
+            // _mob = Instantiate(darklandMobPrefab, transform);
             _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
+            _mob.GetComponent<IDiscretePosition>().Set(Vector3Int.FloorToInt(transform.position));
             
             NetworkServer.Spawn(_mob);
         }

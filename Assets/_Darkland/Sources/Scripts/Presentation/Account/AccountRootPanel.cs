@@ -108,15 +108,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         }
 
         private static void StartConnection() {
-#if UNITY_EDITOR_64 && !UNITY_SERVER
-            if (!NetworkServer.active) {
-                DarklandNetworkManager.self.StartHost();
-            } else {
-                DarklandNetworkManager.self.StartClient();
-            }
-#else
-                NetworkManager.singleton.StartClient();
-#endif
+            NetworkManager.singleton.StartClient();
+
+            
+// #if UNITY_EDITOR_64 && !UNITY_SERVER
+//             if (!NetworkServer.active) {
+//                 DarklandNetworkManager.self.StartHost();
+//             } else {
+//                 DarklandNetworkManager.self.StartClient();
+//             }
+// #else
+//                 NetworkManager.singleton.StartClient();
+// #endif
         }
     }
 

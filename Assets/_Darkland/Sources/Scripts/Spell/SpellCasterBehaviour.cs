@@ -31,8 +31,7 @@ namespace _Darkland.Sources.Scripts.Spell {
 
         public event Action<SpellCastedEvent> ClientSpellCasted;
 
-        [Server]
-        private void Start() {
+        public override void OnStartServer() {
             Assert.IsNotNull(spells);
             for (var i = 0; i < spells.Count; i++) _spellCooldowns.Add(i, true);
         }

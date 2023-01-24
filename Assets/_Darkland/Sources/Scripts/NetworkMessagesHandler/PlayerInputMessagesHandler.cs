@@ -38,21 +38,6 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerProcessMove(NetworkConnectionToClient conn,
                                               PlayerInputMessages.MoveRequestMessage message) {
             conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
-            
-            //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-            if (message.movementVector.x != 0) {
-                conn.identity.GetComponent<IStatsHolder>()
-                    .Stat(StatId.Might)
-                    .Add(message.movementVector.x);
-            }
-            
-            if (message.movementVector.y != 0) {
-                conn.identity.GetComponent<IStatsHolder>()
-                    .Stat(StatId.Constitution)
-                    .Add(message.movementVector.y);
-            }
-            //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
         }
 
         [Server]
