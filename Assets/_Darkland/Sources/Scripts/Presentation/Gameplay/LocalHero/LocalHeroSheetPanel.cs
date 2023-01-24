@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
@@ -41,6 +42,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
         private void OnEnable() {
             DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
+            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged += OnClientLevelChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet += ClientOnGetHeroSheet;
             
             var heroName = DarklandHero.localHero.GetComponent<UnitNameBehaviour>().unitName;
@@ -49,6 +51,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
         private void OnDisable() {
             DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged -= OnClientChanged;
+            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= OnClientLevelChanged;
+            DarklandHeroMessagesProxy.ClientGetHeroSheet -= ClientOnGetHeroSheet;
         }
 
         [Client]
@@ -57,6 +61,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
             _statChangedCallbacks[statId].Invoke(val, this);
         }
+
+        [Client]
+        private void OnClientLevelChanged(ExperienceLevelChangeEvent evt) => heroLevelText.text = $"{evt.level}";
 
         [Client]
         private void ClientOnGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) {
