@@ -38,7 +38,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         [Client]
-        private void ClientSetSliderText() => xpText.text = $"{xpSlider.value} / {xpSlider.maxValue}";
+        private void ClientSetSliderText() => xpText.text =
+            $"{(xpSlider.value - xpSlider.minValue) * 100 / (xpSlider.maxValue - xpSlider.minValue):0.00}% " +
+            $"({xpSlider.value} / {xpSlider.maxValue})";
 
     }
 
