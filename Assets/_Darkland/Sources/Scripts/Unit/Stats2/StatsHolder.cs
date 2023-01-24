@@ -32,6 +32,16 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             return this;
         }
 
+        public IStatsHolder Add(StatId id, float val) {
+            Stat(id).Add(val);
+            return this;
+        }
+
+        public IStatsHolder Subtract(StatId id, float val) {
+            Stat(id).Add(-val);
+            return this;
+        }
+
         [Server]
         public Stat Stat(StatId id) {
             if (!statIds.Contains(id)) {

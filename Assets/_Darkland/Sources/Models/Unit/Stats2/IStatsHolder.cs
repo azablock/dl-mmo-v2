@@ -5,6 +5,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public interface IStatsHolder {
         IStatsHolder Set(StatId id, float val);
+        IStatsHolder Add(StatId id, float val);
+        IStatsHolder Subtract(StatId id, float val);
         Stat Stat(StatId id);
         float ValueOf(StatId id);
         Tuple<float, float> Values(StatId firstId, StatId secondId);
