@@ -7,29 +7,29 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
 
     public abstract class SpellDef : ScriptableObject, ISpell {
         [SerializeField]
-        private string id;
+        protected string id;
         [SerializeField]
-        private float manaCost;
+        protected float manaCost;
         [SerializeField]
-        private float cooldown;
+        protected float cooldown;
         [SerializeField]
-        private float castTime;
+        protected float castTime;
         [SerializeField]
-        private TargetType targetType;
+        protected TargetType targetType;
         [Space]
         [SerializeField]
-        private List<SpellInstantEffect> instantEffects;
+        protected List<SpellInstantEffect> instantEffects;
         [SerializeField]
-        private List<SpellTimedEffect> timedEffects;
+        protected List<SpellTimedEffect> timedEffects;
 
         public string Id => id;
         public float ManaCost => manaCost;
-        public float Cooldown => cooldown;
         public float CastTime => castTime;
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
 
+        public virtual float Cooldown() => cooldown;
         public abstract string Description();
 
     }

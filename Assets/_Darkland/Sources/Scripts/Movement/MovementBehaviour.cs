@@ -2,6 +2,7 @@ using System.Collections;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Models.World;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private void ServerSetDiscretePosition(Vector3Int pos) {
-            if (!WorldInteractionFilters.IsEmptyField(DarklandWorldBehaviour._, pos)) return;
+            if (!DarklandWorldBehaviour._.IsEmptyField(pos)) return;
 
             _discretePosition.Set(pos);
 

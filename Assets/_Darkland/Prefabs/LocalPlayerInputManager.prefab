@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1593477636082463851}
   - component: {fileID: 3355532615970537104}
-  - component: {fileID: 2925279974235571815}
+  - component: {fileID: 859285885206298932}
+  - component: {fileID: 5475511698371187621}
   m_Layer: 0
   m_Name: LocalPlayerInputManager
   m_TagString: Untagged
@@ -127,14 +128,43 @@ MonoBehaviour:
       m_Action: Change Floor
       m_Flags: 8
     m_Flags: 0
---- !u!114 &2925279974235571815
+--- !u!114 &859285885206298932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2214963643716453128}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69191191ffb0461d9dd4eeedac7df285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spell0Action:
+    m_Name: Spell 0
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 955a0ee8-7c7d-481f-9166-9b6c2644670e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 52a9b11e-4613-4b38-8322-d08b67648361
+      m_Path: <Keyboard>/f1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Spell 0
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &5475511698371187621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94f49587a51345c6ba5339be533dc71a, type: 3}
   m_Name: 
@@ -142,13 +172,13 @@ MonoBehaviour:
   leftMouseClick:
     m_Name: Left Mouse Click
     m_Type: 0
-    m_ExpectedControlType: Vector2
-    m_Id: 4cce278d-0940-4cfc-b775-effb093bd230
+    m_ExpectedControlType: 
+    m_Id: ef890ad9-9bb6-4a23-bac4-460037055fc1
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 13531ce8-1689-42bd-9d49-8f0fec644d82
+      m_Id: f8b995d8-d112-4132-a284-f1c869ca1551
       m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 

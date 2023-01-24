@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c87ff50e2824678a12e786debfe78a0, type: 3}
-  m_Name: BurnSpellTimedEffect
+  m_Script: {fileID: 11500000, guid: 62918f157df9433da4d54d5a5d60f408, type: 3}
+  m_Name: DirectDmgSpellInstantEffect
   m_EditorClassIdentifier: 
-  burnRepeats: 0
-  burnInterval: 0
-  burnDamage: 0
+  damage: 5
+  damageType: 1

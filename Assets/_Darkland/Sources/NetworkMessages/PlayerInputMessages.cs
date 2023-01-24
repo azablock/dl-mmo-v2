@@ -26,12 +26,22 @@ namespace _Darkland.Sources.NetworkMessages {
             public float maxHealth;
             public uint statsHolderNetId;
             public string unitName; //todo change message struct name
+        }
+
+        public struct CastSpellRequestMessage : NetworkMessage {
+
+            public int spellIdx;
 
         }
 
-        public struct LeftMouseClickRequestMessage : NetworkMessage {
-            public Vector2Int clickWorldPosition;
-        }
+        // public struct CastSpellResponseMessage : NetworkMessage {
+        //
+        //     public int spellIdx;
+        //     public bool success;
+        //     public string status;
+        //     public float cooldown;
+        //
+        // }
 
     }
 

@@ -9,6 +9,8 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         public override string Description() {
             return "Fireball Description";
         }
+        
+        
     }
 
 }

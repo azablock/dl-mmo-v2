@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9dba8cc38e431298fd9588a063b6d8, type: 3}
   m_Name: FireballSpell
   m_EditorClassIdentifier: 
-  id: 
-  manaCost: 0
-  targetType: 0
-  minDamage: 0
-  maxDamage: 0
-  burnTotalTime: 0
-  burnInterval: 0
-  burnDamage: 0
-  castTime: 0
-  cooldown: 0
+  id: Fireball
+  manaCost: 3
+  cooldown: 10
+  castTime: 5
+  targetType: 2
+  instantEffects:
+  - {fileID: 11400000, guid: 27280d8b32a7a08459ef76cc0764acd8, type: 2}
+  timedEffects:
+  - {fileID: 11400000, guid: 60e4a24b05835584aa2d6e52465471af, type: 2}

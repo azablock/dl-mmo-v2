@@ -11,6 +11,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.ChangeFloorRequestMessage> ServerChangeFloor;
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.NpcClickRequestMessage> ServerNpcClick;
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.GetHealthStatsRequestMessage> ServerGetHealthStats;
+        public static event Action<NetworkConnectionToClient, PlayerInputMessages.CastSpellRequestMessage> ServerCastSpell;
 
         public static event Action<PlayerInputMessages.GetHealthStatsResponseMessage> ClientGetHealthStats;
 
@@ -20,6 +21,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.RegisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>(ServerHandleChangeFloor);
             NetworkServer.RegisterHandler<PlayerInputMessages.NpcClickRequestMessage>(ServerHandleNpcClick);
             NetworkServer.RegisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>(ServerHandleGetHealthStats);
+            NetworkServer.RegisterHandler<PlayerInputMessages.CastSpellRequestMessage>(ServerHandleCastSpell);
         }
 
         [Server]
@@ -28,6 +30,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.UnregisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>();
             NetworkServer.UnregisterHandler<PlayerInputMessages.NpcClickRequestMessage>();
             NetworkServer.UnregisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>();
+            NetworkServer.UnregisterHandler<PlayerInputMessages.CastSpellRequestMessage>();
         }
 
         [Client]
@@ -59,6 +62,11 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         private static void ServerHandleGetHealthStats(NetworkConnectionToClient conn,
                                                        PlayerInputMessages.GetHealthStatsRequestMessage message) =>
             ServerGetHealthStats?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleCastSpell(NetworkConnectionToClient conn,
+                                                  PlayerInputMessages.CastSpellRequestMessage message) =>
+            ServerCastSpell?.Invoke(conn, message);
 
         [Client]
         private static void ClientHandleGetHealthStats(PlayerInputMessages.GetHealthStatsResponseMessage message) =>

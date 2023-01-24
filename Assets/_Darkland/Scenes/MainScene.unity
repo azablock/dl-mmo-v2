@@ -717,3 +717,86 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+--- !u!1001 &7457074034449638467
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _id
+      value: Fireball
+      objectReference: {fileID: 0}
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _manaCost
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _description
+      value: Emits fireball of damage {3}
+      objectReference: {fileID: 0}
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _spellCost.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _spellCost.Array.data[0].cost
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -182495130714760133, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: _spellCost.Array.data[0].statId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721654288767373436, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_Name
+      value: Fireball Spell
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398460404998851477, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdbe00071c4c32543ac10f2f7af03bb2, type: 3}

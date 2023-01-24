@@ -21,11 +21,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             targetStatsHolder.Subtract(StatId.Health, damage);
         }
 
-        public override bool IsValid(GameObject caster) {
-            return caster
-                .GetComponent<ITargetNetIdHolder>()
-                .TargetNetIdentity != null;
-        }
+        public override bool IsValid(GameObject caster) => caster.GetComponent<ITargetNetIdHolder>().HasTarget();
 
     }
 

@@ -464,12 +464,14 @@ GameObject:
   - component: {fileID: -7389362793666909981}
   - component: {fileID: -2298945933162806613}
   - component: {fileID: 7740574148441116403}
+  - component: {fileID: 6081493971742633474}
   - component: {fileID: 3594306894045255747}
   - component: {fileID: 4485592242522042216}
   - component: {fileID: 690681927740294499}
-  - component: {fileID: 6081493971742633474}
   - component: {fileID: 5298774331071004589}
   - component: {fileID: 7689074317641626228}
+  - component: {fileID: 3591326365436729755}
+  - component: {fileID: 8282911951032870857}
   m_Layer: 0
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -561,6 +563,9 @@ MonoBehaviour:
   movementSpeed: 0
   might: 0
   constitution: 0
+  dexterity: 0
+  intellect: 0
+  soul: 0
 --- !u!114 &4716659205440055620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,6 +702,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxTargetDistance: 4
+--- !u!114 &6081493971742633474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06d8554b62045d6a20f8376f75a2f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &3594306894045255747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,21 +763,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
---- !u!114 &6081493971742633474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6084493378536407968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06d8554b62045d6a20f8376f75a2f8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!65 &5298774331071004589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -786,6 +791,38 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &3591326365436729755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f5d68b8351423690546b1d800536bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &8282911951032870857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4470d1b628445ea93969fd3f427e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  spells:
+  - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
 --- !u!1 &8739879269285926711
 GameObject:
   m_ObjectHideFlags: 0

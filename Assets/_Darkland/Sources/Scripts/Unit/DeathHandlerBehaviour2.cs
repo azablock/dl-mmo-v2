@@ -44,7 +44,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnHealthChanged(float health) {
-            if (health == 0) {
+            if (health <= 0) {
                 Death?.Invoke();
             }
         }

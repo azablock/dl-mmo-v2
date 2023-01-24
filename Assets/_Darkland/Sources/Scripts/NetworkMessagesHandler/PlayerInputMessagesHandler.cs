@@ -1,13 +1,13 @@
 using System;
-using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Models.World;
 using _Darkland.Sources.NetworkMessages;
-using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
+using _Darkland.Sources.Scripts.Spell;
 using _Darkland.Sources.Scripts.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
@@ -22,48 +22,24 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerChangeFloor += ServerProcessChangeFloor;
             PlayerInputMessagesProxy.ServerNpcClick += ServerProcessNpcClick;
             PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
+            PlayerInputMessagesProxy.ServerCastSpell += ServerProcessCastSpell;
         }
-
+        
 
         private void OnDestroy() {
             PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloor -= ServerProcessChangeFloor;
             PlayerInputMessagesProxy.ServerNpcClick -= ServerProcessNpcClick;
             PlayerInputMessagesProxy.ServerGetHealthStats -= ServerProcessGetHealthStats;
+            PlayerInputMessagesProxy.ServerCastSpell -= ServerProcessCastSpell;
         }
 
         [Server]
         private static void ServerProcessMove(NetworkConnectionToClient conn,
                                               PlayerInputMessages.MoveRequestMessage message) {
             conn.identity.GetComponent<MovementBehaviour>().ServerSetMovementVector(message.movementVector);
-
-            //todo TEST TEST TEST ----------------------------------------------------------------------
-            if (message.movementVector.magnitude == 0) return;
-
-            var targetNetIdentity = conn.identity.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
-            if (targetNetIdentity != null && targetNetIdentity.GetComponent<DarklandMob>() != null) {
-                var healthStat = targetNetIdentity.GetComponent<IStatsHolder>().Stat(StatId.Health);
-                var newHealthValue = healthStat.Get() - 1;
-                healthStat.Set(newHealthValue);
-
-                if (newHealthValue == 0) {
-                    var heroXpHolder = conn.identity.GetComponent<XpHolderBehaviour>();
-                    var heroName = heroXpHolder.GetComponent<UnitNameBehaviour>().unitName;
-                    var xpGain = targetNetIdentity.GetComponent<XpGiverBehaviour>().xp;
-                    heroXpHolder.ServerGain(xpGain);
-
-                    var xpChatMessage = ChatMessagesFormatter.FormatServerLog($"Hero {heroName} has {heroXpHolder.xp} xp!");
-
-                    NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {
-                        message = xpChatMessage
-                    });
-                }
-            }
-            //todo TEST TEST TEST ----------------------------------------------------------------------
-            
             
             //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
             if (message.movementVector.x != 0) {
                 conn.identity.GetComponent<IStatsHolder>()
                     .Stat(StatId.Might)
@@ -75,7 +51,6 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                     .Stat(StatId.Constitution)
                     .Add(message.movementVector.y);
             }
-            
             //todo test 2 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
         }
@@ -84,19 +59,21 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerProcessChangeFloor(NetworkConnectionToClient conn,
                                                      PlayerInputMessages.ChangeFloorRequestMessage message) {
             var discretePosition = conn.identity.GetComponent<IDiscretePosition>();
-            var possibleNextPosition = discretePosition.Pos + message.movementVector;
+            var currentPos = discretePosition.Pos;
+            var possibleNextPos = currentPos + message.movementVector;
+            var darklandWorld = DarklandWorldBehaviour._;
 
-            if (WorldInteractionFilters.IsEmptyField(DarklandWorldBehaviour._, possibleNextPosition)) {
-                discretePosition.Set(possibleNextPosition, true);
-            }
+            var possibleNextPosIsEmptyField = darklandWorld.IsEmptyField(possibleNextPos);
+            var canMoveUp = darklandWorld.IsLadderUp(currentPos) && message.movementVector.z == -1;
+            var canMoveDown = darklandWorld.IsLadderDown(currentPos) && message.movementVector.z == 1;
+            var canChangeFloor = possibleNextPosIsEmptyField && (canMoveUp || canMoveDown);
+
+            if (canChangeFloor) discretePosition.Set(possibleNextPos, true);
         }
 
         [Server]
         private static void ServerProcessNpcClick(NetworkConnectionToClient conn,
                                                   PlayerInputMessages.NpcClickRequestMessage msg) {
-            var message = ChatMessagesFormatter.FormatServerLog($"Npc netId[{msg.npcNetId}] clicked.");
-            conn.Send(new ChatMessages.ServerLogResponseMessage { message = message });
-
             conn.identity.GetComponent<TargetNetIdHolderBehaviour>().Set(msg.npcNetId);
         }
 
@@ -116,6 +93,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 unitName = unitName
             });
         }
+        
+        [Server]
+        private static void ServerProcessCastSpell(NetworkConnectionToClient conn,
+                                                   PlayerInputMessages.CastSpellRequestMessage message) {
+            conn.identity.GetComponent<ISpellCaster>().CastSpell(message.spellIdx);
+        }
+
     }
 
 }
