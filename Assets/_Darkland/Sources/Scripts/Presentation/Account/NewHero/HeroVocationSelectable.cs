@@ -13,6 +13,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
         public event Action<HeroVocation> Clicked;
 
         public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(vocation);
+
+        public HeroVocation Vocation => vocation;
+
     }
 
 }

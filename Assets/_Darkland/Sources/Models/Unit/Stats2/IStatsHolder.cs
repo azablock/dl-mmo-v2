@@ -20,26 +20,16 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public static class SimpleStatsHolderFunctions {
 
-        public struct TraitValues {
-
-            public float might;
-            public float constitution;
-            public float dexterity;
-            public float intellect;
-            public float soul;
-
-        }
-
-        public static void SetTraitStats(this IStatsHolder holder, TraitValues values) {
+        public static void SetTraitStats(this IStatsHolder holder, UnitTraits traits) {
             holder
-                .Set(StatId.Might, values.might)
-                .Set(StatId.Constitution, values.constitution)
-                .Set(StatId.Dexterity, values.dexterity)
-                .Set(StatId.Intellect, values.intellect)
-                .Set(StatId.Soul, values.soul);
+                .Set(StatId.Might, traits.might)
+                .Set(StatId.Constitution, traits.constitution)
+                .Set(StatId.Dexterity, traits.dexterity)
+                .Set(StatId.Intellect, traits.intellect)
+                .Set(StatId.Soul, traits.soul);
         }
         
-        public static TraitValues TraitStatsValues(this IStatsHolder holder) {
+        public static UnitTraits TraitStatsValues(this IStatsHolder holder) {
             var traitStatIds = Tuple.Create(
                 StatId.Might,
                 StatId.Constitution,
@@ -50,7 +40,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
             var traitStatsValues = holder.Values(traitStatIds);
 
-            return new TraitValues {
+            return new UnitTraits {
                 might = traitStatsValues.Item1,
                 constitution = traitStatsValues.Item2,
                 dexterity = traitStatsValues.Item3,

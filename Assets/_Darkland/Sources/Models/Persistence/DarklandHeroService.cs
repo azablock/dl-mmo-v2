@@ -67,7 +67,7 @@ namespace _Darkland.Sources.Models.Persistence {
             darklandHero.GetComponent<UnitNameBehaviour>().ServerSet(heroName);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
-            statsHolder.SetTraitStats(new SimpleStatsHolderFunctions.TraitValues {
+            statsHolder.SetTraitStats(new UnitTraits {
                 might = e.might,
                 constitution = e.constitution,
                 dexterity = e.dexterity,
@@ -75,7 +75,7 @@ namespace _Darkland.Sources.Models.Persistence {
                 soul = e.soul
             });
 
-            //todo to samo sie nie powinno wyliczyc? pewnie jeszzce za wczesnie
+            //todo MaxHealth samo sie nie powinno wyliczyc? pewnie jeszzce za wczesnie
             statsHolder.Set(StatId.MaxHealth, HeroStatsCalculator.ValueOf(StatId.MaxHealth, statsHolder));
             statsHolder.Set(StatId.Health, e.health);
             statsHolder.Set(StatId.HealthRegain, 1);
@@ -89,6 +89,7 @@ namespace _Darkland.Sources.Models.Persistence {
           var darklandHeroEntity = new DarklandHeroEntity {
                 name = heroName,
                 darklandAccountId = darklandAccountId,
+                createDate = DateTime.Now,
                 vocation = heroVocation.ToString(),
                 health = 1,
                 xp = 0,

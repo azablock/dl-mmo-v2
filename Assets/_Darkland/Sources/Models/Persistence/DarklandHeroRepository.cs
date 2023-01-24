@@ -11,6 +11,7 @@ namespace _Darkland.Sources.Models.Persistence {
         public IEnumerable<DarklandHeroEntity> FindAllByDarklandAccountId(ObjectId id) =>
             GetCollection()
                 .Find(entity => entity.darklandAccountId.Equals(id))
+                .SortByDescending(it => it.createDate)
                 .ToList();
 
         public DarklandHeroEntity FindByName(string name) => GetCollection()
