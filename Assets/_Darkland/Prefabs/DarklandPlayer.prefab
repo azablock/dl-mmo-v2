@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 4485592242522042216}
   - component: {fileID: 690681927740294499}
   - component: {fileID: 7689074317641626228}
+  - component: {fileID: 378262055039967593}
   - component: {fileID: 3591326365436729755}
   - component: {fileID: 8282911951032870857}
   - component: {fileID: 5298774331071004589}
@@ -777,6 +778,21 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &378262055039967593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616f533699ce42fcafb25df9ffbf2877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &3591326365436729755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,6 +808,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  damageMarkerPrefab: {fileID: 4603461843319079867, guid: 7007193f0ab1f6343aaa25679fb14ccf, type: 3}
 --- !u!114 &8282911951032870857
 MonoBehaviour:
   m_ObjectHideFlags: 0

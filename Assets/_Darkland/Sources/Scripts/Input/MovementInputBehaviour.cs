@@ -56,13 +56,10 @@ namespace _Darkland.Sources.Scripts.Input {
         }
 
         [Client]
-        private static void ClientSendChangeFloorMoveInput(InputAction.CallbackContext context) {
+        private static void ClientSendChangeFloorMoveInput(InputAction.CallbackContext _) {
             if (InputStateBehaviour._.chatInputActive) return;
 
-            var zDelta = context.ReadValue<float>();
-            var movementVector = new Vector3Int(0, 0, (int) zDelta);
-
-            NetworkClient.Send(new PlayerInputMessages.ChangeFloorRequestMessage {movementVector = movementVector});
+            NetworkClient.Send(new PlayerInputMessages.ChangeFloorRequestMessage());
         }
     }
 

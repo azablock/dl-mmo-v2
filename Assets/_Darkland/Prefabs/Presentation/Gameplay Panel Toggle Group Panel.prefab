@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 1874581002488053491}
   - component: {fileID: 4681935657590701025}
   - component: {fileID: 2788752598237264517}
+  - component: {fileID: 640508368864005994}
   m_Layer: 5
   m_Name: Gameplay Panel Toggle Group Panel
   m_TagString: Untagged
@@ -194,3 +195,16 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &640508368864005994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207802078287293500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe6d505653b4b6eab4f6c397cc0a8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroSheetToggle: {fileID: 7396670134853500306}

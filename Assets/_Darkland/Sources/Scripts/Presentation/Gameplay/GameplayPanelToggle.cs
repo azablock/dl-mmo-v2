@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +11,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
 
         private void OnDisable() => panel.SetActive(false);
 
-        public void OnPointerClick(PointerEventData _) => panel.SetActive(!panel.activeSelf);
+        public void OnPointerClick(PointerEventData _) => ClientToggle();
+
+        [Client]
+        public void ClientToggle() => panel.SetActive(!panel.activeSelf);
 
     }
 

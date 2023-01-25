@@ -4,11 +4,12 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
-    public class SpellIconBehaviour : MonoBehaviour {
+    public class SpellIconBehaviour : MonoBehaviour, IPointerClickHandler {
 
         [SerializeField]
         private Image cooldownImage;
@@ -19,9 +20,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
         private Coroutine _cooldownCoroutine;
 
+        public event Action<SpellIconBehaviour> Clicked;
+
         private void OnDisable() {
             cooldownImage.gameObject.SetActive(false);
         }
+
+        public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(this);
 
         [Client]
         public void ClientStartCooldown(float cooldown) {

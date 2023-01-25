@@ -10,7 +10,6 @@ namespace _Darkland.Sources.NetworkMessages {
         }
 
         public struct ChangeFloorRequestMessage : NetworkMessage {
-            public Vector3Int movementVector;
         }
         
         public struct NpcClickRequestMessage : NetworkMessage {

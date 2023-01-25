@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Scripts.Presentation.Account.NewHero;
 using TMPro;
@@ -76,8 +77,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         }
 
         private void OnVocationSelected(HeroVocation vocation) => _formData.heroVocation = vocation;
-        
-        private void OnHeroNameValueChanged(string val) => _formData.heroName = val;
+
+        private void OnHeroNameValueChanged(string val) {
+            var cleanVal = Regex.Replace(val.Trim(), @"[^\w\s]", string.Empty);
+            _formData.heroName = cleanVal;
+            
+            if (val == cleanVal) return;
+            heroNameInputField.text = cleanVal;
+        }
 
     }
 

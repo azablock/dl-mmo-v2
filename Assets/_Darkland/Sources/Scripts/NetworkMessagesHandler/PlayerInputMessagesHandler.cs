@@ -24,7 +24,6 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
             PlayerInputMessagesProxy.ServerCastSpell += ServerProcessCastSpell;
         }
-        
 
         private void OnDestroy() {
             PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
@@ -45,13 +44,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                                                      PlayerInputMessages.ChangeFloorRequestMessage message) {
             var discretePosition = conn.identity.GetComponent<IDiscretePosition>();
             var currentPos = discretePosition.Pos;
-            var possibleNextPos = currentPos + message.movementVector;
             var darklandWorld = DarklandWorldBehaviour._;
+            var ladderTile = darklandWorld.TeleportTile(currentPos);
 
-            var possibleNextPosIsEmptyField = darklandWorld.IsEmptyField(possibleNextPos);
-            var canMoveUp = darklandWorld.IsLadderUp(currentPos) && message.movementVector.z == -1;
-            var canMoveDown = darklandWorld.IsLadderDown(currentPos) && message.movementVector.z == 1;
-            var canChangeFloor = possibleNextPosIsEmptyField && (canMoveUp || canMoveDown);
+            if (ladderTile == null) return;
+
+            var possibleNextPos = currentPos + ladderTile.posDelta;
+            var canChangeFloor = darklandWorld.IsEmptyField(possibleNextPos);
 
             if (canChangeFloor) discretePosition.Set(possibleNextPos, true);
         }

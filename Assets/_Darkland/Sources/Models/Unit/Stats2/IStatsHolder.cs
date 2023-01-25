@@ -20,7 +20,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
         event Action<StatId, float> ClientChanged;
     }
 
-    public static class SimpleStatsHolderFunctions {
+    public static class SimpleStatsHolderExtensions {
 
         public static void SetTraitStats(this IStatsHolder holder, UnitTraits traits) {
             holder

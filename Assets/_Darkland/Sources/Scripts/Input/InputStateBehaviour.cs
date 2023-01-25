@@ -17,15 +17,21 @@ namespace _Darkland.Sources.Scripts.Input {
 
         private void OnEnable() {
             _chatPanel = FindObjectOfType<ChatPanel>();
-            _chatPanel.MessageInputFieldValueChanged += ClientOnMessageInputFieldValueChanged;
+            _chatPanel.MessageInputFieldSelected += ClientOnMessageInputFieldSelected;
+            _chatPanel.MessageInputFieldDeselected += ClientOnMessageInputFieldDeselected;
         }
 
         private void OnDisable() {
-            _chatPanel.MessageInputFieldValueChanged -= ClientOnMessageInputFieldValueChanged;
+            _chatPanel.MessageInputFieldSelected -= ClientOnMessageInputFieldSelected;
+            _chatPanel.MessageInputFieldDeselected -= ClientOnMessageInputFieldDeselected;
         }
 
         [Client]
-        private void ClientOnMessageInputFieldValueChanged(string inputFieldValue) => chatInputActive = !string.IsNullOrEmpty(inputFieldValue);
+        private void ClientOnMessageInputFieldSelected() => chatInputActive = true;
+
+        [Client]
+        private void ClientOnMessageInputFieldDeselected() => chatInputActive = false;
+
     }
 
 }

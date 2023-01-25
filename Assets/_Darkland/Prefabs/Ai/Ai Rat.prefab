@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 3154160925708691126}
   - component: {fileID: 1598996541946964017}
   - component: {fileID: 4078144967815570666}
-  - component: {fileID: 192862411938986508}
+  - component: {fileID: 7271619246065586669}
   m_Layer: 0
   m_Name: Ai Rat
   m_TagString: Untagged
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xp: 37
---- !u!114 &192862411938986508
+--- !u!114 &7271619246065586669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,9 +273,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 119151979988157374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2561d5cd4b4898a68b78e76e293391, type: 3}
+  m_Script: {fileID: 11500000, guid: 75f5d68b8351423690546b1d800536bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  damageMarkerPrefab: {fileID: 4603461843319079867, guid: 7007193f0ab1f6343aaa25679fb14ccf, type: 3}
 --- !u!1 &288256680686236835
 GameObject:
   m_ObjectHideFlags: 0
