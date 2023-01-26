@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.ScriptableObjects.Spell;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Spell {
 
@@ -7,11 +8,11 @@ namespace _Darkland.Sources.Models.Spell {
         string Id { get; }
         float ManaCost { get; }
         float CastTime { get; }
-        TargetType TargetType { get; }
+        List<ISpellCastCondition> CastConditions { get; }
         List<ISpellInstantEffect> InstantEffects { get; }
         List<ISpellTimedEffect> TimedEffects { get; }
 
-        float Cooldown();
+        float Cooldown(GameObject caster);
         string Description();
     }
 

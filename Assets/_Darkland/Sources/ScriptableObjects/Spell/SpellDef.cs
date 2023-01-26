@@ -21,6 +21,8 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         protected List<SpellInstantEffect> instantEffects;
         [SerializeField]
         protected List<SpellTimedEffect> timedEffects;
+        [SerializeField]
+        protected List<SpellCastCondition> castConditions;
 
         public string Id => id;
         public float ManaCost => manaCost;
@@ -28,8 +30,9 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
+        public List<ISpellCastCondition> CastConditions => new(castConditions);
 
-        public virtual float Cooldown() => cooldown;
+        public virtual float Cooldown(GameObject caster) => cooldown;
         public abstract string Description();
 
     }

@@ -23,8 +23,6 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                 });
         }
 
-        public override bool IsValid(GameObject caster) => caster.GetComponent<ITargetNetIdHolder>().HasTarget();
-
     }
 
 }

@@ -6,8 +6,6 @@ namespace _Darkland.Sources.Models.Spell {
     public interface ISpellInstantEffect {
         [Server]
         void Process(GameObject caster);
-        [Server]
-        bool IsValid(GameObject caster);
     }
 
 }

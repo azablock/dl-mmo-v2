@@ -1,7 +1,9 @@
 using System.Collections;
 using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Interaction;
-using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Unit.Combat;
 using Mirror;
 using UnityEngine;
 
@@ -30,12 +32,21 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             var remainingBurns = burnRepeats;
 
             while (remainingBurns >= 0) {
-                caster
+                var target = caster
                     .GetComponent<ITargetNetIdHolder>()
-                    .TargetNetIdentity
-                    .GetComponent<IStatsHolder>()
-                    .Subtract(StatId.Health, burnDamage);
+                    .TargetNetIdentity;
                 
+                caster
+                    .GetComponent<IDamageDealer>()
+                    .DealDamage(new UnitAttackEvent() {
+                        damage = burnDamage,
+                        target = target,
+                        damageType = DamageType.Physical
+                    });
+
+                //todo send message "burn damage effect" on enemy
+                NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage());
+
                 yield return new WaitForSeconds(burnInterval);
                 remainingBurns--;
             }

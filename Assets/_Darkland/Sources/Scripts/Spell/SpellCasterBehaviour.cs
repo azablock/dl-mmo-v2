@@ -43,36 +43,33 @@ namespace _Darkland.Sources.Scripts.Spell {
 
             var spell = spells[spellIdx];
 
-            //network server send failure status
             if (!_spellCooldowns[spellIdx]) {
-                // Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) not ready"));
+                Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) not ready"));
                 return; 
             }
 
-            if (spell.InstantEffects.Any(it => !it.IsValid(gameObject))) {
-                // Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) cannot be cast"));
+            var invalidCastCondition = spell.CastConditions.FirstOrDefault(it => !it.CanCast(gameObject));
+            if (invalidCastCondition != null) {
+                Debug.LogWarning(ChatMessagesFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage()));
                 return;
             }
 
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
             //apply timed effects
 
-            //client rpc visualize used spell
-            // Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"ServerUseSpell({spellIdx})"));
-
-            TargetRpcNotifySpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = spell.Cooldown()});
+            TargetRpcSpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = spell.Cooldown(gameObject)});
             StartCoroutine(ServerSpellCooldown(spellIdx));
         }
 
         [Server]
         private IEnumerator ServerSpellCooldown(int spellIdx) {
             _spellCooldowns[spellIdx] = false;
-            yield return new WaitForSeconds(spells[spellIdx].Cooldown());
+            yield return new WaitForSeconds(spells[spellIdx].Cooldown(gameObject));
             _spellCooldowns[spellIdx] = true;
         }
 
         [TargetRpc]
-        private void TargetRpcNotifySpellCasted(SpellCastedEvent evt) => ClientSpellCasted?.Invoke(evt);
+        private void TargetRpcSpellCasted(SpellCastedEvent evt) => ClientSpellCasted?.Invoke(evt);
 
     }
 

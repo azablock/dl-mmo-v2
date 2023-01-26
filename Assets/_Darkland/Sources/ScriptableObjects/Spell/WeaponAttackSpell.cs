@@ -7,7 +7,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
     public class WeaponAttackSpell : SpellDef {
 
         //todo weapon cooldown
-        public override float Cooldown() => 1;
+        public override float Cooldown(GameObject caster) => 1;
 
         public override string Description() {
             return "Weapon Attack";
