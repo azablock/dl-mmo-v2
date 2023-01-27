@@ -79,7 +79,7 @@ namespace _Darkland.Sources.Models.Persistence {
             statsHolder.Set(StatId.MaxHealth, HeroStatsCalculator.ValueOf(StatId.MaxHealth, statsHolder));
             statsHolder.Set(StatId.Health, e.health);
             statsHolder.Set(StatId.HealthRegain, 1);
-            statsHolder.Set(StatId.MovementSpeed, 4);
+            statsHolder.Set(StatId.MovementSpeed, 3);
 
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
             xpHolder.ServerInit(e.xp, e.level);

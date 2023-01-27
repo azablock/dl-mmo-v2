@@ -12,7 +12,15 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class UnitEffectHolderBehaviour : NetworkBehaviour, IUnitEffectHolder {
 
-        private Dictionary<string, Coroutine> _effectCoroutines;
+        public class UnitEffectState {
+
+            public bool isAfterPostProcess;
+            public Coroutine coroutine;
+            public IUnitEffect effect;
+
+        }
+        
+        private Dictionary<string, UnitEffectState> _effectStates;
         private IDeathEventEmitter _deathEventEmitter;
 
         public event Action<IUnitEffect> ServerAdded;
@@ -21,7 +29,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
 
         public override void OnStartServer() {
-            _effectCoroutines = new();
+            _effectStates = new();
             _deathEventEmitter = GetComponent<IDeathEventEmitter>();
 
             _deathEventEmitter.Death += ServerRemoveAll;
@@ -38,33 +46,45 @@ namespace _Darkland.Sources.Scripts.Unit {
             var effectName = effect.EffectName;
             Assert.IsFalse(effectName.IsNullOrEmpty());
 
-            if (_effectCoroutines.ContainsKey(effectName) && _effectCoroutines[effectName] != null) {
+            if (_effectStates.ContainsKey(effectName) && _effectStates[effectName] != null) {
                 effect.PostProcess(gameObject);
-                StopCoroutine(_effectCoroutines[effectName]);
+                _effectStates[effectName].isAfterPostProcess = true;
+                StopCoroutine(_effectStates[effectName].coroutine);
             }
 
-            _effectCoroutines[effectName] = StartCoroutine(ServerHandleEffect(effect));
+            _effectStates[effectName] = new UnitEffectState {
+                coroutine = StartCoroutine(ServerHandleEffect(effect)),
+                isAfterPostProcess = false,
+                effect = effect
+            };
+
             ServerAdded?.Invoke(effect);
         }
 
         [Server]
         public void ServerRemove(IUnitEffect effect) {
             var effectName = effect.EffectName;
-            Assert.IsTrue(_effectCoroutines.ContainsKey(effectName));
+            Assert.IsTrue(_effectStates.ContainsKey(effectName));
+
+            if (!_effectStates[effectName].isAfterPostProcess) {
+                effect.PostProcess(gameObject);
+                _effectStates[effectName].isAfterPostProcess = true;
+            }
             
-            _effectCoroutines.Remove(effectName);
+            _effectStates.Remove(effectName);
             ServerRemoved?.Invoke(effectName);
         }
 
         [Server]
         public void ServerRemoveAll() {
-            _effectCoroutines
+            _effectStates
                 .Keys
                 .ToList()
                 .ForEach(effectName => {
-                    //todo tutaj musze wiedziec czy PostProcess sie wykonal (dla kazdego efektu)
-                    // if (_effectCoroutines[effectName] != null) StopCoroutine(_effectCoroutines[effectName]);
-                    _effectCoroutines.Remove(effectName);
+                    if (_effectStates[effectName].coroutine != null) StopCoroutine(_effectStates[effectName].coroutine);
+                    if (!_effectStates[effectName].isAfterPostProcess) _effectStates[effectName].effect.PostProcess(gameObject);
+                    
+                    _effectStates.Remove(effectName);
                 });
 
             ServerRemovedAll?.Invoke();
@@ -75,6 +95,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             effect.PreProcess(gameObject);
             yield return effect.Process(gameObject);
             effect.PostProcess(gameObject);
+            _effectStates[effect.EffectName].isAfterPostProcess = true;
 
             ServerRemove(effect);
         }

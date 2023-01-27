@@ -118,3 +118,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellIconPrefabs:
   - {fileID: 156807442638178877, guid: ad45210839261244f96584939754708e, type: 3}
+  - {fileID: 156807442638178877, guid: f7d08cb5e0369514ca99860f6941d747, type: 3}

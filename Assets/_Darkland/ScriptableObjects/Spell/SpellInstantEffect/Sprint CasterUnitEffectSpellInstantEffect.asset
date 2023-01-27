@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89af481965164ae185896ff950e1fc16, type: 3}
-  m_Name: Holy Light Spell
+  m_Script: {fileID: 11500000, guid: 53cb8f42d5594b508c61e1e19abd6c56, type: 3}
+  m_Name: Sprint CasterUnitEffectSpellInstantEffect
   m_EditorClassIdentifier: 
-  id: Weapon Attack
-  manaCost: 0
-  cooldown: 0
-  castTime: 0
-  targetType: 2
-  instantEffects:
-  - {fileID: 11400000, guid: a8dbffb70625ad848b88081343331906, type: 2}
-  timedEffects: []
+  unitEffects:
+  - {fileID: 11400000, guid: f1984ec4e868cf94089fc90803ec2b14, type: 2}

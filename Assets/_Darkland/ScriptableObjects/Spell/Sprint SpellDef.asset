@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62918f157df9433da4d54d5a5d60f408, type: 3}
-  m_Name: DirectDmgSpellInstantEffect
+  m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
+  m_Name: Sprint SpellDef
   m_EditorClassIdentifier: 
-  damage: 5
-  damageType: 1
+  manaCost: 0
+  cooldown: 15
+  castTime: 0
+  targetType: 0
+  instantEffects:
+  - {fileID: 11400000, guid: d0fc3065f69e0424282f5c6cfdc92fd9, type: 2}
+  timedEffects: []
+  castConditions: []

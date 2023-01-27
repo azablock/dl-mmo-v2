@@ -1,44 +1,43 @@
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Spell;
-using _Darkland.Sources.Models.Unit;
-using _Darkland.Sources.ScriptableObjects.Unit;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell {
 
-    public abstract class SpellDef : ScriptableObject, ISpell {
+    [CreateAssetMenu(fileName = nameof(SpellDef), menuName = "DL/" + nameof(SpellDef))]
+    public class SpellDef : ScriptableObject, ISpell {
+        // [SerializeField]
+        // private string id;
         [SerializeField]
-        protected string id;
+        private float manaCost;
         [SerializeField]
-        protected float manaCost;
+        private float cooldown;
         [SerializeField]
-        protected float cooldown;
+        private float castTime;
         [SerializeField]
-        protected float castTime;
-        [SerializeField]
-        protected TargetType targetType;
+        private TargetType targetType;
         [Space]
         [SerializeField]
-        protected List<SpellInstantEffect> instantEffects;
+        private List<SpellInstantEffect> instantEffects;
         [SerializeField]
-        protected List<SpellTimedEffect> timedEffects;
+        private List<SpellTimedEffect> timedEffects;
         [SerializeField]
-        protected List<SpellCastCondition> castConditions;
-        [SerializeField]
-        protected List<UnitEffect> unitEffects;
+        private List<SpellCastCondition> castConditions;
 
-        public string Id => id;
+        public string Id => name;
         public float ManaCost => manaCost;
         public float CastTime => castTime;
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
-        public List<IUnitEffect> UnitEffects => new(unitEffects);
         public List<ISpellCastCondition> CastConditions => new(castConditions);
 
-        public virtual float Cooldown(GameObject caster) => cooldown;
-        public abstract string Description();
+        public float Cooldown(GameObject caster) => cooldown;
+
+        public string Description() {
+            return "";
+        }
 
     }
 

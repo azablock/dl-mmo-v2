@@ -37,8 +37,13 @@ namespace _Darkland.Sources.Scripts.Spell {
         [Server]
         public void CastSpell(int spellIdx) {
             Assert.IsNotNull(spells);
-            Assert.IsTrue(spellIdx >= 0 && spellIdx < spells.Count);
 
+            // Assert.IsTrue(spellIdx >= 0 && spellIdx < spells.Count);
+            if (spellIdx >= spells.Count) {
+                Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) is empty"));
+                return;
+            }
+            
             var spell = spells[spellIdx];
 
             if (!_spellCooldowns[spellIdx]) {
