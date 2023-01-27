@@ -1,4 +1,3 @@
-using System;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
@@ -23,7 +22,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerHandleGetHeroSheet(NetworkConnectionToClient conn,
                                                      DarklandHeroMessages.GetHeroSheetRequestMessage message) {
             var identity = conn.identity;
-            var heroVocation = identity.GetComponent<DarklandHero>().vocationType;
+            var heroVocation = identity.GetComponent<DarklandHero>().heroVocation.VocationType;
             var heroLevel = identity.GetComponent<IXpHolder>().level;
             var heroName = identity.GetComponent<UnitNameBehaviour>().unitName;
             var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsValues();

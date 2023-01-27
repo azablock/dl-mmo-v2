@@ -22,7 +22,7 @@ namespace _Darkland.Sources.Models.Persistence {
                 .darklandHeroRepository
                 .FindByName(heroName);
 
-            var vocation = darklandHeroGameObject.GetComponent<DarklandHero>().vocationType;
+            var vocation = darklandHeroGameObject.GetComponent<DarklandHero>().heroVocation.VocationType;
             e.vocation = vocation.ToString();
             
             var position = darklandHeroGameObject.GetComponent<IDiscretePosition>().Pos;

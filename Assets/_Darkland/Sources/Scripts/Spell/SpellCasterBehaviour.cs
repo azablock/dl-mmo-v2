@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Spell;
-using _Darkland.Sources.ScriptableObjects.Spell;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,31 +19,35 @@ namespace _Darkland.Sources.Scripts.Spell {
 
     public class SpellCasterBehaviour : NetworkBehaviour, ISpellCaster {
 
-        [SerializeField]
-        private List<SpellDef> spells;
-
         private readonly Dictionary<int, bool> _spellCooldowns = new();
+        private DarklandHero _darklandHero;
 
-        //todo hashset
-        public List<ISpell> AvailableSpells => new(spells);
+        public List<ISpell> AvailableSpells => availableSpells;
         public event Action<SpellCastedEvent> ClientSpellCasted;
 
+        private void Awake() {
+            _darklandHero = GetComponent<DarklandHero>();
+        }
+
         public override void OnStartServer() {
-            Assert.IsNotNull(spells);
-            for (var i = 0; i < spells.Count; i++) _spellCooldowns.Add(i, true);
+            for (var i = 0; i < availableSpells.Count; i++) _spellCooldowns.Add(i, true);
+        }
+
+        public override void OnStopServer() {
+            _spellCooldowns.Clear();
         }
 
         [Server]
         public void CastSpell(int spellIdx) {
-            Assert.IsNotNull(spells);
+            Assert.IsNotNull(availableSpells);
 
             // Assert.IsTrue(spellIdx >= 0 && spellIdx < spells.Count);
-            if (spellIdx >= spells.Count) {
+            if (spellIdx >= availableSpells.Count) {
                 Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) is empty"));
                 return;
             }
             
-            var spell = spells[spellIdx];
+            var spell = availableSpells[spellIdx];
 
             if (!_spellCooldowns[spellIdx]) {
                 Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"Spell ({spellIdx}) not ready"));
@@ -61,18 +64,10 @@ namespace _Darkland.Sources.Scripts.Spell {
             }
 
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
-            // spell.TimedEffects.ForEach(it => StartCoroutine(ServerHandleTimedEffect(it)));
             
             var cooldown = spell.Cooldown(gameObject);
             TargetRpcSpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = cooldown});
             StartCoroutine(ServerSpellCooldown(spellIdx, cooldown));
-        }
-
-        [Server]
-        private IEnumerator ServerHandleTimedEffect(ISpellTimedEffect effect) {
-            effect.PreProcess(gameObject);
-            yield return effect.Process(gameObject);
-            effect.PostProcess(gameObject);
         }
 
         [Server]
@@ -84,6 +79,8 @@ namespace _Darkland.Sources.Scripts.Spell {
 
         [TargetRpc]
         private void TargetRpcSpellCasted(SpellCastedEvent evt) => ClientSpellCasted?.Invoke(evt);
+
+        private List<ISpell> availableSpells => _darklandHero.heroVocation.AvailableSpells;
 
     }
 

@@ -1,6 +1,7 @@
 using System;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.ScriptableObjects.Hero;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 
@@ -9,8 +10,9 @@ namespace _Darkland.Sources.Scripts {
     public class DarklandHero : NetworkBehaviour {
 
         private UnitNameBehaviour _unitNameBehaviour;
-        public HeroVocationType vocationType { get; private set; }
 
+        public HeroVocation heroVocation { get; private set; }
+        
         public static DarklandHero localHero;
         public static event Action LocalHeroStarted;
         public static event Action LocalHeroStopped;
@@ -40,7 +42,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         [Server]
-        public void ServerSetVocation(HeroVocationType v) => vocationType = v;
+        public void ServerSetVocation(HeroVocationType v) => heroVocation = HeroVocationsContainer._.Vocation(v);
 
         [Server]
         private void ServerTagGameObjectName(string unitName) {
