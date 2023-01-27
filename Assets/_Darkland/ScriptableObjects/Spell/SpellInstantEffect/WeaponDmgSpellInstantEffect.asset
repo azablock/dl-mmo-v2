@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf5613d57bf40f492e39d9c1294013d, type: 3}
   m_Name: WeaponDmgSpellInstantEffect
   m_EditorClassIdentifier: 
+  unitEffect: {fileID: 11400000, guid: f1984ec4e868cf94089fc90803ec2b14, type: 2}

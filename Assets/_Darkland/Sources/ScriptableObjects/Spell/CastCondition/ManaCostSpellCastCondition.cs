@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
 
+    [CreateAssetMenu(fileName = nameof(ManaCostSpellCastCondition),
+                     menuName = "DL/"  + nameof(SpellCastCondition) + "/" + nameof(ManaCostSpellCastCondition))]
     public class ManaCostSpellCastCondition : SpellCastCondition {
 
         public float manaCost;

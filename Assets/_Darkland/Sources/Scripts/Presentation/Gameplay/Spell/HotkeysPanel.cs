@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Spell;
 using Mirror;

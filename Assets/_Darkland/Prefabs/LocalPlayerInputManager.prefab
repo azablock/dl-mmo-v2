@@ -143,6 +143,39 @@ MonoBehaviour:
       m_Action: Spell 0
       m_Flags: 0
     m_Flags: 0
+  spellActions:
+  - m_Name: Element 0
+    m_Type: 0
+    m_ExpectedControlType: Integer
+    m_Id: 858fd368-a185-4e21-bac1-601a64869e13
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3e97f40e-f79b-4525-8970-cbb992ed3f01
+      m_Path: <Keyboard>/2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bc6c4d69-024a-4747-952c-7506909fe96e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 205519a1-57af-410b-aeba-2c5011982a37
+      m_Path: <Keyboard>/3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &5475511698371187621
 MonoBehaviour:
   m_ObjectHideFlags: 0

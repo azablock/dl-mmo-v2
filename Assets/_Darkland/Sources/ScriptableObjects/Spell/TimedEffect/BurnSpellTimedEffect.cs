@@ -19,26 +19,29 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
 
         [Server]
         public override void PreProcess(GameObject caster) {
-            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.Start()"));
+            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.PreProcess()"));
         }
 
         [Server]
         public override void PostProcess(GameObject caster) {
-            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.Stop()"));
+            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.PostProcess()"));
         }
 
         [Server]
         public override IEnumerator Process(GameObject caster) {
             var remainingBurns = burnRepeats;
-
-            while (remainingBurns >= 0) {
+            var originalTarget = caster
+                .GetComponent<ITargetNetIdHolder>()
+                .TargetNetIdentity;
+            
+            while (remainingBurns >= 0 && CanProcess(caster)) {
                 var target = caster
                     .GetComponent<ITargetNetIdHolder>()
                     .TargetNetIdentity;
                 
                 caster
                     .GetComponent<IDamageDealer>()
-                    .DealDamage(new UnitAttackEvent() {
+                    .DealDamage(new UnitAttackEvent {
                         damage = burnDamage,
                         target = target,
                         damageType = DamageType.Physical
@@ -52,12 +55,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             }
         }
 
-        public override bool IsValid(GameObject caster) {
-            return caster
-                .GetComponent<ITargetNetIdHolder>()
-                .TargetNetIdentity != null;
-        }
-
+        public override bool CanProcess(GameObject caster) => caster.GetComponent<ITargetNetIdHolder>().HasTarget();
     }
 
 }

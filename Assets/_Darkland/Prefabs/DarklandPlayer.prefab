@@ -472,6 +472,8 @@ GameObject:
   - component: {fileID: 378262055039967593}
   - component: {fileID: 3591326365436729755}
   - component: {fileID: 8282911951032870857}
+  - component: {fileID: 9145657078284881869}
+  - component: {fileID: 1802940533464218628}
   - component: {fileID: 5298774331071004589}
   m_Layer: 0
   m_Name: DarklandPlayer
@@ -826,6 +828,36 @@ MonoBehaviour:
   syncInterval: 0.1
   spells:
   - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
+--- !u!114 &9145657078284881869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3610e716b0e4011bb8f452387e5a5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &1802940533464218628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dd51e02f1f431ca90390a5e104dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!65 &5298774331071004589
 BoxCollider:
   m_ObjectHideFlags: 0

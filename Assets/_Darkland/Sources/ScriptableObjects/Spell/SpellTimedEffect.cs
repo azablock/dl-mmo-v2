@@ -9,7 +9,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         public virtual void PreProcess(GameObject caster) {}
         public virtual void PostProcess(GameObject caster) {}
         public abstract IEnumerator Process(GameObject caster);
-        public abstract bool IsValid(GameObject caster);
+        public abstract bool CanProcess(GameObject caster);
 
     }
 

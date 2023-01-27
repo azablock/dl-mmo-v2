@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Spell;
+using _Darkland.Sources.Models.Unit;
+using _Darkland.Sources.ScriptableObjects.Unit;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell {
@@ -23,6 +25,8 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         protected List<SpellTimedEffect> timedEffects;
         [SerializeField]
         protected List<SpellCastCondition> castConditions;
+        [SerializeField]
+        protected List<UnitEffect> unitEffects;
 
         public string Id => id;
         public float ManaCost => manaCost;
@@ -30,6 +34,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
+        public List<IUnitEffect> UnitEffects => new(unitEffects);
         public List<ISpellCastCondition> CastConditions => new(castConditions);
 
         public virtual float Cooldown(GameObject caster) => cooldown;

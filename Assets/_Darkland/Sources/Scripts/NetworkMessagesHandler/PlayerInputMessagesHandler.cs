@@ -1,6 +1,8 @@
 using System;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Spell;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.World;
 using _Darkland.Sources.NetworkMessages;

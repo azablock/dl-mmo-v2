@@ -3,17 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.ScriptableObjects.Spell;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace _Darkland.Sources.Scripts.Spell {
-
-    public interface ISpellCaster {
-        void CastSpell(int spellIdx);
-        event Action<SpellCastedEvent> ClientSpellCasted;
-    }
 
     public struct SpellCastedEvent {
 
@@ -48,23 +44,34 @@ namespace _Darkland.Sources.Scripts.Spell {
                 return; 
             }
 
-            var invalidCastCondition = spell.CastConditions.FirstOrDefault(it => !it.CanCast(gameObject));
+            var invalidCastCondition = spell
+                .CastConditions
+                .FirstOrDefault(it => !it.CanCast(gameObject));
+
             if (invalidCastCondition != null) {
                 Debug.LogWarning(ChatMessagesFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage()));
                 return;
             }
 
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
-            //apply timed effects
-
-            TargetRpcSpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = spell.Cooldown(gameObject)});
-            StartCoroutine(ServerSpellCooldown(spellIdx));
+            // spell.TimedEffects.ForEach(it => StartCoroutine(ServerHandleTimedEffect(it)));
+            
+            var cooldown = spell.Cooldown(gameObject);
+            TargetRpcSpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = cooldown});
+            StartCoroutine(ServerSpellCooldown(spellIdx, cooldown));
         }
 
         [Server]
-        private IEnumerator ServerSpellCooldown(int spellIdx) {
+        private IEnumerator ServerHandleTimedEffect(ISpellTimedEffect effect) {
+            effect.PreProcess(gameObject);
+            yield return effect.Process(gameObject);
+            effect.PostProcess(gameObject);
+        }
+
+        [Server]
+        private IEnumerator ServerSpellCooldown(int spellIdx, float cooldown) {
             _spellCooldowns[spellIdx] = false;
-            yield return new WaitForSeconds(spells[spellIdx].Cooldown(gameObject));
+            yield return new WaitForSeconds(cooldown);
             _spellCooldowns[spellIdx] = true;
         }
 

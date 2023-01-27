@@ -10,9 +10,10 @@ namespace _Darkland.Sources.Models.Spell {
         [Server]
         void PostProcess(GameObject caster);
         [Server]
-        bool IsValid(GameObject caster);
-        [Server]
         IEnumerator Process(GameObject caster);
+        [Server]
+        bool CanProcess(GameObject caster);
+
     }
 
 }

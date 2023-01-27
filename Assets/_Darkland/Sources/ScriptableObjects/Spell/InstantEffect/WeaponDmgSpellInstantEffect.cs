@@ -1,5 +1,7 @@
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Unit;
+using _Darkland.Sources.ScriptableObjects.Unit;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using UnityEngine;
 
@@ -8,6 +10,8 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
     [CreateAssetMenu(fileName = nameof(WeaponDmgSpellInstantEffect),
                      menuName = "DL/" + nameof(SpellInstantEffect) + "/" + nameof(WeaponDmgSpellInstantEffect))]
     public class WeaponDmgSpellInstantEffect : SpellInstantEffect {
+
+        public UnitEffect unitEffect;
 
         public override void Process(GameObject caster) {
             //todo mock - get from equipment, somehow calculate by weapon stats and unit stats(traits?)
@@ -21,6 +25,11 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                     damage = weaponDamage,
                     damageType = DamageType.Physical
                 });
+            
+            
+            //todo TMP
+            caster.GetComponent<IUnitEffectHolder>().ServerAdd(unitEffect);
+            //todo TMP
         }
 
     }

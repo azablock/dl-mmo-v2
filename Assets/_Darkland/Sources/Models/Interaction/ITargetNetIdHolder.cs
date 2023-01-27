@@ -1,7 +1,6 @@
 using System;
-using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Scripts;
-using _Darkland.Sources.Scripts.Bot;
+using _Darkland.Sources.Scripts.Ai;
 using Mirror;
 
 namespace _Darkland.Sources.Models.Interaction {
@@ -20,7 +19,7 @@ namespace _Darkland.Sources.Models.Interaction {
 
         [Server]
         public static bool IsTargetEnemy(this ITargetNetIdHolder holder) {
-            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandBot>() != null;
+            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandMob>() != null;
         }
         
         [Server]
