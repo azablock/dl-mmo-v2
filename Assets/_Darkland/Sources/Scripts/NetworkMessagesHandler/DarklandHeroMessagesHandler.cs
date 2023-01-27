@@ -23,13 +23,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerHandleGetHeroSheet(NetworkConnectionToClient conn,
                                                      DarklandHeroMessages.GetHeroSheetRequestMessage message) {
             var identity = conn.identity;
-            var heroVocation = identity.GetComponent<DarklandHero>().vocation;
+            var heroVocation = identity.GetComponent<DarklandHero>().vocationType;
             var heroLevel = identity.GetComponent<IXpHolder>().level;
             var heroName = identity.GetComponent<UnitNameBehaviour>().unitName;
             var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsValues();
             
             conn.Send(new DarklandHeroMessages.GetHeroSheetResponseMessage {
-                heroVocation = heroVocation,
+                heroVocationType = heroVocation,
                 heroLevel = heroLevel,
                 heroName = heroName,
                 heroTraits = heroTraits

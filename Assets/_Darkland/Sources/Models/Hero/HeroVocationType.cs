@@ -1,6 +1,6 @@
 namespace _Darkland.Sources.Models.Hero {
 
-    public enum HeroVocation {
+    public enum HeroVocationType {
 
         Warrior,
         Mage,

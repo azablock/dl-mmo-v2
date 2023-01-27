@@ -8,13 +8,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
     public class HeroVocationSelectable : MonoBehaviour, IPointerClickHandler {
 
         [SerializeField]
-        private HeroVocation vocation;
+        private HeroVocationType vocationType;
 
-        public event Action<HeroVocation> Clicked;
+        public event Action<HeroVocationType> Clicked;
 
-        public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(vocation);
+        public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(vocationType);
 
-        public HeroVocation Vocation => vocation;
+        public HeroVocationType VocationType => vocationType;
 
     }
 

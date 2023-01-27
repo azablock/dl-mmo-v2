@@ -14,7 +14,7 @@ namespace _Darkland.Sources.NetworkMessages {
 
         public struct NewHeroRequestMessage : NetworkMessage {
             public string heroName;
-            public HeroVocation heroVocation;
+            public HeroVocationType heroVocationType;
         }
 
         public struct NewDarklandHeroResponseMessage : NetworkMessage {

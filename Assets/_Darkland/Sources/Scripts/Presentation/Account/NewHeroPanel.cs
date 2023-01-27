@@ -76,7 +76,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             BackClicked?.Invoke();
         }
 
-        private void OnVocationSelected(HeroVocation vocation) => _formData.heroVocation = vocation;
+        private void OnVocationSelected(HeroVocationType vocationType) => _formData.heroVocationType = vocationType;
 
         private void OnHeroNameValueChanged(string val) {
             var cleanVal = Regex.Replace(val.Trim(), @"[^\w\s]", string.Empty);

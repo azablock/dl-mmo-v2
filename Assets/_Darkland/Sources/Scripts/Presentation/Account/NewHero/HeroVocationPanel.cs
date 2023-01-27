@@ -17,13 +17,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
         [SerializeField]
         private List<HeroVocationSelectable> vocationSelectables;
 
-        public event Action<HeroVocation> VocationSelected;
+        public event Action<HeroVocationType> VocationSelected;
 
         private void OnEnable() {
             Assert.IsFalse(vocationSelectables.IsNullOrEmpty());
             vocationSelectables.ForEach(it => it.Clicked += OnVocationClicked);
             
-            OnVocationClicked(vocationSelectables.First().Vocation);
+            OnVocationClicked(vocationSelectables.First().VocationType);
         }
 
         private void OnDisable() {
@@ -31,9 +31,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
             vocationSelectables.ForEach(it => it.Clicked -= OnVocationClicked);
         }
 
-        private void OnVocationClicked(HeroVocation vocation) {
-            vocationText.text = vocation.ToString();
-            VocationSelected?.Invoke(vocation);
+        private void OnVocationClicked(HeroVocationType vocationType) {
+            vocationText.text = vocationType.ToString();
+            VocationSelected?.Invoke(vocationType);
         }
 
     }

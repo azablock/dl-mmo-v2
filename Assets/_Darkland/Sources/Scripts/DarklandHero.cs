@@ -9,7 +9,7 @@ namespace _Darkland.Sources.Scripts {
     public class DarklandHero : NetworkBehaviour {
 
         private UnitNameBehaviour _unitNameBehaviour;
-        public HeroVocation vocation { get; private set; }
+        public HeroVocationType vocationType { get; private set; }
 
         public static DarklandHero localHero;
         public static event Action LocalHeroStarted;
@@ -40,7 +40,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         [Server]
-        public void ServerSetVocation(HeroVocation v) => vocation = v;
+        public void ServerSetVocation(HeroVocationType v) => vocationType = v;
 
         [Server]
         private void ServerTagGameObjectName(string unitName) {

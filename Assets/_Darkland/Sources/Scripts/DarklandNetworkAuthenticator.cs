@@ -139,7 +139,7 @@ namespace _Darkland.Sources.Scripts {
             var heroes = DarklandDatabaseManager
                 .darklandHeroRepository
                 .FindAllByDarklandAccountId(darklandAccountEntity.id)
-                .Select(it => new DarklandHeroDto{heroVocation = Enum.Parse<HeroVocation>(it.vocation), heroName = it.name})
+                .Select(it => new DarklandHeroDto{heroVocationType = Enum.Parse<HeroVocationType>(it.vocation), heroName = it.name})
                 .ToList();
 
             ((DarklandAuthState) conn.authenticationData).heroNames = heroes.Select(it => it.heroName).ToList();
@@ -164,7 +164,7 @@ namespace _Darkland.Sources.Scripts {
                 var accountName = ((DarklandAuthState) (conn.authenticationData)).accountName;
                 var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(accountName);
 
-                DarklandHeroService.ServerCreateNewHero(darklandAccountEntity.id, heroName, msg.heroVocation);
+                DarklandHeroService.ServerCreateNewHero(darklandAccountEntity.id, heroName, msg.heroVocationType);
 
                 conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {
                     success = true,

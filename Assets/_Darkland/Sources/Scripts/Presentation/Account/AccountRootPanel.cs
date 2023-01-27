@@ -80,7 +80,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private static void NewHeroPanelOnCreateClicked(DarklandHeroDto formData) =>
             NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage {
                 heroName = formData.heroName,
-                heroVocation = formData.heroVocation
+                heroVocationType = formData.heroVocationType
             });
 
         private void ClientGetHeroesSuccess(List<DarklandHeroDto> heroes) {

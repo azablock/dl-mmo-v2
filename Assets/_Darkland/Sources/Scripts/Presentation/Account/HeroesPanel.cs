@@ -38,7 +38,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
 
         public void Init(List<DarklandHeroDto> heroes) {
             var options = heroes
-            .Select(it => new TMP_Dropdown.OptionData($"{it.heroName} ({it.heroVocation.ToString()})"))
+            .Select(it => new TMP_Dropdown.OptionData($"{it.heroName} ({it.heroVocationType.ToString()})"))
             .ToList();
 
             var hasOptions = options.Count > 0;

@@ -69,7 +69,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private void ClientOnGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) {
             heroNameText.text = message.heroName;
             heroLevelText.text = $"{message.heroLevel}";
-            heroVocationText.text = message.heroVocation.ToString();
+            heroVocationText.text = message.heroVocationType.ToString();
             mightText.text = $"{message.heroTraits.might}";
             constitutionText.text = $"{message.heroTraits.constitution}";
             dexterityText.text = $"{message.heroTraits.dexterity}";
