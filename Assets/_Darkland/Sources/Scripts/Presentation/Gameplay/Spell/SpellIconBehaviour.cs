@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Darkland.Sources.ScriptableObjects.Spell;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -16,11 +17,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         [SerializeField]
         private TMP_Text cooldownText;
         [SerializeField]
+        private TMP_Text hotkeyText;
+        [SerializeField]
         private float cooldownDelta = 0.1f;
+        [SerializeField]
+        private SpellDef spellDef;
 
         private Coroutine _cooldownCoroutine;
 
         public event Action<SpellIconBehaviour> Clicked;
+
+        private void OnEnable() {
+            Assert.IsNotNull(spellDef);
+        }
 
         private void OnDisable() {
             cooldownImage.gameObject.SetActive(false);
@@ -28,6 +37,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
         public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(this);
 
+        [Client]
+        public void ClientInit(in int idx) => hotkeyText.text = $"{idx}";
+        
         [Client]
         public void ClientStartCooldown(float cooldown) {
             if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
@@ -50,6 +62,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
             
             cooldownImage.gameObject.SetActive(false);
         }
+        
+        public SpellDef SpellDef => spellDef;
 
     }
 

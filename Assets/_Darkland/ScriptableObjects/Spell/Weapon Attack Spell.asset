@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Weapon Attack
   manaCost: 0
-  cooldown: 0
+  cooldown: 1
   castTime: 0
   targetType: 2
   instantEffects:
   - {fileID: 11400000, guid: a8dbffb70625ad848b88081343331906, type: 2}
   timedEffects: []
+  castConditions:
+  - {fileID: 11400000, guid: 24378c1d578d4f74786acb541ed5bd2f, type: 2}
+  unitEffects: []

@@ -25,6 +25,8 @@ namespace _Darkland.Sources.Scripts.Spell {
 
         private readonly Dictionary<int, bool> _spellCooldowns = new();
 
+        //todo hashset
+        public List<ISpell> AvailableSpells => new(spells);
         public event Action<SpellCastedEvent> ClientSpellCasted;
 
         public override void OnStartServer() {

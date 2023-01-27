@@ -828,6 +828,9 @@ MonoBehaviour:
   syncInterval: 0.1
   spells:
   - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
+  - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
+  - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
+  - {fileID: 11400000, guid: 73d2bd33e87410b409022c3f38806cc1, type: 2}
 --- !u!114 &9145657078284881869
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -126,38 +126,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69191191ffb0461d9dd4eeedac7df285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell0Action:
-    m_Name: Spell 0
+  spellActions:
+  - m_Name: Input Action
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 955a0ee8-7c7d-481f-9166-9b6c2644670e
+    m_Id: 734edf3e-d29a-4949-93e1-9ff50e0e5fb5
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 52a9b11e-4613-4b38-8322-d08b67648361
+      m_Id: b95f1c7f-70fa-448b-9b21-6862115c6b2a
       m_Path: <Keyboard>/1
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Spell 0
+      m_Action: Input Action
       m_Flags: 0
     m_Flags: 0
-  spellActions:
-  - m_Name: Element 0
+  - m_Name: Input Action
     m_Type: 0
-    m_ExpectedControlType: Integer
-    m_Id: 858fd368-a185-4e21-bac1-601a64869e13
+    m_ExpectedControlType: 
+    m_Id: 7995aae2-bc36-4b55-8a2f-391d4f7ed6b9
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 3e97f40e-f79b-4525-8970-cbb992ed3f01
+      m_Id: 37298c79-7c08-49ac-bbd4-50365026ae89
       m_Path: <Keyboard>/2
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Element 0
+      m_Action: Input Action
       m_Flags: 0
     m_Flags: 0
   - m_Name: Input Action
@@ -170,6 +169,22 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 205519a1-57af-410b-aeba-2c5011982a37
       m_Path: <Keyboard>/3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: de820cf2-1ab3-45ef-807e-f928eb27bfc3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 21a186d2-c521-4441-8824-8327e0217560
+      m_Path: <Keyboard>/4
       m_Interactions: 
       m_Processors: 
       m_Groups: 

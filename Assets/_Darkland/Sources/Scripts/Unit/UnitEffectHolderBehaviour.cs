@@ -49,18 +49,9 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         public void ServerRemove(IUnitEffect effect) {
-            //tutaj tego asserta nie mam bo moze sie efekt skonczyc w coroutine
-            // Assert.IsTrue(_effectCoroutines.ContainsKey(effectName));
-
             var effectName = effect.EffectName;
+            Assert.IsTrue(_effectCoroutines.ContainsKey(effectName));
             
-            if (!_effectCoroutines.ContainsKey(effectName)) return;
-            
-            if (_effectCoroutines[effectName] != null) {
-                effect.PostProcess(gameObject);
-                StopCoroutine(_effectCoroutines[effectName]);
-            }
-
             _effectCoroutines.Remove(effectName);
             ServerRemoved?.Invoke(effectName);
         }
@@ -71,7 +62,8 @@ namespace _Darkland.Sources.Scripts.Unit {
                 .Keys
                 .ToList()
                 .ForEach(effectName => {
-                    if (_effectCoroutines[effectName] != null) StopCoroutine(_effectCoroutines[effectName]);
+                    //todo tutaj musze wiedziec czy PostProcess sie wykonal (dla kazdego efektu)
+                    // if (_effectCoroutines[effectName] != null) StopCoroutine(_effectCoroutines[effectName]);
                     _effectCoroutines.Remove(effectName);
                 });
 
@@ -83,7 +75,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             effect.PreProcess(gameObject);
             yield return effect.Process(gameObject);
             effect.PostProcess(gameObject);
-            
+
             ServerRemove(effect);
         }
 
