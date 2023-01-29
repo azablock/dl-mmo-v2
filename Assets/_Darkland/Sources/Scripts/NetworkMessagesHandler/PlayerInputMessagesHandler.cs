@@ -1,15 +1,14 @@
 using System;
+using System.Linq;
 using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Spell;
-using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.World;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Interaction;
 using _Darkland.Sources.Scripts.Movement;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
-using _Darkland.Sources.Scripts.Spell;
 using _Darkland.Sources.Scripts.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
@@ -25,6 +24,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerNpcClick += ServerProcessNpcClick;
             PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
             PlayerInputMessagesProxy.ServerCastSpell += ServerProcessCastSpell;
+            PlayerInputMessagesProxy.ServerPickupItem += ServerProcessPickupItem;
+            PlayerInputMessagesProxy.ServerDropItem += ServerProcessDropItem;
         }
 
         private void OnDestroy() {
@@ -33,6 +34,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerNpcClick -= ServerProcessNpcClick;
             PlayerInputMessagesProxy.ServerGetHealthStats -= ServerProcessGetHealthStats;
             PlayerInputMessagesProxy.ServerCastSpell -= ServerProcessCastSpell;
+            PlayerInputMessagesProxy.ServerPickupItem -= ServerProcessPickupItem;
+            PlayerInputMessagesProxy.ServerDropItem -= ServerProcessDropItem;
         }
 
         [Server]
@@ -79,11 +82,31 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 unitName = unitName
             });
         }
-        
+
         [Server]
         private static void ServerProcessCastSpell(NetworkConnectionToClient conn,
                                                    PlayerInputMessages.CastSpellRequestMessage message) {
             conn.identity.GetComponent<ISpellCaster>().CastSpell(message.spellIdx);
+        }
+
+        [Server]
+        private static void ServerProcessPickupItem(NetworkConnectionToClient conn,
+                                                    PlayerInputMessages.PickupItemRequestMessage message) {
+            //todo optimize!!!
+            var onGroundItem = NetworkServer.spawned.Values
+                .Select(it => it.GetComponent<IOnGroundEqItem>())
+                .Where(it => it != null)
+                .FirstOrDefault(it => it.Pos.Equals(message.eqItemPos));
+            
+            if (onGroundItem == null) return;
+            
+            conn.identity.GetComponent<IEqHolder>().PickupFromGround(onGroundItem);
+        }
+
+        [Server]
+        private static void ServerProcessDropItem(NetworkConnectionToClient conn,
+                                                  PlayerInputMessages.DropItemRequestMessage message) {
+            conn.identity.GetComponent<IEqHolder>().DropOnGround(message.backpackSlot);
         }
 
     }

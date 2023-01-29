@@ -1,3 +1,4 @@
+using System;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Scripts.Equipment;
 using Mirror;
@@ -17,10 +18,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private Image image;
         private IEqItemDef _item;
 
+        public event Action DropClick;
+
         public void OnPointerClick(PointerEventData eventData) {
             if (_item == null) return;
 
             if (eventData.button == PointerEventData.InputButton.Left) {
+                DropClick?.Invoke();
                 //send message - drop on ground
             }
 
@@ -31,7 +35,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         [Client]
         public void ClientSet(string itemName) {
-            _item = EqItemsContainer._.ItemDef2(itemName);
+            _item = EqItemsContainer.ItemDef2(itemName);
             image.sprite = _item.Sprite;
             image.color = Color.white;
         }

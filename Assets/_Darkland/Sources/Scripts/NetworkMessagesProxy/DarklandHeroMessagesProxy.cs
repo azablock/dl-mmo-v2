@@ -8,23 +8,29 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
     public class DarklandHeroMessagesProxy : MonoBehaviour, INetworkMessagesProxy {
 
         public static event Action<NetworkConnectionToClient,DarklandHeroMessages.GetHeroSheetRequestMessage> ServerGetHeroSheet;
+        public static event Action<NetworkConnectionToClient,DarklandHeroMessages.GetEqRequestMessage> ServerGetEq;
 
         public static event Action<DarklandHeroMessages.GetHeroSheetResponseMessage> ClientGetHeroSheet;
+        public static event Action<DarklandHeroMessages.GetEqResponseMessage> ClientGetEq;
         
         public void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandHeroMessages.GetHeroSheetRequestMessage>(ServerHandleGetHeroSheet);
+            NetworkServer.RegisterHandler<DarklandHeroMessages.GetEqRequestMessage>(ServerHandleGetEq);
         }
 
         public void OnStopServer() {
             NetworkServer.UnregisterHandler<DarklandHeroMessages.GetHeroSheetRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandHeroMessages.GetEqRequestMessage>();
         }
 
         public void OnStartClient() {
             NetworkClient.RegisterHandler<DarklandHeroMessages.GetHeroSheetResponseMessage>(ClientHandleGetHeroSheet);
+            NetworkClient.RegisterHandler<DarklandHeroMessages.GetEqResponseMessage>(ClientHandleGetEq);
         }
 
         public void OnStopClient() {
             NetworkClient.UnregisterHandler<DarklandHeroMessages.GetHeroSheetResponseMessage>();
+            NetworkClient.UnregisterHandler<DarklandHeroMessages.GetEqResponseMessage>();
         }
 
         [Server]
@@ -32,10 +38,18 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
                                                      DarklandHeroMessages.GetHeroSheetRequestMessage message) =>
             ServerGetHeroSheet?.Invoke(conn, message);
 
+        [Server]
+        private static void ServerHandleGetEq(NetworkConnectionToClient conn,
+                                              DarklandHeroMessages.GetEqRequestMessage message) =>
+            ServerGetEq?.Invoke(conn, message);
+
         [Client]
         private static void ClientHandleGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) =>
             ClientGetHeroSheet?.Invoke(message);
 
+        [Client]
+        private static void ClientHandleGetEq(DarklandHeroMessages.GetEqResponseMessage message) =>
+            ClientGetEq?.Invoke(message);
 
     }
 

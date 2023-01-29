@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
@@ -53,7 +54,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 .Select(it => it.ItemName)
                 .ToList();
 
-            e.itemNames = itemNames;
+            e.itemNames = new List<string>(itemNames);
 
             DarklandDatabaseManager
                 .darklandHeroRepository
@@ -78,7 +79,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             var eqHolder = darklandHero.GetComponent<IEqHolder>();
             e.itemNames
-                .Select(it => EqItemsContainer._.ItemDef2(it))
+                .Select(EqItemsContainer.ItemDef2)
                 .ToList()
                 .ForEach(it => eqHolder.AddToBackpack(it));
 
@@ -119,7 +120,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 constitution = 1,
                 dexterity = 1,
                 intellect = 1,
-                soul = 1
+                soul = 1,
+                itemNames = new List<string>()
             };
 
             DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);

@@ -23,15 +23,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         }
 
         private void OnDisable() {
-            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
-            SpellMessagesProxy.ClientGetAvailableSpellsReceived -= ClientInit;
-
             spellIcons.ForEach(it => it.Clicked -= ClientOnSpellIconClicked);
-
-            //remove all child icons
-            foreach (Transform child in transform) {
-                Destroy(child.gameObject);
-            }
+            foreach (Transform child in transform) Destroy(child.gameObject);
+            
+            SpellMessagesProxy.ClientGetAvailableSpellsReceived -= ClientInit;
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
         }
 
         [Client]

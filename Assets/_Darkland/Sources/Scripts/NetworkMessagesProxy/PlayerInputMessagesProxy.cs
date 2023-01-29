@@ -1,4 +1,4 @@
-using System;
+ using System;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using UnityEngine;
@@ -12,6 +12,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.NpcClickRequestMessage> ServerNpcClick;
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.GetHealthStatsRequestMessage> ServerGetHealthStats;
         public static event Action<NetworkConnectionToClient, PlayerInputMessages.CastSpellRequestMessage> ServerCastSpell;
+        public static event Action<NetworkConnectionToClient, PlayerInputMessages.PickupItemRequestMessage> ServerPickupItem;
+        public static event Action<NetworkConnectionToClient, PlayerInputMessages.DropItemRequestMessage> ServerDropItem;
 
         public static event Action<PlayerInputMessages.GetHealthStatsResponseMessage> ClientGetHealthStats;
 
@@ -22,6 +24,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.RegisterHandler<PlayerInputMessages.NpcClickRequestMessage>(ServerHandleNpcClick);
             NetworkServer.RegisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>(ServerHandleGetHealthStats);
             NetworkServer.RegisterHandler<PlayerInputMessages.CastSpellRequestMessage>(ServerHandleCastSpell);
+            NetworkServer.RegisterHandler<PlayerInputMessages.PickupItemRequestMessage>(ServerHandlePickupItem);
+            NetworkServer.RegisterHandler<PlayerInputMessages.DropItemRequestMessage>(ServerHandleDropItem);
         }
 
         [Server]
@@ -31,6 +35,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.UnregisterHandler<PlayerInputMessages.NpcClickRequestMessage>();
             NetworkServer.UnregisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>();
             NetworkServer.UnregisterHandler<PlayerInputMessages.CastSpellRequestMessage>();
+            NetworkServer.UnregisterHandler<PlayerInputMessages.PickupItemRequestMessage>();
+            NetworkServer.UnregisterHandler<PlayerInputMessages.DropItemRequestMessage>();
         }
 
         [Client]
@@ -67,6 +73,16 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         private static void ServerHandleCastSpell(NetworkConnectionToClient conn,
                                                   PlayerInputMessages.CastSpellRequestMessage message) =>
             ServerCastSpell?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandlePickupItem(NetworkConnectionToClient conn,
+                                                   PlayerInputMessages.PickupItemRequestMessage message) =>
+            ServerPickupItem?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleDropItem(NetworkConnectionToClient conn,
+                                                 PlayerInputMessages.DropItemRequestMessage message) =>
+            ServerDropItem?.Invoke(conn, message);
 
         [Client]
         private static void ClientHandleGetHealthStats(PlayerInputMessages.GetHealthStatsResponseMessage message) =>

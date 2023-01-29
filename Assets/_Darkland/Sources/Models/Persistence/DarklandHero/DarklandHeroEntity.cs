@@ -48,6 +48,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         public int soul;
         
         //equipment
+        [BsonRequired]
         public List<string> itemNames;
 
     }

@@ -71,6 +71,17 @@ namespace _Darkland.Sources.Scripts.Equipment {
         }
 
         [Server]
+        public void PickupFromGround(IOnGroundEqItem onGroundItem) {
+            if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
+            Assert.IsNotNull(onGroundItem);
+
+            var item = EqItemsContainer.ItemDef2(onGroundItem.ItemName);
+            AddToBackpack(item);
+            
+            OnGroundItemsManager._.ServerDestroyOnGroundItem(onGroundItem);
+        }
+
+        [Server]
         public void DropOnGround(int backpackSlot) {
             Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
             Assert.IsNotNull(Backpack[backpackSlot]);
@@ -80,17 +91,6 @@ namespace _Darkland.Sources.Scripts.Equipment {
             OnGroundItemsManager._.ServerCreateOnGroundItem(pos, item.ItemName);
             
             RemoveFromBackpack(backpackSlot);
-        }
-
-        [Server]
-        public void PickupFromGround(IOnGroundEqItem onGroundItem) {
-            if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
-            Assert.IsNotNull(onGroundItem);
-
-            var item = EqItemsContainer._.ItemDef2(onGroundItem.ItemName);
-            AddToBackpack(item);
-            
-            OnGroundItemsManager._.ServerDestroyOnGroundItem(onGroundItem);
         }
 
         [Server]

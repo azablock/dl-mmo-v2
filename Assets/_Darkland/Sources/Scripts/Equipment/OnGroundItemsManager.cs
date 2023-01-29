@@ -41,7 +41,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             DarklandDatabaseManager.onGroundEqItemRepository.Create(entity);
 
             var instance = Instantiate(onGroundItemPrefab, pos, Quaternion.identity);
-            instance.GetComponent<IOnGroundEqItem>().Init(itemName, entity.id);
+            instance.GetComponent<IOnGroundEqItem>().Init(itemName, entity.id, pos);
 
             NetworkServer.Spawn(instance);
         }
@@ -70,7 +70,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             var instance = Instantiate(onGroundItemPrefab, pos, Quaternion.identity);
     
             instance.name = $"On Ground Eq Item [{itemName} {pos}]";
-            instance.GetComponent<IOnGroundEqItem>().Init(itemName, entity.id);
+            instance.GetComponent<IOnGroundEqItem>().Init(itemName, entity.id, pos);
             NetworkServer.Spawn(instance);
         }
 

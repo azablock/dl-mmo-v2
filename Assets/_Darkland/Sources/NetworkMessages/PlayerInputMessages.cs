@@ -28,10 +28,17 @@ namespace _Darkland.Sources.NetworkMessages {
         }
 
         public struct CastSpellRequestMessage : NetworkMessage {
-
             public int spellIdx;
-
         }
+        
+        public struct PickupItemRequestMessage : NetworkMessage {
+            public Vector3Int eqItemPos;
+        }
+
+        public struct DropItemRequestMessage : NetworkMessage {
+            public int backpackSlot;
+        }
+
 
         // public struct CastSpellResponseMessage : NetworkMessage {
         //

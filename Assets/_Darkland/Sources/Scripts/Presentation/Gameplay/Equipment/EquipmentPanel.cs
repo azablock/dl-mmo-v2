@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Equipment;
+using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using Mirror;
 using UnityEngine;
 
@@ -11,25 +13,23 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private BackpackPanel backpackPanel;
 
         private void OnEnable() {
-            DarklandHeroBehaviour.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
-            DarklandHeroBehaviour.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
+            DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>().ClientBackpackChanged += ClientOnBackpackChanged;
+            DarklandHeroMessagesProxy.ClientGetEq += ClientOnGetEq;
+            
+            NetworkClient.Send(new DarklandHeroMessages.GetEqRequestMessage());
         }
 
         private void OnDisable() {
-            DarklandHeroBehaviour.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
-            DarklandHeroBehaviour.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
-        }
-
-        private void DarklandHeroOnLocalHeroStarted() {
-            DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>().ClientBackpackChanged += ClientOnBackpackChanged;
-        }
-
-        private void DarklandHeroOnLocalHeroStopped() {
             DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>().ClientBackpackChanged -= ClientOnBackpackChanged;
+            DarklandHeroMessagesProxy.ClientGetEq -= ClientOnGetEq;
         }
 
         [Client]
         private void ClientOnBackpackChanged(List<string> itemNames) => backpackPanel.ClientRefresh(itemNames);
+
+        [Client]
+        private void ClientOnGetEq(DarklandHeroMessages.GetEqResponseMessage message) =>
+            backpackPanel.ClientRefresh(message.itemNames);
 
     }
 

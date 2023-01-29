@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using _Darkland.Sources.Scripts.World;
@@ -41,15 +42,23 @@ namespace _Darkland.Sources.Scripts.Input {
             if (!hit) return;
 
             ClientHandleUnitClick(raycastHit);
+            ClientHandleOnGroundEqItemClick(raycastHit);
             ClientHandleInfoBoardClick(raycastHit);
             //todo handle other collider hit "types"
+        }
+
+        private static void ClientHandleOnGroundEqItemClick(RaycastHit raycastHit) {
+            var onGroundEqItem = raycastHit.collider.GetComponent<IOnGroundEqItem>();
+            if (onGroundEqItem == null) return;
+            
+            NetworkClient.Send(new PlayerInputMessages.PickupItemRequestMessage { eqItemPos = onGroundEqItem.Pos });
         }
 
         private static void ClientHandleUnitClick(RaycastHit raycastHit) {
             var darklandUnit = raycastHit.collider.GetComponentInParent<DarklandUnit>();
             if (darklandUnit == null) return;
             
-            NetworkClient.Send(new PlayerInputMessages.NpcClickRequestMessage() {npcNetId = darklandUnit.netId});
+            NetworkClient.Send(new PlayerInputMessages.NpcClickRequestMessage {npcNetId = darklandUnit.netId});
         }
 
         private static void ClientHandleInfoBoardClick(RaycastHit raycastHit) {
