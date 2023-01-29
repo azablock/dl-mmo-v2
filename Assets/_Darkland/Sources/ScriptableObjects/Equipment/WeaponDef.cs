@@ -1,6 +1,6 @@
+using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Equipment;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
@@ -18,7 +18,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         [SerializeField]
         private Sprite sprite;
 
-        public string ItemName => name;
+        public string ItemName => Regex.Replace(name, $"/^ {nameof(WeaponDef)}$/", string.Empty);
         public int ItemPrice => itemPrice;
         public int MinDamage => minDamage;
         public EqItemType ItemType => EqItemType.Wearable;

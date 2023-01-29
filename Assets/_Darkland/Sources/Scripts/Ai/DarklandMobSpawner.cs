@@ -22,9 +22,8 @@ namespace _Darkland.Sources.Scripts.Ai {
             Assert.IsNull(_mob);
             
             _mob = Instantiate(darklandMobPrefab, transform.position, Quaternion.identity);
-            // _mob = Instantiate(darklandMobPrefab, transform);
-            _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
             _mob.GetComponent<IDiscretePosition>().Set(Vector3Int.FloorToInt(transform.position));
+            _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
             
             NetworkServer.Spawn(_mob);
         }

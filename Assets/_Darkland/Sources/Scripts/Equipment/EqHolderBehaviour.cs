@@ -76,7 +76,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             
             var pos = _discretePosition.Pos;
             var item = Backpack[backpackSlot];
-            OnGroundItemsManager._.ServerSpawnOnGroundItem(pos, item.ItemName, item.ItemType, item.Sprite);
+            OnGroundItemsManager._.ServerCreateOnGroundItem(pos, item.ItemName);
             
             ServerRemoveFromBackpack(backpackSlot);
         }
@@ -86,7 +86,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
             Assert.IsNotNull(onGroundItem);
 
-            var item = EqItemsContainer._.ItemDef(onGroundItem.ItemName, onGroundItem.ItemType);
+            var item = EqItemsContainer._.ItemDef2(onGroundItem.ItemName);
             ServerAddToBackpack(item);
             
             OnGroundItemsManager._.ServerDestroyOnGroundItem(onGroundItem);

@@ -1,4 +1,3 @@
-using System;
 using _Darkland.Sources.Models.Persistence;
 using MongoDB.Driver;
 using UnityEngine;
@@ -9,6 +8,7 @@ namespace _Darkland.Sources.Scripts.Persistence {
 
         public static readonly DarklandAccountRepository darklandAccountRepository = new();
         public static readonly DarklandHeroRepository darklandHeroRepository = new();
+        public static readonly OnGroundEqItemRepository onGroundEqItemRepository = new();
 
         private static IMongoDatabase _db;
         private static MongoClient _client;

@@ -57,7 +57,7 @@ namespace _Darkland.Sources.Models.Persistence {
                 .darklandHeroRepository
                 .FindByName(heroName);
 
-            darklandHero.GetComponent<MongoIdHolder>().ServerSetMongoId(e.id);
+            darklandHero.GetComponent<MongoIdHolder>().Set(e.id);
 
             var pos = new Vector3Int(e.posX, e.posY, e.posZ);
             darklandHero.GetComponent<IDiscretePosition>().Set(pos, true);

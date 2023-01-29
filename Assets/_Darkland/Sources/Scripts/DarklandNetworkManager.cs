@@ -29,6 +29,7 @@ namespace _Darkland.Sources.Scripts {
 
         private List<INetworkMessagesProxy> _networkMessagesProxies;
 
+        public static Action ServerStarted;
         public static Action<NetworkIdentity> serverOnPlayerDisconnected;
         public static Action<DisconnectStatus> clientOnPlayerDisconnected;
         public static Action clientHeroEnterGameSuccess;
@@ -78,15 +79,13 @@ namespace _Darkland.Sources.Scripts {
 
         public override void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>(ServerHeroEnterGame);
-
-            
             _networkMessagesProxies.ForEach(it => it.OnStartServer());
+            
+            ServerStarted?.Invoke();
         }
 
         public override void OnStopServer() {
             NetworkServer.UnregisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>();
-
-            
             _networkMessagesProxies.ForEach(it => it.OnStopServer());
         }
 

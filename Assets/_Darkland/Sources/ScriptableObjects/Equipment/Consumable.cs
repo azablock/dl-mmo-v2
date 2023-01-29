@@ -1,6 +1,6 @@
+using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Equipment;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
@@ -15,7 +15,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
         public abstract void Consume(GameObject eqHolder);
 
-        public string ItemName => name;
+        public string ItemName => Regex.Replace(name, $"/^ {nameof(Consumable)}$/", string.Empty);
         public int ItemPrice => itemPrice;
         public EqItemType ItemType => EqItemType.Consumable;
         public Sprite Sprite => sprite;

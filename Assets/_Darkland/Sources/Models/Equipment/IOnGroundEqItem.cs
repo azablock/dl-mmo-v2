@@ -1,14 +1,14 @@
 using Mirror;
-using UnityEngine;
+using MongoDB.Bson;
 
 namespace _Darkland.Sources.Models.Equipment {
 
     public interface IOnGroundEqItem {
 
-        void Init(string itemName, EqItemType eqItemType, Sprite sprite);
+        void Init(string itemName, ObjectId itemMongoId);
         string ItemName { get; }
-        EqItemType ItemType { get; }
-        NetworkIdentity netIdentity { get; }
+        ObjectId ItemMongoId { get; }
+        NetworkIdentity NetIdentity { get; }
 
     }
 
