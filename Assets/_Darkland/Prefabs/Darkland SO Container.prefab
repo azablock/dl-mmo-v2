@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4029495746286140279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2888382937229898879}
+  - component: {fileID: 3651374614291229792}
+  - component: {fileID: 1426617666004887200}
+  m_Layer: 0
+  m_Name: Darkland SO Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2888382937229898879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029495746286140279}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3651374614291229792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029495746286140279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e81a775cdf24dc883aa69205896bb3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vocations:
+  - {fileID: 11400000, guid: 28b429d4cf9a89243af8b0a51e480826, type: 2}
+  - {fileID: 11400000, guid: 6ab399913cf1f124083feacb6375fe1b, type: 2}
+  - {fileID: 11400000, guid: d83a095bad6ff0e429c9eb8eaeaa9f4a, type: 2}
+  - {fileID: 11400000, guid: 4b45a5a25903933489515b71a686acd6, type: 2}
+--- !u!114 &1426617666004887200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029495746286140279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a71e42b2fb4a12bb215f27284ab374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wearables: []
+  consumables:
+  - {fileID: 11400000, guid: dea5d16556efcdc4c92b20b78ee8cd84, type: 2}

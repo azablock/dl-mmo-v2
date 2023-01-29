@@ -1,10 +1,11 @@
-﻿using Mirror;
+﻿using _Darkland.Sources.Models.Persistence;
+using Mirror;
 using MongoDB.Bson;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Persistence {
 
-    public class MongoIdHolder : MonoBehaviour {
+    public class MongoIdHolder : MonoBehaviour, IMongoIdHolder {
         
         public ObjectId mongoId { get; private set; }
 
