@@ -1,6 +1,4 @@
-using _Darkland.Sources.Models.Persistence.Entity;
-
-namespace _Darkland.Sources.Models.Persistence {
+namespace _Darkland.Sources.Models.Persistence.OnGroundEqItem {
 
     public class OnGroundEqItemRepository : Repository<OnGroundEqItemEntity> {
 

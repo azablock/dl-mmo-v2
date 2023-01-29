@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Linq;
 using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Hero;
-using _Darkland.Sources.Models.Persistence.Entity;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts;
+using _Darkland.Sources.Scripts.Equipment;
 using _Darkland.Sources.Scripts.Persistence;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using MongoDB.Bson;
 using UnityEngine;
 
-namespace _Darkland.Sources.Models.Persistence {
+namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
     public static class DarklandHeroService {
 
@@ -22,9 +24,9 @@ namespace _Darkland.Sources.Models.Persistence {
                 .darklandHeroRepository
                 .FindByName(heroName);
 
-            var vocation = darklandHeroGameObject.GetComponent<DarklandHero>().heroVocation.VocationType;
+            var vocation = darklandHeroGameObject.GetComponent<DarklandHeroBehaviour>().heroVocation.VocationType;
             e.vocation = vocation.ToString();
-            
+
             var position = darklandHeroGameObject.GetComponent<IDiscretePosition>().Pos;
             e.posX = position.x;
             e.posY = position.y;
@@ -33,7 +35,7 @@ namespace _Darkland.Sources.Models.Persistence {
             var statsHolder = darklandHeroGameObject.GetComponent<IStatsHolder>();
             var health = statsHolder.ValueOf(StatId.Health);
             e.health = (int)health;
-            
+
             var traitValues = statsHolder.TraitStatsValues();
             e.might = (int)traitValues.might;
             e.constitution = (int)traitValues.constitution;
@@ -45,6 +47,14 @@ namespace _Darkland.Sources.Models.Persistence {
             e.xp = xpHolder.xp;
             e.level = xpHolder.level;
 
+            var itemNames = darklandHeroGameObject
+                .GetComponent<IEqHolder>()
+                .Backpack
+                .Select(it => it.ItemName)
+                .ToList();
+
+            e.itemNames = itemNames;
+
             DarklandDatabaseManager
                 .darklandHeroRepository
                 .ReplaceById(e);
@@ -52,7 +62,7 @@ namespace _Darkland.Sources.Models.Persistence {
 
         [Server]
         public static void ServerLoadDarklandHero(GameObject darklandHeroGameObject, string heroName) {
-            var darklandHero = darklandHeroGameObject.GetComponent<DarklandHero>();
+            var darklandHero = darklandHeroGameObject.GetComponent<DarklandHeroBehaviour>();
             var e = DarklandDatabaseManager
                 .darklandHeroRepository
                 .FindByName(heroName);
@@ -65,6 +75,12 @@ namespace _Darkland.Sources.Models.Persistence {
 
             darklandHero.ServerSetVocation(Enum.Parse<HeroVocationType>(e.vocation));
             darklandHero.GetComponent<UnitNameBehaviour>().ServerSet(heroName);
+
+            var eqHolder = darklandHero.GetComponent<IEqHolder>();
+            e.itemNames
+                .Select(it => EqItemsContainer._.ItemDef2(it))
+                .ToList()
+                .ForEach(it => eqHolder.AddToBackpack(it));
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.SetTraitStats(new UnitTraits {
@@ -85,8 +101,10 @@ namespace _Darkland.Sources.Models.Persistence {
             xpHolder.ServerInit(e.xp, e.level);
         }
 
-        public static void ServerCreateNewHero(ObjectId darklandAccountId, string heroName, HeroVocationType heroVocationType) {
-          var darklandHeroEntity = new DarklandHeroEntity {
+        public static void ServerCreateNewHero(ObjectId darklandAccountId,
+                                               string heroName,
+                                               HeroVocationType heroVocationType) {
+            var darklandHeroEntity = new DarklandHeroEntity {
                 name = heroName,
                 darklandAccountId = darklandAccountId,
                 createDate = DateTime.Now,
@@ -103,7 +121,7 @@ namespace _Darkland.Sources.Models.Persistence {
                 intellect = 1,
                 soul = 1
             };
-            
+
             DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
         }
 

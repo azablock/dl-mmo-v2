@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace _Darkland.Sources.Models.Persistence.Entity {
+namespace _Darkland.Sources.Models.Persistence {
 
     [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     public record MongoEntity {

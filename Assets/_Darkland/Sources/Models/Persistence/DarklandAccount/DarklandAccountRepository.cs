@@ -1,8 +1,7 @@
 using System;
-using _Darkland.Sources.Models.Persistence.Entity;
 using MongoDB.Driver;
 
-namespace _Darkland.Sources.Models.Persistence {
+namespace _Darkland.Sources.Models.Persistence.DarklandAccount {
 
     public sealed class DarklandAccountRepository : Repository<DarklandAccountEntity> {
 

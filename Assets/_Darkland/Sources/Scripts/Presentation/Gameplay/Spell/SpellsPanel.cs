@@ -16,14 +16,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         private List<GameObject> spellIconPrefabs;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<ISpellCaster>().ClientSpellCasted += ClientOnSpellCasted;
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted += ClientOnSpellCasted;
             SpellMessagesProxy.ClientGetAvailableSpellsReceived += ClientInit;
 
             NetworkClient.Send(new SpellMessages.GetAvailableSpellsRequestMessage());
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
             SpellMessagesProxy.ClientGetAvailableSpellsReceived -= ClientInit;
 
             spellIcons.ForEach(it => it.Clicked -= ClientOnSpellIconClicked);

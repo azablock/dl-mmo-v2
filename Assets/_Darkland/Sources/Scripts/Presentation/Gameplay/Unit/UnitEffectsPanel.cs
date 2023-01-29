@@ -14,14 +14,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private readonly Dictionary<string, UnitEffectImage> _activeEffects = new();
 
         private void OnEnable() {
-            var unitEffectClientNotifier = DarklandHero.localHero.GetComponent<IUnitEffectClientNotifier>();
+            var unitEffectClientNotifier = DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>();
             unitEffectClientNotifier.ClientAdded += OnClientAdded;
             unitEffectClientNotifier.ClientRemoved += OnClientRemoved;
             unitEffectClientNotifier.ClientRemovedAll += OnClientRemovedAll;
         }
 
         private void OnDisable() {
-            var unitEffectClientNotifier = DarklandHero.localHero.GetComponent<IUnitEffectClientNotifier>();
+            var unitEffectClientNotifier = DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>();
             unitEffectClientNotifier.ClientAdded -= OnClientAdded;
             unitEffectClientNotifier.ClientRemoved -= OnClientRemoved;
             unitEffectClientNotifier.ClientRemovedAll -= OnClientRemovedAll;

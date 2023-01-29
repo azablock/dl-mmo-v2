@@ -15,21 +15,21 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private TargetNetIdPanel targetNetIdPanel;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
             PlayerInputMessagesProxy.ClientGetHealthStats += Call;
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
             PlayerInputMessagesProxy.ClientGetHealthStats -= Call;
             
             targetNetIdPanel.gameObject.SetActive(false);
         }
 
         private void Call(PlayerInputMessages.GetHealthStatsResponseMessage message) {
-            if (message.statsHolderNetId == DarklandHero.localHero.netId) {
+            if (message.statsHolderNetId == DarklandHeroBehaviour.localHero.netId) {
                 localHeroPanel.ClientInit(message);
             }
             else {

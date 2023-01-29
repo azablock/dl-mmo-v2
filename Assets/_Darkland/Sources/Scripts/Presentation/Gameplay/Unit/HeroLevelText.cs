@@ -11,21 +11,21 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private TMP_Text heroLevelText;
 
         private void Awake() {
-            DarklandHero.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
         }
 
         private void OnDestroy() {
-            DarklandHero.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
         }
 
         private void DarklandHeroOnLocalHeroStarted() {
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
         }
 
         private void DarklandHeroOnLocalHeroStopped() {
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= ClientOnLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= ClientOnLevelChanged;
         }
 
         [Client]

@@ -41,17 +41,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         };
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged += OnClientLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += OnClientLevelChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet += ClientOnGetHeroSheet;
             
-            var heroName = DarklandHero.localHero.GetComponent<UnitNameBehaviour>().unitName;
+            var heroName = DarklandHeroBehaviour.localHero.GetComponent<UnitNameBehaviour>().unitName;
             NetworkClient.Send(new DarklandHeroMessages.GetHeroSheetRequestMessage {heroName = heroName});
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= OnClientLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged -= OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= OnClientLevelChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet -= ClientOnGetHeroSheet;
         }
 

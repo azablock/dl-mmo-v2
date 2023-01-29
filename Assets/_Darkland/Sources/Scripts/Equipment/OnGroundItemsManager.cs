@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using _Darkland.Sources.Models.Equipment;
-using _Darkland.Sources.Models.Persistence.Entity;
+using _Darkland.Sources.Models.Persistence.OnGroundEqItem;
 using _Darkland.Sources.Scripts.Persistence;
 using Castle.Core.Internal;
 using Mirror;

@@ -10,8 +10,8 @@ namespace _Darkland.Sources.Scripts.Ai {
         public int xp;
 
         [Server]
-        public void ServerGiveXpToHero(DarklandHero hero) {
-            hero.GetComponent<XpHolderBehaviour>().ServerGain(xp);
+        public void ServerGiveXpToHero(DarklandHeroBehaviour heroBehaviour) {
+            heroBehaviour.GetComponent<XpHolderBehaviour>().ServerGain(xp);
         }
     }
 

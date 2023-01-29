@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 using static JetBrains.Annotations.ImplicitUseTargetFlags;
 
-namespace _Darkland.Sources.Models.Persistence.Entity {
+namespace _Darkland.Sources.Models.Persistence.DarklandAccount {
 
     [UsedImplicitly(Members)]
     public record DarklandAccountEntity : MongoEntity {

@@ -12,13 +12,13 @@ namespace _Darkland.Sources.Scripts.Input {
         private List<InputAction> spellActions;
 
         private void OnEnable() {
-            DarklandHero.LocalHeroStarted += Connect;
-            DarklandHero.LocalHeroStopped += Disconnect;
+            DarklandHeroBehaviour.LocalHeroStarted += Connect;
+            DarklandHeroBehaviour.LocalHeroStopped += Disconnect;
         }
 
         private void OnDisable() {
-            DarklandHero.LocalHeroStarted -= Connect;
-            DarklandHero.LocalHeroStopped -= Disconnect;
+            DarklandHeroBehaviour.LocalHeroStarted -= Connect;
+            DarklandHeroBehaviour.LocalHeroStopped -= Disconnect;
         }
 
         private void Connect() {

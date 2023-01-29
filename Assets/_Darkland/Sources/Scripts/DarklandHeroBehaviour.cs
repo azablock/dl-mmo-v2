@@ -1,19 +1,20 @@
 using System;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.ScriptableObjects.Hero;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 
 namespace _Darkland.Sources.Scripts {
 
-    public class DarklandHero : NetworkBehaviour {
+    public class DarklandHeroBehaviour : NetworkBehaviour {
 
         private UnitNameBehaviour _unitNameBehaviour;
 
         public HeroVocation heroVocation { get; private set; }
         
-        public static DarklandHero localHero;
+        public static DarklandHeroBehaviour localHero;
         public static event Action LocalHeroStarted;
         public static event Action LocalHeroStopped;
 

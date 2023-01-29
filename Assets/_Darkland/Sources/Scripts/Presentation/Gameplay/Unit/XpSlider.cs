@@ -14,13 +14,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private TMP_Text xpText;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientXpChanged += ClientOnXpChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientXpChanged += ClientOnXpChanged;
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= ClientOnLevelChanged;
-            DarklandHero.localHero.GetComponent<IXpHolder>().ClientXpChanged -= ClientOnXpChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= ClientOnLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientXpChanged -= ClientOnXpChanged;
         }
 
         [Client]

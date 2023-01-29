@@ -64,7 +64,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         [Client]
         private void ClientAddChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
-            var isLocalPlayer = msg.senderNetId == DarklandHero.localHero.netId;
+            var isLocalPlayer = msg.senderNetId == DarklandHeroBehaviour.localHero.netId;
             ClientUpdateChat(ChatMessagesFormatter.FormatChatMessage(msg.heroName, msg.message, isLocalPlayer));
         }
 

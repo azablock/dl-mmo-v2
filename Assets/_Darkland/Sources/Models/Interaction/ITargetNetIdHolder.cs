@@ -24,7 +24,7 @@ namespace _Darkland.Sources.Models.Interaction {
         
         [Server]
         public static bool IsTargetFriendly(this ITargetNetIdHolder holder) {
-            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandHero>() != null;
+            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandHeroBehaviour>() != null;
         }
 
         [Server]

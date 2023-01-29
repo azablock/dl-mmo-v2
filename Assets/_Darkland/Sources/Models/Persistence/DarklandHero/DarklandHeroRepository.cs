@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using _Darkland.Sources.Models.Persistence.Entity;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace _Darkland.Sources.Models.Persistence {
+namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
     public sealed class DarklandHeroRepository : Repository<DarklandHeroEntity> {
 

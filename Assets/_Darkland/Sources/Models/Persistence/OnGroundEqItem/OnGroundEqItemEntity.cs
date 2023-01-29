@@ -2,7 +2,7 @@ using System;
 using JetBrains.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace _Darkland.Sources.Models.Persistence.Entity {
+namespace _Darkland.Sources.Models.Persistence.OnGroundEqItem {
 
     [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     public record OnGroundEqItemEntity : MongoEntity {

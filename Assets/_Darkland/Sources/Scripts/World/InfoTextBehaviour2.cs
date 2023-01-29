@@ -21,15 +21,15 @@ namespace _Darkland.Sources.Scripts.World {
 
         //todo fuj
         private void FixedUpdate() {
-            if (DarklandHero.localHero == null) return;
-            var localPlayerPos = DarklandHero.localHero.GetComponent<IDiscretePosition>().Pos;
+            if (DarklandHeroBehaviour.localHero == null) return;
+            var localPlayerPos = DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos;
 
             if (!LocalPlayerInDistance(localPlayerPos)) Hide();
         }
         
         private void Show() {
-            if (DarklandHero.localHero == null) return;
-            var localPlayerPos = DarklandHero.localHero.GetComponent<IDiscretePosition>().Pos;
+            if (DarklandHeroBehaviour.localHero == null) return;
+            var localPlayerPos = DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos;
             
             if (!LocalPlayerInDistance(localPlayerPos)) return;
             if ((int) transform.position.z != localPlayerPos.z) return;

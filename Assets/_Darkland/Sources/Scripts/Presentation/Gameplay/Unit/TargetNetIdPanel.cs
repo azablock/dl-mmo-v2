@@ -12,13 +12,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private DarklandUnitInfoPanel targetNetIdentityPanel;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
         }
 
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
         }
         
         public void ClientInit(PlayerInputMessages.GetHealthStatsResponseMessage message) {

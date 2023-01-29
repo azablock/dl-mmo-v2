@@ -5,6 +5,7 @@ using System.Linq;
 using _Darkland.Sources.Models.Account;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Unit;

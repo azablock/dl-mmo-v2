@@ -13,23 +13,23 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Interaction {
         private GameObject _markerInstance;
 
         private void OnEnable() {
-            DarklandHero.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
         }
 
         private void OnDisable() {
-            DarklandHero.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
         }
 
         private void DarklandHeroOnLocalHeroStarted() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
         }
 
         private void DarklandHeroOnLocalHeroStopped() {
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
-            DarklandHero.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
 
             ClearMarker();
         }

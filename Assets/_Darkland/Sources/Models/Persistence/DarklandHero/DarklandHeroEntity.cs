@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace _Darkland.Sources.Models.Persistence.Entity {
+namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
     [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     public record DarklandHeroEntity : MongoEntity {
@@ -45,6 +46,10 @@ namespace _Darkland.Sources.Models.Persistence.Entity {
         public int intellect;
         [BsonRequired]
         public int soul;
+        
+        //equipment
+        public List<string> itemNames;
+
     }
 
 }

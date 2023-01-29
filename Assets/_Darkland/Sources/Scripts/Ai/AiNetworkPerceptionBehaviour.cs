@@ -31,7 +31,7 @@ namespace _Darkland.Sources.Scripts.Ai {
 
         [ServerCallback]
         private void OnTriggerEnter(Collider other) {
-            var darklandHero = other.GetComponent<DarklandHero>();
+            var darklandHero = other.GetComponent<DarklandHeroBehaviour>();
 
             if (darklandHero == null) return;
 
@@ -47,7 +47,7 @@ namespace _Darkland.Sources.Scripts.Ai {
 
         [ServerCallback]
         private void OnTriggerExit(Collider other) {
-            var darklandHero = other.GetComponent<DarklandHero>();
+            var darklandHero = other.GetComponent<DarklandHeroBehaviour>();
             
             if (darklandHero == null) return;
             

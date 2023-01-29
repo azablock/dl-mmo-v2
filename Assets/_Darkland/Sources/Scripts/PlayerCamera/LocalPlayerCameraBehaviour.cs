@@ -15,30 +15,30 @@ namespace _Darkland.Sources.Scripts.PlayerCamera {
         private Vector3 cameraDistantPosition = new(0, 0, -10.0f);
 
         private void Awake() {
-            DarklandHero.LocalHeroStarted += OnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped += OnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted += OnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped += OnLocalHeroStopped;
         }
 
         private void OnDestroy() {
-            DarklandHero.LocalHeroStarted -= OnLocalHeroStarted;
-            DarklandHero.LocalHeroStopped -= OnLocalHeroStopped;
+            DarklandHeroBehaviour.LocalHeroStarted -= OnLocalHeroStarted;
+            DarklandHeroBehaviour.LocalHeroStopped -= OnLocalHeroStopped;
         }
 
         private void OnLocalHeroStarted() {
-            DarklandHero.localHero.GetComponent<IDiscretePosition>().ClientChanged += ClientOnLocalPlayerPosChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged += ClientOnLocalPlayerPosChanged;
 
             if (Camera.main == null) return;
             //
-            var playerPos = DarklandHero.localHero.GetComponent<IDiscretePosition>().Pos;
+            var playerPos = DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos;
             var cameraTransform = Camera.main.transform;
-            cameraTransform.SetParent(DarklandHero.localHero.transform);
+            cameraTransform.SetParent(DarklandHeroBehaviour.localHero.transform);
             // cameraTransform.localPosition = new Vector3(0, 0, cameraTransform.position.z - playerPos.z);
 
             ClientOnLocalPlayerPosChanged(playerPos);
         }
 
         private void OnLocalHeroStopped() {
-            DarklandHero.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnLocalPlayerPosChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnLocalPlayerPosChanged;
 
             if (Camera.main == null) return;
 

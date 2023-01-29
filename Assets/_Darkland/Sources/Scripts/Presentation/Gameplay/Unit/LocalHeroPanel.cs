@@ -16,16 +16,16 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private TMP_Text positionText;
 
         private void OnEnable() {
-            DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged += ClientOnStatsChanged;
-            DarklandHero.localHero.GetComponent<IDiscretePosition>().ClientChanged += ClientOnPosChanged;
-            ClientOnPosChanged(DarklandHero.localHero.GetComponent<IDiscretePosition>().Pos);
+            DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += ClientOnStatsChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged += ClientOnPosChanged;
+            ClientOnPosChanged(DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos);
             
-            NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage {statsHolderNetId = DarklandHero.localHero.netId});
+            NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage {statsHolderNetId = DarklandHeroBehaviour.localHero.netId});
         }
         
         private void OnDisable() {
-            DarklandHero.localHero.GetComponent<IStatsHolder>().ClientChanged -= ClientOnStatsChanged;
-            DarklandHero.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnPosChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged -= ClientOnStatsChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnPosChanged;
         }
 
         [Client]

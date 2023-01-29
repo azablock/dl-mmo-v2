@@ -14,6 +14,9 @@ namespace _Darkland.Sources.Models.Equipment {
         void DropOnGround(int backpackSlot);
         void PickupFromGround(IOnGroundEqItem onGroundItem);
         void UseConsumable(int backpackSlot);
+        void AddToBackpack(IEqItemDef item);
+        void RemoveFromBackpack(int backpackSlot);
+
 
         event Action<List<IEqItemDef>> ServerBackpackChanged;
         event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;

@@ -12,6 +12,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
         public Dictionary<WearableSlot, WearableItemDef> EquippedWearables { get; } = new();
         public List<IEqItemDef> Backpack { get; } = new();
         public int BackpackSize { get; private set; }
+
         public event Action<List<IEqItemDef>> ServerBackpackChanged;
         public event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;
         public event Action<WearableSlot, WearableItemDef> ServerUnequippedWearable;
@@ -34,7 +35,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             var consumable = (IConsumable)Backpack[backpackSlot];
             consumable.Consume(gameObject);
 
-            ServerRemoveFromBackpack(backpackSlot);
+            RemoveFromBackpack(backpackSlot);
         }
 
         [Server]
@@ -52,7 +53,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
                 ServerInsertToBackpack(backpackSlot, EquippedWearables[wearableSlot].itemDef);
             }
             else {
-                ServerRemoveFromBackpack(backpackSlot);
+                RemoveFromBackpack(backpackSlot);
             }
             
             EquippedWearables[wearableSlot] = new WearableItemDef {
@@ -66,7 +67,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
 
             var wearableItemDef = EquippedWearables[wearableSlot];
-            ServerAddToBackpack(wearableItemDef.itemDef);
+            AddToBackpack(wearableItemDef.itemDef);
         }
 
         [Server]
@@ -78,7 +79,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             var item = Backpack[backpackSlot];
             OnGroundItemsManager._.ServerCreateOnGroundItem(pos, item.ItemName);
             
-            ServerRemoveFromBackpack(backpackSlot);
+            RemoveFromBackpack(backpackSlot);
         }
 
         [Server]
@@ -87,16 +88,24 @@ namespace _Darkland.Sources.Scripts.Equipment {
             Assert.IsNotNull(onGroundItem);
 
             var item = EqItemsContainer._.ItemDef2(onGroundItem.ItemName);
-            ServerAddToBackpack(item);
+            AddToBackpack(item);
             
             OnGroundItemsManager._.ServerDestroyOnGroundItem(onGroundItem);
         }
 
         [Server]
-        private void ServerAddToBackpack(IEqItemDef item) {
+        public void AddToBackpack(IEqItemDef item) {
             Assert.IsNotNull(item);
 
             Backpack.Add(item);
+            ServerBackpackChanged?.Invoke(Backpack);
+        }
+        
+        public void RemoveFromBackpack(int backpackSlot) {
+            Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
+            Assert.IsNotNull(Backpack[backpackSlot]);
+
+            Backpack.RemoveAt(backpackSlot);
             ServerBackpackChanged?.Invoke(Backpack);
         }
 
@@ -107,15 +116,6 @@ namespace _Darkland.Sources.Scripts.Equipment {
             Assert.IsTrue(backpackSlot < Backpack.Count);
 
             Backpack[backpackSlot] = item;
-            ServerBackpackChanged?.Invoke(Backpack);
-        }
-
-        [Server]
-        private void ServerRemoveFromBackpack(int backpackSlot) {
-            Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
-            Assert.IsNotNull(Backpack[backpackSlot]);
-
-            Backpack.RemoveAt(backpackSlot);
             ServerBackpackChanged?.Invoke(Backpack);
         }
 

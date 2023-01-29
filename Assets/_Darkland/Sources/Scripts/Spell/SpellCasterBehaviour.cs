@@ -20,13 +20,13 @@ namespace _Darkland.Sources.Scripts.Spell {
     public class SpellCasterBehaviour : NetworkBehaviour, ISpellCaster {
 
         private readonly Dictionary<int, bool> _spellCooldowns = new();
-        private DarklandHero _darklandHero;
+        private DarklandHeroBehaviour _darklandHeroBehaviour;
 
         public List<ISpell> AvailableSpells => availableSpells;
         public event Action<SpellCastedEvent> ClientSpellCasted;
 
         private void Awake() {
-            _darklandHero = GetComponent<DarklandHero>();
+            _darklandHeroBehaviour = GetComponent<DarklandHeroBehaviour>();
         }
 
         public override void OnStartServer() {
@@ -80,7 +80,7 @@ namespace _Darkland.Sources.Scripts.Spell {
         [TargetRpc]
         private void TargetRpcSpellCasted(SpellCastedEvent evt) => ClientSpellCasted?.Invoke(evt);
 
-        private List<ISpell> availableSpells => _darklandHero.heroVocation.AvailableSpells;
+        private List<ISpell> availableSpells => _darklandHeroBehaviour.heroVocation.AvailableSpells;
 
     }
 
