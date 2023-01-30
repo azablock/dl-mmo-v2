@@ -1,5 +1,4 @@
 using System;
-using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit;
@@ -12,13 +11,14 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
     public class TargetNetIdHolderBehaviour : NetworkBehaviour, ITargetNetIdHolder {
 
-        [SerializeField]
-        private float maxTargetDistance;
         private IDiscretePosition _discretePosition;
         private IDeathEventEmitter _deathEventEmitter;
         
         public NetworkIdentity TargetNetIdentity { get; private set; }
+        public float MaxTargetDistance => MaxTargetDis; 
 
+        public const float MaxTargetDis = 8;//todo should be equal to vis range (AOI NetworkManager)?
+        
         public event Action<NetworkIdentity> ServerChanged;
         public event Action<NetworkIdentity> ServerCleared;
 
@@ -72,7 +72,6 @@ namespace _Darkland.Sources.Scripts.Interaction {
             TargetNetIdentity = null;
         }
 
-
         [Server]
         private void ServerConnectToTarget() {
             TargetNetIdentity.GetComponent<IDiscretePosition>().Changed += ServerOnTargetPosChanged;
@@ -101,7 +100,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
         [Server]
         private bool ServerPositionsValid(Vector3Int holderPos, Vector3Int targetPos) {
-            var isInTargetDistance = Vector3.Distance(holderPos, targetPos) < maxTargetDistance;
+            var isInTargetDistance = Vector3.Distance(holderPos, targetPos) < MaxTargetDistance;
             var zPositionsMEqual = holderPos.z == targetPos.z;
 
             return isInTargetDistance && zPositionsMEqual;

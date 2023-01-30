@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1942926206287291874}
   - component: {fileID: 7989408628698564392}
   m_Layer: 0
-  m_Name: Ai Rat Spawner
+  m_Name: Ai Mob Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

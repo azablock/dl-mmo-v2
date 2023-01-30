@@ -10,9 +10,9 @@ namespace _Darkland.Sources.Models.Interaction {
         void Set(uint newTargetNetId);
         void Clear();
         NetworkIdentity TargetNetIdentity { get; }
+        float MaxTargetDistance { get; }
         event Action<NetworkIdentity> ServerChanged;
         event Action<NetworkIdentity> ServerCleared;
-
     }
 
     public static class TargetNetIdHolderExtensions {

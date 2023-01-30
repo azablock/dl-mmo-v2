@@ -1,10 +1,13 @@
 using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Scripts.Ai {
+namespace _Darkland.Sources.Models.Ai {
 
-    public class AvailableMovesDummyHandler : MonoBehaviour {
+    public interface IAvailableMovesHolder {
+        Vector3Int NextMoveDelta();
+    }
+
+    public class SimpleAvailableMovesHolder : IAvailableMovesHolder {
 
         private readonly HashSet<Vector3Int> _deltas = new() {
             Vector3Int.up,
@@ -15,13 +18,12 @@ namespace _Darkland.Sources.Scripts.Ai {
         };
 
         private readonly List<Vector3Int> _current = new();
-
-        [Client]
-        public Vector3Int ClientNextMoveDelta() {
+        
+        public Vector3Int NextMoveDelta() {
             var size = _current.Count;
 
             if (size == 0) {
-                for (var i = 0; i < 10; i++) {
+                for (var i = 0; i < 5; i++) {
                     _current.AddRange(_deltas);
                 }
             };
@@ -32,8 +34,7 @@ namespace _Darkland.Sources.Scripts.Ai {
             
             return el;
         }
+
     }
-    
-    
 
 }

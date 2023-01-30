@@ -41,28 +41,35 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        public void ServerMoveClientImmediate(Vector3Int movementVector) {
+        public void ServerMoveOnceClientImmediate(Vector3Int movementVector) {
             if (!_isReadyForNextMove) return;
-            
-            _discretePosition.Set(_discretePosition.Pos + movementVector, true);
+
+            var possibleNewPos = _discretePosition.Pos + movementVector;
+            if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
+    
+            _discretePosition.Set(possibleNewPos, true);
+        }
+
+        [Server]
+        public void ServerMoveOnce(Vector3Int movementVector) {
+            if (!_isReadyForNextMove) return;
+
+            var possibleNewPos = _discretePosition.Pos + movementVector;
+            if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
+
+            _discretePosition.Set(_discretePosition.Pos + movementVector);
         }
 
         [Server]
         private IEnumerator ServerMove() {
             while (_movementVector != Vector3Int.zero) {
-
                 _isReadyForNextMove = false;
-
-                var possibleNextPosition = _discretePosition.Pos + _movementVector;
-
-                ServerSetDiscretePosition(possibleNextPosition);
-                
+                ServerSetDiscretePosition(_discretePosition.Pos + _movementVector);
                 yield return new WaitForSeconds(ServerTimeBetweenMoves());
-
                 _isReadyForNextMove = true;
             }
         }
-
+        
         [Server]
         private void ServerSetDiscretePosition(Vector3Int pos) {
             if (!DarklandWorldBehaviour._.IsEmptyField(pos)) return;

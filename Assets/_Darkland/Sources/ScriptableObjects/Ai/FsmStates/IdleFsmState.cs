@@ -1,6 +1,5 @@
-using _Darkland.Sources.Models.Chat;
-using _Darkland.Sources.NetworkMessages;
-using Mirror;
+using _Darkland.Sources.Scripts.Ai;
+using _Darkland.Sources.Scripts.Movement;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
@@ -9,12 +8,8 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
     public class IdleFsmState : FsmState {
 
         public override void UpdateSelf(GameObject parent) {
-            var netId = parent.GetComponent<NetworkIdentity>().netId;
-            var message = $"[netId]={netId} IdleFsmState UpdateSelf";
-            
-            // NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {
-                // message = ChatMessagesFormatter.FormatServerLog(message)
-            // });
+            var nextIdleMoveDelta = parent.GetComponent<AiMovementMemory>().ServerNextIdleMoveDelta();
+            parent.GetComponent<MovementBehaviour>().ServerMoveOnce(nextIdleMoveDelta);
         }
 
     }

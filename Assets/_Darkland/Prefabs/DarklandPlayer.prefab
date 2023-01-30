@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4130173737674582242}
   - component: {fileID: 5560752418698053298}
   - component: {fileID: 6717632378520939464}
-  - component: {fileID: 9146551355850393670}
   m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -100,21 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4ff0788399450fa4a0c6e9c65d3680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitDebugCanvas: {fileID: 4919863777184171392}
   unitSpriteRenderer: {fileID: 5560752418698053298}
---- !u!65 &9146551355850393670
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832562923141189791}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1422880730206238794
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +807,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  maxTargetDistance: 4
 --- !u!114 &6081493971742633474
 MonoBehaviour:
   m_ObjectHideFlags: 0
