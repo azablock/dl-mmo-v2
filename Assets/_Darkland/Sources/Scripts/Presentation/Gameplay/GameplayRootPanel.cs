@@ -1,6 +1,8 @@
+using System;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Unit;
 using Mirror;
 using UnityEngine;
@@ -13,6 +15,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private LocalHeroPanel localHeroPanel;
         [SerializeField]
         private TargetNetIdPanel targetNetIdPanel;
+        [SerializeField]
+        private TradeRootPanel tradeRootPanel;
+
+        public static GameplayRootPanel _;
+        
+        private void Awake() {
+            _ = this;
+        }
 
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
@@ -46,6 +56,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
             targetNetIdPanel.gameObject.SetActive(false);
             targetNetIdPanel.OnClientCleared(obj);
         }
+
+        public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;
+
     }
 
 }

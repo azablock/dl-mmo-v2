@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
-    public class TradePanel : MonoBehaviour {
+    public class TradeItemsPanel : MonoBehaviour {
 
         [SerializeField]
         private GameObject tradeItemViewPrefab;

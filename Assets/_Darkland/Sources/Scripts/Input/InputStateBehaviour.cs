@@ -22,14 +22,14 @@ namespace _Darkland.Sources.Scripts.Input {
             _chatPanel.MessageInputFieldSelected += ClientOnMessageInputFieldSelected;
             _chatPanel.MessageInputFieldDeselected += ClientOnMessageInputFieldDeselected;
             
-            TradePanel.Toggled += TradePanelOnToggled;
+            TradeItemsPanel.Toggled += TradePanelOnToggled;
         }
 
         private void OnDisable() {
             _chatPanel.MessageInputFieldSelected -= ClientOnMessageInputFieldSelected;
             _chatPanel.MessageInputFieldDeselected -= ClientOnMessageInputFieldDeselected;
             
-            TradePanel.Toggled -= TradePanelOnToggled;
+            TradeItemsPanel.Toggled -= TradePanelOnToggled;
         }
 
         [Client]

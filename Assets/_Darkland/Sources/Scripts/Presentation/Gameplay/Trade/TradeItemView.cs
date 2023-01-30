@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models.Equipment;
+using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -13,9 +14,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         [SerializeField]
         private Image itemImage;
         [SerializeField]
-        private TMP_Text priceText;
+        private TMP_Text itemNameText;
+        [SerializeField]
+        private TMP_Text itemPriceText;
 
         private IEqItemDef _item;
+
+        public void OnPointerClick(PointerEventData _) {
+            if (_item == null) return;
+            
+            NetworkClient.Send(new TradeMessages.BuyItemRequestMessage {itemName = _item.ItemName});
+        }
 
         [Client]
         public void ClientSet(IEqItemDef item) {
@@ -23,11 +32,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
             _item = item;
 
             itemImage.sprite = item.Sprite;
-            priceText.text = $"{item.ItemPrice}";
-        }
-
-        public void OnPointerClick(PointerEventData _) {
-            
+            itemNameText.text = item.ItemName;
+            itemPriceText.text = $"{item.ItemPrice}";
         }
 
     }

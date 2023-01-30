@@ -1,4 +1,3 @@
-using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Scripts.Equipment;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Unit;

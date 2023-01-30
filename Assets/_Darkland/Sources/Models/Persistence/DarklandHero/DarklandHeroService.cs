@@ -55,10 +55,14 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 .ToList();
 
             e.itemNames = new List<string>(itemNames);
-            
+
+            var equippedWearables = new Dictionary<string, string>();
+
             foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
-                e.equippedWearables.Add(wearableSlot.ToString(), wearableItemDef.itemDef.ItemName);
+                equippedWearables.Add(wearableSlot.ToString(), wearableItemDef.itemDef.ItemName);
             }
+
+            e.equippedWearables = equippedWearables;
 
             DarklandDatabaseManager
                 .darklandHeroRepository
