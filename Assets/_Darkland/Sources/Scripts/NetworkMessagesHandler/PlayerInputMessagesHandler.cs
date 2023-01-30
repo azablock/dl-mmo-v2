@@ -120,6 +120,17 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         [Server]
         private static void ServerProcessDropItem(NetworkConnectionToClient conn,
                                                   DropItemRequestMessage message) {
+            var dropPos = conn.identity.GetComponent<IDiscretePosition>().Pos;
+            
+            //todo optimize!!!
+            var itemsWithDropPos = NetworkServer.spawned.Values
+                .Select(it => it.GetComponent<IOnGroundEqItem>())
+                .Where(it => it != null)
+                .Count(it => it.Pos.Equals(dropPos));
+            
+            //moge wyrzucic item - jesli tylko jeden przedmiot lezy w tym samym miejscu
+            if (itemsWithDropPos > 1) return;
+
             conn.identity.GetComponent<IEqHolder>().DropOnGround(message.backpackSlot);
         }
 
