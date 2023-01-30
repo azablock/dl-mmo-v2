@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
+using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using UnityEngine;
 
@@ -19,6 +20,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             eqChangeServerListener.ClientBackpackChanged += ClientOnBackpackChanged;
             eqChangeServerListener.ClientWearableEquipped += ClientOnWearableEquipped;
             eqChangeServerListener.ClientWearableCleared += ClientOnWearableCleared;
+
+            var goldHolder = DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
+            goldHolder.ClientGoldAmountChanged += ClientOnGoldAmountChanged;
+                
             DarklandHeroMessagesProxy.ClientGetEq += ClientOnGetEq;
             
             NetworkClient.Send(new DarklandHeroMessages.GetEqRequestMessage());
@@ -29,6 +34,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             eqChangeServerListener.ClientBackpackChanged -= ClientOnBackpackChanged;
             eqChangeServerListener.ClientWearableEquipped -= ClientOnWearableEquipped;
             eqChangeServerListener.ClientWearableCleared -= ClientOnWearableCleared;
+
+            var goldHolder = DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
+            goldHolder.ClientGoldAmountChanged -= ClientOnGoldAmountChanged;
+
             DarklandHeroMessagesProxy.ClientGetEq -= ClientOnGetEq;
         }
 
@@ -38,6 +47,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         [Client]
         private void ClientOnGetEq(DarklandHeroMessages.GetEqResponseMessage message) {
             backpackPanel.ClientRefresh(message.itemNames);
+            backpackPanel.ClientUpdateGoldAmount(message.goldAmount);
             message.equippedWearables.ForEach(it => ClientOnWearableEquipped(it.wearableSlot, it.itemName));
         }
 
@@ -50,6 +60,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private void ClientOnWearableCleared(WearableSlot wearableSlot) {
             equippedWearablesPanel.ClientClear(wearableSlot);
         }
+
+        [Client]
+        private void ClientOnGoldAmountChanged(int goldAmount) => backpackPanel.ClientUpdateGoldAmount(goldAmount);
 
     }
 

@@ -44,6 +44,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerHandleGetEq(NetworkConnectionToClient conn,
                                               DarklandHeroMessages.GetEqRequestMessage message) {
             var eqHolder = conn.identity.GetComponent<IEqHolder>();
+            var goldHolder = conn.identity.GetComponent<IGoldHolder>();
             var equippedWearables = new List<WearableDto>();
             
             foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
@@ -55,7 +56,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
 
             conn.Send(new DarklandHeroMessages.GetEqResponseMessage {
                 itemNames = eqHolder.Backpack.Select(it => it.ItemName).ToList(),
-                equippedWearables = equippedWearables
+                equippedWearables = equippedWearables,
+                goldAmount = goldHolder.GoldAmount
             });
         }
 

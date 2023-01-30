@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,6 +11,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         [SerializeField]
         private List<BackpackSlotImage> backpackSlots;
+        [SerializeField]
+        private TMP_Text goldAmountText;
 
         private void OnEnable() {
             for (var i = 0; i < backpackSlots.Count; i++) {
@@ -41,6 +44,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
                 backpackSlots[i].ClientClear();
             }
         }
+
+        [Client]
+        public void ClientUpdateGoldAmount(int goldAmount) => goldAmountText.text = $"{goldAmount}";
 
         [Client]
         private static void OnDropClick(int slotIdx) {

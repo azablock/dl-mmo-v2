@@ -63,6 +63,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             }
 
             e.equippedWearables = equippedWearables;
+            e.goldAmount = 0;
 
             DarklandDatabaseManager
                 .darklandHeroRepository

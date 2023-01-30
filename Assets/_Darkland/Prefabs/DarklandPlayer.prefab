@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 4820648940178253029}
   - component: {fileID: 5298774331071004589}
   - component: {fileID: 2466515582921389893}
+  - component: {fileID: 4341525361964758486}
   m_Layer: 0
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -914,6 +915,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178e835709bf4c90a0eb386d77da6a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &4341525361964758486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1392b7013f2446c191a0ca05756cc737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &8739879269285926711
 GameObject:
   m_ObjectHideFlags: 0

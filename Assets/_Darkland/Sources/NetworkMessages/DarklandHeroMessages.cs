@@ -32,6 +32,7 @@ namespace _Darkland.Sources.NetworkMessages {
 
             public List<string> itemNames;
             public List<WearableDto> equippedWearables;
+            public int goldAmount;
 
         }
 

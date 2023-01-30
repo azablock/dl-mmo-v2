@@ -52,6 +52,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         public List<string> itemNames;
         [BsonRequired]
         public Dictionary<string, string> equippedWearables;
+        [BsonRequired]
+        public int goldAmount;
 
     }
 
