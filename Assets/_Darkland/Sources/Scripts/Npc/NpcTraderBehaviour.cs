@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.ScriptableObjects.Equipment;
 using _Darkland.Sources.Scripts.Presentation.Gameplay;
@@ -15,12 +16,28 @@ namespace _Darkland.Sources.Scripts.Npc {
         private List<Consumable> consumables;
 
         private List<IEqItemDef> _allItems;
+        [SerializeField]
+        private float maxVisibleDistance;
 
         private void Awake() {
             _allItems = new List<IEqItemDef>();
             _allItems.AddRange(weapons);
             _allItems.AddRange(consumables);
         }
+        
+        private void FixedUpdate() {
+            if (DarklandHeroBehaviour.localHero == null) return;
+            var localPlayerPos = DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos;
+
+            if (!LocalPlayerInProximity(localPlayerPos)) Hide();
+        }
+
+        private static void Hide() {
+            var tradePanel = GameplayRootPanel.TradeRootPanel;
+            tradePanel.TradeItemsPanel.ClientClear();
+            tradePanel.gameObject.SetActive(false);
+        }
+
 
         [Client]
         public void ClientToggle() {
@@ -28,8 +45,7 @@ namespace _Darkland.Sources.Scripts.Npc {
             
             //todo tmp switch
             if (tradePanel.gameObject.activeSelf) {
-                tradePanel.TradeItemsPanel.ClientClear();
-                tradePanel.gameObject.SetActive(false);
+                Hide();
             }
             else {
                 tradePanel.gameObject.SetActive(true);
@@ -37,6 +53,14 @@ namespace _Darkland.Sources.Scripts.Npc {
             }
         }
 
+        private bool LocalPlayerInProximity(Vector3Int localPlayerPos) {
+            var transformPosition = transform.position;
+            var inDistance = Vector3.Distance(localPlayerPos, transformPosition) < maxVisibleDistance;
+            var zEqual = (int) transformPosition.z == localPlayerPos.z;
+            
+            return inDistance && zEqual;
+        }
+        
     }
 
 }

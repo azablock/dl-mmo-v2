@@ -103,8 +103,18 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 .FirstOrDefault(it => it.Pos.Equals(message.eqItemPos));
             
             if (onGroundItem == null) return;
+
+            var eqHolder = conn.identity.GetComponent<IEqHolder>();
+            if (eqHolder.ServerBackpackFull()) return;
             
-            conn.identity.GetComponent<IEqHolder>().PickupFromGround(onGroundItem);
+            var pickupPos = conn.identity.GetComponent<IDiscretePosition>().Pos;
+            var itemPos = onGroundItem.Pos;
+            var zEqual = itemPos.z == pickupPos.z;
+            var inDistance = Vector3.Distance(pickupPos, itemPos) <= 2; //todo magic number
+
+            if (zEqual && inDistance) {
+                conn.identity.GetComponent<IEqHolder>().PickupFromGround(onGroundItem);
+            }
         }
 
         [Server]
@@ -118,7 +128,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                                                  UseItemRequestMessage message) {
             var eqHolder = conn.identity.GetComponent<IEqHolder>();
             var backpackSlot = message.backpackSlot;
-            var item = eqHolder.Backpack[backpackSlot];
+            var item = eqHolder.ServerBackpackItem(message.backpackSlot);
 
             switch (item?.ItemType) {
                 case EqItemType.Consumable:

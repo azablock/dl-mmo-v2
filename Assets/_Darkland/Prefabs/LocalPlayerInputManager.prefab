@@ -295,3 +295,20 @@ MonoBehaviour:
       m_Action: Hero Sheet
       m_Flags: 0
     m_Flags: 0
+  equipmentAction:
+    m_Name: Equipment
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 141633e7-2be5-4626-a065-742aa12d7d30
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 5c74ff82-06eb-4923-93be-9eedba58f536
+      m_Path: <Keyboard>/b
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Equipment
+      m_Flags: 0
+    m_Flags: 0

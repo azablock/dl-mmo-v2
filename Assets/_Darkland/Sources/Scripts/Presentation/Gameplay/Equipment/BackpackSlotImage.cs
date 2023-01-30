@@ -17,27 +17,31 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private Color emptySlotBackgroundColor;
         [SerializeField]
         private Image image;
+
         private IEqItemDef _item;
 
-        public event Action DropClick;
-        public event Action SellClick;
-        public event Action UseClick;
+        public event Action<BackpackSlotImage> DropClick;
+        public event Action<BackpackSlotImage> SellClick;
+        public event Action<BackpackSlotImage> UseClick;
 
         public void OnPointerClick(PointerEventData eventData) {
             if (_item == null) return;
 
-            if (eventData.button == PointerEventData.InputButton.Left) {
-                if (InputStateBehaviour._.tradeActive) {
-                    SellClick?.Invoke();
-                }
-                else {
-                    DropClick?.Invoke();
-                }
-            }
-
-            if (eventData.button == PointerEventData.InputButton.Right) {
-                //send message - equip weapon OR consume consumable
-                UseClick?.Invoke();
+            switch (eventData.button) {
+                case PointerEventData.InputButton.Left when InputStateBehaviour._.tradeActive:
+                    SellClick?.Invoke(this);
+                    break;
+                case PointerEventData.InputButton.Left:
+                    DropClick?.Invoke(this);
+                    break;
+                case PointerEventData.InputButton.Right:
+                    //send message - equip weapon OR consume consumable
+                    UseClick?.Invoke(this);
+                    break;
+                case PointerEventData.InputButton.Middle:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

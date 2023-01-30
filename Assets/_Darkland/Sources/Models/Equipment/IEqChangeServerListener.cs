@@ -7,7 +7,9 @@ namespace _Darkland.Sources.Models.Equipment {
 
         event Action<List<string>> ClientBackpackChanged;
         event Action<WearableSlot, string> ClientWearableEquipped;
+        event Action<WearableSlot, string> LocalPlayerWearableEquipped;
         event Action<WearableSlot> ClientWearableCleared;
+        event Action<WearableSlot> LocalPlayerWearableCleared;
 
     }
 

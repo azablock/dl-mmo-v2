@@ -2915,7 +2915,7 @@ Transform:
   - {fileID: 1630253990281279409}
   - {fileID: 2118175920564575095}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8739375901275613104
 MonoBehaviour:
@@ -8459,6 +8459,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095130193549522065, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Gotrek's Inn.
+      objectReference: {fileID: 0}
     - target: {fileID: 8188198025965627841, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
       propertyPath: m_Name
       value: Info Board
@@ -8581,7 +8585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
       propertyPath: m_SortingLayerID
@@ -8661,7 +8665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
       propertyPath: m_SortingLayerID

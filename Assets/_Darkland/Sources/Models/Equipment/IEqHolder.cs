@@ -7,7 +7,7 @@ namespace _Darkland.Sources.Models.Equipment {
 
     public interface IEqHolder {
         
-        Dictionary<WearableSlot, WearableItemDef> EquippedWearables { get; }
+        SyncDictionary<WearableSlot, string> EquippedWearables { get; }
         List<IEqItemDef> Backpack { get; }
         int BackpackSize { get; }
 
@@ -20,7 +20,7 @@ namespace _Darkland.Sources.Models.Equipment {
         void RemoveFromBackpack(int backpackSlot);
 
         event Action<List<IEqItemDef>> ServerBackpackChanged;
-        event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;
+        event Action<WearableSlot, string> ServerEquippedWearable;
         event Action<WearableSlot> ServerUnequippedWearable;
 
     }
@@ -34,7 +34,7 @@ namespace _Darkland.Sources.Models.Equipment {
 
         [Server]
         public static IEqItemDef ServerBackpackItem(this IEqHolder eqHolder, int backpackSlot) {
-            Assert.IsTrue(backpackSlot > -1 && backpackSlot < eqHolder.BackpackSize);
+            Assert.IsTrue(backpackSlot > -1 && backpackSlot < eqHolder.Backpack.Count);
             return eqHolder.Backpack[backpackSlot];
         }
         

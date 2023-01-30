@@ -40,6 +40,12 @@ namespace _Darkland.Sources.Scripts {
         /// Networking is NOT initialized when this fires
         /// </summary>
         public override void Start() {
+            //todo move somewhere
+            Physics.IgnoreLayerCollision(
+                LayerMask.NameToLayer($"Player"),
+                LayerMask.NameToLayer($"Player"),
+                true);
+            
             _networkMessagesProxies = GetComponentsInChildren<INetworkMessagesProxy>().ToList();
             
             var args = Environment.GetCommandLineArgs().ToList();

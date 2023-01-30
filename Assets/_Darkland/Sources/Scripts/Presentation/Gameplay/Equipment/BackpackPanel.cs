@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using TMPro;
@@ -15,20 +16,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private TMP_Text goldAmountText;
 
         private void OnEnable() {
-            for (var i = 0; i < backpackSlots.Count; i++) {
-                var idx = i;
-                backpackSlots[i].DropClick += () => OnDropClick(idx);
-                backpackSlots[i].UseClick += () => OnUseClick(idx);
-                backpackSlots[i].SellClick += () => OnSellClick(idx);
+            foreach (var it in backpackSlots) {
+                it.DropClick += OnDropClick;
+                it.UseClick += OnUseClick;
+                it.SellClick += OnSellClick;
             }
         }
 
         private void OnDisable() {
-            for (var i = 0; i < backpackSlots.Count; i++) {
-                var idx = i;
-                backpackSlots[i].DropClick -= () => OnDropClick(idx);
-                backpackSlots[i].UseClick -= () => OnUseClick(idx);
-                backpackSlots[i].SellClick -= () => OnSellClick(idx);
+            foreach (var it in backpackSlots) {
+                it.DropClick -= OnDropClick;
+                it.UseClick -= OnUseClick;
+                it.SellClick -= OnSellClick;
             }
         }
 
@@ -49,18 +48,25 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         public void ClientUpdateGoldAmount(int goldAmount) => goldAmountText.text = $"{goldAmount}";
 
         [Client]
-        private static void OnDropClick(int slotIdx) {
+        private void OnDropClick(BackpackSlotImage image) {
+            var slotIdx = IndexOfBackpackSlotImage(image);
             NetworkClient.Send(new PlayerInputMessages.DropItemRequestMessage {backpackSlot = slotIdx});
         }
 
         [Client]
-        private static void OnUseClick(int slotIdx) {
+        private void OnUseClick(BackpackSlotImage image) {
+            var slotIdx = IndexOfBackpackSlotImage(image);
             NetworkClient.Send(new PlayerInputMessages.UseItemRequestMessage {backpackSlot = slotIdx});
         }
 
         [Client]
-        private static void OnSellClick(int slotIdx) {
+        private void OnSellClick(BackpackSlotImage image) {
+            var slotIdx = IndexOfBackpackSlotImage(image);
             NetworkClient.Send(new TradeMessages.SellItemRequestMessage() {backpackSlot = slotIdx});
+        }
+
+        private int IndexOfBackpackSlotImage(BackpackSlotImage backpackSlotImage) {
+            return GetComponentsInChildren<BackpackSlotImage>().ToList().IndexOf(backpackSlotImage);
         }
 
     }

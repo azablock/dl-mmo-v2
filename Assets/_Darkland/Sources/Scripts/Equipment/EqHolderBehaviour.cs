@@ -9,12 +9,13 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
     public class EqHolderBehaviour : NetworkBehaviour, IEqHolder {
 
-        public Dictionary<WearableSlot, WearableItemDef> EquippedWearables { get; } = new();
+        public SyncDictionary<WearableSlot, string> EquippedWearables { get; } = new();
+
         public List<IEqItemDef> Backpack { get; } = new();
         public int BackpackSize { get; private set; }
 
         public event Action<List<IEqItemDef>> ServerBackpackChanged;
-        public event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;
+        public event Action<WearableSlot, string> ServerEquippedWearable;
         public event Action<WearableSlot> ServerUnequippedWearable;
 
         private IDiscretePosition _discretePosition;
@@ -52,17 +53,14 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
             //todo EquippedWearables.ContainsKey(wearableSlot) <---- tu jest bug bo zostalo w backpack
             if (EquippedWearables.ContainsKey(wearableSlot) && EquippedWearables[wearableSlot] != null) {
-                ServerInsertToBackpack(backpackSlot, EquippedWearables[wearableSlot].itemDef);
+                var eqItemDef = EqItemsContainer.ItemDef2(EquippedWearables[wearableSlot]);
+                ServerInsertToBackpack(backpackSlot, eqItemDef);
             }
             else {
                 RemoveFromBackpack(backpackSlot);
             }
-            
-            EquippedWearables[wearableSlot] = new WearableItemDef {
-                wearable = wearable,
-                itemDef = itemDef
-            };
-            
+
+            EquippedWearables[wearableSlot] = itemDef.ItemName;
             ServerEquippedWearable?.Invoke(wearableSlot, EquippedWearables[wearableSlot]);
         }
 
@@ -70,8 +68,9 @@ namespace _Darkland.Sources.Scripts.Equipment {
         public void UnequipWearable(WearableSlot wearableSlot) {
             if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
 
-            var wearableItemDef = EquippedWearables[wearableSlot];
-            AddToBackpack(wearableItemDef.itemDef);
+            var wearableItemName = EquippedWearables[wearableSlot];
+            var eqItemDef = EqItemsContainer.ItemDef2(wearableItemName);
+            AddToBackpack(eqItemDef);
 
             EquippedWearables.Remove(wearableSlot);
             ServerUnequippedWearable?.Invoke(wearableSlot);
@@ -84,7 +83,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
             var item = EqItemsContainer.ItemDef2(onGroundItem.ItemName);
             AddToBackpack(item);
-            
+
             OnGroundItemsManager._.ServerDestroyOnGroundItem(onGroundItem);
         }
 
@@ -92,11 +91,11 @@ namespace _Darkland.Sources.Scripts.Equipment {
         public void DropOnGround(int backpackSlot) {
             Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
             Assert.IsNotNull(Backpack[backpackSlot]);
-            
+
             var pos = _discretePosition.Pos;
             var item = Backpack[backpackSlot];
             OnGroundItemsManager._.ServerCreateOnGroundItem(pos, item.ItemName);
-            
+
             RemoveFromBackpack(backpackSlot);
         }
 
@@ -107,7 +106,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             Backpack.Add(item);
             ServerBackpackChanged?.Invoke(Backpack);
         }
-        
+
         public void RemoveFromBackpack(int backpackSlot) {
             Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
             Assert.IsNotNull(Backpack[backpackSlot]);

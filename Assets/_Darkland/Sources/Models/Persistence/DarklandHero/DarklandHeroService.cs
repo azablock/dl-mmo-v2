@@ -58,8 +58,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             var equippedWearables = new Dictionary<string, string>();
 
-            foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
-                equippedWearables.Add(wearableSlot.ToString(), wearableItemDef.itemDef.ItemName);
+            foreach (var (wearableSlot, itemName) in eqHolder.EquippedWearables) {
+                equippedWearables.Add(wearableSlot.ToString(), itemName);
             }
 
             e.equippedWearables = equippedWearables;
@@ -95,13 +95,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 .ForEach(it => eqHolder.AddToBackpack(it));
             
             foreach (var (slotName, itemName) in e.equippedWearables) {
-                var itemDef = EqItemsContainer.ItemDef2(itemName);
-                var wearableItemDef = new WearableItemDef {
-                    itemDef = itemDef,
-                    wearable = (IWearable)itemDef
-                };
-                
-                eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), wearableItemDef);
+                eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), itemName);
             }
 
             var goldHolder = darklandHero.GetComponent<IGoldHolder>();

@@ -27,6 +27,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
+            
             PlayerInputMessagesProxy.ClientGetHealthStats += Call;
         }
 

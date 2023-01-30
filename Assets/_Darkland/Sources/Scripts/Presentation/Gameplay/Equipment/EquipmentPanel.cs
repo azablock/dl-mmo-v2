@@ -18,8 +18,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private void OnEnable() {
             var eqChangeServerListener = DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>();
             eqChangeServerListener.ClientBackpackChanged += ClientOnBackpackChanged;
-            eqChangeServerListener.ClientWearableEquipped += ClientOnWearableEquipped;
-            eqChangeServerListener.ClientWearableCleared += ClientOnWearableCleared;
+            eqChangeServerListener.LocalPlayerWearableEquipped += ClientOnWearableEquipped;
+            eqChangeServerListener.LocalPlayerWearableCleared += ClientOnWearableCleared;
 
             var goldHolder = DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
             goldHolder.ClientGoldAmountChanged += ClientOnGoldAmountChanged;
@@ -32,8 +32,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private void OnDisable() {
             var eqChangeServerListener = DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>();
             eqChangeServerListener.ClientBackpackChanged -= ClientOnBackpackChanged;
-            eqChangeServerListener.ClientWearableEquipped -= ClientOnWearableEquipped;
-            eqChangeServerListener.ClientWearableCleared -= ClientOnWearableCleared;
+            eqChangeServerListener.LocalPlayerWearableEquipped -= ClientOnWearableEquipped;
+            eqChangeServerListener.LocalPlayerWearableCleared -= ClientOnWearableCleared;
 
             var goldHolder = DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
             goldHolder.ClientGoldAmountChanged -= ClientOnGoldAmountChanged;

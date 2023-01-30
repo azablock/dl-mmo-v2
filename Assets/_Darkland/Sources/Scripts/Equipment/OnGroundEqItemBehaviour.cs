@@ -14,6 +14,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
         private IMongoIdHolder _mongoIdHolder;
         private SpriteRenderer _spriteRenderer;
 
+        [field: SyncVar(hook = nameof(ClientSyncItemName))]
         public string ItemName { get; private set; }
         public ObjectId ItemMongoId => _mongoIdHolder.mongoId;
         public NetworkIdentity NetIdentity => netIdentity;
@@ -32,6 +33,13 @@ namespace _Darkland.Sources.Scripts.Equipment {
             _mongoIdHolder.Set(itemMongoId);
             _discretePosition.Set(discretePos);
 
+            SetItemSprite(itemName);
+        }
+
+        [Client]
+        private void ClientSyncItemName(string _, string val) => SetItemSprite(val);
+
+        private void SetItemSprite(string itemName) {
             var eqItemDef = EqItemsContainer.ItemDef2(itemName);
             _spriteRenderer.sprite = eqItemDef.Sprite;
         }

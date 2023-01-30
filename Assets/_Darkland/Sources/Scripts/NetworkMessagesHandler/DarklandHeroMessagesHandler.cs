@@ -47,10 +47,10 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var goldHolder = conn.identity.GetComponent<IGoldHolder>();
             var equippedWearables = new List<WearableDto>();
             
-            foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
+            foreach (var (wearableSlot, itemName) in eqHolder.EquippedWearables) {
                 equippedWearables.Add(new WearableDto {
                     wearableSlot = wearableSlot,
-                    itemName = wearableItemDef.itemDef.ItemName
+                    itemName = itemName
                 });
             }
 

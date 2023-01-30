@@ -12,7 +12,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         [SerializeField]
         private GameObject tradeItemViewPrefab;
         
-        public static event Action Toggled;
+        public static event Action<bool> Toggled;
 
         [Client]
         public void ClientSet(List<IEqItemDef> items) {
@@ -21,13 +21,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
                               .GetComponent<TradeItemView>()
                               .ClientSet(it));
             
-            Toggled?.Invoke();
+            Toggled?.Invoke(true);
         }
 
         [Client]
         public void ClientClear() {
             foreach (Transform child in transform) Destroy(child.gameObject);
-            Toggled?.Invoke();
+            Toggled?.Invoke(false);
         }
 
         [Client]

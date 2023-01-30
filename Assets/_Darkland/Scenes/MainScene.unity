@@ -200,6 +200,11 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1 &654018767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2349596231460289934, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
+  m_PrefabInstance: {fileID: 5266772926641419319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,10 +346,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3163993470579043398, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3819483931322188914, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1176818422
@@ -353,10 +354,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1062839082
       objectReference: {fileID: 0}
-    - target: {fileID: 5719133205321970761, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
+    - target: {fileID: 5493704079253485959, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: toggleTarget
+      value: 
+      objectReference: {fileID: 654018767}
     - target: {fileID: 5888239304279989373, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3634675226

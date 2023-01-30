@@ -39,7 +39,7 @@ namespace _Darkland.Sources.Scripts.Input {
         private void ClientOnMessageInputFieldDeselected() => chatInputActive = false;
 
         [Client]
-        private void TradePanelOnToggled() => tradeActive = !tradeActive;
+        private void TradePanelOnToggled(bool toggled) => tradeActive = toggled;
 
     }
 
