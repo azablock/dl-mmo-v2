@@ -63,7 +63,9 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             }
 
             e.equippedWearables = equippedWearables;
-            e.goldAmount = 0;
+
+            var goldHolder = darklandHeroGameObject.GetComponent<IGoldHolder>();
+            e.goldAmount = goldHolder.GoldAmount;
 
             DarklandDatabaseManager
                 .darklandHeroRepository
@@ -101,6 +103,9 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 
                 eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), wearableItemDef);
             }
+
+            var goldHolder = darklandHero.GetComponent<IGoldHolder>();
+            goldHolder.Set(e.goldAmount);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.SetTraitStats(new UnitTraits {
@@ -141,7 +146,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 intellect = 1,
                 soul = 1,
                 itemNames = new List<string>(),
-                equippedWearables = new Dictionary<string, string>()
+                equippedWearables = new Dictionary<string, string>(),
+                goldAmount = 0
             };
 
             DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);

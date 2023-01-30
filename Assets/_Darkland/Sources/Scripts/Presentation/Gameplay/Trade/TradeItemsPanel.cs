@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Darkland.Sources.Models.Equipment;
 using Mirror;
 using UnityEngine;
@@ -27,6 +28,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         public void ClientClear() {
             foreach (Transform child in transform) Destroy(child.gameObject);
             Toggled?.Invoke();
+        }
+
+        [Client]
+        public void ClientRefreshPricePoints(int goldAmount) {
+            GetComponentsInChildren<TradeItemView>()
+                .ToList()
+                .ForEach(it => it.ClientRefreshPricePoint(goldAmount));
         }
 
     }

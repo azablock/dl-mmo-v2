@@ -36,6 +36,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
             itemPriceText.text = $"{item.ItemPrice}";
         }
 
+        [Client]
+        public void ClientRefreshPricePoint(in int goldAmount) {
+            if (_item == null) return;
+
+            var color = _item.ItemPrice > goldAmount ? DarklandColorSet._.danger : Color.white;
+            itemPriceText.color = color;
+        }
+
     }
 
 }

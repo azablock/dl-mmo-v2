@@ -26,6 +26,7 @@ namespace _Darkland.Sources.Scripts.Unit {
     
     public class GoldHolderBehaviour : NetworkBehaviour, IGoldHolder {
 
+        [field: SyncVar(hook = nameof(ClientSyncGoldAmount))]
         public int GoldAmount { get; private set; }
         public event Action<int> ClientGoldAmountChanged;
 
@@ -33,11 +34,10 @@ namespace _Darkland.Sources.Scripts.Unit {
         public void Set(int val) {
             Assert.IsTrue(val >= 0);
             GoldAmount = val;
-            TargetRpcGoldAmountChanged(GoldAmount);
         }
         
-        [TargetRpc]
-        private void TargetRpcGoldAmountChanged(int goldAmount) => ClientGoldAmountChanged?.Invoke(goldAmount);
+        [Client]
+        private void ClientSyncGoldAmount(int _, int val) => ClientGoldAmountChanged?.Invoke(val);
 
     }
 
