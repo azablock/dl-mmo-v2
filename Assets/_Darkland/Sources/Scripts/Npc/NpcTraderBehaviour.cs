@@ -28,6 +28,7 @@ namespace _Darkland.Sources.Scripts.Npc {
             
             //todo tmp switch
             if (tradePanel.gameObject.activeSelf) {
+                tradePanel.TradeItemsPanel.ClientClear();
                 tradePanel.gameObject.SetActive(false);
             }
             else {

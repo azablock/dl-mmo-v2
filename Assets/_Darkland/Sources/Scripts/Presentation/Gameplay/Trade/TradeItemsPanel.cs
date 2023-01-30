@@ -13,10 +13,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         
         public static event Action Toggled;
 
-        private void OnDisable() {
-            foreach (Transform child in transform) Destroy(child.gameObject);
-        }
-
         [Client]
         public void ClientSet(List<IEqItemDef> items) {
             items.ForEach(it => 
@@ -24,6 +20,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
                               .GetComponent<TradeItemView>()
                               .ClientSet(it));
             
+            Toggled?.Invoke();
+        }
+
+        [Client]
+        public void ClientClear() {
+            foreach (Transform child in transform) Destroy(child.gameObject);
             Toggled?.Invoke();
         }
 
