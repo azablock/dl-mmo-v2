@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Mirror;
+using UnityEngine.Assertions;
 
 namespace _Darkland.Sources.Models.Equipment {
 
@@ -22,5 +24,20 @@ namespace _Darkland.Sources.Models.Equipment {
         event Action<WearableSlot> ServerUnequippedWearable;
 
     }
+
+    public static class EqHolderExtensions {
+
+        [Server]
+        public static bool ServerBackpackFull(this IEqHolder eqHolder) {
+            return eqHolder.BackpackSize == eqHolder.Backpack.Count;
+        }
+
+        [Server]
+        public static IEqItemDef ServerBackpackItem(this IEqHolder eqHolder, int backpackSlot) {
+            Assert.IsTrue(backpackSlot > -1 && backpackSlot < eqHolder.BackpackSize);
+            return eqHolder.Backpack[backpackSlot];
+        }
+        
+    } 
 
 }

@@ -1,5 +1,6 @@
 using _Darkland.Sources.Models.Input;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Chat;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;
 using Mirror;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace _Darkland.Sources.Scripts.Input {
         public static InputStateBehaviour _;
         
         public bool chatInputActive { get; private set; }
+        public bool tradeActive { get; private set; }
 
         private void Awake() => _ = this;
 
@@ -19,11 +21,15 @@ namespace _Darkland.Sources.Scripts.Input {
             _chatPanel = FindObjectOfType<ChatPanel>();
             _chatPanel.MessageInputFieldSelected += ClientOnMessageInputFieldSelected;
             _chatPanel.MessageInputFieldDeselected += ClientOnMessageInputFieldDeselected;
+            
+            TradePanel.Toggled += TradePanelOnToggled;
         }
 
         private void OnDisable() {
             _chatPanel.MessageInputFieldSelected -= ClientOnMessageInputFieldSelected;
             _chatPanel.MessageInputFieldDeselected -= ClientOnMessageInputFieldDeselected;
+            
+            TradePanel.Toggled -= TradePanelOnToggled;
         }
 
         [Client]
@@ -31,6 +37,9 @@ namespace _Darkland.Sources.Scripts.Input {
 
         [Client]
         private void ClientOnMessageInputFieldDeselected() => chatInputActive = false;
+
+        [Client]
+        private void TradePanelOnToggled() => tradeActive = !tradeActive;
 
     }
 

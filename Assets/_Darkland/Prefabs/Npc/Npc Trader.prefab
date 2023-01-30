@@ -112,7 +112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1252113848794077340}
   - component: {fileID: 4740016814150247620}
-  - component: {fileID: 2739854902155929760}
   m_Layer: 0
   m_Name: Npc View
   m_TagString: Untagged
@@ -187,19 +186,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &2739854902155929760
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3065657647370022737}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4592244314434293777
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,9 +410,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6306175257457196876}
   - component: {fileID: 3324427974439108458}
-  - component: {fileID: 3995225405813653384}
+  - component: {fileID: 191135375474085649}
+  - component: {fileID: 2390063724496648787}
   m_Layer: 0
-  m_Name: Npc
+  m_Name: Npc Trader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +453,7 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
---- !u!114 &3995225405813653384
+--- !u!114 &191135375474085649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,11 +462,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8547490681707788891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16b6ba1d8784f43b1b626f4243f7cea, type: 3}
+  m_Script: {fileID: 11500000, guid: fd8d5e5c47334a829ae287a10690ee4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoMessage: 
-  infoCanvas: {fileID: 2777005375629003195}
-  infoText: {fileID: 6129548537231083349}
-  canvasOffset: {x: 0, y: 0.75, z: 0}
-  maxVisibleDistance: 3
+  weapons:
+  - {fileID: 11400000, guid: b4c958d6367ba6747a326c82785d6ba4, type: 2}
+  consumables:
+  - {fileID: 11400000, guid: dea5d16556efcdc4c92b20b78ee8cd84, type: 2}
+--- !u!65 &2390063724496648787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547490681707788891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -8695,10 +8695,6 @@ PrefabInstance:
       propertyPath: _assetId
       value: 93104171
       objectReference: {fileID: 0}
-    - target: {fileID: 3995225405813653384, guid: 292f2f40d6c82f146b3784ad0d671225, type: 3}
-      propertyPath: infoMessage
-      value: Hello there.
-      objectReference: {fileID: 0}
     - target: {fileID: 4740016814150247620, guid: 292f2f40d6c82f146b3784ad0d671225, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -8771,8 +8767,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Npc Bartender
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2528247744500628567, guid: 292f2f40d6c82f146b3784ad0d671225, type: 3}
+    m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 292f2f40d6c82f146b3784ad0d671225, type: 3}
 --- !u!4 &3640800749369706838 stripped

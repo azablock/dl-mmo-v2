@@ -1,5 +1,6 @@
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.NetworkMessages;
+using _Darkland.Sources.Scripts.Npc;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
@@ -42,6 +43,7 @@ namespace _Darkland.Sources.Scripts.Input {
             if (!hit) return;
 
             ClientHandleUnitClick(raycastHit);
+            ClientHandleNpcClick(raycastHit);
             ClientHandleOnGroundEqItemClick(raycastHit);
             ClientHandleInfoBoardClick(raycastHit);
             //todo handle other collider hit "types"
@@ -52,6 +54,13 @@ namespace _Darkland.Sources.Scripts.Input {
             if (onGroundEqItem == null) return;
             
             NetworkClient.Send(new PlayerInputMessages.PickupItemRequestMessage { eqItemPos = onGroundEqItem.Pos });
+        }
+
+        private static void ClientHandleNpcClick(RaycastHit raycastHit) {
+            var npcTrader = raycastHit.collider.GetComponent<NpcTraderBehaviour>();
+            if (npcTrader == null) return; 
+
+            npcTrader.ClientToggle();
         }
 
         private static void ClientHandleUnitClick(RaycastHit raycastHit) {
