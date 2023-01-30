@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.Equipment;
 using Mirror;
 using UnityEngine;
 
@@ -37,6 +38,14 @@ namespace _Darkland.Sources.NetworkMessages {
 
         public struct DropItemRequestMessage : NetworkMessage {
             public int backpackSlot;
+        }
+
+        public struct UseItemRequestMessage : NetworkMessage {
+            public int backpackSlot;
+        }
+
+        public struct UnequipWearableRequestMessage : NetworkMessage {
+            public WearableSlot wearableSlot;
         }
 
 

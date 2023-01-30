@@ -48,13 +48,17 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             e.xp = xpHolder.xp;
             e.level = xpHolder.level;
 
-            var itemNames = darklandHeroGameObject
-                .GetComponent<IEqHolder>()
+            var eqHolder = darklandHeroGameObject.GetComponent<IEqHolder>();
+            var itemNames = eqHolder
                 .Backpack
                 .Select(it => it.ItemName)
                 .ToList();
 
             e.itemNames = new List<string>(itemNames);
+            
+            foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
+                e.equippedWearables.Add(wearableSlot.ToString(), wearableItemDef.itemDef.ItemName);
+            }
 
             DarklandDatabaseManager
                 .darklandHeroRepository
@@ -82,6 +86,16 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 .Select(EqItemsContainer.ItemDef2)
                 .ToList()
                 .ForEach(it => eqHolder.AddToBackpack(it));
+            
+            foreach (var (slotName, itemName) in e.equippedWearables) {
+                var itemDef = EqItemsContainer.ItemDef2(itemName);
+                var wearableItemDef = new WearableItemDef {
+                    itemDef = itemDef,
+                    wearable = (IWearable)itemDef
+                };
+                
+                eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), wearableItemDef);
+            }
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.SetTraitStats(new UnitTraits {
@@ -121,7 +135,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 dexterity = 1,
                 intellect = 1,
                 soul = 1,
-                itemNames = new List<string>()
+                itemNames = new List<string>(),
+                equippedWearables = new Dictionary<string, string>()
             };
 
             DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);

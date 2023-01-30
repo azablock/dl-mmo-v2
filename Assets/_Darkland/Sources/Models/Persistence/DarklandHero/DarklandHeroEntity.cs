@@ -50,6 +50,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         //equipment
         [BsonRequired]
         public List<string> itemNames;
+        [BsonRequired]
+        public Dictionary<string, string> equippedWearables;
 
     }
 

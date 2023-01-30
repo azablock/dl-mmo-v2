@@ -12,6 +12,8 @@ namespace _Darkland.Sources.Scripts.Equipment {
         private IEqHolder _eqHolder;
         
         public event Action<List<string>> ClientBackpackChanged;
+        public event Action<WearableSlot, string> ClientWearableEquipped;
+        public event Action<WearableSlot> ClientWearableCleared;
 
         private void Awake() {
             _eqHolder = GetComponent<IEqHolder>();
@@ -19,10 +21,14 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
         public override void OnStartServer() {
             _eqHolder.ServerBackpackChanged += ServerOnBackpackChanged;
+            _eqHolder.ServerEquippedWearable += ServerOnEquippedWearable;
+            _eqHolder.ServerUnequippedWearable += TargetRpcUnequippedWearable;
         }
 
         public override void OnStopServer() {
             _eqHolder.ServerBackpackChanged -= ServerOnBackpackChanged;
+            _eqHolder.ServerEquippedWearable -= ServerOnEquippedWearable;
+            _eqHolder.ServerUnequippedWearable -= TargetRpcUnequippedWearable;
         }
 
         [Server]
@@ -31,8 +37,21 @@ namespace _Darkland.Sources.Scripts.Equipment {
             TargetRpcBackpackChanged(backpack.Select(it => it.ItemName).ToList());
         }
 
+        [Server]
+        private void ServerOnEquippedWearable(WearableSlot wearableSlot, WearableItemDef item) {
+            TargetRpcEquippedWearable(wearableSlot, item.itemDef.ItemName);
+        }
+
         [TargetRpc]
         private void TargetRpcBackpackChanged(List<string> itemNames) => ClientBackpackChanged?.Invoke(itemNames);
+
+        [TargetRpc]
+        private void TargetRpcEquippedWearable(WearableSlot wearableSlot, string itemName) =>
+            ClientWearableEquipped?.Invoke(wearableSlot, itemName);
+
+        [TargetRpc]
+        private void TargetRpcUnequippedWearable(WearableSlot wearableSlot) =>
+            ClientWearableCleared?.Invoke(wearableSlot);
 
     }
 

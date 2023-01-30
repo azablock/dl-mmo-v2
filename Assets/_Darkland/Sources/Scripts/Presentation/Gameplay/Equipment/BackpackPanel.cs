@@ -16,6 +16,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             for (var i = 0; i < backpackSlots.Count; i++) {
                 var idx = i;
                 backpackSlots[i].DropClick += () => OnDropClick(idx);
+                backpackSlots[i].UseClick += () => OnUseClick(idx);
             }
         }
 
@@ -23,6 +24,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             for (var i = 0; i < backpackSlots.Count; i++) {
                 var idx = i;
                 backpackSlots[i].DropClick -= () => OnDropClick(idx);
+                backpackSlots[i].UseClick -= () => OnUseClick(idx);
             }
         }
 
@@ -40,6 +42,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         private static void OnDropClick(int slotIdx) {
             NetworkClient.Send(new PlayerInputMessages.DropItemRequestMessage {backpackSlot = slotIdx});
+        }
+
+        private static void OnUseClick(int slotIdx) {
+            NetworkClient.Send(new PlayerInputMessages.UseItemRequestMessage {backpackSlot = slotIdx});
         }
 
     }

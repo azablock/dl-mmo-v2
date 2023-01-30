@@ -9,7 +9,7 @@ namespace _Darkland.Sources.Models.Equipment {
         List<IEqItemDef> Backpack { get; }
         int BackpackSize { get; }
 
-        void EquipWearable(int backpackSlot, WearableSlot wearableSlot);
+        void EquipWearable(int backpackSlot);
         void UnequipWearable(WearableSlot wearableSlot);
         void DropOnGround(int backpackSlot);
         void PickupFromGround(IOnGroundEqItem onGroundItem);
@@ -17,10 +17,9 @@ namespace _Darkland.Sources.Models.Equipment {
         void AddToBackpack(IEqItemDef item);
         void RemoveFromBackpack(int backpackSlot);
 
-
         event Action<List<IEqItemDef>> ServerBackpackChanged;
         event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;
-        event Action<WearableSlot, WearableItemDef> ServerUnequippedWearable;
+        event Action<WearableSlot> ServerUnequippedWearable;
 
     }
 

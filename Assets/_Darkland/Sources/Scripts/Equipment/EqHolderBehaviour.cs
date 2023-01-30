@@ -15,7 +15,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
         public event Action<List<IEqItemDef>> ServerBackpackChanged;
         public event Action<WearableSlot, WearableItemDef> ServerEquippedWearable;
-        public event Action<WearableSlot, WearableItemDef> ServerUnequippedWearable;
+        public event Action<WearableSlot> ServerUnequippedWearable;
 
         private IDiscretePosition _discretePosition;
 
@@ -39,7 +39,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
         }
 
         [Server]
-        public void EquipWearable(int backpackSlot, WearableSlot wearableSlot) {
+        public void EquipWearable(int backpackSlot) {
             var itemDef = Backpack[backpackSlot];
 
             Assert.IsTrue(backpackSlot < BackpackSize);
@@ -47,9 +47,11 @@ namespace _Darkland.Sources.Scripts.Equipment {
             Assert.IsTrue(itemDef.ItemType == EqItemType.Wearable);
 
             var wearable = (IWearable)itemDef;
+            var wearableSlot = wearable.WearableItemSlot;
             Assert.AreEqual(wearable.WearableItemSlot, wearableSlot);
 
-            if (EquippedWearables[wearableSlot] != null) {
+            //todo EquippedWearables.ContainsKey(wearableSlot) <---- tu jest bug bo zostalo w backpack
+            if (EquippedWearables.ContainsKey(wearableSlot) && EquippedWearables[wearableSlot] != null) {
                 ServerInsertToBackpack(backpackSlot, EquippedWearables[wearableSlot].itemDef);
             }
             else {
@@ -60,6 +62,8 @@ namespace _Darkland.Sources.Scripts.Equipment {
                 wearable = wearable,
                 itemDef = itemDef
             };
+            
+            ServerEquippedWearable?.Invoke(wearableSlot, EquippedWearables[wearableSlot]);
         }
 
         [Server]
@@ -68,6 +72,9 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
             var wearableItemDef = EquippedWearables[wearableSlot];
             AddToBackpack(wearableItemDef.itemDef);
+
+            EquippedWearables.Remove(wearableSlot);
+            ServerUnequippedWearable?.Invoke(wearableSlot);
         }
 
         [Server]

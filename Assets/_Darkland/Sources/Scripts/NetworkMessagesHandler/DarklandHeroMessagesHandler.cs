@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Unit;
@@ -43,9 +44,18 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerHandleGetEq(NetworkConnectionToClient conn,
                                               DarklandHeroMessages.GetEqRequestMessage message) {
             var eqHolder = conn.identity.GetComponent<IEqHolder>();
+            var equippedWearables = new List<WearableDto>();
             
-            conn.Send(new DarklandHeroMessages.GetEqResponseMessage() {
-                itemNames = eqHolder.Backpack.Select(it => it.ItemName).ToList()
+            foreach (var (wearableSlot, wearableItemDef) in eqHolder.EquippedWearables) {
+                equippedWearables.Add(new WearableDto {
+                    wearableSlot = wearableSlot,
+                    itemName = wearableItemDef.itemDef.ItemName
+                });
+            }
+
+            conn.Send(new DarklandHeroMessages.GetEqResponseMessage {
+                itemNames = eqHolder.Backpack.Select(it => it.ItemName).ToList(),
+                equippedWearables = equippedWearables
             });
         }
 

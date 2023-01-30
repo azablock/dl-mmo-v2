@@ -11,16 +11,24 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         [SerializeField]
         private BackpackPanel backpackPanel;
+        [SerializeField]
+        private EquippedWearablesPanel equippedWearablesPanel;
 
         private void OnEnable() {
-            DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>().ClientBackpackChanged += ClientOnBackpackChanged;
+            var eqChangeServerListener = DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>();
+            eqChangeServerListener.ClientBackpackChanged += ClientOnBackpackChanged;
+            eqChangeServerListener.ClientWearableEquipped += ClientOnWearableEquipped;
+            eqChangeServerListener.ClientWearableCleared += ClientOnWearableCleared;
             DarklandHeroMessagesProxy.ClientGetEq += ClientOnGetEq;
             
             NetworkClient.Send(new DarklandHeroMessages.GetEqRequestMessage());
         }
 
         private void OnDisable() {
-            DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>().ClientBackpackChanged -= ClientOnBackpackChanged;
+            var eqChangeServerListener = DarklandHeroBehaviour.localHero.GetComponent<IEqChangeServerListener>();
+            eqChangeServerListener.ClientBackpackChanged -= ClientOnBackpackChanged;
+            eqChangeServerListener.ClientWearableEquipped -= ClientOnWearableEquipped;
+            eqChangeServerListener.ClientWearableCleared -= ClientOnWearableCleared;
             DarklandHeroMessagesProxy.ClientGetEq -= ClientOnGetEq;
         }
 
@@ -28,8 +36,20 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private void ClientOnBackpackChanged(List<string> itemNames) => backpackPanel.ClientRefresh(itemNames);
 
         [Client]
-        private void ClientOnGetEq(DarklandHeroMessages.GetEqResponseMessage message) =>
+        private void ClientOnGetEq(DarklandHeroMessages.GetEqResponseMessage message) {
             backpackPanel.ClientRefresh(message.itemNames);
+            message.equippedWearables.ForEach(it => ClientOnWearableEquipped(it.wearableSlot, it.itemName));
+        }
+
+        [Client]
+        private void ClientOnWearableEquipped(WearableSlot wearableSlot, string itemName) {
+            equippedWearablesPanel.ClientSet(wearableSlot, itemName);
+        }
+
+        [Client]
+        private void ClientOnWearableCleared(WearableSlot wearableSlot) {
+            equippedWearablesPanel.ClientClear(wearableSlot);
+        }
 
     }
 
