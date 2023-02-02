@@ -4,12 +4,10 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
 
     [CreateAssetMenu(fileName = nameof(HasNetIdTargetFsmDecision),
-                     menuName = "DL/Ai/" + nameof(HasNetIdTargetFsmDecision))]
+                     menuName = "DL/Ai/FsmDecision/" + nameof(HasNetIdTargetFsmDecision))]
     public class HasNetIdTargetFsmDecision : FsmDecision {
 
-        public override bool IsValid(GameObject parent) {
-            return parent.GetComponent<ITargetNetIdHolder>().TargetNetIdentity != null;
-        }
+        public override bool IsValid(GameObject parent) => parent.GetComponent<ITargetNetIdHolder>().HasTarget();
 
     }
 

@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944328d87fd04d16b9f86eedcbc1c1ad, type: 3}
-  m_Name: AttackFsmState
+  m_Script: {fileID: 11500000, guid: 6d25f04e5386442aa2fa670d481b15c0, type: 3}
+  m_Name: Has NetIdTarget FsmDecision
   m_EditorClassIdentifier: 
-  transitions:
-  - {fileID: 11400000, guid: 34217634c70ef384f8ffa2138060f71e, type: 2}
+  reverted: 0
