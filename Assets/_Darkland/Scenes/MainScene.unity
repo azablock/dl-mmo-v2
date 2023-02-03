@@ -346,6 +346,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 672471418482023596, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3819483931322188914, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1176818422
@@ -409,6 +413,10 @@ PrefabInstance:
     - target: {fileID: 6580754936756582855, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_Name
       value: Darkland World
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620916354567003298, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade2798f335242c49940e26d840c8811, type: 3}
   m_Name: ComeBack Idle FsmTransition
   m_EditorClassIdentifier: 
+  priority: 0
   decisions:
   - {fileID: 11400000, guid: 8088c045c00d45047a9279e7c5ea6aea, type: 2}
-  targetState: {fileID: 11400000, guid: 99a1b6a4b70f31a4a9b509cc29c0f29d, type: 2}
+  targetState: {fileID: 11400000, guid: 0093ae22b5cfcf34e889971a1d9ecada, type: 2}

@@ -1,7 +1,9 @@
 using System;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Combat;
 using Mirror;
 using UnityEngine;
@@ -30,6 +32,18 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
             var newHealthValue = healthStat.Get() - evt.damage;
             healthStat.Set(newHealthValue);
             ServerDamageApplied?.Invoke(evt);
+            
+            //todo brzydkie to - nie powinno tu tego byc
+            var aiCombatMemory = evt.target.GetComponent<AiCombatMemory>();
+            if (aiCombatMemory) {
+                aiCombatMemory.Add(netIdentity);
+
+                var targetsTargetNetIdHolder = evt.target.GetComponent<ITargetNetIdHolder>();
+                if (!targetsTargetNetIdHolder.HasTarget()) {
+                    targetsTargetNetIdHolder.Set(netId);
+                }
+            }
+            
             
             //todo move to new script
             ClientRpcShowDamageMarker(evt.damage, targetPos);

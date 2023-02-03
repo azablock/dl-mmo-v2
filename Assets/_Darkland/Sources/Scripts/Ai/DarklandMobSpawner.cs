@@ -21,8 +21,11 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void ServerRespawnMob() {
             Assert.IsNull(_mob);
             
-            _mob = Instantiate(darklandMobPrefab, transform.position, Quaternion.identity);
-            _mob.GetComponent<IDiscretePosition>().Set(Vector3Int.FloorToInt(transform.position));
+            var pos = Vector3Int.FloorToInt(transform.position);
+    
+            _mob = Instantiate(darklandMobPrefab, pos, Quaternion.identity);
+            _mob.GetComponent<IDiscretePosition>().Set(pos);
+            _mob.GetComponent<SpawnPositionHolder>().ServerSet(pos);
             _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
             
             NetworkServer.Spawn(_mob);

@@ -13,12 +13,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Ai {
         [SerializeField]
         private AiNetworkPerceptionBehaviour2 aiNetworkPerception;
 
-        private void Awake() {
-            var passiveRange = aiNetworkPerception.PerceptionZoneRange(AiPerceptionZoneType.Attack);
+        private void Start() {
+            var passiveRange = aiNetworkPerception.PerceptionZoneRange(AiPerceptionZoneType.Passive);
             var passiveViewScale = new Vector3(passiveRange, passiveRange, 1.0f);
             passivePerceptionSpriteRenderer.transform.localScale = passiveViewScale;
             
-            var attackRange = aiNetworkPerception.PerceptionZoneRange(AiPerceptionZoneType.Passive);
+            var attackRange = aiNetworkPerception.PerceptionZoneRange(AiPerceptionZoneType.Attack);
             var attackViewScale = new Vector3(attackRange, attackRange, 1.0f);
             attackPerceptionSpriteRenderer.transform.localScale = attackViewScale;
         }

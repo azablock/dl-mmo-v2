@@ -28,8 +28,8 @@ namespace _Darkland.Sources.Scripts.Ai {
          zalozenie jest takie, ze jesli ustawiam w _targetNetIdHolder nowy target -> to to bedzie cel ATAKU
          */
         
-        [ServerCallback]
-        private void Start() {
+        // [ServerCallback]
+        private void Awake() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
             _aiCombatMemory = GetComponent<AiCombatMemory>();
 
@@ -41,19 +41,19 @@ namespace _Darkland.Sources.Scripts.Ai {
             PerceptionZones.Add(Attack, new(attackPerceptionRange));
 
             // PerceptionZones[Passive].TargetEnteredZone += OnTargetEnteredZone;
-            PerceptionZones[Passive].TargetExitedZone += OnTargetExitedZone;
+            PerceptionZones[Passive].TargetExitedZone += OnTargetExitedPassiveZone;
 
             PerceptionZones[Attack].TargetEnteredZone += OnTargetEnteredAttackZone;
-            PerceptionZones[Attack].TargetExitedZone += OnTargetExitedZone;
+            // PerceptionZones[Attack].TargetExitedZone += OnTargetExitedZone;
         }
 
-        [ServerCallback]
+        // [ServerCallback]
         private void OnDestroy() {
             // PerceptionZones[Passive].TargetEnteredZone -= OnTargetEnteredZone;
-            PerceptionZones[Passive].TargetExitedZone -= OnTargetExitedZone;
+            PerceptionZones[Passive].TargetExitedZone -= OnTargetExitedPassiveZone;
 
             PerceptionZones[Attack].TargetEnteredZone -= OnTargetEnteredAttackZone;
-            PerceptionZones[Attack].TargetExitedZone -= OnTargetExitedZone;
+            // PerceptionZones[Attack].TargetExitedZone -= OnTargetExitedZone;
         }
 
         [ServerCallback]
@@ -64,7 +64,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         }
 
         [ServerCallback]
-        private void OnTargetExitedZone(NetworkIdentity target) {
+        private void OnTargetExitedPassiveZone(NetworkIdentity target) {
             var netIdEqualToTargetNetId = _targetNetIdHolder.HasTarget()
                                           && _targetNetIdHolder.TargetNetIdentity.netId == target.netId;
 

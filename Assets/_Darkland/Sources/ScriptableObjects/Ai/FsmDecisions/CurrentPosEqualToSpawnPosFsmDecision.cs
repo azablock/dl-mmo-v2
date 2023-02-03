@@ -1,3 +1,5 @@
+using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Scripts.Ai;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
@@ -6,9 +8,8 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
                      menuName = "DL/Ai/FsmDecision/" + nameof(CurrentPosEqualToSpawnPosFsmDecision))]
     public class CurrentPosEqualToSpawnPosFsmDecision : FsmDecision {
 
-        //todo ai mob save spawn pos on spawn
         public override bool IsValid(GameObject parent) {
-            return false;
+            return parent.GetComponent<IDiscretePosition>().Pos.Equals(parent.GetComponent<SpawnPositionHolder>().spawnPos);
         }
 
     }

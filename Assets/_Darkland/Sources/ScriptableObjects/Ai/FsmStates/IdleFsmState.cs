@@ -12,6 +12,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             parent.GetComponent<MovementBehaviour>().ServerMoveOnce(nextIdleMoveDelta);
             
             //todo czysc combat memory!!!
+            parent.GetComponent<AiCombatMemory>().Clear();
         }
 
     }

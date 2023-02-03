@@ -55,6 +55,7 @@ namespace _Darkland.Sources.Scripts.Ai {
                 _currentState = fsmTransition.TargetState;
             }
 
+            Debug.Log($"_currentState\t{((FsmState)_currentState).name} {NetworkTime.time}");
             _currentState.UpdateSelf(gameObject);
         }
 

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626fcb31291b42b99928c3780dbe375b, type: 3}
   m_Name: Chase FsmState
   m_EditorClassIdentifier: 
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: 161ca5f2d4807ef4e9b85425deb51e8b, type: 2}
+  - {fileID: 11400000, guid: 50dd40f85e10eab49875cf410c576d60, type: 2}
+  - {fileID: 11400000, guid: bc5e88aaec5ff7049b4b11987cbb153e, type: 2}

@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 3455414910645347580}
   - component: {fileID: 1586029261265010318}
   - component: {fileID: 2006874088971777140}
+  - component: {fileID: 7206238819333864508}
+  - component: {fileID: 7422727626230618524}
   m_Layer: 0
   m_Name: Ai Mob
   m_TagString: Untagged
@@ -225,8 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b69bfe90bc74890a45cf07d1fc4a192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passivePerceptionRange: 2
-  attackPerceptionRange: 4
+  passivePerceptionRange: 6
+  attackPerceptionRange: 2
 --- !u!65 &3154160925708691126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -324,6 +326,31 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &7206238819333864508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d22c3110ac4e67ab855ee6337d2ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiNetworkPerception: {fileID: 9166869659146055869}
+--- !u!114 &7422727626230618524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae3fb7981ea48d4a6d2862f2fd64162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &288256680686236835
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +363,7 @@ GameObject:
   - component: {fileID: 4993769725109058151}
   - component: {fileID: 6386603044192068588}
   m_Layer: 0
-  m_Name: Ai Mob Biew
+  m_Name: Ai Mob View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,8 +495,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d8363003bb4dbebf9aa4ec6bbf145f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPerceptionSpriteRenderer: {fileID: 3989902804460087378}
-  passivePerceptionSpriteRenderer: {fileID: 4098704120927901518}
+  attackPerceptionSpriteRenderer: {fileID: 4997006033655742214}
+  passivePerceptionSpriteRenderer: {fileID: 5397441401693880346}
   aiNetworkPerception: {fileID: 9166869659146055869}
 --- !u!1001 &1325618120853572646
 PrefabInstance:
@@ -487,37 +514,25 @@ PrefabInstance:
       propertyPath: aiNetworkPerception
       value: 
       objectReference: {fileID: 9166869659146055869}
-    - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_Color.a
-      value: 0.70980394
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_Color.b
-      value: 0.23887502
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_Color.g
-      value: 0.31688404
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_Color.r
-      value: 0.8301887
-      objectReference: {fileID: 0}
-    - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_SortingOrder
-      value: 4
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_RootOrder
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -566,14 +581,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
---- !u!212 &3989902804460087378 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
-  m_PrefabInstance: {fileID: 1325618120853572646}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4062378487982818963 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+  m_PrefabInstance: {fileID: 1325618120853572646}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4997006033655742214 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
   m_PrefabInstance: {fileID: 1325618120853572646}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2151300537557431098
@@ -588,6 +603,22 @@ PrefabInstance:
       propertyPath: discretePosition
       value: 
       objectReference: {fileID: 3336841614088503935}
+    - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: zoneType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: aiNetworkPerception
+      value: 
+      objectReference: {fileID: 9166869659146055869}
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2520590194270224408, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_Color.a
       value: 0.6862745
@@ -595,6 +626,14 @@ PrefabInstance:
     - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -636,6 +675,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5573026158093390102, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Size.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5762841
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3252047
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6897020855512641171, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_Name
       value: Ai Passive Perception Zone
@@ -648,8 +707,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3028104631078865589, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
   m_PrefabInstance: {fileID: 2151300537557431098}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &4098704120927901518 stripped
+--- !u!212 &5397441401693880346 stripped
 SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 2682863202489984116, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6286290792768402208, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
   m_PrefabInstance: {fileID: 2151300537557431098}
   m_PrefabAsset: {fileID: 0}

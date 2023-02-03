@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Attack FsmState
   m_EditorClassIdentifier: 
   transitions:
-  - {fileID: 11400000, guid: 34217634c70ef384f8ffa2138060f71e, type: 2}
+  - {fileID: 11400000, guid: 2414abdc1c769b64e8897cab0a5761a9, type: 2}
+  - {fileID: 11400000, guid: 1795eec9d16f4524e8fb35f4568ea972, type: 2}
+  - {fileID: 11400000, guid: b5ce455da80482d4e825a420b3d61d8f, type: 2}

@@ -16,7 +16,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         private AiNetworkPerceptionBehaviour2 aiNetworkPerception;
 
         [ServerCallback]
-        private void Awake() {
+        private void Start() {
             var range = aiNetworkPerception.PerceptionZoneRange(zoneType);
             boxCollider.size = new Vector3(range, range, 0.1f);
             

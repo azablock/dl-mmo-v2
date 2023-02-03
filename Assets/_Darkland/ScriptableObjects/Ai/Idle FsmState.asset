@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Idle FsmState
   m_EditorClassIdentifier: 
   transitions:
-  - {fileID: 11400000, guid: fcf5db00b6b119e44beb838696378628, type: 2}
+  - {fileID: 11400000, guid: 5f8b523e244590242bc2a4344efe21df, type: 2}
+  - {fileID: 11400000, guid: d3493f0540c4fc442a2749989642737a, type: 2}

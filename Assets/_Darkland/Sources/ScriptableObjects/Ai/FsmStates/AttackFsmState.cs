@@ -1,6 +1,7 @@
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var damageDealer = parent.GetComponent<IDamageDealer>();
             var playerNetIdentity = targetNetIdHolder.TargetNetIdentity;
 
+            if (!playerNetIdentity) return;
+            
             //todo tutaj dodatkowy check bo byl bug ze szur atakowal gracza stojacego pietro wyzej
             var targetPlayerPos = playerNetIdentity.GetComponent<IDiscretePosition>().Pos;
             var parentPos = aiDarklandUnit.GetComponent<IDiscretePosition>().Pos;
@@ -28,6 +31,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
                 damageType = DamageType.Physical
             });
             
+            parent.GetComponent<AiCombatMemory>().Add(playerNetIdentity);
             
             
             

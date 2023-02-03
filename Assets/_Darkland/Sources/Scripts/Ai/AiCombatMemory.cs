@@ -26,8 +26,12 @@ namespace _Darkland.Sources.Scripts.Ai {
         }
 
         [Server]
-        public void AddToHistory(NetworkIdentity identity) {
+        public void Add(NetworkIdentity identity) {
             _combatTargetsHistory.Add(identity);
+        }
+
+        public void Clear() {
+            _combatTargetsHistory.Clear();
         }
 
         [Server]

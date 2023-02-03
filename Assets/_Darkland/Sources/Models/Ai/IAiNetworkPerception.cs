@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Mirror;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Ai {
 
@@ -24,11 +25,13 @@ namespace _Darkland.Sources.Models.Ai {
         public void OnTargetEnter(NetworkIdentity target) {
             targets.Add(target);
             TargetEnteredZone?.Invoke(target);
+            // Debug.Log($"OnTargetEnter {target.name} netId={target.netId}\t{NetworkTime.time}");
         }
 
         public void OnTargetExit(NetworkIdentity target) {
             targets.Remove(target);
             TargetExitedZone?.Invoke(target);
+            // Debug.Log($"OnTargetExit {target.name} netId={target.netId}\t{NetworkTime.time}");
         }
 
     }
