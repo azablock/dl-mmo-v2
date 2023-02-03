@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ade2798f335242c49940e26d840c8811, type: 3}
-  m_Name: Idle Attack FsmTransition
+  m_Name: Chase Idle FsmTransition
   m_EditorClassIdentifier: 
-  priority: 1
   decisions:
-  - {fileID: 11400000, guid: ab56fb9654f471f4087ed5c2c8b4347c, type: 2}
-  - {fileID: 11400000, guid: 9fc6e85f1d8a28041a06718bb8048823, type: 2}
-  targetState: {fileID: 11400000, guid: 77d6cee0f293d1e4b97e129b82525220, type: 2}
+  - {fileID: 11400000, guid: 631d07c290335fa4081a22bed84214ac, type: 2}
+  - {fileID: 11400000, guid: 8088c045c00d45047a9279e7c5ea6aea, type: 2}
+  targetState: {fileID: 11400000, guid: 0093ae22b5cfcf34e889971a1d9ecada, type: 2}

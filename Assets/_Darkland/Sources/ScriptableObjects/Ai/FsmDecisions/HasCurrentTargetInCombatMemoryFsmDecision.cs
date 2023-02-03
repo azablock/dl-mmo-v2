@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
 
-    [CreateAssetMenu(fileName = nameof(HasTargetInCombatMemoryFsmDecision),
-                     menuName = "DL/Ai/FsmDecision/" + nameof(HasTargetInCombatMemoryFsmDecision))]
-    public class HasTargetInCombatMemoryFsmDecision : FsmDecision {
+    [CreateAssetMenu(fileName = nameof(HasCurrentTargetInCombatMemoryFsmDecision),
+                     menuName = "DL/Ai/FsmDecision/" + nameof(HasCurrentTargetInCombatMemoryFsmDecision))]
+    public class HasCurrentTargetInCombatMemoryFsmDecision : FsmDecision {
 
         public override bool IsValid(GameObject parent) {
             var targetNetIdentity = parent.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;

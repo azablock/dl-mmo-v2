@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
 
-    [CreateAssetMenu(fileName = nameof(TargetInPerceptionRangeFsmDecision),
-                     menuName = "DL/Ai/FsmDecision/" + nameof(TargetInPerceptionRangeFsmDecision))]
-    public class TargetInPerceptionRangeFsmDecision : FsmDecision {
+    [CreateAssetMenu(fileName = nameof(CurrentTargetInPerceptionRangeFsmDecision),
+                     menuName = "DL/Ai/FsmDecision/" + nameof(CurrentTargetInPerceptionRangeFsmDecision))]
+    public class CurrentTargetInPerceptionRangeFsmDecision : FsmDecision {
 
         public AiPerceptionZoneType zoneType;
         

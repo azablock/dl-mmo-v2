@@ -7,6 +7,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai {
     [CreateAssetMenu(fileName = nameof(FsmTransition), menuName = "DL/Ai/" + nameof(FsmTransition))]
     public class FsmTransition : ScriptableObject, IFsmTransition {
 
+        public uint priority;
         [SerializeField]
         private List<FsmDecision> decisions;
         [SerializeField]

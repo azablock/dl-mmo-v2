@@ -20,12 +20,18 @@ namespace _Darkland.Sources.Scripts.Ai {
         private float attackPerceptionRange;
 
         private ITargetNetIdHolder _targetNetIdHolder;
+        private AiCombatMemory _aiCombatMemory;
 
         public Dictionary<AiPerceptionZoneType, AiNetworkPerceptionZone> PerceptionZones { get; } = new();
 
+        /*
+         zalozenie jest takie, ze jesli ustawiam w _targetNetIdHolder nowy target -> to to bedzie cel ATAKU
+         */
+        
         [ServerCallback]
         private void Start() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
+            _aiCombatMemory = GetComponent<AiCombatMemory>();
 
             Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance > attackPerceptionRange);
             Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance > passivePerceptionRange);
@@ -34,24 +40,24 @@ namespace _Darkland.Sources.Scripts.Ai {
             PerceptionZones.Add(Passive, new(passivePerceptionRange));
             PerceptionZones.Add(Attack, new(attackPerceptionRange));
 
-            PerceptionZones[Passive].TargetEnteredZone += OnTargetEnteredZone;
+            // PerceptionZones[Passive].TargetEnteredZone += OnTargetEnteredZone;
             PerceptionZones[Passive].TargetExitedZone += OnTargetExitedZone;
 
-            PerceptionZones[Attack].TargetEnteredZone += OnTargetEnteredZone;
+            PerceptionZones[Attack].TargetEnteredZone += OnTargetEnteredAttackZone;
             PerceptionZones[Attack].TargetExitedZone += OnTargetExitedZone;
         }
 
         [ServerCallback]
         private void OnDestroy() {
-            PerceptionZones[Passive].TargetEnteredZone -= OnTargetEnteredZone;
+            // PerceptionZones[Passive].TargetEnteredZone -= OnTargetEnteredZone;
             PerceptionZones[Passive].TargetExitedZone -= OnTargetExitedZone;
 
-            PerceptionZones[Attack].TargetEnteredZone -= OnTargetEnteredZone;
+            PerceptionZones[Attack].TargetEnteredZone -= OnTargetEnteredAttackZone;
             PerceptionZones[Attack].TargetExitedZone -= OnTargetExitedZone;
         }
 
         [ServerCallback]
-        private void OnTargetEnteredZone(NetworkIdentity target) {
+        private void OnTargetEnteredAttackZone(NetworkIdentity target) {
             if (_targetNetIdHolder.HasTarget()) return;
 
             _targetNetIdHolder.Set(target.netId);
@@ -64,11 +70,21 @@ namespace _Darkland.Sources.Scripts.Ai {
 
             if (!netIdEqualToTargetNetId) return;
 
-            if (PerceptionZones[Attack].targets.Count > 0) {
-                _targetNetIdHolder.Set(PerceptionZones[Attack].targets.First().netId);
+            var attackZoneTargets = PerceptionZones[Attack].targets;
+            
+            if (attackZoneTargets.Count > 0) {
+                _targetNetIdHolder.Set(attackZoneTargets.First().netId);
             }
-            else if (PerceptionZones[Passive].targets.Count > 0) {
-                _targetNetIdHolder.Set(PerceptionZones[Passive].targets.First().netId);
+
+            var passiveZoneTargets = PerceptionZones[Passive].targets;
+            var isPassiveZoneTargetInCombatMemory =
+                passiveZoneTargets.FirstOrDefault(it => _aiCombatMemory.HasInHistory(it));
+            
+            if (isPassiveZoneTargetInCombatMemory) {
+                _targetNetIdHolder.Set(passiveZoneTargets.First().netId);
+            }
+            else {
+                _targetNetIdHolder.Clear();
             }
         }
 
