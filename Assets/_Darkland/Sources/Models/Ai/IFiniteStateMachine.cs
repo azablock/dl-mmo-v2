@@ -15,6 +15,8 @@ namespace _Darkland.Sources.Models.Ai {
     }
     
     public interface IFsmState {
+        void EnterSelf(GameObject parent);
+        void ExitSelf(GameObject parent);
         void UpdateSelf(GameObject parent);
         List<IFsmTransition> Transitions { get; }
     }

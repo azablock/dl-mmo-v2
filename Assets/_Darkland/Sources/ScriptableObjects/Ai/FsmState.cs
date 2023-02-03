@@ -8,6 +8,10 @@ namespace _Darkland.Sources.ScriptableObjects.Ai {
 
         public List<FsmTransition> transitions;
 
+        public virtual void EnterSelf(GameObject parent) { }
+
+        public virtual void ExitSelf(GameObject parent) { }
+
         public abstract void UpdateSelf(GameObject parent);
 
         public List<IFsmTransition> Transitions => new(transitions); //todo nieefektywne!!!
