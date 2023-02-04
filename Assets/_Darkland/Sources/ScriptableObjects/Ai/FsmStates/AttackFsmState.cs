@@ -33,24 +33,13 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             
             parent.GetComponent<AiCombatMemory>().Add(playerNetIdentity);
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
             // //todo gdzies indziej to wyniesc - dalsza czesc combatu...
             // //todo to jest funkcjonalnosc ze jak gracz zostaje zaatakowany i nie ma celu to cel sie auto wybiera na przeciwnika ktory zaatakowal
-            // var playerTargetNetIdeHolder = playerNetIdentity.GetComponent<ITargetNetIdHolder>();
-            //
-            // if (playerTargetNetIdeHolder.TargetNetIdentity == null) {
-            //     playerTargetNetIdeHolder.Set(aiDarklandUnit.netId);
-            // }
+            var playerTargetNetIdeHolder = playerNetIdentity.GetComponent<ITargetNetIdHolder>();
+            
+            if (playerTargetNetIdeHolder.TargetNetIdentity == null) {
+            playerTargetNetIdeHolder.Set(aiDarklandUnit.netId);
+            }
         }
 
     }

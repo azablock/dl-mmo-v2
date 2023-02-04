@@ -62,7 +62,8 @@ namespace _Darkland.Sources.Models.Ai {
                 currentPathPos = ctx.currentNode.Pos;
             }
 
-            path.Insert(0, currentPathPos);
+            //todo chyba to nie jest dobre?
+            // path.Insert(0, currentPathPos);
 
             return path;
         }
@@ -108,6 +109,7 @@ namespace _Darkland.Sources.Models.Ai {
             aStarNodes.Sort((x, y) => x.OverallCost.CompareTo(y.OverallCost));
 
             return aStarNodes.First();
+            // return aStarNodes.OrderBy(it => it.OverallCost).First();
         }
 
     }

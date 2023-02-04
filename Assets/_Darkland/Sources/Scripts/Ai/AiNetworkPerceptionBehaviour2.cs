@@ -3,6 +3,7 @@ using System.Linq;
 using _Darkland.Sources.Models.Ai;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Scripts.Interaction;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.Ai;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -18,23 +19,21 @@ namespace _Darkland.Sources.Scripts.Ai {
         [Range(1, TargetNetIdHolderBehaviour.MaxTargetDis)]
         [SerializeField]
         private float attackPerceptionRange;
+        [SerializeField]
+        private AiPerceptionZonesView perceptionZonesView;
 
         private ITargetNetIdHolder _targetNetIdHolder;
         private AiCombatMemory _aiCombatMemory;
 
         public Dictionary<AiPerceptionZoneType, AiNetworkPerceptionZone> PerceptionZones { get; } = new();
 
-        /*
-         zalozenie jest takie, ze jesli ustawiam w _targetNetIdHolder nowy target -> to to bedzie cel ATAKU
-         */
-        
         // [ServerCallback]
         private void Awake() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
             _aiCombatMemory = GetComponent<AiCombatMemory>();
 
-            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance > attackPerceptionRange);
-            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance > passivePerceptionRange);
+            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= attackPerceptionRange);
+            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= passivePerceptionRange);
             Assert.IsTrue(passivePerceptionRange >= attackPerceptionRange);
 
             PerceptionZones.Add(Passive, new(passivePerceptionRange));

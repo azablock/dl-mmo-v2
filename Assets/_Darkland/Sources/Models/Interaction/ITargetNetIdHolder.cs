@@ -1,7 +1,9 @@
 using System;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Ai;
 using Mirror;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Interaction {
 
@@ -29,6 +31,10 @@ namespace _Darkland.Sources.Models.Interaction {
 
         [Server]
         public static bool HasTarget(this ITargetNetIdHolder holder) => holder.TargetNetIdentity != null;
+
+        [Server]
+        public static Vector3Int TargetPos(this ITargetNetIdHolder holder) =>
+            holder.TargetNetIdentity.GetComponent<IDiscretePosition>().Pos;
 
     }
 

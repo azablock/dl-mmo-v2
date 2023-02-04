@@ -4,6 +4,7 @@ using _Darkland.Sources.Models.Ai;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace _Darkland.Sources.Scripts.Ai {
 
@@ -22,7 +23,14 @@ namespace _Darkland.Sources.Scripts.Ai {
             _currentPath = _pathfinder.Path(start, dest, DarklandWorldBehaviour._);
         }
 
-        public Vector3Int NextPos() => _currentPath.FirstOrDefault();
+        public Vector3Int NextPos() {
+            Assert.IsFalse(IsPathEmpty());
+            var nextPos = _currentPath[0];
+
+            _currentPath.RemoveAt(0);
+            
+            return nextPos;
+        }
 
         public bool IsPathEmpty() => _currentPath.Count == 0;
 
