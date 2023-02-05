@@ -7,6 +7,11 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
     [CreateAssetMenu(fileName = nameof(IdleFsmState), menuName = "DL/Ai/" + nameof(IdleFsmState))]
     public class IdleFsmState : FsmState {
 
+        public override void EnterSelf(GameObject parent) {
+            //todo reset AiMovementMemory (idle move options)
+            base.EnterSelf(parent);
+        }
+
         public override void UpdateSelf(GameObject parent) {
             var nextIdleMoveDelta = parent.GetComponent<AiMovementMemory>().ServerNextIdleMoveDelta();
             parent.GetComponent<MovementBehaviour>().ServerMoveOnce(nextIdleMoveDelta);

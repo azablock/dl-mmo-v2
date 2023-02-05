@@ -33,7 +33,7 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
             healthStat.Set(newHealthValue);
             ServerDamageApplied?.Invoke(evt);
             
-            //todo brzydkie to - nie powinno tu tego byc
+            //todo brzydkie to - nie powinno tu tego byc --------------------------------------------------
             var aiCombatMemory = evt.target.GetComponent<AiCombatMemory>();
             if (aiCombatMemory) {
                 aiCombatMemory.Add(netIdentity);
@@ -43,7 +43,8 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
                     targetsTargetNetIdHolder.Set(netId);
                 }
             }
-            
+            //todo brzydkie to - nie powinno tu tego byc --------------------------------------------------
+
             
             //todo move to new script
             ClientRpcShowDamageMarker(evt.damage, targetPos);
