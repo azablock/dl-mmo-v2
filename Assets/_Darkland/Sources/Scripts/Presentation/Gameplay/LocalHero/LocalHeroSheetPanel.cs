@@ -56,10 +56,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         }
 
         [Client]
-        private void OnClientChanged(StatId statId, float val) {
+        private void OnClientChanged(StatId statId, StatVal val) {
             if (!_statChangedCallbacks.ContainsKey(statId)) return;
 
-            _statChangedCallbacks[statId].Invoke(val, this);
+            _statChangedCallbacks[statId].Invoke(val.Current, this);
         }
 
         [Client]

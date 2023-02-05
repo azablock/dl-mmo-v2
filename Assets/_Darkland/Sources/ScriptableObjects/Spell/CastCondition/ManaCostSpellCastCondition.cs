@@ -10,7 +10,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
         public float manaCost;
 
         public override bool CanCast(GameObject caster) {
-            return caster.GetComponent<IStatsHolder>().ValueOf(StatId.Mana) > manaCost;
+            return caster.GetComponent<IStatsHolder>().ValueOf(StatId.Mana).Current > manaCost;
         }
 
         public override string InvalidCastMessage() => "Not enough mana";

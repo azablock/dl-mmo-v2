@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6503da35f944b5ab249099dca571b2, type: 3}
-  m_Name: TrimByMaxHealthStatConstraint
+  m_Script: {fileID: 11500000, guid: 53cb8f42d5594b508c61e1e19abd6c56, type: 3}
+  m_Name: MightBuff CasterUnitEffectSpellInstantEffect
   m_EditorClassIdentifier: 
-  trimByStatId: 1
-  applyBasic: 1
-  applyBonus: 0
+  unitEffects:
+  - {fileID: 11400000, guid: d1404a322d681094c980e2fc70291126, type: 2}

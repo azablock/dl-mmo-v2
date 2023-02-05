@@ -48,7 +48,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             
             //todo TEMP TEMP TEMP TEMP TEMP
             var statId = Random.Range(0, 4) % 2 == 0 ? StatId.Might : StatId.Constitution;
-            GetComponent<IStatsHolder>().Add(statId, 1);
+            GetComponent<IStatsHolder>().Add(statId, StatVal.OfBasic(1));
             var unitName = GetComponent<UnitNameBehaviour>().unitName;
             var message = $"{unitName} gained {level} level (and his {statId.ToString()} increased)";
             NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {

@@ -116,15 +116,33 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  health: 10
-  maxHealth: 10
-  healthRegain: 0
-  movementSpeed: 1
-  might: 0
-  constitution: 0
-  dexterity: 0
-  intellect: 0
-  soul: 0
+  health:
+    basic: 10
+    bonus: 0
+  maxHealth:
+    basic: 10
+    bonus: 0
+  healthRegain:
+    basic: 0
+    bonus: 0
+  movementSpeed:
+    basic: 1
+    bonus: 0
+  might:
+    basic: 0
+    bonus: 0
+  constitution:
+    basic: 0
+    bonus: 0
+  dexterity:
+    basic: 0
+    bonus: 0
+  intellect:
+    basic: 0
+    bonus: 0
+  soul:
+    basic: 0
+    bonus: 0
 --- !u!114 &2006617567216398544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107e6e038f8845f6a669db940ded6773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xp: 0
+  xp: 83
 --- !u!114 &7271619246065586669
 MonoBehaviour:
   m_ObjectHideFlags: 0

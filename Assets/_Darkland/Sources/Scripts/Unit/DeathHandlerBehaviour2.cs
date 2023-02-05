@@ -37,15 +37,13 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnDead() {
-            _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(1, StatId.Health));
+            _statEffectHandler.ApplyDirectEffect(new DirectStatEffect(StatVal.OfBasic(1), StatId.Health));
             _discretePosition.Set(Vector3Int.zero, true);
         }
 
         [Server]
-        private void ServerOnHealthChanged(float health) {
-            if (health <= 0) {
-                Death?.Invoke();
-            }
+        private void ServerOnHealthChanged(StatVal health) {
+            if (health.Basic <= 0) Death?.Invoke();
         }
     }
 }

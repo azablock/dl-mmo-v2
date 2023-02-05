@@ -82,7 +82,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed);
+        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed).Current;
     }
 
 }

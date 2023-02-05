@@ -30,7 +30,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var heroVocation = identity.GetComponent<DarklandHeroBehaviour>().heroVocation.VocationType;
             var heroLevel = identity.GetComponent<IXpHolder>().level;
             var heroName = identity.GetComponent<UnitNameBehaviour>().unitName;
-            var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsValues();
+            var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsCurrentValues();
             
             conn.Send(new DarklandHeroMessages.GetHeroSheetResponseMessage {
                 heroVocationType = heroVocation,

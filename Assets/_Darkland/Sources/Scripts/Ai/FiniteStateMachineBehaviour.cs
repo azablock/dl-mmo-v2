@@ -51,11 +51,16 @@ namespace _Darkland.Sources.Scripts.Ai {
 
             if (fsmTransition != null) {
                 _currentState.ExitSelf(gameObject);
+                
+                Debug.Log($"transition\t{((FsmState)_currentState).name} ->" +
+                          $" {((FsmState) fsmTransition.TargetState).name}" +
+                          $" {NetworkTime.time}");
+                
                 _currentState = fsmTransition.TargetState;
                 _currentState.EnterSelf(gameObject);
             }
 
-            Debug.Log($"_currentState\t{((FsmState)_currentState).name} {NetworkTime.time}");
+            // Debug.Log($"_currentState\t{((FsmState)_currentState).name} {NetworkTime.time}");
             _currentState.UpdateSelf(gameObject);
         }
 

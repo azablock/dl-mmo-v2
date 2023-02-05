@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec0059552164d2686d7e8f7c562f048, type: 3}
   m_Name: MinValue_0_DarklandStatConstraint
   m_EditorClassIdentifier: 
-  min: 0
+  basicMin: 0
+  bonusMin: 0
+  basicApply: 1
+  bonusApply: 0

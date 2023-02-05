@@ -13,7 +13,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         public virtual IStatPreChangeHooksHolder statPreChangeHooksHolder { get; private set; }
 
         //todo nowy interface z tego
-        public event Action<StatId, float> ClientChanged;
+        public event Action<StatId, StatVal> ClientChanged;
 
         private void Awake() {
             stats = new HashSet<Stat>();
@@ -27,18 +27,18 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         }
 
         [Server]
-        public IStatsHolder Set(StatId id, float val) {
+        public IStatsHolder Set(StatId id, StatVal val) {
             Stat(id).Set(val);
             return this;
         }
 
-        public IStatsHolder Add(StatId id, float val) {
+        public IStatsHolder Add(StatId id, StatVal val) {
             Stat(id).Add(val);
             return this;
         }
 
-        public IStatsHolder Subtract(StatId id, float val) {
-            Stat(id).Add(-val);
+        public IStatsHolder Subtract(StatId id, StatVal val) {
+            Stat(id).Add(StatVal.Of(-val.Basic, -val.Bonus));
             return this;
         }
 
@@ -52,22 +52,22 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         }
 
         [Server]
-        public float ValueOf(StatId id) => Stat(id).Get();
+        public StatVal ValueOf(StatId id) => Stat(id).Get();
 
         [Server]
-        public Tuple<float, float> Values(StatId firstId, StatId secondId) =>
+        public Tuple<StatVal, StatVal> Values(StatId firstId, StatId secondId) =>
             Tuple.Create(ValueOf(firstId), ValueOf(secondId));
 
         [Server]
-        public Tuple<float, float, float> Values(Tuple<StatId, StatId, StatId> ids) =>
+        public Tuple<StatVal, StatVal, StatVal> Values(Tuple<StatId, StatId, StatId> ids) =>
             Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3));
         
         [Server]
-        public Tuple<float, float, float, float> Values(Tuple<StatId, StatId, StatId, StatId> ids) =>
+        public Tuple<StatVal, StatVal, StatVal, StatVal> Values(Tuple<StatId, StatId, StatId, StatId> ids) =>
             Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3), ValueOf(ids.Item4));
 
         [Server]
-        public Tuple<float, float, float, float, float> Values(Tuple<StatId, StatId, StatId, StatId, StatId> ids) =>
+        public Tuple<StatVal, StatVal, StatVal, StatVal, StatVal> Values(Tuple<StatId, StatId, StatId, StatId, StatId> ids) =>
             Tuple.Create(ValueOf(ids.Item1), ValueOf(ids.Item2), ValueOf(ids.Item3), ValueOf(ids.Item4), ValueOf(ids.Item5));
 
         [Server]
@@ -75,7 +75,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             Tuple.Create(Stat(firstId), Stat(secondId));
 
         [Client]
-        protected void InvokeClientChanged(StatId statId, float statValue) {
+        protected void InvokeClientChanged(StatId statId, StatVal statValue) {
             ClientChanged?.Invoke(statId, statValue);
         }
     }

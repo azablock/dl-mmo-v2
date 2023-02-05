@@ -54,8 +54,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         }
 
         private void OnClientCleared(NetworkIdentity obj) {
-            targetNetIdPanel.gameObject.SetActive(false);
             targetNetIdPanel.OnClientCleared(obj);
+            targetNetIdPanel.gameObject.SetActive(false);
         }
 
         public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;

@@ -22,8 +22,8 @@ namespace _Darkland.Sources.Models.Unit {
             HealthStat.Changed -= OnHealthChanged;
         }
 
-        private void OnHealthChanged(float health) {
-            if (health == 0) {
+        private void OnHealthChanged(StatVal health) {
+            if (health.Current == 0) {
                 Death?.Invoke();
             }
         }

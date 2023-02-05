@@ -12,7 +12,7 @@ namespace _Darkland.Sources.ScriptableObjects.Unit.Effect {
         public float buffValue;
 
         public override void PreProcess(GameObject effectHolder) {
-            effectHolder.GetComponent<IStatsHolder>().Add(statId, buffValue);
+            effectHolder.GetComponent<IStatsHolder>().Add(statId, StatVal.OfBonus(buffValue));
         }
 
         public override IEnumerator Process(GameObject effectHolder) {
@@ -20,7 +20,7 @@ namespace _Darkland.Sources.ScriptableObjects.Unit.Effect {
         }
 
         public override void PostProcess(GameObject effectHolder) {
-            effectHolder.GetComponent<IStatsHolder>().Subtract(statId, buffValue);
+            effectHolder.GetComponent<IStatsHolder>().Subtract(statId, StatVal.OfBonus(buffValue));
         }
 
     }

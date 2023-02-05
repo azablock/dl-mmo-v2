@@ -80,8 +80,8 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var unitName = statsHolderNetIdentity.GetComponent<UnitNameBehaviour>().unitName;
 
             conn.Send(new GetHealthStatsResponseMessage {
-                health = health,
-                maxHealth = maxHealth,
+                health = health.Basic,
+                maxHealth = maxHealth.Current,
                 statsHolderNetId = statsHolderNetId,
                 unitName = unitName
             });

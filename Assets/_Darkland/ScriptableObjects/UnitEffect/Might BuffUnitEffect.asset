@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6503da35f944b5ab249099dca571b2, type: 3}
-  m_Name: TrimByMaxHealthStatConstraint
+  m_Script: {fileID: 11500000, guid: 38253583a16e42438831266405878159, type: 3}
+  m_Name: Might BuffUnitEffect
   m_EditorClassIdentifier: 
-  trimByStatId: 1
-  applyBasic: 1
-  applyBonus: 0
+  effectName: Might Buff
+  effectProcessConditions: []
+  duration: 20
+  statId: 6
+  buffValue: 456

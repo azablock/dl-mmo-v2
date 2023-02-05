@@ -35,9 +35,9 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             var statsHolder = darklandHeroGameObject.GetComponent<IStatsHolder>();
             var health = statsHolder.ValueOf(StatId.Health);
-            e.health = (int)health;
+            e.health = (int)health.Basic;
 
-            var traitValues = statsHolder.TraitStatsValues();
+            var traitValues = statsHolder.TraitStatsBasicValues();
             e.might = (int)traitValues.might;
             e.constitution = (int)traitValues.constitution;
             e.dexterity = (int)traitValues.dexterity;
@@ -102,7 +102,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             goldHolder.Set(e.goldAmount);
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
-            statsHolder.SetTraitStats(new UnitTraits {
+            statsHolder.SetTraitStatsBasicValues(new UnitTraits {
                 might = e.might,
                 constitution = e.constitution,
                 dexterity = e.dexterity,
@@ -112,9 +112,9 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             //todo MaxHealth samo sie nie powinno wyliczyc? pewnie jeszzce za wczesnie
             statsHolder.Set(StatId.MaxHealth, HeroStatsCalculator.ValueOf(StatId.MaxHealth, statsHolder));
-            statsHolder.Set(StatId.Health, e.health);
-            statsHolder.Set(StatId.HealthRegain, 1);
-            statsHolder.Set(StatId.MovementSpeed, 3);
+            statsHolder.Set(StatId.Health, StatVal.OfBasic(e.health));
+            statsHolder.Set(StatId.HealthRegain, StatVal.OfBasic(1));
+            statsHolder.Set(StatId.MovementSpeed, StatVal.OfBasic(3));
 
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
             xpHolder.ServerInit(e.xp, e.level);

@@ -22,8 +22,8 @@ namespace _Darkland.Tests.EditMode {
             //Arrange
             const int maxHealthValue = 10;
             var statsHolder = Substitute.For<IStatsHolder>();
-            var healthStatValue = maxHealthValue + 1;
-            var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { });
+            var healthStatValue = StatVal.OfBasic(maxHealthValue + 1);
+            var maxHealthStat = new Stat(StatId.MaxHealth, () => StatVal.OfBasic(maxHealthValue), value => { });
             statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
             _preChangeHook.trimByStatId = StatId.MaxHealth;
 
@@ -31,7 +31,7 @@ namespace _Darkland.Tests.EditMode {
             var result = _preChangeHook.Apply(statsHolder, healthStatValue);
 
             //Assert
-            Assert.AreEqual(maxHealthValue, result);
+            Assert.AreEqual(maxHealthValue, result.Basic);
         }
     }
 

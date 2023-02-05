@@ -62,7 +62,7 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             var healthStat = _statsHolder.Stat(StatId.Health);
 
             //Act
-            healthStat.Set(1.0f);
+            healthStat.Set(StatVal.OfBasic(1.0f));
             var healthStatValue = healthStat.Get();
             
             //Assert
@@ -78,7 +78,7 @@ namespace _Darkland.Tests.PlayMode.Stats2 {
             healthStat.Changed += stat => changedCallCount++;
             
             //Act
-            healthStat.Set(1.0f);
+            healthStat.Set(StatVal.OfBasic(1.0f));
 
             //Assert
             Assert.AreEqual(1, changedCallCount);

@@ -13,7 +13,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         public override void Consume(GameObject eqHolder) {
             eqHolder
                 .GetComponent<IStatsHolder>()
-                .Add(StatId.Health, healthToRegen);
+                .Add(StatId.Health, StatVal.OfBasic(healthToRegen));
         }
 
     }

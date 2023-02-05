@@ -24,7 +24,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnDamageApplied(UnitAttackEvent evt) {
-            if (evt.target.GetComponent<IStatsHolder>().ValueOf(StatId.Health) > 0) return;
+            if (evt.target.GetComponent<IStatsHolder>().ValueOf(StatId.Health).Basic > 0) return;
 
             var heroXpHolder = netIdentity.GetComponent<XpHolderBehaviour>();
             var heroName = netIdentity.GetComponent<UnitNameBehaviour>().unitName;

@@ -91,3 +91,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitEffectPrefabs:
   - {fileID: 7025192457008130154, guid: 51adbd8960fe84146a26e45a883015e9, type: 3}
+  - {fileID: 7025192457008130154, guid: 23a19f3c575016b42a0fea6734da4789, type: 3}

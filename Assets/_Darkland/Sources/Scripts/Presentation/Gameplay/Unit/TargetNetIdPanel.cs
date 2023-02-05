@@ -35,17 +35,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         public void OnClientCleared(NetworkIdentity targetNetIdentity) {
             //todo chyba trzeba to sprawdzic - bo na serwrze ten identity juz moze nie istniec?
+            //todo to jest po stronie Clienta:
+            //todo najpierw idzie Clear -> ale chwile pozniej jeszce szedł dmg od innego szczura i jest Set wołany 
             if (targetNetIdentity != null) {
                 targetNetIdentity.GetComponent<IStatsHolder>().ClientChanged -= OnClientStatsChanged;
             }
         }
 
-        private void OnClientStatsChanged(StatId statId, float val) {
+        private void OnClientStatsChanged(StatId statId, StatVal val) {
             if (statId == StatId.Health) {
-                targetNetIdentityPanel.ClientSetHealth(val);
+                targetNetIdentityPanel.ClientSetHealth(val.Basic);
             }
             else if (statId == StatId.MaxHealth) {
-                targetNetIdentityPanel.ClientSetMaxHealth(val);
+                targetNetIdentityPanel.ClientSetMaxHealth(val.Current);
             }
         }
 

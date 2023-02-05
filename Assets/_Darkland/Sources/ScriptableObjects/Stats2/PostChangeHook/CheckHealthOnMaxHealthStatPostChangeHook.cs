@@ -16,8 +16,8 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
             var maxHealthValue = maxHealthStat.Get();
             var healthValue = healthStat.Get();
 
-            if (healthValue > maxHealthValue)
-                healthStat.Set(maxHealthValue);
+            if (healthValue.Current > maxHealthValue.Current)
+                healthStat.Set(StatVal.OfBasic(maxHealthValue.Current));
         }
     }
 

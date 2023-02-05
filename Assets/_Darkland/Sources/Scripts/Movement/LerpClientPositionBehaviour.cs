@@ -33,7 +33,7 @@ namespace _Darkland.Sources.Scripts.Movement {
             if (isClientImmediate) {
                 ClientRpcImmediateChangePosition(data.pos);
             } else {
-                ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get());
+                ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get().Current);
             }
         }
 

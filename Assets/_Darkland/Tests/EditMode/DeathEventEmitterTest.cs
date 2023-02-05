@@ -21,7 +21,7 @@ namespace _Darkland.Tests.EditMode {
             _deathEventEmitter.Death += OnDeath;
 
             //Act
-            healthStat.Changed += Raise.Event<Action<float>>(0.0f);
+            healthStat.Changed += Raise.Event<Action<StatVal>>(StatVal.Zero);
             _deathEventEmitter.Death -= OnDeath;
 
             //Assert
@@ -39,7 +39,7 @@ namespace _Darkland.Tests.EditMode {
             _deathEventEmitter.Death += OnDeath;
 
             //Act
-            healthStat.Changed += Raise.Event<Action<float>>(2.0f);
+            healthStat.Changed += Raise.Event<Action<StatVal>>(StatVal.OfBasic(2.0f));
             _deathEventEmitter.Death -= OnDeath;
 
             //Assert

@@ -1,5 +1,6 @@
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
@@ -9,9 +10,18 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
     ]
     public class MinValueStatPreChangeHook : StatPreChangeHook {
 
-        public float min;
+        [FormerlySerializedAs("min")]
+        public float basicMin;
+        public float bonusMin;
+        public bool basicApply;
+        public bool bonusApply;
 
-        public override float Apply(IStatsHolder statsHolder, float val) => Mathf.Max(min, val);
+        public override StatVal Apply(IStatsHolder statsHolder, StatVal val) {
+            var newBasic = basicApply ? Mathf.Max(basicMin, val.Basic) : val.Basic;
+            var newBonus = bonusApply ? Mathf.Max(bonusMin, val.Bonus) : val.Bonus;
+            
+            return StatVal.Of(newBasic, newBonus);
+        }
     }
 
 }

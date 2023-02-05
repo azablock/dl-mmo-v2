@@ -29,8 +29,8 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
         public void DealDamage(UnitAttackEvent evt) {
             var targetPos = evt.target.GetComponent<IDiscretePosition>().Pos;
             var healthStat = evt.target.GetComponent<IStatsHolder>().Stat(StatId.Health);
-            var newHealthValue = healthStat.Get() - evt.damage;
-            healthStat.Set(newHealthValue);
+            var newHealthValue = healthStat.Get().Basic - evt.damage;
+            healthStat.Set(StatVal.OfBasic(newHealthValue));
             ServerDamageApplied?.Invoke(evt);
             
             //todo brzydkie to - nie powinno tu tego byc --------------------------------------------------

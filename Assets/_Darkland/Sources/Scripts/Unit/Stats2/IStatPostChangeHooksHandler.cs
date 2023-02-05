@@ -40,7 +40,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             }
         }
 
-        private Action<float> statOnChanged(StatPostChangeHook hook) {
+        private Action<StatVal> statOnChanged(StatPostChangeHook hook) {
             return _ => hook.OnStatChange(StatsHolder);
         }
     }

@@ -8,7 +8,7 @@ namespace _Darkland.Sources.Models.Hero {
 
     public static class HeroStatsCalculator {
 
-        public class StatModifiersDict : Dictionary<StatId, Func<float, float>> { }
+        public class StatModifiersDict : Dictionary<StatId, Func<StatVal, StatVal>> { }
 
         public class StatsFormulas : Dictionary<StatId, StatModifiersDict> { }
 
@@ -30,13 +30,13 @@ namespace _Darkland.Sources.Models.Hero {
         public static readonly StatsFormulas statsFormulas = new() {
             {
                 StatId.Might, new StatModifiersDict {
-                    { StatId.MaxHealth, v => v * 4 },
+                    { StatId.MaxHealth, v => StatVal.OfBasic(v.Current * 4) },
                     // { StatId.ActionPower, v => Mathf.Floor(v / 10) }
                 }
             },
             {
                 StatId.Constitution, new StatModifiersDict {
-                    { StatId.MaxHealth, v => v * 10 },
+                    { StatId.MaxHealth, v => StatVal.OfBasic(v.Current * 10) },
                 }
             }
         };
@@ -49,16 +49,16 @@ namespace _Darkland.Sources.Models.Hero {
         public static StatsFormulas statsFormulas2 = new() {
             {
                 StatId.MaxHealth, new StatModifiersDict {
-                    { StatId.Might, v => v * 4 },
-                    { StatId.Constitution, v => v * 10 }
+                    { StatId.Might, v => StatVal.OfBasic(v.Current * 4) },
+                    { StatId.Constitution, v => StatVal.OfBasic(v.Current * 10) }
                 }
             }
         };
 
         
         //todo make private method of "reversed" statsFormulas (== remove statsFormulas2)
-        public static float ValueOf(StatId targetStatId, IStatsHolder statsHolder) {
-            var v = 0.0f;
+        public static StatVal ValueOf(StatId targetStatId, IStatsHolder statsHolder) {
+            var v = StatVal.Zero;
             
             foreach (var (sourceStatId, modifierFn) in statsFormulas2[targetStatId]) {
                 var sourceStatValue = statsHolder.ValueOf(sourceStatId);

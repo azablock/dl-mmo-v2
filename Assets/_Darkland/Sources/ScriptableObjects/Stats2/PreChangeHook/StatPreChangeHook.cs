@@ -4,7 +4,7 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
     public abstract class StatPreChangeHook : ScriptableObject, IStatPreChangeHook {
-        public abstract float Apply(IStatsHolder statsHolder, float val);
+        public abstract StatVal Apply(IStatsHolder statsHolder, StatVal val);
     }
 
 }

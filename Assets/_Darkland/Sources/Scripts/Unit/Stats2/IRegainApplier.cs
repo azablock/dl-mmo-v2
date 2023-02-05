@@ -21,8 +21,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         public void ApplyRegain(StatRegainEntry statRegainEntry) {
             var regainRate = _statsHolder.ValueOf(statRegainEntry.regainStatId);
-            var regain = statRegainEntry.regainState.GetRegain(regainRate);
-            var directStatEffect = new DirectStatEffect(regain, statRegainEntry.applyRegainToStatId);
+            var regain = statRegainEntry.regainState.GetRegain(regainRate.Current);
+            var directStatEffect = new DirectStatEffect(StatVal.OfBasic(regain), statRegainEntry.applyRegainToStatId);
 
             _statEffectHandler.ApplyDirectEffect(directStatEffect);
         }

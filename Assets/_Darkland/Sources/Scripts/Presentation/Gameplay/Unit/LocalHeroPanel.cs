@@ -36,12 +36,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         [Client]
-        private void ClientOnStatsChanged(StatId statId, float val) {
+        private void ClientOnStatsChanged(StatId statId, StatVal val) {
             if (statId == StatId.Health) {
-                localHeroInfoPanel.ClientSetHealth(val);
+                localHeroInfoPanel.ClientSetHealth(val.Basic);
             }
             else if (statId == StatId.MaxHealth) {
-                localHeroInfoPanel.ClientSetMaxHealth(val);
+                localHeroInfoPanel.ClientSetMaxHealth(val.Current);
             }
         }
 
