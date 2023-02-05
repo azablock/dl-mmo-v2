@@ -26,7 +26,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             Assert.IsTrue(targetPlayerPos.z == parentPos.z);
 
             damageDealer.DealDamage(new UnitAttackEvent {
-                damage = 3,
+                damage = 1,
                 target = playerNetIdentity,
                 damageType = DamageType.Physical
             });
@@ -38,7 +38,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var playerTargetNetIdeHolder = playerNetIdentity.GetComponent<ITargetNetIdHolder>();
             
             if (playerTargetNetIdeHolder.TargetNetIdentity == null) {
-            playerTargetNetIdeHolder.Set(aiDarklandUnit.netId);
+                playerTargetNetIdeHolder.Set(aiDarklandUnit.netId);
             }
         }
 

@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 7206238819333864508}
   - component: {fileID: 7422727626230618524}
   - component: {fileID: 8122292011856941752}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ai Mob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passivePerceptionRange: 8
   attackPerceptionRange: 2
-  perceptionZonesView: {fileID: 284393170562397347}
 --- !u!65 &3154160925708691126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -376,7 +375,7 @@ GameObject:
   - component: {fileID: 2442241971747655680}
   - component: {fileID: 4993769725109058151}
   - component: {fileID: 6386603044192068588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ai Mob View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327645810792451357}
   - component: {fileID: 284393170562397347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ai Perception Zones View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,6 +523,10 @@ PrefabInstance:
       propertyPath: discretePosition
       value: 
       objectReference: {fileID: 3336841614088503935}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: aiNetworkPerception
       value: 
@@ -596,6 +599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ai Attack Perception Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 6897020855512641171, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
@@ -621,6 +628,10 @@ PrefabInstance:
       propertyPath: discretePosition
       value: 
       objectReference: {fileID: 3336841614088503935}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: zoneType
       value: 0
@@ -720,6 +731,10 @@ PrefabInstance:
     - target: {fileID: 6897020855512641171, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_Name
       value: Ai Passive Perception Zone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897020855512641171, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -1,7 +1,5 @@
 using System.Linq;
 using _Darkland.Sources.Models.Ai;
-using _Darkland.Sources.Models.Chat;
-using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.ScriptableObjects.Ai;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using Mirror;

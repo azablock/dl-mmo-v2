@@ -46,6 +46,11 @@ namespace _Darkland.Sources.Scripts {
                 LayerMask.NameToLayer($"Player"),
                 true);
             
+            Physics.IgnoreLayerCollision(
+                LayerMask.NameToLayer($"Mob"),
+                LayerMask.NameToLayer($"Mob"),
+                true);
+            
             _networkMessagesProxies = GetComponentsInChildren<INetworkMessagesProxy>().ToList();
             
             var args = Environment.GetCommandLineArgs().ToList();

@@ -38,7 +38,11 @@ namespace _Darkland.Sources.Scripts.Input {
             if (Camera.main == null) return;
             
             var ray = FindObjectOfType<Camera>().ScreenPointToRay(Mouse.current.position.ReadValue());
-            var hit = Physics.Raycast(ray, out var raycastHit);
+            var layerToOmit = LayerMask.GetMask($"Mob Perception Zone");
+            layerToOmit = ~layerToOmit;
+            
+            var maxDistance = 16; //todo magic number
+            var hit = Physics.Raycast(ray, out var raycastHit, maxDistance, layerToOmit);
 
             if (!hit) return;
 
@@ -64,7 +68,7 @@ namespace _Darkland.Sources.Scripts.Input {
         }
 
         private static void ClientHandleUnitClick(RaycastHit raycastHit) {
-            var darklandUnit = raycastHit.collider.GetComponentInParent<DarklandUnit>();
+            var darklandUnit = raycastHit.collider.GetComponent<DarklandUnit>();
             if (darklandUnit == null) return;
             
             NetworkClient.Send(new PlayerInputMessages.NpcClickRequestMessage {npcNetId = darklandUnit.netId});

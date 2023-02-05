@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2520590194270224408}
   - component: {fileID: 6286290792768402208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Debug View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2520590194270224408
 Transform:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7436833820306228939}
   - component: {fileID: 1996778987062251091}
   - component: {fileID: 1047293496536610219}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ai Perception Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

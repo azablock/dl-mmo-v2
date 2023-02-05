@@ -1,5 +1,4 @@
-using System.Linq;
-using _Darkland.Sources.Models.Ai;
+using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Scripts.World;
@@ -15,12 +14,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
             var currentPos = caster.GetComponent<IDiscretePosition>().Pos;
             var targetPos = caster.GetComponent<ITargetNetIdHolder>().TargetPos();
 
-            var bresenham3Dv2 = new Bresenham3Dv2(currentPos, targetPos);
-
-            //NONE from given result is obstacle
-            return !bresenham3Dv2
-                .Cast<Vector3Int>()
-                .Any(it => DarklandWorldBehaviour._.obstaclePositions.Contains(it));
+            return CombatTargetUtil.TargetBresenhamVisible(currentPos, targetPos, DarklandWorldBehaviour._);
         }
 
         public override string InvalidCastMessage() {

@@ -1,5 +1,4 @@
 using _Darkland.Sources.Scripts.Ai;
-using _Darkland.Sources.Scripts.Movement;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
@@ -9,15 +8,12 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
 
         public override void EnterSelf(GameObject parent) {
             //todo reset AiMovementMemory (idle move options)
-            base.EnterSelf(parent);
+            parent.GetComponent<AiCombatMemory>().Clear();
         }
 
         public override void UpdateSelf(GameObject parent) {
             var nextIdleMoveDelta = parent.GetComponent<AiMovementMemory>().ServerNextIdleMoveDelta();
-            parent.GetComponent<MovementBehaviour>().ServerMoveOnce(nextIdleMoveDelta);
-            
-            //todo czysc combat memory!!!
-            parent.GetComponent<AiCombatMemory>().Clear();
+            // parent.GetComponent<MovementBehaviour>().ServerMoveOnce(nextIdleMoveDelta);
         }
 
     }

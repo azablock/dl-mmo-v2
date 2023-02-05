@@ -3,7 +3,6 @@ using System.Linq;
 using _Darkland.Sources.Models.Ai;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Scripts.Interaction;
-using _Darkland.Sources.Scripts.Presentation.Gameplay.Ai;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,8 +18,6 @@ namespace _Darkland.Sources.Scripts.Ai {
         [Range(1, TargetNetIdHolderBehaviour.MaxTargetDis)]
         [SerializeField]
         private float attackPerceptionRange;
-        [SerializeField]
-        private AiPerceptionZonesView perceptionZonesView;
 
         private ITargetNetIdHolder _targetNetIdHolder;
         private AiCombatMemory _aiCombatMemory;
