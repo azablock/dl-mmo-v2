@@ -9,6 +9,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
 
         public static event Action<NetworkConnectionToClient, GetAvailableSpellsRequestMessage> ServerGetAvailableSpellsReceived;
         public static event Action<GetAvailableSpellsResponseMessage> ClientGetAvailableSpellsReceived;
+        public static event Action<FireballSpellVfxResponseMessage> ClientFireballVfxReceived;
 
         public void OnStartServer() {
             NetworkServer.RegisterHandler<GetAvailableSpellsRequestMessage>(ServerHandleGetAvailableSpells);
@@ -20,10 +21,12 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
 
         public void OnStartClient() {
             NetworkClient.RegisterHandler<GetAvailableSpellsResponseMessage>(ClientHandleGetAvailableSpells);
+            NetworkClient.RegisterHandler<FireballSpellVfxResponseMessage>(ClientHandleFireballSpellVfx);
         }
 
         public void OnStopClient() {
             NetworkClient.UnregisterHandler<GetAvailableSpellsResponseMessage>();
+            NetworkClient.UnregisterHandler<FireballSpellVfxResponseMessage>();
         }
 
         [Server]
@@ -34,6 +37,10 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         [Client]
         private static void ClientHandleGetAvailableSpells(GetAvailableSpellsResponseMessage message) =>
             ClientGetAvailableSpellsReceived?.Invoke(message);
+
+        [Client]
+        private static void ClientHandleFireballSpellVfx(FireballSpellVfxResponseMessage message) =>
+            ClientFireballVfxReceived?.Invoke(message);
 
     }
 

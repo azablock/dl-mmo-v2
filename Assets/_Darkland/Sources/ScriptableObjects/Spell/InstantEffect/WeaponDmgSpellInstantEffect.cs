@@ -1,6 +1,9 @@
 using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Unit.Combat;
+using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
@@ -14,6 +17,17 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var weaponDamage = Random.Range(3, 7);
             var targetNetIdentity = caster.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
 
+            //todo tmp fireball vfx TEST -------------------------
+            var castPos = caster.GetComponent<IDiscretePosition>().Pos;
+            var targetPos = targetNetIdentity.GetComponent<IDiscretePosition>().Pos;
+
+            NetworkServer.SendToReady(new SpellMessages.FireballSpellVfxResponseMessage() {
+                castPosition = castPos,
+                targetPosition = targetPos
+            });
+            //todo tmp fireball vfx TEST -------------------------
+            
+            
             caster
                 .GetComponent<IDamageDealer>()
                 .DealDamage(new UnitAttackEvent {

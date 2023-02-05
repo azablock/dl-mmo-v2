@@ -10,6 +10,7 @@ namespace _Darkland.Sources.Models.Spell {
         List<ISpellCastCondition> CastConditions { get; }
         List<ISpellInstantEffect> InstantEffects { get; }
         List<ISpellTimedEffect> TimedEffects { get; }
+        GameObject SpellVfxPrefab { get; }
 
         float Cooldown(GameObject caster);
         string Description();

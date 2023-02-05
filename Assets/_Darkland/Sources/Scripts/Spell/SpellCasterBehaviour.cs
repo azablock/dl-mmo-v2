@@ -14,6 +14,7 @@ namespace _Darkland.Sources.Scripts.Spell {
 
         public int spellIdx;
         public float cooldown;
+        public NetworkIdentity casterIdentity;
 
     }
 
@@ -66,7 +67,13 @@ namespace _Darkland.Sources.Scripts.Spell {
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
             
             var cooldown = spell.Cooldown(gameObject);
-            TargetRpcSpellCasted(new SpellCastedEvent{spellIdx = spellIdx, cooldown = cooldown});
+
+            TargetRpcSpellCasted(new SpellCastedEvent {
+                spellIdx = spellIdx,
+                cooldown = cooldown,
+                casterIdentity = netIdentity
+            });
+
             StartCoroutine(ServerSpellCooldown(spellIdx, cooldown));
         }
 
