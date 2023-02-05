@@ -2,14 +2,11 @@ using System.Collections.Generic;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Spell;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell {
 
     [CreateAssetMenu(fileName = nameof(SpellDef), menuName = "DL/" + nameof(SpellDef))]
     public class SpellDef : ScriptableObject, ISpell {
-        // [SerializeField]
-        // private string id;
         [SerializeField]
         private float manaCost;
         [SerializeField]
@@ -25,8 +22,6 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         private List<SpellTimedEffect> timedEffects;
         [SerializeField]
         private List<SpellCastCondition> castConditions;
-        [SerializeField]
-        private GameObject spellVfxPrefab;
 
         public string Id => name;
         public float ManaCost => manaCost;
@@ -34,7 +29,6 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
-        public GameObject SpellVfxPrefab => spellVfxPrefab;
         public List<ISpellCastCondition> CastConditions => new(castConditions);
 
         public float Cooldown(GameObject caster) => cooldown;

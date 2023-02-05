@@ -28,13 +28,13 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
 
         [Client]
         private IEnumerator Vfx(FireballSpellVfxResponseMessage message) {
-            transform.position = message.castPosition;
+            transform.position = message.castPos;
 
             var lerp = 0.0f;
-            var vfxDuration = 0.5f;
+            var vfxDuration = message.fireballFlyDuration;
             
-            while (!transform.position.Equals(message.targetPosition)) {
-                transform.position = Vector3.Lerp(message.castPosition, message.targetPosition, lerp);
+            while (!transform.position.Equals(message.targetPos)) {
+                transform.position = Vector3.Lerp(message.castPos, message.targetPos, lerp);
                 lerp += Time.deltaTime / vfxDuration;
 
                 yield return null;

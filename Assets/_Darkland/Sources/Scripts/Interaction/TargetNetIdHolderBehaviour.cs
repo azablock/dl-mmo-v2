@@ -62,6 +62,8 @@ namespace _Darkland.Sources.Scripts.Interaction {
         
         [Server]
         public void Clear() {
+            //todo tutaj chyba jest jakis maly bug - po smierci gracza gracz mial nadal targetowanego szczura
+            //- moze ten if jest zly??
             if (TargetNetIdentity == null) return;
             
             TargetNetIdentity.GetComponent<IDiscretePosition>().Changed -= ServerOnTargetPosChanged;

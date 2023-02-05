@@ -16,3 +16,4 @@ MonoBehaviour:
   availableSpells:
   - {fileID: 11400000, guid: 2fe42a45313e7144b8a185b48f7d80c1, type: 2}
   - {fileID: 11400000, guid: c64aa8571d903dd49b632cbbcaf6213a, type: 2}
+  - {fileID: 11400000, guid: c5631b128d79e0441a20d6c5b2a06d98, type: 2}

@@ -65,6 +65,7 @@ namespace _Darkland.Sources.Scripts.Spell {
             }
 
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
+            spell.TimedEffects.ForEach(it => StartCoroutine(it.Process(gameObject)));
             
             var cooldown = spell.Cooldown(gameObject);
 

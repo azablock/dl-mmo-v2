@@ -16,17 +16,6 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             //todo mock - get from equipment, somehow calculate by weapon stats and unit stats(traits?)
             var weaponDamage = Random.Range(3, 7);
             var targetNetIdentity = caster.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
-
-            //todo tmp fireball vfx TEST -------------------------
-            var castPos = caster.GetComponent<IDiscretePosition>().Pos;
-            var targetPos = targetNetIdentity.GetComponent<IDiscretePosition>().Pos;
-
-            NetworkServer.SendToReady(new SpellMessages.FireballSpellVfxResponseMessage() {
-                castPosition = castPos,
-                targetPosition = targetPos
-            });
-            //todo tmp fireball vfx TEST -------------------------
-            
             
             caster
                 .GetComponent<IDamageDealer>()

@@ -15,8 +15,9 @@ namespace _Darkland.Sources.NetworkMessages {
         
         public struct FireballSpellVfxResponseMessage : NetworkMessage {
 
-            public Vector3Int castPosition;
-            public Vector3Int targetPosition;
+            public Vector3Int castPos;
+            public Vector3Int targetPos;
+            public float fireballFlyDuration;
 
         }
 
