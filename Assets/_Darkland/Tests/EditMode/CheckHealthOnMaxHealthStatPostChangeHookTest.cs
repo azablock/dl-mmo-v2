@@ -11,12 +11,12 @@ namespace _Darkland.Tests.EditMode {
     [TestFixture]
     public class CheckHealthOnMaxHealthStatPostChangeHookTest {
 
-        private CheckHealthOnMaxHealthStatPostChangeHook _hook;
+        private TrimByMaxStatValueStatPostChangeHook _hook;
         private IStatsHolder _statsHolder;
 
         [OneTimeSetUp]
         public void SetUp() {
-            _hook = ScriptableObject.CreateInstance<CheckHealthOnMaxHealthStatPostChangeHook>();
+            _hook = ScriptableObject.CreateInstance<TrimByMaxStatValueStatPostChangeHook>();
             _statsHolder = Substitute.For<IStatsHolder>();
         }
 

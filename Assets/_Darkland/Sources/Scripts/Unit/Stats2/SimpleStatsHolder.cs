@@ -19,6 +19,20 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
         [SerializeField]
         private StatVal healthRegain;
+        
+        [SyncVar(hook = nameof(ClientSyncMana))]
+        [DarklandStat(StatId.Mana, nameof(ServerSetMana))]
+        [SerializeField]
+        private StatVal mana;
+
+        [SyncVar(hook = nameof(ClientSyncMaxMana))]
+        [DarklandStat(StatId.MaxMana, nameof(ServerSetMaxMana))]
+        [SerializeField]
+        private StatVal maxMana;
+
+        [DarklandStat(StatId.ManaRegain, nameof(ServerSetManaRegain))]
+        [SerializeField]
+        private StatVal manaRegain;
 
         [SyncVar(hook = nameof(ClientSyncMovementSpeed))]
         [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
@@ -57,6 +71,12 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [Server]
         private void ServerSetHealthRegain(StatVal val) => healthRegain = val;
         [Server]
+        private void ServerSetMana(StatVal val) => mana = val;
+        [Server]
+        private void ServerSetMaxMana(StatVal val) => maxMana = val;
+        [Server]
+        private void ServerSetManaRegain(StatVal val) => manaRegain = val;
+        [Server]
         private void ServerSetMovementSpeed(StatVal val) => movementSpeed = val;
         [Server]
         private void ServerSetMight(StatVal val) => might = val;
@@ -68,10 +88,15 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ServerSetIntellect(StatVal val) => intellect = val;
         [Server]
         private void ServerSetSoul(StatVal val) => soul = val;
+
         [Client]
         private void ClientSyncHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.Health, val);
         [Client]
         private void ClientSyncMaxHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxHealth, val);
+        [Client]
+        private void ClientSyncMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.Mana, val);
+        [Client]
+        private void ClientSyncMaxMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxMana, val);
         [Client]
         private void ClientSyncMovementSpeed(StatVal _, StatVal val) => InvokeClientChanged(StatId.MovementSpeed, val);
         [Client]

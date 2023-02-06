@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55b0e9a68f942ecb2272a7956f2fd8e, type: 3}
-  m_Name: CheckHealthOnMaxHealthStatChangeHook
+  m_Script: {fileID: 11500000, guid: bb6503da35f944b5ab249099dca571b2, type: 3}
+  m_Name: TrimByMaxMana StatConstraint
   m_EditorClassIdentifier: 
-  requiredStatIds: 0000000001000000
+  trimByStatId: 3
+  applyBasic: 1
+  applyBonus: 0

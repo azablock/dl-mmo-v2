@@ -13,6 +13,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private Slider unitHealthSlider;
         [SerializeField]
         private TMP_Text unitHealthText;
+        [SerializeField]
+        private Slider unitManaSlider;
+        [SerializeField]
+        private TMP_Text unitManaText;
 
         [Client]
         public void ClientSetUnitName(string unitName) => unitNameText.text = unitName;
@@ -26,11 +30,25 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         [Client]
         public void ClientSetHealth(float val) {
             unitHealthSlider.value = val;
-            ClientSetHealthText();
+            ClientSetManaText();
+        }
+
+        [Client]
+        public void ClientSetMaxMana(float val) {
+            unitManaSlider.maxValue = val;
+            ClientSetManaText();
+        }
+
+        [Client]
+        public void ClientSetMana(float val) {
+            unitManaSlider.value = val;
+            ClientSetManaText();
         }
 
         [Client]
         private void ClientSetHealthText() => unitHealthText.text = $"{unitHealthSlider.value} / {unitHealthSlider.maxValue}";
+
+        private void ClientSetManaText() => unitManaText.text = $"{unitManaSlider.value} / {unitManaSlider.maxValue}";
 
     }
 

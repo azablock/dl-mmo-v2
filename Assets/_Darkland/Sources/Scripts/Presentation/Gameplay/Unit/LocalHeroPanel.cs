@@ -33,6 +33,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             localHeroInfoPanel.ClientSetUnitName(message.unitName);
             localHeroInfoPanel.ClientSetMaxHealth(message.maxHealth);
             localHeroInfoPanel.ClientSetHealth(message.health);
+            localHeroInfoPanel.ClientSetMaxMana(message.maxMana);
+            localHeroInfoPanel.ClientSetMana(message.mana);
         }
 
         [Client]
@@ -42,6 +44,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             }
             else if (statId == StatId.MaxHealth) {
                 localHeroInfoPanel.ClientSetMaxHealth(val.Current);
+            }
+            else if (statId == StatId.Mana) {
+                localHeroInfoPanel.ClientSetMana(val.Basic);
+            }
+            else if (statId == StatId.MaxMana) {
+                localHeroInfoPanel.ClientSetMaxMana(val.Current);
             }
         }
 

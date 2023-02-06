@@ -24,6 +24,8 @@ namespace _Darkland.Sources.NetworkMessages {
         public struct GetHealthStatsResponseMessage : NetworkMessage {
             public float health;
             public float maxHealth;
+            public float mana;
+            public float maxMana;
             public uint statsHolderNetId;
             public string unitName; //todo change message struct name
         }

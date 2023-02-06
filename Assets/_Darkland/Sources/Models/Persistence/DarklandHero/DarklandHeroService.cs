@@ -35,7 +35,9 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             var statsHolder = darklandHeroGameObject.GetComponent<IStatsHolder>();
             var health = statsHolder.ValueOf(StatId.Health);
+            var mana = statsHolder.ValueOf(StatId.Mana);
             e.health = (int)health.Basic;
+            e.mana = (int)mana.Basic;
 
             var traitValues = statsHolder.TraitStatsBasicValues();
             e.might = (int)traitValues.might;
@@ -114,6 +116,12 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             statsHolder.Set(StatId.MaxHealth, HeroStatsCalculator.ValueOf(StatId.MaxHealth, statsHolder));
             statsHolder.Set(StatId.Health, StatVal.OfBasic(e.health));
             statsHolder.Set(StatId.HealthRegain, StatVal.OfBasic(1));
+            statsHolder.Set(StatId.MaxMana, StatVal.OfBasic(10));
+            statsHolder.Set(StatId.Mana, StatVal.OfBasic(e.mana));
+            statsHolder.Set(StatId.ManaRegain, StatVal.OfBasic(1));
+
+            
+            
             statsHolder.Set(StatId.MovementSpeed, StatVal.OfBasic(3));
 
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
@@ -129,6 +137,7 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 createDate = DateTime.Now,
                 vocation = heroVocationType.ToString(),
                 health = 1,
+                mana = 1,
                 xp = 0,
                 level = 1,
                 posX = 0,

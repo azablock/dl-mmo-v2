@@ -28,6 +28,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         //stats
         [BsonRequired]
         public int health;
+        [BsonRequired]
+        public int mana;
 
         //other
         [BsonRequired]
@@ -54,7 +56,6 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         public Dictionary<string, string> equippedWearables;
         [BsonRequired]
         public int goldAmount;
-
     }
 
 }

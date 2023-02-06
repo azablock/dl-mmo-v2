@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 5298774331071004589}
   - component: {fileID: 2466515582921389893}
   - component: {fileID: 4341525361964758486}
+  - component: {fileID: 4734004844847383650}
   m_Layer: 6
   m_Name: DarklandPlayer
   m_TagString: Untagged
@@ -664,15 +665,42 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  health: 0
-  maxHealth: 0
-  healthRegain: 0
-  movementSpeed: 0
-  might: 0
-  constitution: 0
-  dexterity: 0
-  intellect: 0
-  soul: 0
+  health:
+    basic: 0
+    bonus: 0
+  maxHealth:
+    basic: 0
+    bonus: 0
+  healthRegain:
+    basic: 0
+    bonus: 0
+  mana:
+    basic: 0
+    bonus: 0
+  maxMana:
+    basic: 0
+    bonus: 0
+  manaRegain:
+    basic: 0
+    bonus: 0
+  movementSpeed:
+    basic: 0
+    bonus: 0
+  might:
+    basic: 0
+    bonus: 0
+  constitution:
+    basic: 0
+    bonus: 0
+  dexterity:
+    basic: 0
+    bonus: 0
+  intellect:
+    basic: 0
+    bonus: 0
+  soul:
+    basic: 0
+    bonus: 0
 --- !u!114 &4716659205440055620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +720,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
     - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
   - id: 1
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
+  - id: 2
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
+    - {fileID: 11400000, guid: 8fa9d42f7697ff449815a3093ea34a59, type: 2}
+  - id: 3
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
     - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
@@ -722,6 +759,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
   - {fileID: 11400000, guid: 184bbcc94c8b86a49a275685461ae0f4, type: 2}
   - {fileID: 11400000, guid: 27dcec159739a6e41b470e5aef4bb054, type: 2}
+  - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
+  - {fileID: 11400000, guid: 34c5acf26449a9f40a8829257b98353e, type: 2}
 --- !u!114 &7238438236066071988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +907,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  regainRelations:
+  - regainStatId: 4
+    applyRegainToStatId: 0
+  - regainStatId: 5
+    applyRegainToStatId: 2
 --- !u!114 &7689074317641626228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,6 +1076,19 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &4734004844847383650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084493378536407968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9810abceae747a986e7e59f0b5d327b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitBonesPrefab: {fileID: 3711275858274869439, guid: f7dfe8f6109fa1f44b8251bf2484dd07, type: 3}
 --- !u!1 &8739879269285926711
 GameObject:
   m_ObjectHideFlags: 0

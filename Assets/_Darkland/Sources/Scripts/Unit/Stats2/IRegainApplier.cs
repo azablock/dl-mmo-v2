@@ -5,7 +5,7 @@ using _Darkland.Sources.Models.Unit.Stats2.StatEffect;
 namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
     public interface IRegainApplier {
-        public void ApplyRegain(StatRegainEntry statRegainEntry);
+        public void ApplyRegain(StatRegainState statRegainState);
     }
 
     public class RegainApplier : IRegainApplier {
@@ -19,10 +19,10 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             _statsHolder = statsHolder;
         }
 
-        public void ApplyRegain(StatRegainEntry statRegainEntry) {
-            var regainRate = _statsHolder.ValueOf(statRegainEntry.regainStatId);
-            var regain = statRegainEntry.regainState.GetRegain(regainRate.Current);
-            var directStatEffect = new DirectStatEffect(StatVal.OfBasic(regain), statRegainEntry.applyRegainToStatId);
+        public void ApplyRegain(StatRegainState statRegainState) {
+            var regainRate = _statsHolder.ValueOf(statRegainState.statRegainRelation.regainStatId);
+            var regain = statRegainState.regainState.GetRegain(regainRate.Current);
+            var directStatEffect = new DirectStatEffect(StatVal.OfBasic(regain), statRegainState.statRegainRelation.applyRegainToStatId);
 
             _statEffectHandler.ApplyDirectEffect(directStatEffect);
         }

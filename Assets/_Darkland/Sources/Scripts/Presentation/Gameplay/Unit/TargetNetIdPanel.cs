@@ -25,6 +25,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             targetNetIdentityPanel.ClientSetUnitName(message.unitName);
             targetNetIdentityPanel.ClientSetMaxHealth(message.maxHealth);
             targetNetIdentityPanel.ClientSetHealth(message.health);
+            targetNetIdentityPanel.ClientSetMaxMana(message.maxMana);
+            targetNetIdentityPanel.ClientSetMana(message.mana);
         }
 
         public void OnClientChanged(NetworkIdentity targetNetIdentity) {
@@ -48,6 +50,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             }
             else if (statId == StatId.MaxHealth) {
                 targetNetIdentityPanel.ClientSetMaxHealth(val.Current);
+            }
+            else if (statId == StatId.Mana) {
+                targetNetIdentityPanel.ClientSetMana(val.Basic);
+            }
+            else if (statId == StatId.MaxMana) {
+                targetNetIdentityPanel.ClientSetMaxMana(val.Current);
             }
         }
 

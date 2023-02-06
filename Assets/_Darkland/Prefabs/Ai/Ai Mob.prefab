@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 7206238819333864508}
   - component: {fileID: 7422727626230618524}
   - component: {fileID: 8122292011856941752}
+  - component: {fileID: 5938942000788729181}
   m_Layer: 7
   m_Name: Ai Mob
   m_TagString: Untagged
@@ -382,6 +383,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558b1a6d1fee49ab8a8aa37a3902138d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5938942000788729181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9810abceae747a986e7e59f0b5d327b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitBonesPrefab: {fileID: 3711275858274869439, guid: f7dfe8f6109fa1f44b8251bf2484dd07, type: 3}
 --- !u!1 &288256680686236835
 GameObject:
   m_ObjectHideFlags: 0

@@ -76,12 +76,15 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var statsHolderNetId = message.statsHolderNetId;
             var statsHolderNetIdentity = NetworkServer.spawned[statsHolderNetId];
             var statsHolder = statsHolderNetIdentity.GetComponent<IStatsHolder>();
-            var (health, maxHealth) = statsHolder.Values(StatId.Health, StatId.MaxHealth);
+            var (health, maxHealth, mana, maxMana) = 
+                statsHolder.Values(Tuple.Create(StatId.Health, StatId.MaxHealth, StatId.Mana, StatId.MaxMana));
             var unitName = statsHolderNetIdentity.GetComponent<UnitNameBehaviour>().unitName;
 
             conn.Send(new GetHealthStatsResponseMessage {
                 health = health.Basic,
                 maxHealth = maxHealth.Current,
+                mana = mana.Basic,
+                maxMana = maxMana.Current,
                 statsHolderNetId = statsHolderNetId,
                 unitName = unitName
             });
