@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Check Health On MaxHealthChange StatChangeHook
   m_EditorClassIdentifier: 
   requiredStatIds: 0000000001000000
+  onChangeStatId: 1
+  trimmedStatId: 0
