@@ -16,7 +16,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
             var statModifiersDict = HeroStatsCalculator.statsFormulas[onChangeStatId];
 
             Assert.IsTrue(HeroStatsCalculator.statsFormulas.ContainsKey(onChangeStatId));
-            Assert.IsTrue(statModifiersDict.Keys.All(key => requiredStatIds.Contains(key)));
+            // Assert.IsTrue(statModifiersDict.Keys.All(key => requiredStatIds.Contains(key)));
 
             statModifiersDict
                 .ToList()

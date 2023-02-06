@@ -679,27 +679,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  health:
-    basic: 0
-    bonus: 0
-  maxHealth:
-    basic: 0
-    bonus: 0
-  healthRegain:
-    basic: 0
-    bonus: 0
-  mana:
-    basic: 0
-    bonus: 0
-  maxMana:
-    basic: 0
-    bonus: 0
-  manaRegain:
-    basic: 0
-    bonus: 0
-  movementSpeed:
-    basic: 0
-    bonus: 0
   might:
     basic: 0
     bonus: 0
@@ -713,6 +692,39 @@ MonoBehaviour:
     basic: 0
     bonus: 0
   soul:
+    basic: 0
+    bonus: 0
+  health:
+    basic: 0
+    bonus: 0
+  mana:
+    basic: 0
+    bonus: 0
+  maxHealth:
+    basic: 0
+    bonus: 0
+  healthRegain:
+    basic: 0
+    bonus: 0
+  maxMana:
+    basic: 0
+    bonus: 0
+  manaRegain:
+    basic: 0
+    bonus: 0
+  actionPower:
+    basic: 0
+    bonus: 0
+  actionSpeed:
+    basic: 0
+    bonus: 0
+  magicResistance:
+    basic: 0
+    bonus: 0
+  physicalResistance:
+    basic: 0
+    bonus: 0
+  movementSpeed:
     basic: 0
     bonus: 0
 --- !u!114 &4716659205440055620
@@ -754,6 +766,18 @@ MonoBehaviour:
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
     - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
+  - id: 8
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
+  - id: 9
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
+  - id: 10
+    hooks:
+    - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
+    - {fileID: 11400000, guid: 475b46900c2d41641955e4748ac77cc9, type: 2}
 --- !u!114 &7320425550237296429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,10 +795,12 @@ MonoBehaviour:
   syncInterval: 0.1
   statPostChangeHooks:
   - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
+  - {fileID: 11400000, guid: 34c5acf26449a9f40a8829257b98353e, type: 2}
   - {fileID: 11400000, guid: 184bbcc94c8b86a49a275685461ae0f4, type: 2}
   - {fileID: 11400000, guid: 27dcec159739a6e41b470e5aef4bb054, type: 2}
-  - {fileID: 11400000, guid: 8e49dab2d5c5c61478dc56436ab13405, type: 2}
-  - {fileID: 11400000, guid: 34c5acf26449a9f40a8829257b98353e, type: 2}
+  - {fileID: 11400000, guid: cf4810069726a6345b7f5d0a3bc23f63, type: 2}
+  - {fileID: 11400000, guid: 95588bb6300d51044aac63c024949581, type: 2}
+  - {fileID: 11400000, guid: 67d2800a37c4c4d4f8949e210aa3831a, type: 2}
 --- !u!114 &7238438236066071988
 MonoBehaviour:
   m_ObjectHideFlags: 0

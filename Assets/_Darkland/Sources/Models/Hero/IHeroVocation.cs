@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Spell;
+using _Darkland.Sources.ScriptableObjects.Hero;
 
 namespace _Darkland.Sources.Models.Hero {
 
@@ -7,6 +8,7 @@ namespace _Darkland.Sources.Models.Hero {
 
         HeroVocationType VocationType { get; }
         List<ISpell> AvailableSpells { get; }
+        IHeroVocationStartingStats StartingStats { get; }
 
     }
 
