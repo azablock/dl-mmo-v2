@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
@@ -31,14 +32,39 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private TMP_Text intellectText;
         [SerializeField]
         private TMP_Text soulText;
+        [Header("Stats")]
+        [SerializeField]
+        private TMP_Text healthRegainText;
+        [SerializeField]
+        private TMP_Text manaRegainText;
+        [SerializeField]
+        private TMP_Text actionPowerText;
+        [SerializeField]
+        private TMP_Text actionSpeedText;
+        [SerializeField]
+        private TMP_Text magicResistanceText;
+        [SerializeField]
+        private TMP_Text physicalResistanceText;
+        [SerializeField]
+        private TMP_Text movementSpeedText;
 
-        private readonly Dictionary<StatId, Action<float, LocalHeroSheetPanel>> _statChangedCallbacks = new() {
-            { StatId.Might, (val, panel) => panel.mightText.text = $"{val}" },
-            { StatId.Constitution, (val, panel) => panel.constitutionText.text = $"{val}" },
-            { StatId.Dexterity, (val, panel) => panel.dexterityText.text = $"{val}" },
-            { StatId.Intellect, (val, panel) => panel.intellectText.text = $"{val}" },
-            { StatId.Soul, (val, panel) => panel.soulText.text = $"{val}" },
-        };
+        private Dictionary<StatId, TMP_Text> _statTexts;
+
+        private void Awake() {
+            _statTexts = new Dictionary<StatId, TMP_Text> {
+                { StatId.Might, mightText },
+                { StatId.Constitution, constitutionText},
+                { StatId.Dexterity, dexterityText},
+                { StatId.Intellect, intellectText}, 
+                { StatId.HealthRegain, healthRegainText}, 
+                { StatId.ManaRegain, manaRegainText}, 
+                { StatId.ActionPower, actionPowerText}, 
+                { StatId.ActionSpeed, actionSpeedText}, 
+                { StatId.MagicResistance, magicResistanceText},
+                { StatId.PhysicalResistance, physicalResistanceText}, 
+                { StatId.MovementSpeed, movementSpeedText}
+            };
+        }
 
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
@@ -57,9 +83,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
         [Client]
         private void OnClientChanged(StatId statId, StatVal val) {
-            if (!_statChangedCallbacks.ContainsKey(statId)) return;
+            if (!_statTexts.ContainsKey(statId)) return;
 
-            _statChangedCallbacks[statId].Invoke(val.Current, this);
+            _statTexts[statId].text = FormatStatVal(val);
         }
 
         [Client]
@@ -70,11 +96,33 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
             heroNameText.text = message.heroName;
             heroLevelText.text = $"{message.heroLevel}";
             heroVocationText.text = message.heroVocationType.ToString();
-            mightText.text = $"{message.heroTraits.might}";
-            constitutionText.text = $"{message.heroTraits.constitution}";
-            dexterityText.text = $"{message.heroTraits.dexterity}";
-            intellectText.text = $"{message.heroTraits.intellect}";
-            soulText.text = $"{message.heroTraits.soul}";
+
+            mightText.text = FormatStatVal(message.heroTraits.might);
+            constitutionText.text = FormatStatVal(message.heroTraits.constitution);
+            dexterityText.text = FormatStatVal(message.heroTraits.dexterity);
+            intellectText.text = FormatStatVal(message.heroTraits.intellect);
+            soulText.text = FormatStatVal(message.heroTraits.soul);
+            
+            healthRegainText.text = FormatStatVal(message.heroSecondaryStats.healthRegain);
+            manaRegainText.text = FormatStatVal(message.heroSecondaryStats.manaRegain);
+            actionPowerText.text = FormatStatVal(message.heroSecondaryStats.actionPower);
+            actionSpeedText.text = FormatStatVal(message.heroSecondaryStats.actionSpeed);
+            magicResistanceText.text = FormatStatVal(message.heroSecondaryStats.magicResistance);
+            physicalResistanceText.text = FormatStatVal(message.heroSecondaryStats.physicalResistance);
+            movementSpeedText.text = FormatStatVal(message.heroSecondaryStats.movementSpeed);
+        }
+
+        private static string FormatStatVal(StatVal val) {
+            var bonusSign = val.Bonus >= 0 ? "+" : "-";
+            var bonusColor = val.Bonus > 0 ? DarklandColorSet._.success : val.Bonus < 0
+                ? DarklandColorSet._.danger
+                : DarklandColorSet._.primary;
+            var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
+            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor)}";
+            var currentVal = $"{val.Current}";
+            var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
+            
+            return $"<b>{currentValueFormatted}</b>\t= {val.Basic} {bonusSuffix}";
         }
 
     }

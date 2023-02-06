@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Unit.Regain;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -6,6 +7,18 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
+    [Serializable]
+    public struct StatRegainRelation {
+        public StatId regainSourceStatId;
+        public StatId regainTargetStatId;
+    }
+
+    [Serializable]
+    public struct StatRegainState {
+        public StatRegainRelation statRegainRelation;
+        public RegainState regainState;
+    }
+    
     public class RegainBehaviour : NetworkBehaviour {
 
         [SerializeField]

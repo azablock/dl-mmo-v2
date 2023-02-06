@@ -6,6 +6,7 @@ using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.ScriptableObjects.Stats2;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Equipment;
 using _Darkland.Sources.Scripts.Persistence;
@@ -39,12 +40,12 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             e.health = (int)health.Basic;
             e.mana = (int)mana.Basic;
 
-            var traitValues = statsHolder.TraitStatsBasicValues();
-            e.might = (int)traitValues.might;
-            e.constitution = (int)traitValues.constitution;
-            e.dexterity = (int)traitValues.dexterity;
-            e.intellect = (int)traitValues.intellect;
-            e.soul = (int)traitValues.soul;
+            var traitValues = statsHolder.TraitStatsValues();
+            e.might = (int)traitValues.might.Basic;
+            e.constitution = (int)traitValues.constitution.Basic;
+            e.dexterity = (int)traitValues.dexterity.Basic;
+            e.intellect = (int)traitValues.intellect.Basic;
+            e.soul = (int)traitValues.soul.Basic;
 
             var xpHolder = darklandHeroGameObject.GetComponent<IXpHolder>();
             e.xp = xpHolder.xp;
@@ -105,11 +106,11 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
 
             var statsHolder = darklandHero.GetComponent<IStatsHolder>();
             statsHolder.SetTraitStatsBasicValues(new UnitTraits {
-                might = e.might,
-                constitution = e.constitution,
-                dexterity = e.dexterity,
-                intellect = e.intellect,
-                soul = e.soul
+                might = StatVal.OfBasic(e.might),
+                constitution = StatVal.OfBasic(e.constitution),
+                dexterity = StatVal.OfBasic(e.dexterity),
+                intellect = StatVal.OfBasic(e.intellect),
+                soul = StatVal.OfBasic(e.soul)
             });
 
             //todo MaxHealth samo sie nie powinno wyliczyc? pewnie jeszzce za wczesnie

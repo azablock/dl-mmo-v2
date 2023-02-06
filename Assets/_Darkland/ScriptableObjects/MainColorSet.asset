@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1656d95763a94689b5e781d0bbe41fd2, type: 3}
   m_Name: MainColorSet
   m_EditorClassIdentifier: 
-  primary: {r: 0, g: 0, b: 0, a: 0}
-  secondary: {r: 0, g: 0, b: 0, a: 0}
+  primary: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+  secondary: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   info: {r: 0.40000004, g: 0.5254902, b: 0.7137255, a: 1}
   success: {r: 0.32825533, g: 0.5943396, b: 0.24390353, a: 1}
   warning: {r: 0.764151, g: 0.540322, b: 0.19824673, a: 1}

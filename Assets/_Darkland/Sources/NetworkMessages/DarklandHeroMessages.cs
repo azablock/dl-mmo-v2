@@ -23,6 +23,7 @@ namespace _Darkland.Sources.NetworkMessages {
             public int heroLevel;
             public string heroName;
             public UnitTraits heroTraits;
+            public UnitSecondaryStats heroSecondaryStats;
             public HeroVocationType heroVocationType;
         }
 

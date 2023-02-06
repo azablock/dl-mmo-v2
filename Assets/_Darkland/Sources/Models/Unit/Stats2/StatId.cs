@@ -17,17 +17,16 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
         Soul,
 
         MovementSpeed,
-        CastSpeed,
-        AttackSpeed,
+        ActionSpeed,
         ActionPower,
-
-        SwordMastery,
-        RangedMastery,
-        Block,
 
         MagicResistance,
         PhysicalResistance,
 
+        //not used ----------------------
+        SwordMastery,
+        RangedMastery,
+        Block,
 
         Hunger,
         HungerRate,
@@ -36,6 +35,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
         MaxEncumbrance,
         Encumbrance,
+        //not used ----------------------
     }
 
 

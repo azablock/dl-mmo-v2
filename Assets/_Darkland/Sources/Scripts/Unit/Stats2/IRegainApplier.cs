@@ -20,9 +20,9 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         }
 
         public void ApplyRegain(StatRegainState statRegainState) {
-            var regainRate = _statsHolder.ValueOf(statRegainState.statRegainRelation.regainStatId);
+            var regainRate = _statsHolder.ValueOf(statRegainState.statRegainRelation.regainSourceStatId);
             var regain = statRegainState.regainState.GetRegain(regainRate.Current);
-            var directStatEffect = new DirectStatEffect(StatVal.OfBasic(regain), statRegainState.statRegainRelation.applyRegainToStatId);
+            var directStatEffect = new DirectStatEffect(StatVal.OfBasic(regain), statRegainState.statRegainRelation.regainTargetStatId);
 
             _statEffectHandler.ApplyDirectEffect(directStatEffect);
         }

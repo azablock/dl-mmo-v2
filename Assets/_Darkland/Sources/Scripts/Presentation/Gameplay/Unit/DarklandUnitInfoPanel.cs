@@ -30,7 +30,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         [Client]
         public void ClientSetHealth(float val) {
             unitHealthSlider.value = val;
-            ClientSetManaText();
+            ClientSetHealthText();
         }
 
         [Client]

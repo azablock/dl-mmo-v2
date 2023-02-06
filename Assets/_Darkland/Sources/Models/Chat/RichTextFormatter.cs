@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Models.Chat {
 
-    public static class ChatMessagesFormatter {
+    public static class RichTextFormatter {
 
         public static string FormatServerLog(string message) {
             var networkTimeStr = $"{NetworkTime.time:0.000}";
@@ -18,7 +18,7 @@ namespace _Darkland.Sources.Models.Chat {
             return $"{Colored(heroName, heroNameColor)}: {message}";
         }
 
-        private static string Colored(string val, Color color) => $"<color={HtmlRgba(color)}>{val}</color>";
+        public static string Colored(string val, Color color) => $"<color={HtmlRgba(color)}>{val}</color>";
         
         private static string HtmlRgba(Color color) => $"#{ColorUtility.ToHtmlStringRGBA(color)}";
     }

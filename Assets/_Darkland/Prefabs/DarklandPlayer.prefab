@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 4919863777184171392}
   - component: {fileID: 3745647225156825748}
   - component: {fileID: 2855942588924553750}
+  - component: {fileID: 1973541656815730561}
   m_Layer: 6
   m_Name: Player Info Canvas
   m_TagString: Untagged
@@ -352,6 +353,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1973541656815730561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586022512654985377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a36b842c91425e8b2afb35329ba1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 4919863777184171392}
 --- !u!1 &4837401161245770531
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,10 +922,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   regainRelations:
-  - regainStatId: 4
-    applyRegainToStatId: 0
-  - regainStatId: 5
-    applyRegainToStatId: 2
+  - regainSourceStatId: 4
+    regainTargetStatId: 0
+  - regainSourceStatId: 5
+    regainTargetStatId: 2
 --- !u!114 &7689074317641626228
 MonoBehaviour:
   m_ObjectHideFlags: 0

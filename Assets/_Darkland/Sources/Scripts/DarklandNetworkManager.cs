@@ -106,7 +106,7 @@ namespace _Darkland.Sources.Scripts {
 
             if (netIdentity != null) {
                 var heroName = netIdentity.GetComponent<UnitNameBehaviour>().unitName;
-                var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has left the game.");
+                var message = RichTextFormatter.FormatServerLog($"{heroName} has left the game.");
 
                 NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
                 DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
@@ -138,7 +138,7 @@ namespace _Darkland.Sources.Scripts {
             conn.Send(new DarklandAuthMessages.DarklandHeroEnterGameResponseMessage());
             
             var heroName = conn.identity.GetComponent<UnitNameBehaviour>().unitName;
-            var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has joined the game.");
+            var message = RichTextFormatter.FormatServerLog($"{heroName} has joined the game.");
 
             NetworkServer.SendToReadyObservers(
                 conn.identity,

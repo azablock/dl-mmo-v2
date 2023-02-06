@@ -2,30 +2,14 @@ using System;
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
-using UnityEngine.Assertions;
 
-namespace _Darkland.Sources.Models.Hero {
+namespace _Darkland.Sources.ScriptableObjects.Stats2 {
 
-    public static class HeroStatsCalculator {
+    public class HeroStatsCalculator : ScriptableObject {
 
         public class StatModifiersDict : Dictionary<StatId, Func<StatVal, StatVal>> { }
 
         public class StatsFormulas : Dictionary<StatId, StatModifiersDict> { }
-
-
-        // public struct StatModifierFormula {
-        //
-        //     public StatId sourceStatId;
-        //     public StatModifiersDict modifiers;
-        //
-        //     public StatModifierFormula(StatId sourceStatId, StatModifiersDict modifiers) {
-        //         Assert.IsFalse(modifiers.ContainsKey(sourceStatId));
-        //
-        //         this.sourceStatId = sourceStatId;
-        //         this.modifiers = modifiers;
-        //     }
-        //
-        // }
 
         public static readonly StatsFormulas statsFormulas = new() {
             {

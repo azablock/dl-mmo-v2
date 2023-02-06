@@ -32,7 +32,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             heroXpHolder.ServerGain(xpGain);
             
             var message = $"Hero {heroName} has {heroXpHolder.xp} xp!";
-            var xpChatMessage = ChatMessagesFormatter.FormatServerLog(message);
+            var xpChatMessage = RichTextFormatter.FormatServerLog(message);
             
             NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {
                 message = xpChatMessage

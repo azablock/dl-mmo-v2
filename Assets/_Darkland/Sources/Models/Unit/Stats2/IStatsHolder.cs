@@ -24,14 +24,14 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
         public static void SetTraitStatsBasicValues(this IStatsHolder holder, UnitTraits traits) {
             holder
-                .Set(StatId.Might, StatVal.OfBasic(traits.might))
-                .Set(StatId.Constitution, StatVal.OfBasic(traits.constitution))
-                .Set(StatId.Dexterity, StatVal.OfBasic(traits.dexterity))
-                .Set(StatId.Intellect, StatVal.OfBasic(traits.intellect))
-                .Set(StatId.Soul, StatVal.OfBasic(traits.soul));
+                .Set(StatId.Might, StatVal.OfBasic(traits.might.Basic))
+                .Set(StatId.Constitution, StatVal.OfBasic(traits.constitution.Basic))
+                .Set(StatId.Dexterity, StatVal.OfBasic(traits.dexterity.Basic))
+                .Set(StatId.Intellect, StatVal.OfBasic(traits.intellect.Basic))
+                .Set(StatId.Soul, StatVal.OfBasic(traits.soul.Basic));
         }
         
-        public static UnitTraits TraitStatsBasicValues(this IStatsHolder holder) {
+        public static UnitTraits TraitStatsValues(this IStatsHolder holder) {
             var traitStatIds = Tuple.Create(
                 StatId.Might,
                 StatId.Constitution,
@@ -43,31 +43,23 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
             var traitStatsValues = holder.Values(traitStatIds);
 
             return new UnitTraits {
-                might = traitStatsValues.Item1.Basic,
-                constitution = traitStatsValues.Item2.Basic,
-                dexterity = traitStatsValues.Item3.Basic,
-                intellect = traitStatsValues.Item4.Basic,
-                soul = traitStatsValues.Item5.Basic,
+                might = traitStatsValues.Item1,
+                constitution = traitStatsValues.Item2,
+                dexterity = traitStatsValues.Item3,
+                intellect = traitStatsValues.Item4,
+                soul = traitStatsValues.Item5,
             };
         }
 
-        public static UnitTraits TraitStatsCurrentValues(this IStatsHolder holder) {
-            var traitStatIds = Tuple.Create(
-                StatId.Might,
-                StatId.Constitution,
-                StatId.Dexterity,
-                StatId.Intellect,
-                StatId.Soul
-            );
-
-            var traitStatsValues = holder.Values(traitStatIds);
-
-            return new UnitTraits {
-                might = traitStatsValues.Item1.Current,
-                constitution = traitStatsValues.Item2.Current,
-                dexterity = traitStatsValues.Item3.Current,
-                intellect = traitStatsValues.Item4.Current,
-                soul = traitStatsValues.Item5.Current,
+        public static UnitSecondaryStats SecondaryStatsValues(this IStatsHolder holder) {
+            return new UnitSecondaryStats {
+                actionPower = holder.ValueOf(StatId.ActionPower),
+                actionSpeed = holder.ValueOf(StatId.ActionSpeed),
+                healthRegain = holder.ValueOf(StatId.HealthRegain),
+                magicResistance = holder.ValueOf(StatId.MagicResistance),
+                manaRegain = holder.ValueOf(StatId.ManaRegain),
+                movementSpeed = holder.ValueOf(StatId.MovementSpeed),
+                physicalResistance = holder.ValueOf(StatId.PhysicalResistance)
             };
         }
 

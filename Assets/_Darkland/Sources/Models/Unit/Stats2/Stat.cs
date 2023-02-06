@@ -1,4 +1,5 @@
 using System;
+using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.Models.Unit.Stats2 {
@@ -46,6 +47,20 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
         public void Add(StatVal delta) {
             Set(Get() + delta);
+        }
+    }
+    
+    public static class StatValReadWriteFunctions 
+    {
+        public static void WriteMyType(this NetworkWriter writer, StatVal value)
+        {
+            writer.WriteFloat(value.Basic);
+            writer.WriteFloat(value.Bonus);
+        }
+
+        public static StatVal ReadMyType(this NetworkReader reader)
+        {
+            return StatVal.Of(reader.ReadFloat(), reader.ReadFloat());
         }
     }
 

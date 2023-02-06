@@ -19,12 +19,12 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
 
         [Server]
         public override void PreProcess(GameObject caster) {
-            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.PreProcess()"));
+            Debug.LogWarning(RichTextFormatter.FormatServerLog($"BurnSpellTimedEffect.PreProcess()"));
         }
 
         [Server]
         public override void PostProcess(GameObject caster) {
-            Debug.LogWarning(ChatMessagesFormatter.FormatServerLog($"BurnSpellTimedEffect.PostProcess()"));
+            Debug.LogWarning(RichTextFormatter.FormatServerLog($"BurnSpellTimedEffect.PostProcess()"));
         }
 
         [Server]

@@ -30,13 +30,15 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var heroVocation = identity.GetComponent<DarklandHeroBehaviour>().heroVocation.VocationType;
             var heroLevel = identity.GetComponent<IXpHolder>().level;
             var heroName = identity.GetComponent<UnitNameBehaviour>().unitName;
-            var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsCurrentValues();
+            var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsValues();
+            var secondaryStats = identity.GetComponent<IStatsHolder>().SecondaryStatsValues();
             
             conn.Send(new DarklandHeroMessages.GetHeroSheetResponseMessage {
                 heroVocationType = heroVocation,
                 heroLevel = heroLevel,
                 heroName = heroName,
-                heroTraits = heroTraits
+                heroTraits = heroTraits,
+                heroSecondaryStats = secondaryStats
             });
         }
 

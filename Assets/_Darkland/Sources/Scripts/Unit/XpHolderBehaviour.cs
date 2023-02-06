@@ -52,7 +52,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             var unitName = GetComponent<UnitNameBehaviour>().unitName;
             var message = $"{unitName} gained {level} level (and his {statId.ToString()} increased)";
             NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {
-                message = ChatMessagesFormatter.FormatServerLog(message)
+                message = RichTextFormatter.FormatServerLog(message)
             });
             //todo TEMP TEMP TEMP TEMP TEMP
             

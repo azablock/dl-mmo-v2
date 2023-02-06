@@ -6,39 +6,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
     public class SimpleStatsHolder : StatsHolder {
 
-        [SyncVar(hook = nameof(ClientSyncHealth))]
-        [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
-        [SerializeField]
-        private StatVal health;
-
-        [SyncVar(hook = nameof(ClientSyncMaxHealth))]
-        [DarklandStat(StatId.MaxHealth, nameof(ServerSetMaxHealth))]
-        [SerializeField]
-        private StatVal maxHealth;
-
-        [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
-        [SerializeField]
-        private StatVal healthRegain;
-        
-        [SyncVar(hook = nameof(ClientSyncMana))]
-        [DarklandStat(StatId.Mana, nameof(ServerSetMana))]
-        [SerializeField]
-        private StatVal mana;
-
-        [SyncVar(hook = nameof(ClientSyncMaxMana))]
-        [DarklandStat(StatId.MaxMana, nameof(ServerSetMaxMana))]
-        [SerializeField]
-        private StatVal maxMana;
-
-        [DarklandStat(StatId.ManaRegain, nameof(ServerSetManaRegain))]
-        [SerializeField]
-        private StatVal manaRegain;
-
-        [SyncVar(hook = nameof(ClientSyncMovementSpeed))]
-        [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
-        [SerializeField]
-        private StatVal movementSpeed;
-
+        [Header("Traits")]
         [SyncVar(hook = nameof(ClientSyncMight))]
         [DarklandStat(StatId.Might, nameof(ServerSetMight))]
         [SerializeField]
@@ -63,7 +31,68 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [DarklandStat(StatId.Soul, nameof(ServerSetSoul))]
         [SerializeField]
         private StatVal soul;
+        
+        [Header("Primary Stats")]
+        [SyncVar(hook = nameof(ClientSyncHealth))]
+        [DarklandStat(StatId.Health, nameof(ServerSetHealth))]
+        [SerializeField]
+        private StatVal health;
 
+        [SyncVar(hook = nameof(ClientSyncMana))]
+        [DarklandStat(StatId.Mana, nameof(ServerSetMana))]
+        [SerializeField]
+        private StatVal mana;
+        
+        [Header("Secondary Stats")]
+        [SyncVar(hook = nameof(ClientSyncMaxHealth))]
+        [DarklandStat(StatId.MaxHealth, nameof(ServerSetMaxHealth))]
+        [SerializeField]
+        private StatVal maxHealth;
+
+        [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
+        [SerializeField]
+        private StatVal healthRegain;
+
+        [SyncVar(hook = nameof(ClientSyncMaxMana))]
+        [DarklandStat(StatId.MaxMana, nameof(ServerSetMaxMana))]
+        [SerializeField]
+        private StatVal maxMana;
+
+        [DarklandStat(StatId.ManaRegain, nameof(ServerSetManaRegain))]
+        [SerializeField]
+        private StatVal manaRegain;
+
+        [DarklandStat(StatId.ActionPower, nameof(ServerSetActionPower))]
+        [SerializeField]
+        private StatVal actionPower;
+
+        [DarklandStat(StatId.ActionSpeed, nameof(ServerSetActionSpeed))]
+        [SerializeField]
+        private StatVal actionSpeed;
+
+        [DarklandStat(StatId.MagicResistance, nameof(ServerSetMagicResistance))]
+        [SerializeField]
+        private StatVal magicResistance;
+
+        [DarklandStat(StatId.PhysicalResistance, nameof(ServerSetPhysicalResistance))]
+        [SerializeField]
+        private StatVal physicalResistance;
+        
+        [SyncVar(hook = nameof(ClientSyncMovementSpeed))]
+        [DarklandStat(StatId.MovementSpeed, nameof(ServerSetMovementSpeed))]
+        [SerializeField]
+        private StatVal movementSpeed;
+
+        [Server]
+        private void ServerSetMight(StatVal val) => might = val;
+        [Server]
+        private void ServerSetConstitution(StatVal val) => constitution = val;
+        [Server]
+        private void ServerSetDexterity(StatVal val) => dexterity = val;
+        [Server]
+        private void ServerSetIntellect(StatVal val) => intellect = val;
+        [Server]
+        private void ServerSetSoul(StatVal val) => soul = val;
         [Server]
         private void ServerSetHealth(StatVal val) => health = val;
         [Server]
@@ -77,28 +106,16 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [Server]
         private void ServerSetManaRegain(StatVal val) => manaRegain = val;
         [Server]
+        private void ServerSetActionPower(StatVal val) => actionPower = val;
+        [Server]
+        private void ServerSetActionSpeed(StatVal val) => actionSpeed = val;
+        [Server]
+        private void ServerSetMagicResistance(StatVal val) => magicResistance = val;
+        [Server]
+        private void ServerSetPhysicalResistance(StatVal val) => physicalResistance = val;
+        [Server]
         private void ServerSetMovementSpeed(StatVal val) => movementSpeed = val;
-        [Server]
-        private void ServerSetMight(StatVal val) => might = val;
-        [Server]
-        private void ServerSetConstitution(StatVal val) => constitution = val;
-        [Server]
-        private void ServerSetDexterity(StatVal val) => dexterity = val;
-        [Server]
-        private void ServerSetIntellect(StatVal val) => intellect = val;
-        [Server]
-        private void ServerSetSoul(StatVal val) => soul = val;
 
-        [Client]
-        private void ClientSyncHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.Health, val);
-        [Client]
-        private void ClientSyncMaxHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxHealth, val);
-        [Client]
-        private void ClientSyncMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.Mana, val);
-        [Client]
-        private void ClientSyncMaxMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxMana, val);
-        [Client]
-        private void ClientSyncMovementSpeed(StatVal _, StatVal val) => InvokeClientChanged(StatId.MovementSpeed, val);
         [Client]
         private void ClientSyncMight(StatVal _, StatVal val) => InvokeClientChanged(StatId.Might, val);
         [Client]
@@ -109,7 +126,17 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ClientSyncIntellect(StatVal _, StatVal val) => InvokeClientChanged(StatId.Intellect, val);
         [Client]
         private void ClientSyncSoul(StatVal _, StatVal val) => InvokeClientChanged(StatId.Soul, val);
-
+        [Client]
+        private void ClientSyncHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.Health, val);
+        [Client]
+        private void ClientSyncMaxHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxHealth, val);
+        [Client]
+        private void ClientSyncMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.Mana, val);
+        [Client]
+        private void ClientSyncMaxMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxMana, val);
+        [Client]
+        private void ClientSyncMovementSpeed(StatVal _, StatVal val) => InvokeClientChanged(StatId.MovementSpeed, val);
+  
     }
 
     /*
