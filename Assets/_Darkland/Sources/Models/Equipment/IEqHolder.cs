@@ -37,7 +37,11 @@ namespace _Darkland.Sources.Models.Equipment {
             Assert.IsTrue(backpackSlot > -1 && backpackSlot < eqHolder.Backpack.Count);
             return eqHolder.Backpack[backpackSlot];
         }
-        
+
+        public static IWeaponDef ServerEquippedWeapon(this IEqHolder eqHolder) {
+            return null;
+        }
+
     } 
 
 }

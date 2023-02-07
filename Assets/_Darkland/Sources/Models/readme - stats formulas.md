@@ -1,4 +1,4 @@
-﻿# Unit Stats Formulas
+﻿## Unit Stats Formulas
 
 | StatId             | Value Range  | Start Value | Formula                     |
 |--------------------|--------------|-------------|-----------------------------|

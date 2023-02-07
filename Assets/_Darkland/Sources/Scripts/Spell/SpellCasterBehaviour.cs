@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Spell;
+using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -22,12 +24,14 @@ namespace _Darkland.Sources.Scripts.Spell {
 
         private readonly Dictionary<int, bool> _spellCooldowns = new();
         private DarklandHeroBehaviour _darklandHeroBehaviour;
+        private IStatsHolder _statsHolder;
 
         public List<ISpell> AvailableSpells => availableSpells;
         public event Action<SpellCastedEvent> ClientSpellCasted;
 
         private void Awake() {
             _darklandHeroBehaviour = GetComponent<DarklandHeroBehaviour>();
+            _statsHolder = GetComponent<IStatsHolder>();
         }
 
         public override void OnStartServer() {
@@ -57,12 +61,19 @@ namespace _Darkland.Sources.Scripts.Spell {
 
             var invalidCastCondition = spell
                 .CastConditions
-                .FirstOrDefault(it => !it.CanCast(gameObject));
+                .FirstOrDefault(it => !it.CanCast(gameObject, spell));
 
             if (invalidCastCondition != null) {
+                netIdentity.connectionToClient.Send(new ChatMessages.ServerLogResponseMessage {
+                    message = RichTextFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage())
+                });
+    
                 Debug.LogWarning(RichTextFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage()));
                 return;
             }
+            
+            //todo gdzie to w sumie umiescic? pomysl 1: InstantEffects - dodac caster subtract mana effect
+            _statsHolder.Subtract(StatId.Mana, StatVal.OfBasic(spell.ManaCost));
 
             spell.InstantEffects.ForEach(it => it.Process(gameObject));
             spell.TimedEffects.ForEach(it => StartCoroutine(it.Process(gameObject)));

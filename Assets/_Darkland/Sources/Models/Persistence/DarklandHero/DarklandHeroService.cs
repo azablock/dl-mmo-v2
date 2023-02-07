@@ -6,7 +6,6 @@ using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.ScriptableObjects.Stats2;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Equipment;
 using _Darkland.Sources.Scripts.Persistence;
@@ -112,18 +111,10 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 intellect = StatVal.OfBasic(e.intellect),
                 soul = StatVal.OfBasic(e.soul)
             });
-
-            //todo MaxHealth samo sie nie powinno wyliczyc? pewnie jeszzce za wczesnie
-            statsHolder.Set(StatId.MaxHealth, HeroStatsCalculator.ValueOf(StatId.MaxHealth, statsHolder));
+            statsHolder.SetSecondaryStatsValues();
+            
             statsHolder.Set(StatId.Health, StatVal.OfBasic(e.health));
-            statsHolder.Set(StatId.HealthRegain, StatVal.OfBasic(1));
-            statsHolder.Set(StatId.MaxMana, StatVal.OfBasic(10));
             statsHolder.Set(StatId.Mana, StatVal.OfBasic(e.mana));
-            statsHolder.Set(StatId.ManaRegain, StatVal.OfBasic(1));
-
-            
-            
-            statsHolder.Set(StatId.MovementSpeed, StatVal.OfBasic(3));
 
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
             xpHolder.ServerInit(e.xp, e.level);

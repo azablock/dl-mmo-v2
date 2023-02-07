@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using _Darkland.Sources.ScriptableObjects.Stats2;
 
 namespace _Darkland.Sources.Models.Unit.Stats2 {
 
@@ -50,6 +52,15 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                 soul = traitStatsValues.Item5,
             };
         }
+
+        public static void SetSecondaryStatsValues(this IStatsHolder holder) {
+            HeroStatsCalculator
+                .statsFormulasPreImage
+                .Keys
+                .ToList()
+                .ForEach(it => holder.Set(it, HeroStatsCalculator.ValueOf(it, holder)));
+        }
+
 
         public static UnitSecondaryStats SecondaryStatsValues(this IStatsHolder holder) {
             return new UnitSecondaryStats {

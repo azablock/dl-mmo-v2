@@ -21,14 +21,14 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             { StatId.ActionSpeed, 1 },
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
-            { StatId.MovementSpeed, 1 },
+            { StatId.MovementSpeed, 2 },
         };
 
         public static readonly StatsFormulas statsFormulas = new() {
             {
                 StatId.Might, new StatModifiersDict {
                     { StatId.MaxHealth, v => v * 2 },
-                    { StatId.ActionPower, v => v / 3.0f }
+                    { StatId.ActionPower, v => Mathf.FloorToInt(v / 3.0f) }
                 }
             },
             {

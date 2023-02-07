@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace _Darkland.Sources.Models.Unit.Regain {
 
     public interface IRegainState {
@@ -10,7 +12,7 @@ namespace _Darkland.Sources.Models.Unit.Regain {
 
         public float GetRegain(float regainRate) {
             _regainValue += regainRate;
-            var regainValueInt = (int) _regainValue;
+            var regainValueInt = Mathf.FloorToInt(_regainValue);
             _regainValue -= regainValueInt;
 
             return regainValueInt;

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
   m_Name: Might Buff SpellDef
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 10
   cooldown: 10
   castTime: 0
+  castRange: 0
   targetType: 0
   instantEffects:
   - {fileID: 11400000, guid: eb61cf66b038c0949af3d5fc6724ed25, type: 2}
   timedEffects: []
-  castConditions: []
+  castConditions:
+  - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}

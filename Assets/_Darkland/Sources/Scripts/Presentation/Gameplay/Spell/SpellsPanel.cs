@@ -16,18 +16,22 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         private List<GameObject> spellIconPrefabs;
 
         private void OnEnable() {
-            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted += ClientOnSpellCasted;
             SpellMessagesProxy.ClientGetAvailableSpellsReceived += ClientInit;
-
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted += ClientOnSpellCasted;
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCastStateClientNotifier>()
+                    .ClientNotified += ClientOnSpellCastConditionsNotified;
+            
             NetworkClient.Send(new SpellMessages.GetAvailableSpellsRequestMessage());
         }
-
+        
         private void OnDisable() {
-            spellIcons.ForEach(it => it.Clicked -= ClientOnSpellIconClicked);
-            foreach (Transform child in transform) Destroy(child.gameObject);
-            
             SpellMessagesProxy.ClientGetAvailableSpellsReceived -= ClientInit;
             DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
+            DarklandHeroBehaviour.localHero.GetComponent<ISpellCastStateClientNotifier>()
+                .ClientNotified -= ClientOnSpellCastConditionsNotified;
+            
+            spellIcons.ForEach(it => it.Clicked -= ClientOnSpellIconClicked);
+            foreach (Transform child in transform) Destroy(child.gameObject);
         }
 
         [Client]
@@ -54,6 +58,16 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
             var idx = spellIcons.IndexOf(spellIcon);
             Assert.IsTrue(idx > -1 && idx < spellIcons.Count);
             NetworkClient.Send(new PlayerInputMessages.CastSpellRequestMessage { spellIdx = idx });
+        }
+        
+        [Client]
+        private void ClientOnSpellCastConditionsNotified(List<bool> canCastFlags) {
+            //todo dziwny bug (wczesniej tu byl assert "eqauls count count" i sie wywalalo)
+            if (spellIcons.Count != canCastFlags.Count) return;
+            
+            for (var i = 0; i < canCastFlags.Count; i++) {
+                spellIcons[i].ClientSetCastConditionState(canCastFlags[i]);
+            }
         }
 
         [Client]

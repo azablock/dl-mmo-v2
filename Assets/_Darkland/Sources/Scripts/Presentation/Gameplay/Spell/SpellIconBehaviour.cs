@@ -47,6 +47,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         }
 
         [Client]
+        public void ClientSetCastConditionState(bool canCast) {
+            hotkeyText.color = canCast ? DarklandColorSet._.primary : DarklandColorSet._.danger;
+        }
+
+        [Client]
         private IEnumerator ClientCooldown(float cooldown) {
             Assert.IsTrue(cooldown >= 0.0f);
             

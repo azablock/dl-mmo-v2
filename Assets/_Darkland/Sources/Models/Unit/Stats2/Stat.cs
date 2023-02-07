@@ -52,13 +52,13 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
     
     public static class StatValReadWriteFunctions 
     {
-        public static void WriteMyType(this NetworkWriter writer, StatVal value)
+        public static void WriteStatVal(this NetworkWriter writer, StatVal value)
         {
             writer.WriteFloat(value.Basic);
             writer.WriteFloat(value.Bonus);
         }
 
-        public static StatVal ReadMyType(this NetworkReader reader)
+        public static StatVal ReadStatVal(this NetworkReader reader)
         {
             return StatVal.Of(reader.ReadFloat(), reader.ReadFloat());
         }

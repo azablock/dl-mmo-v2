@@ -42,7 +42,7 @@ namespace _Darkland.Sources.ScriptableObjects.Mob {
         [Range(1, TargetNetIdHolderBehaviour.MaxTargetDis)]
         private int attackPerceptionRange;
         [SerializeField]
-        [Range(0, 4)]
+        [Range(1, 4)]
         private float movementSpeed;
         [SerializeField]
         [Range(0, 1000)]

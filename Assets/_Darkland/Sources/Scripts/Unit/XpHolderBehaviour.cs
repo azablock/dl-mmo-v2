@@ -13,6 +13,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         public int xp { get; private set; }
         public int level { get; private set; }
 
+        public event Action<int> ServerLevelChanged;
         public event Action<int> ClientXpChanged;
         public event Action<ExperienceLevelChangeEvent> ClientLevelChanged;
 
@@ -45,16 +46,8 @@ namespace _Darkland.Sources.Scripts.Unit {
             if (xp < nextLevelXp) return;
 
             level++;
-            
-            //todo TEMP TEMP TEMP TEMP TEMP
-            var statId = Random.Range(0, 4) % 2 == 0 ? StatId.Might : StatId.Constitution;
-            GetComponent<IStatsHolder>().Add(statId, StatVal.OfBasic(1));
-            var unitName = GetComponent<UnitNameBehaviour>().unitName;
-            var message = $"{unitName} gained {level} level (and his {statId.ToString()} increased)";
-            NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage() {
-                message = RichTextFormatter.FormatServerLog(message)
-            });
-            //todo TEMP TEMP TEMP TEMP TEMP
+            ServerLevelChanged?.Invoke(level);
+
             
             TargetRpcLevelChanged(ServerEvt());
         }

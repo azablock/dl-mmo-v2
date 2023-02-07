@@ -15,6 +15,7 @@ namespace _Darkland.Sources.Models.Interaction {
         float MaxTargetDistance { get; }
         event Action<NetworkIdentity> ServerChanged;
         event Action<NetworkIdentity> ServerCleared;
+        
     }
 
     public static class TargetNetIdHolderExtensions {

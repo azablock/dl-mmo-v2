@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Spell;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
@@ -7,7 +8,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
                      menuName = "DL/"  + nameof(SpellCastCondition) + "/" + nameof(HasTargetSpellCastCondition))]
     public class HasTargetSpellCastCondition : SpellCastCondition {
 
-        public override bool CanCast(GameObject caster) {
+        public override bool CanCast(GameObject caster, ISpell _) {
             return caster.GetComponent<ITargetNetIdHolder>().HasTarget();
         }
 

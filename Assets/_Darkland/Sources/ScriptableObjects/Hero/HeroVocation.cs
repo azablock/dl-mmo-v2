@@ -15,6 +15,9 @@ namespace _Darkland.Sources.ScriptableObjects.Hero {
         [SerializeField]
         private List<SpellDef> availableSpells;
         [SerializeField]
+        private LevelTraitDistribution levelTraitDistribution;
+
+        [SerializeField]
         [Obsolete]
         [Tooltip("currently not used")]
         private HeroVocationStartingStats startingStats;
@@ -22,6 +25,7 @@ namespace _Darkland.Sources.ScriptableObjects.Hero {
         public HeroVocationType VocationType => vocationType;
         public List<ISpell> AvailableSpells => new(availableSpells);
         public IHeroVocationStartingStats StartingStats => startingStats;
+        public LevelTraitDistribution LevelTraitDistribution => levelTraitDistribution;
 
     }
 

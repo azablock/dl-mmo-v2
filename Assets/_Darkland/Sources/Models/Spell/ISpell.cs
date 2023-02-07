@@ -5,7 +5,8 @@ namespace _Darkland.Sources.Models.Spell {
 
     public interface ISpell {
         string Id { get; }
-        float ManaCost { get; }
+        int ManaCost { get; }
+        float CastRange { get; }
         float CastTime { get; }
         List<ISpellCastCondition> CastConditions { get; }
         List<ISpellInstantEffect> InstantEffects { get; }

@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e8626ddcdd4ff5a3b720291fc4d46e, type: 3}
-  m_Name: IsTargetEnemy SpellCastCondition
+  m_Script: {fileID: 11500000, guid: 77e884ac96464a94b0b6b70ea66760d7, type: 3}
+  m_Name: Mana Cost SpellCastCondition
   m_EditorClassIdentifier: 

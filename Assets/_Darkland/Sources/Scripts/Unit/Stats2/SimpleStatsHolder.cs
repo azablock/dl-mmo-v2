@@ -58,22 +58,27 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [SerializeField]
         private StatVal maxMana;
 
+        [SyncVar(hook = nameof(ClientSyncManaRegain))]
         [DarklandStat(StatId.ManaRegain, nameof(ServerSetManaRegain))]
         [SerializeField]
         private StatVal manaRegain;
 
+        [SyncVar(hook = nameof(ClientSyncActionPower))]
         [DarklandStat(StatId.ActionPower, nameof(ServerSetActionPower))]
         [SerializeField]
         private StatVal actionPower;
 
+        [SyncVar(hook = nameof(ClientSyncActionSpeed))]
         [DarklandStat(StatId.ActionSpeed, nameof(ServerSetActionSpeed))]
         [SerializeField]
         private StatVal actionSpeed;
 
+        [SyncVar(hook = nameof(ClientSyncMagicResistance))]
         [DarklandStat(StatId.MagicResistance, nameof(ServerSetMagicResistance))]
         [SerializeField]
         private StatVal magicResistance;
 
+        [SyncVar(hook = nameof(ClientSyncPhysicalResistance))]
         [DarklandStat(StatId.PhysicalResistance, nameof(ServerSetPhysicalResistance))]
         [SerializeField]
         private StatVal physicalResistance;
@@ -134,6 +139,16 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ClientSyncMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.Mana, val);
         [Client]
         private void ClientSyncMaxMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxMana, val);
+        [Client]
+        private void ClientSyncManaRegain(StatVal _, StatVal val) => InvokeClientChanged(StatId.ManaRegain, val);        
+        [Client]
+        private void ClientSyncActionPower(StatVal _, StatVal val) => InvokeClientChanged(StatId.ActionPower, val);        
+        [Client]
+        private void ClientSyncActionSpeed(StatVal _, StatVal val) => InvokeClientChanged(StatId.ActionSpeed, val);        
+        [Client]
+        private void ClientSyncMagicResistance(StatVal _, StatVal val) => InvokeClientChanged(StatId.MagicResistance, val);
+        [Client]
+        private void ClientSyncPhysicalResistance(StatVal _, StatVal val) => InvokeClientChanged(StatId.PhysicalResistance, val);
         [Client]
         private void ClientSyncMovementSpeed(StatVal _, StatVal val) => InvokeClientChanged(StatId.MovementSpeed, val);
   

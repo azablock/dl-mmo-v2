@@ -15,8 +15,10 @@ MonoBehaviour:
   manaCost: 0
   cooldown: 15
   castTime: 0
+  castRange: 0
   targetType: 0
   instantEffects:
   - {fileID: 11400000, guid: d0fc3065f69e0424282f5c6cfdc92fd9, type: 2}
   timedEffects: []
-  castConditions: []
+  castConditions:
+  - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}

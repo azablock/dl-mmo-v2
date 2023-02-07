@@ -496,11 +496,19 @@ PrefabInstance:
     - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: spawnPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 119151979988157374, guid: 3caa1fad7e0744949a794ba3d96a5dfc, type: 3}
+      objectReference: {fileID: 8589541905812962912, guid: 22f436861627848429452b2f849ea815, type: 3}
     - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: spawnPrefabs.Array.data[4]
       value: 
-      objectReference: {fileID: 8589541905812962912, guid: 22f436861627848429452b2f849ea815, type: 3}
+      objectReference: {fileID: 3711275858274869439, guid: f7dfe8f6109fa1f44b8251bf2484dd07, type: 3}
+    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
+      propertyPath: spawnPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 3227454279366113228, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 1304801536, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
+      propertyPath: spawnPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 530370294835301396, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Name
       value: Darkland Network Manager
@@ -613,20 +621,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924561889353, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -121
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924561889353, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 170
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924715491134, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -121
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924715491134, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 220
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266772924925758664, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_Pivot.x
