@@ -1,5 +1,7 @@
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit;
+using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Scripts.Unit;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -9,7 +11,6 @@ namespace _Darkland.Sources.Scripts.Ai {
     public class DarklandMobSpawner : NetworkBehaviour {
 
         public GameObject darklandMobPrefab;
-        public float respawnTime;
 
         private GameObject _mob;
 
@@ -21,18 +22,27 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void ServerRespawnMob() {
             Assert.IsNull(_mob);
             
-            var pos = Vector3Int.FloorToInt(transform.position);
+            var spawnPos = Vector3Int.FloorToInt(transform.position);
     
-            _mob = Instantiate(darklandMobPrefab, pos, Quaternion.identity);
-            _mob.GetComponent<IDiscretePosition>().Set(pos);
-            _mob.GetComponent<SpawnPositionHolder>().ServerSet(pos);
+            _mob = Instantiate(darklandMobPrefab, spawnPos, Quaternion.identity);
+            _mob.GetComponent<IDiscretePosition>().Set(spawnPos);
+            _mob.GetComponent<SpawnPositionHolder>().ServerSet(spawnPos);
             _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
+
+            var mobDef = _mob.GetComponent<IMobDefHolder>().MobDef;
+            _mob.GetComponent<IStatsHolder>()
+                .Set(StatId.MaxHealth, StatVal.OfBasic(mobDef.MaxHealth))
+                .Set(StatId.Health, StatVal.OfBasic(mobDef.MaxHealth))
+                .Set(StatId.MovementSpeed, StatVal.OfBasic(mobDef.MovementSpeed));
             
+            _mob.GetComponent<UnitNameBehaviour>().ServerSet(mobDef.MobName);
+
             NetworkServer.Spawn(_mob);
         }
 
         [Server]
         private void ServerOnMobDeath() {
+            var respawnTime = _mob.GetComponent<IMobDefHolder>().MobDef.RespawnTime;
             _mob.GetComponent<IDeathEventEmitter>().Death -= ServerOnMobDeath;
             
             NetworkServer.Destroy(_mob);

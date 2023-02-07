@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f4efa7e63c4a76abd8f9a172c3f910, type: 3}
   m_Name: Constitution StatModifierPostChangeHook
   m_EditorClassIdentifier: 
-  requiredStatIds: 01000000
+  requiredStatIds: 
   onChangeStatId: 7

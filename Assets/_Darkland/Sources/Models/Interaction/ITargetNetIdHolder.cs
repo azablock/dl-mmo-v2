@@ -21,7 +21,7 @@ namespace _Darkland.Sources.Models.Interaction {
 
         [Server]
         public static bool IsTargetEnemy(this ITargetNetIdHolder holder) {
-            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandMob>() != null;
+            return HasTarget(holder) && holder.TargetNetIdentity.GetComponent<DarklandMobBehaviour>() != null;
         }
         
         [Server]

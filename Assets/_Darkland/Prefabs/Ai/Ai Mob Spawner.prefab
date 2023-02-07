@@ -66,8 +66,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  darklandMobPrefab: {fileID: 119151979988157374, guid: 3caa1fad7e0744949a794ba3d96a5dfc, type: 3}
-  respawnTime: 3
+  darklandMobPrefab: {fileID: 0}
 --- !u!212 &7989408628698564392
 SpriteRenderer:
   m_ObjectHideFlags: 0

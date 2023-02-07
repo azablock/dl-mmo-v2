@@ -12,13 +12,6 @@ namespace _Darkland.Sources.Scripts.Ai {
 
     public class AiNetworkPerceptionBehaviour2 : MonoBehaviour, IAiNetworkPerception {
 
-        [Range(1, TargetNetIdHolderBehaviour.MaxTargetDis)]
-        [SerializeField]
-        private float passivePerceptionRange;
-        [Range(1, TargetNetIdHolderBehaviour.MaxTargetDis)]
-        [SerializeField]
-        private float attackPerceptionRange;
-
         private ITargetNetIdHolder _targetNetIdHolder;
         private AiCombatMemory _aiCombatMemory;
 
@@ -28,13 +21,14 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void Awake() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
             _aiCombatMemory = GetComponent<AiCombatMemory>();
+            var mobDef = GetComponent<IMobDefHolder>().MobDef;
 
-            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= attackPerceptionRange);
-            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= passivePerceptionRange);
-            Assert.IsTrue(passivePerceptionRange >= attackPerceptionRange);
+            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= mobDef.AttackPerceptionRange);
+            Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= mobDef.PassivePerceptionRange);
+            Assert.IsTrue(mobDef.PassivePerceptionRange >= mobDef.AttackPerceptionRange);
 
-            PerceptionZones.Add(Passive, new(passivePerceptionRange));
-            PerceptionZones.Add(Attack, new(attackPerceptionRange));
+            PerceptionZones.Add(Passive, new(mobDef.PassivePerceptionRange));
+            PerceptionZones.Add(Attack, new(mobDef.AttackPerceptionRange));
 
             // PerceptionZones[Passive].TargetEnteredZone += OnTargetEnteredZone;
             PerceptionZones[Passive].TargetExitedZone += OnTargetExitedPassiveZone;

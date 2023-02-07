@@ -25,10 +25,13 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var parentPos = aiDarklandUnit.GetComponent<IDiscretePosition>().Pos;
             Assert.IsTrue(targetPlayerPos.z == parentPos.z);
 
+            var mobDef = parent.GetComponent<IMobDefHolder>().MobDef;
+            var damage = Random.Range(mobDef.MinDamage, mobDef.MaxDamage);
+            
             damageDealer.DealDamage(new UnitAttackEvent {
-                damage = 1,
+                damage = damage,
                 target = playerNetIdentity,
-                damageType = DamageType.Physical
+                damageType = mobDef.DamageType
             });
             
             parent.GetComponent<AiCombatMemory>().Add(playerNetIdentity);

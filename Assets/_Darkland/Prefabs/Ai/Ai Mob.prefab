@@ -12,17 +12,16 @@ GameObject:
   - component: {fileID: 8095480955623110607}
   - component: {fileID: 3336841614088503935}
   - component: {fileID: 1140317225064950296}
+  - component: {fileID: 2294373413579333249}
   - component: {fileID: 5164315505321520540}
   - component: {fileID: 2006617567216398544}
   - component: {fileID: 6972356571735058417}
   - component: {fileID: 585354991192703992}
-  - component: {fileID: 3924853209046254753}
   - component: {fileID: 8555989389243704630}
   - component: {fileID: 7806717631113445499}
   - component: {fileID: 9166869659146055869}
   - component: {fileID: 3154160925708691126}
   - component: {fileID: 1598996541946964017}
-  - component: {fileID: 4078144967815570666}
   - component: {fileID: 7271619246065586669}
   - component: {fileID: 3455414910645347580}
   - component: {fileID: 1586029261265010318}
@@ -102,6 +101,22 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &2294373413579333249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119151979988157374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde59f422f274a2fb5c9ee5ad85ed213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  mobDef: {fileID: 0}
 --- !u!114 &5164315505321520540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,18 +132,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  health:
-    basic: 10
-    bonus: 0
-  maxHealth:
-    basic: 10
-    bonus: 0
-  healthRegain:
-    basic: 0
-    bonus: 0
-  movementSpeed:
-    basic: 1
-    bonus: 0
   might:
     basic: 0
     bonus: 0
@@ -142,6 +145,39 @@ MonoBehaviour:
     basic: 0
     bonus: 0
   soul:
+    basic: 0
+    bonus: 0
+  health:
+    basic: 10
+    bonus: 0
+  mana:
+    basic: 0
+    bonus: 0
+  maxHealth:
+    basic: 0
+    bonus: 0
+  healthRegain:
+    basic: 0
+    bonus: 0
+  maxMana:
+    basic: 0
+    bonus: 0
+  manaRegain:
+    basic: 0
+    bonus: 0
+  actionPower:
+    basic: 0
+    bonus: 0
+  actionSpeed:
+    basic: 0
+    bonus: 0
+  magicResistance:
+    basic: 0
+    bonus: 0
+  physicalResistance:
+    basic: 0
+    bonus: 0
+  movementSpeed:
     basic: 0
     bonus: 0
 --- !u!114 &2006617567216398544
@@ -191,21 +227,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   unitName: Empty Mob Name
---- !u!114 &3924853209046254753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119151979988157374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde59f422f274a2fb5c9ee5ad85ed213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &8555989389243704630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,8 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b69bfe90bc74890a45cf07d1fc4a192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passivePerceptionRange: 8
-  attackPerceptionRange: 2
 --- !u!65 &3154160925708691126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -278,19 +297,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4078144967815570666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119151979988157374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107e6e038f8845f6a669db940ded6773, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xp: 83
 --- !u!114 &7271619246065586669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +476,7 @@ SpriteRenderer:
   m_SortingLayerID: 536408327
   m_SortingLayer: 2
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: ef2630c5d554383489602e26f3df5b99, type: 3}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

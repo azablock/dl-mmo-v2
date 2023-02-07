@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7acd4ee7aa46ea97b24b45315ec0c5, type: 3}
+  m_Name: Rat MobDef
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+  damageType: 0
+  minDamage: 2
+  maxDamage: 5
+  passivePerceptionRange: 6
+  attackPerceptionRange: 2
+  movementSpeed: 0
+  xpGain: 27
+  minGoldGain: 1
+  maxGoldGain: 3
+  respawnTime: 30

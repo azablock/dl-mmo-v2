@@ -1838,10 +1838,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 916772798621949657}
-  - {fileID: 1668012941498468685}
-  - {fileID: 6740617960651693345}
-  - {fileID: 1315628913594329537}
+  - {fileID: 2981503979896186027}
+  - {fileID: 700323988288096823}
   m_Father: {fileID: 1059869474049067740}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8341,86 +8339,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!1001 &801050492743714340
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 7961499800103526900}
-    m_Modifications:
-    - target: {fileID: 1495175208281716499, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: _assetId
-      value: 93104171
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3227454279366113228, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_Name
-      value: Ai Rat Spawner (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 536408327
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
---- !u!4 &1668012941498468685 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-  m_PrefabInstance: {fileID: 801050492743714340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &815420897102143046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8492,166 +8410,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 544813312839607878, guid: 91e7d25b2020fd54e9d05ed1614c17ad, type: 3}
   m_PrefabInstance: {fileID: 815420897102143046}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1043166354924152488
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 7961499800103526900}
-    m_Modifications:
-    - target: {fileID: 1495175208281716499, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: _assetId
-      value: 93104171
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3227454279366113228, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_Name
-      value: Ai Rat Spawner (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 536408327
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
---- !u!4 &1315628913594329537 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-  m_PrefabInstance: {fileID: 1043166354924152488}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1189257906386325936
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 7961499800103526900}
-    m_Modifications:
-    - target: {fileID: 1495175208281716499, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: _assetId
-      value: 93104171
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3227454279366113228, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_Name
-      value: Ai Rat Spawner (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 536408327
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
---- !u!4 &916772798621949657 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-  m_PrefabInstance: {fileID: 1189257906386325936}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1689617976158980840
 PrefabInstance:
@@ -8761,7 +8519,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
   m_PrefabInstance: {fileID: 1689617976158980840}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4734237109842498120
+--- !u!1001 &6348735974830518752
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8769,77 +8527,65 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7961499800103526900}
     m_Modifications:
-    - target: {fileID: 1495175208281716499, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: _assetId
-      value: 93104171
+    - target: {fileID: 4722434309840645614, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_Name
+      value: Rat Ai Mob Spawner Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3227454279366113228, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_Name
-      value: Ai Rat Spawner (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7989408628698564392, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 536408327
+    - target: {fileID: 8790078164750527793, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: _assetId
+      value: 93104171
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
---- !u!4 &6740617960651693345 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+--- !u!4 &2981503979896186027 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2033410154571059049, guid: 7a6e1d6c7fb5e8f4eba82830489c58ae, type: 3}
-  m_PrefabInstance: {fileID: 4734237109842498120}
+  m_CorrespondingSourceObject: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+  m_PrefabInstance: {fileID: 6348735974830518752}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7278573469686543898
 PrefabInstance:
@@ -8940,6 +8686,74 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6306175257457196876, guid: 292f2f40d6c82f146b3784ad0d671225, type: 3}
   m_PrefabInstance: {fileID: 7278573469686543898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8701903758839046012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 7961499800103526900}
+    m_Modifications:
+    - target: {fileID: 4722434309840645614, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_Name
+      value: Rat Ai Mob Spawner Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790078164750527793, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: _assetId
+      value: 93104171
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+--- !u!4 &700323988288096823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+  m_PrefabInstance: {fileID: 8701903758839046012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9012324504635249525
 PrefabInstance:
