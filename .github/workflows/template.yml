@@ -132,7 +132,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-OSX
+          key: Library-build-StandaloneOSX
           restore-keys: |
             Library-build-
             Library-
@@ -144,8 +144,8 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-OSX
-          path: build/OSX
+          name: build-StandaloneOSX
+          path: build/StandaloneOSX
   
   buildLinuxHeadlessServer:
 #    needs: testRunner
@@ -271,8 +271,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-OSX
-          path: build/OSX
+          name: build-StandaloneOSX
+          path: build/StandaloneOSX
 
       - name: list files
         run: ls -al
@@ -280,7 +280,7 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/OSX
+          local: build/StandaloneOSX
           remote: dl-mmo-client-builds/l-mmo-client-osx-build-upload/dl-mmo-osx-client
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
