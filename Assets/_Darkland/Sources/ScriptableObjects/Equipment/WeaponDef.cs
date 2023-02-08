@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Equipment;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
@@ -31,7 +30,11 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         public EqItemType ItemType => EqItemType.Wearable;
         public WearableSlot WearableItemSlot => WearableSlot.RightHand;
         public WearableType WearableItemType => WearableType.Weapon;
-
+        
+        public string Description(GameObject parent) {
+            return $"Damage:\t{MinDamage} - {MaxDamage}\n" +
+                   $"Range:\t{AttackRange}\n";
+        }
     }
 
 }

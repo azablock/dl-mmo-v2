@@ -19,6 +19,7 @@ namespace _Darkland.Sources.Models.Chat {
         }
 
         public static string Colored(string val, Color color) => $"<color={HtmlRgba(color)}>{val}</color>";
+        public static string Bold(string val) => $"<b>{val}</b>";
         
         private static string HtmlRgba(Color color) => $"#{ColorUtility.ToHtmlStringRGBA(color)}";
     }

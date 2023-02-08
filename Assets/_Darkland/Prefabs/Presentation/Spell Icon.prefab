@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9072689555723527120}
   - component: {fileID: 3395916255269082559}
+  - component: {fileID: -328163978808419779}
   m_Layer: 0
   m_Name: Spell Icon
   m_TagString: Untagged
@@ -347,6 +348,18 @@ MonoBehaviour:
   hotkeyText: {fileID: 776086457902729617}
   cooldownDelta: 0.1
   spellDef: {fileID: 0}
+--- !u!114 &-328163978808419779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5554092129422123233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6189d9c713214631bd72c7f396ecf3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5775830374185251021
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
-    public class BackpackSlotImage : MonoBehaviour, IPointerClickHandler {
+    public class BackpackSlotImage : MonoBehaviour, IPointerClickHandler, IDescriptionProvider {
 
         [SerializeField]
         private Sprite emptySlotSprite;
@@ -44,6 +44,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public TooltipDescription Get() => new() {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
 
         [Client]
         public void ClientSet(string itemName) {

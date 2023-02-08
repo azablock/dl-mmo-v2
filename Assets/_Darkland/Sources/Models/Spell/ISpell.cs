@@ -5,6 +5,7 @@ namespace _Darkland.Sources.Models.Spell {
 
     public interface ISpell {
         string Id { get; }
+        string SpellName { get; }
         int ManaCost { get; }
         float CastRange { get; }
         float CastTime { get; }
@@ -13,7 +14,7 @@ namespace _Darkland.Sources.Models.Spell {
         List<ISpellTimedEffect> TimedEffects { get; }
 
         float Cooldown(GameObject caster);
-        string Description();
+        string Description(GameObject caster);
     }
 
 }

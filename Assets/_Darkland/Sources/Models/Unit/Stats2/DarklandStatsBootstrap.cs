@@ -41,8 +41,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                    var valAfterConstraints = hooks
                                        .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
-                                   // ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
+                                   // setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
+                                   ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
                                }
                            );
                        }

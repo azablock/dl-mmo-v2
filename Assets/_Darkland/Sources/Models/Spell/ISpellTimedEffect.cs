@@ -14,6 +14,8 @@ namespace _Darkland.Sources.Models.Spell {
         [Server]
         bool CanProcess(GameObject caster);
 
+        string Description(GameObject caster, ISpell spell);
+
     }
 
 }

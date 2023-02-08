@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace _Darkland.Sources.Models.Equipment {
 
     public interface IWeaponDef {

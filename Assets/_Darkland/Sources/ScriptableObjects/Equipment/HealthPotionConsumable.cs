@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
@@ -14,6 +15,10 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
             eqHolder
                 .GetComponent<IStatsHolder>()
                 .Add(StatId.Health, StatVal.OfBasic(healthToRegen));
+        }
+
+        public override string Description(GameObject parent) {
+            return $"Restores {RichTextFormatter.Bold(healthToRegen.ToString())} points of health.";
         }
 
     }
