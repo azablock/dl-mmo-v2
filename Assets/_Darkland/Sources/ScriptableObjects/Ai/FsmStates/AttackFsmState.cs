@@ -1,11 +1,14 @@
+using System;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
 
@@ -26,7 +29,11 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             Assert.IsTrue(targetPlayerPos.z == parentPos.z);
 
             var mobDef = parent.GetComponent<IMobDefHolder>().MobDef;
-            var damage = Random.Range(mobDef.MinDamage, mobDef.MaxDamage);
+            var mobDamage = Random.Range(mobDef.MinDamage, mobDef.MaxDamage);
+            var (physicalRes, magicRes) = playerNetIdentity.GetComponent<IStatsHolder>()
+                .Values(StatId.PhysicalResistance, StatId.MagicResistance);
+            var resistance = mobDef.DamageType == DamageType.Physical ? physicalRes : magicRes;
+            var damage = Mathf.Max(0, mobDamage - Mathf.FloorToInt(resistance.Current)); 
             
             damageDealer.DealDamage(new UnitAttackEvent {
                 damage = damage,
