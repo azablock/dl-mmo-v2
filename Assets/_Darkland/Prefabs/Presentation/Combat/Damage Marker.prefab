@@ -235,7 +235,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5281584883370054554}
   damageMarkerCanvas: {fileID: 6037704471193879704}
   damageText: {fileID: 8166496787811920323}
-  fadeDuration: 1
+  fadeDuration: 1.5
 --- !u!1 &8328907662495468154
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,8 +311,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282011350
-  m_fontColor: {r: 0.83921576, g: 0.30588236, b: 0.227451, a: 1}
+    rgba: 4279908081
+  m_fontColor: {r: 0.9433962, g: 0.2101761, b: 0.10234961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 0
   m_fontColorGradient:
