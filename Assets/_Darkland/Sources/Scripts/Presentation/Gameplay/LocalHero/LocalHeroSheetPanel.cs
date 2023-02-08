@@ -63,6 +63,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
                 { StatId.Constitution, constitutionText},
                 { StatId.Dexterity, dexterityText},
                 { StatId.Intellect, intellectText}, 
+                { StatId.Soul, soulText}, 
                 { StatId.HealthRegain, healthRegainText}, 
                 { StatId.ManaRegain, manaRegainText}, 
                 { StatId.ActionPower, actionPowerText}, 
