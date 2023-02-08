@@ -102,50 +102,50 @@ jobs:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
   
-  buildOSX:
-#    needs: testRunner
-    name: Build for OSX 🖥️
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Restore LFS cache
-        uses: actions/cache@v2
-        id: lfs-cache
-        with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Restore Library cache
-        uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-build-StandaloneOSX
-          restore-keys: |
-            Library-build-
-            Library-
-
-      - uses: game-ci/unity-builder@v2
-        with:
-          targetPlatform: StandaloneOSX
-          customParameters: -dl-server-address {{secrets.SSH_HOST}}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-StandaloneOSX
-          path: build/StandaloneOSX
+#  buildOSX:
+##    needs: testRunner
+#    name: Build for OSX 🖥️
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Create LFS file list
+#        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+#
+#      - name: Restore LFS cache
+#        uses: actions/cache@v2
+#        id: lfs-cache
+#        with:
+#          path: .git/lfs
+#          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+#
+#      - name: Git LFS Pull
+#        run: |
+#          git lfs pull
+#          git add .
+#          git reset --hard
+#
+#      - name: Restore Library cache
+#        uses: actions/cache@v2
+#        with:
+#          path: Library
+#          key: Library-build-StandaloneOSX
+#          restore-keys: |
+#            Library-build-
+#            Library-
+#
+#      - uses: game-ci/unity-builder@v2
+#        with:
+#          targetPlatform: StandaloneOSX
+#          customParameters: -dl-server-address {{secrets.SSH_HOST}}
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: build-StandaloneOSX
+#          path: build/StandaloneOSX
   
   buildLinuxHeadlessServer:
 #    needs: testRunner
@@ -260,31 +260,31 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
   
-  copyOSXBuildViaScp:
-    name: Copy OSX Build via scp
-    needs: buildOSX
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout #to chyba niepotrzebne
-        uses: actions/checkout@v2
-
-      - name: download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build-StandaloneOSX
-          path: build/StandaloneOSX
-
-      - name: list files
-        run: ls -al
-
-      - name: Copy folder content recursively to remote
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: build/StandaloneOSX
-          remote: dl-mmo-client-builds/l-mmo-client-osx-build-upload/dl-mmo-osx-client
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+#  copyOSXBuildViaScp:
+#    name: Copy OSX Build via scp
+#    needs: buildOSX
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout #to chyba niepotrzebne
+#        uses: actions/checkout@v2
+#
+#      - name: download artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: build-StandaloneOSX
+#          path: build/StandaloneOSX
+#
+#      - name: list files
+#        run: ls -al
+#
+#      - name: Copy folder content recursively to remote
+#        uses: garygrossgarten/github-action-scp@release
+#        with:
+#          local: build/StandaloneOSX
+#          remote: dl-mmo-client-builds/dl-mmo-client-osx-build-upload/dl-mmo-osx-client
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_USER }}
+#          password: ${{ secrets.SSH_PASSWORD }}
 
   packWindowsBuildViaSsh:
     name: Pack Windows Build via ssh
@@ -299,18 +299,18 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: ./pack-dl-mmo-windows-client.sh
   
-  packOsxBuildViaSsh:
-    name: Pack OSX Build via ssh
-    needs: copyOSXBuildViaScp
-    runs-on: ubuntu-latest
-    steps:
-      - name: run build zipping script
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: ./pack-dl-mmo-osx-client.sh
+#  packOsxBuildViaSsh:
+#    name: Pack OSX Build via ssh
+#    needs: copyOSXBuildViaScp
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: run build zipping script
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_USER }}
+#          password: ${{ secrets.SSH_PASSWORD }}
+#          script: ./pack-dl-mmo-osx-client.sh
   
 #  restartGameServerViaSsh:
 #    name: Restart game server via ssh
