@@ -115,9 +115,14 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
             
             statsHolder.Set(StatId.Health, StatVal.OfBasic(e.health));
             statsHolder.Set(StatId.Mana, StatVal.OfBasic(e.mana));
-
+            
             var xpHolder = darklandHero.GetComponent<XpHolderBehaviour>();
             xpHolder.ServerInit(e.xp, e.level);
+
+            var heroTraitDistribution = darklandHero.GetComponent<IHeroTraitDistribution>();
+            var traitStatsValues = statsHolder.TraitStatsValues();
+            var pointToDistributeForHero = IHeroTraitDistribution.PointToDistributeForHero(traitStatsValues, e.level);
+            heroTraitDistribution.SetPointsToDistribute(pointToDistributeForHero);
         }
 
         public static void ServerCreateNewHero(ObjectId darklandAccountId,

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
@@ -47,7 +48,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private TMP_Text physicalResistanceText;
         [SerializeField]
         private TMP_Text movementSpeedText;
-
+        [Space]
+        [Header("Traits Distribution")]
+        [SerializeField]
+        private TMP_Text pointsToDistributeText;
+        [SerializeField]
+        private List<TraitDistributionImage> traitDistributionImages;
+        
         private Dictionary<StatId, TMP_Text> _statTexts;
 
         private void Awake() {
@@ -69,15 +76,23 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += OnClientLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged += OnTraitDistributionClientChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet += ClientOnGetHeroSheet;
             
             var heroName = DarklandHeroBehaviour.localHero.GetComponent<UnitNameBehaviour>().unitName;
             NetworkClient.Send(new DarklandHeroMessages.GetHeroSheetRequestMessage {heroName = heroName});
-        }
 
+            //todo fuj
+            OnTraitDistributionClientChanged(DarklandHeroBehaviour
+                                                 .localHero
+                                                 .GetComponent<IHeroTraitDistribution>()
+                                                 .pointsToDistribute);
+        }
+        
         private void OnDisable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged -= OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= OnClientLevelChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged -= OnTraitDistributionClientChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet -= ClientOnGetHeroSheet;
         }
 
@@ -91,6 +106,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         [Client]
         private void OnClientLevelChanged(ExperienceLevelChangeEvent evt) => heroLevelText.text = $"{evt.level}";
 
+        [Client]
+        private void OnTraitDistributionClientChanged(int pointsToDistribute) {
+            pointsToDistributeText.text = $"Points to distribute: {pointsToDistribute}";
+
+            var showDistribution = pointsToDistribute > 0;
+            
+            pointsToDistributeText.gameObject.SetActive(showDistribution);
+            traitDistributionImages.ForEach(it => it.gameObject.SetActive(showDistribution));
+        }
+
+        
         [Client]
         private void ClientOnGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) {
             heroNameText.text = message.heroName;

@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Warrior LevelTraitDistribution
   m_EditorClassIdentifier: 
   might:
-    dice: 0
+    dice: 2
     modifier: 0
   constitution:
-    dice: 0
-    modifier: 0
+    dice: 3
+    modifier: 1
   dexterity:
-    dice: 0
+    dice: 2
     modifier: 0
   intellect:
-    dice: 0
+    dice: 1
     modifier: 0
   soul:
-    dice: 0
+    dice: 1
     modifier: 0

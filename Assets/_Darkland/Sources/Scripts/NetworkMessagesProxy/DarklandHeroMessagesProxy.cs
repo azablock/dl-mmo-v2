@@ -9,6 +9,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
 
         public static event Action<NetworkConnectionToClient,DarklandHeroMessages.GetHeroSheetRequestMessage> ServerGetHeroSheet;
         public static event Action<NetworkConnectionToClient,DarklandHeroMessages.GetEqRequestMessage> ServerGetEq;
+        public static event Action<NetworkConnectionToClient,DarklandHeroMessages.DistributeTraitRequestMessage> ServerDistributeTrait;
 
         public static event Action<DarklandHeroMessages.GetHeroSheetResponseMessage> ClientGetHeroSheet;
         public static event Action<DarklandHeroMessages.GetEqResponseMessage> ClientGetEq;
@@ -16,11 +17,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         public void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandHeroMessages.GetHeroSheetRequestMessage>(ServerHandleGetHeroSheet);
             NetworkServer.RegisterHandler<DarklandHeroMessages.GetEqRequestMessage>(ServerHandleGetEq);
+            NetworkServer.RegisterHandler<DarklandHeroMessages.DistributeTraitRequestMessage>(ServerHandleDistributeTrait);
         }
-
+        
         public void OnStopServer() {
             NetworkServer.UnregisterHandler<DarklandHeroMessages.GetHeroSheetRequestMessage>();
             NetworkServer.UnregisterHandler<DarklandHeroMessages.GetEqRequestMessage>();
+            NetworkServer.UnregisterHandler<DarklandHeroMessages.DistributeTraitRequestMessage>();
         }
 
         public void OnStartClient() {
@@ -43,6 +46,11 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
                                               DarklandHeroMessages.GetEqRequestMessage message) =>
             ServerGetEq?.Invoke(conn, message);
 
+        private static void ServerHandleDistributeTrait(NetworkConnectionToClient conn,
+                                                        DarklandHeroMessages.DistributeTraitRequestMessage message) =>
+            ServerDistributeTrait?.Invoke(conn, message);
+
+        
         [Client]
         private static void ClientHandleGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) =>
             ClientGetHeroSheet?.Invoke(message);

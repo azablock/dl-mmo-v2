@@ -36,6 +36,10 @@ namespace _Darkland.Sources.NetworkMessages {
             public int goldAmount;
 
         }
+        
+        public struct DistributeTraitRequestMessage : NetworkMessage {
+            public StatId traitStatId;
+        }
 
     }
 

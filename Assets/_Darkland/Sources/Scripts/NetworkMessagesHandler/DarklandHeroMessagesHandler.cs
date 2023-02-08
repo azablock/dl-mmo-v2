@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Equipment;
+using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
@@ -16,11 +17,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private void Awake() {
             DarklandHeroMessagesProxy.ServerGetHeroSheet += ServerHandleGetHeroSheet;
             DarklandHeroMessagesProxy.ServerGetEq += ServerHandleGetEq;
+            DarklandHeroMessagesProxy.ServerDistributeTrait += ServerHandleDistributeTrait;
         }
-
+        
         private void OnDestroy() {
             DarklandHeroMessagesProxy.ServerGetHeroSheet -= ServerHandleGetHeroSheet;
             DarklandHeroMessagesProxy.ServerGetEq -= ServerHandleGetEq;
+            DarklandHeroMessagesProxy.ServerDistributeTrait -= ServerHandleDistributeTrait;
         }
 
         [Server]
@@ -62,6 +65,14 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 goldAmount = goldHolder.GoldAmount
             });
         }
+        
+        [Server]
+        private static void ServerHandleDistributeTrait(NetworkConnectionToClient conn,
+                                                        DarklandHeroMessages.DistributeTraitRequestMessage message) {
+            var heroTraitDistribution = conn.identity.GetComponent<IHeroTraitDistribution>();
+            heroTraitDistribution.Distribute(message.traitStatId);
+        }
+
 
     }
 
