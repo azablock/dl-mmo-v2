@@ -102,7 +102,7 @@ jobs:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
   
-  buildOsx:
+  buildOSX:
 #    needs: testRunner
     name: Build for OSX 🖥️
     runs-on: ubuntu-latest
@@ -260,9 +260,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
   
-  copyOsxBuildViaScp:
+  copyOSXBuildViaScp:
     name: Copy OSX Build via scp
-    needs: buildWindows
+    needs: buildOSX
     runs-on: ubuntu-latest
     steps:
       - name: checkout #to chyba niepotrzebne
@@ -301,7 +301,7 @@ jobs:
   
   packOsxBuildViaSsh:
     name: Pack OSX Build via ssh
-    needs: copyOsxBuildViaScp
+    needs: copyOSXBuildViaScp
     runs-on: ubuntu-latest
     steps:
       - name: run build zipping script
