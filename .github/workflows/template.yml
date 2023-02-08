@@ -132,7 +132,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-StandaloneWindows64
+          key: Library-build-OSX
           restore-keys: |
             Library-build-
             Library-
