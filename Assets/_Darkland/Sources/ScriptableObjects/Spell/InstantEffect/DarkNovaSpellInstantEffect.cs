@@ -1,7 +1,10 @@
 using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Spell;
 using _Darkland.Sources.Scripts.Unit.Combat;
+using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
@@ -20,8 +23,9 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         public override void Process(GameObject caster) {
             var damageDealer = caster.GetComponent<IDamageDealer>();
             var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
+            var castPos = caster.GetComponent<IDiscretePosition>().Pos;
 
-            Instantiate(darkNovaPrefab, caster.transform.position, Quaternion.identity)
+            Instantiate(darkNovaPrefab, castPos, Quaternion.identity)
                 .GetComponent<DarkNovaSpellBodyBehaviour>()
                 .ServerInit(radius, mobIdentity => {
                     damageDealer.DealDamage(new UnitAttackEvent {
@@ -31,8 +35,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                     });
                 });
             
-            
-            //todo send to client vfx
+            NetworkServer.SendToReady(new SpellMessages.DarkNovaSpellVfxResponseMessage {
+                castPos = castPos,
+                radius = radius,
+            });
         }
 
     }

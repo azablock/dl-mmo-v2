@@ -18,6 +18,13 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
 
     }
 
+    public struct DamageAppliedEvent {
+
+        public NetworkIdentity target;
+        public int targetHealthAfterDamage;
+
+    }
+
     public class DamageDealerBehaviour : NetworkBehaviour, IDamageDealer {
 
         [SerializeField]
@@ -25,7 +32,7 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
 
         public int nextAttackDamageBonus { get; private set; }
 
-        public event Action<UnitAttackEvent> ServerDamageApplied;
+        public event Action<DamageAppliedEvent> ServerDamageApplied;
 
         [Server]
         public void DealDamage(UnitAttackEvent evt) {
@@ -36,7 +43,10 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
             healthStat.Set(StatVal.OfBasic(newHealthValue));
 
             nextAttackDamageBonus = 0;
-            ServerDamageApplied?.Invoke(evt);
+            ServerDamageApplied?.Invoke(new DamageAppliedEvent {
+                target = evt.target,
+                targetHealthAfterDamage = Mathf.FloorToInt(newHealthValue)
+            });
             
             //todo brzydkie to - nie powinno tu tego byc --------------------------------------------------
             var aiCombatMemory = evt.target.GetComponent<AiCombatMemory>();

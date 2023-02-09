@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CircleOfLight TimedEffect
   m_EditorClassIdentifier: 
   healthRegainBonus: 2
-  circleOfLightDuration: 10
+  circleOfLightDuration: 30
   circleOfLightRadius: 2
   circleOfLightPrefab: {fileID: 2848027172686577679, guid: 5a743aa037501d247afdbbf765d1cbf2, type: 3}

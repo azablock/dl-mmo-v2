@@ -43,9 +43,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
             if (message.statsHolderNetId == DarklandHeroBehaviour.localHero.netId) {
                 localHeroPanel.ClientInit(message);
             }
-            else {
-                targetNetIdPanel.ClientInit(message);
-            }
+            
+            targetNetIdPanel.ClientInit(message);
+
+            // else {
+                // targetNetIdPanel.ClientInit(message);
+            // }
         }
 
         private void OnClientChanged(NetworkIdentity obj) {

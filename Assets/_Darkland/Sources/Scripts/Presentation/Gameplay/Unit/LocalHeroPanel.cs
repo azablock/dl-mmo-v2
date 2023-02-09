@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
@@ -11,21 +13,25 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [SerializeField]
         private DarklandUnitInfoPanel localHeroInfoPanel;
-
         [SerializeField]
         private TMP_Text positionText;
+        [SerializeField]
+        private UnitEffectsPanel unitEffectsPanel;
 
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += ClientOnStatsChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged += ClientOnPosChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>().ClientNotified += OnClientNotified;
+            
             ClientOnPosChanged(DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos);
             
             NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage {statsHolderNetId = DarklandHeroBehaviour.localHero.netId});
         }
-        
+
         private void OnDisable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged -= ClientOnStatsChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().ClientChanged -= ClientOnPosChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>().ClientNotified -= OnClientNotified;
         }
 
         [Client]
@@ -56,6 +62,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         [Client]
         private void ClientOnPosChanged(Vector3Int pos) => positionText.text = $"{pos}";
 
+        private void OnClientNotified(List<string> effectNames) {
+            unitEffectsPanel.ClientRefreshUnitEffects(effectNames);
+        }
 
     }
 

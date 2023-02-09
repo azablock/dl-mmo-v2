@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &916535655
 Transform:
   m_ObjectHideFlags: 0
@@ -118,12 +118,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916535653}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d721918ae621431cb8ae1b59fac2739c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightColor:
+  lightColorGradient:
     serializedVersion: 2
     key0: {r: 0.9339623, g: 0.5916029, b: 0.2863564, a: 1}
     key1: {r: 0.19585313, g: 0.1448469, b: 0.2924528, a: 1}
@@ -154,6 +154,9 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   light2D: {fileID: 916535653}
   speed: 1
+  _color: 0
+  scale: 256
+  timeOfDay: 
 --- !u!1 &515924185094650325
 GameObject:
   m_ObjectHideFlags: 0

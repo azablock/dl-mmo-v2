@@ -16,6 +16,8 @@ namespace _Darkland.Sources.ScriptableObjects.Hero {
         private List<SpellDef> availableSpells;
         [SerializeField]
         private LevelTraitDistribution levelTraitDistribution;
+        [SerializeField]
+        private Sprite vocationSprite;
 
         [SerializeField]
         [Obsolete]
@@ -26,6 +28,7 @@ namespace _Darkland.Sources.ScriptableObjects.Hero {
         public List<ISpell> AvailableSpells => new(availableSpells);
         public IHeroVocationStartingStats StartingStats => startingStats;
         public LevelTraitDistribution LevelTraitDistribution => levelTraitDistribution;
+        public Sprite VocationSprite => vocationSprite;
 
     }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace _Darkland.Sources.Models.Unit {
 
@@ -7,6 +8,7 @@ namespace _Darkland.Sources.Models.Unit {
         event Action<string> ClientAdded;
         event Action<string> ClientRemoved;
         event Action ClientRemovedAll;
+        event Action<List<string>> ClientNotified;
 
     }
 

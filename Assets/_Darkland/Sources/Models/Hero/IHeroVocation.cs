@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.ScriptableObjects.Hero;
+using UnityEngine;
 
 namespace _Darkland.Sources.Models.Hero {
 
@@ -10,6 +11,8 @@ namespace _Darkland.Sources.Models.Hero {
         List<ISpell> AvailableSpells { get; }
         IHeroVocationStartingStats StartingStats { get; }
         LevelTraitDistribution LevelTraitDistribution { get; }
+        Sprite VocationSprite { get; }
+
     }
 
 }

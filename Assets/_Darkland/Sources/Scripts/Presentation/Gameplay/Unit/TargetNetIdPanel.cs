@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
@@ -10,6 +12,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [SerializeField]
         private DarklandUnitInfoPanel targetNetIdentityPanel;
+        [SerializeField]
+        private UnitEffectsPanel unitEffectsPanel;
 
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
@@ -33,6 +37,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage {statsHolderNetId = targetNetIdentity.netId});
             
             targetNetIdentity.GetComponent<IStatsHolder>().ClientChanged += OnClientStatsChanged;
+            targetNetIdentity.GetComponent<IUnitEffectClientNotifier>().ClientNotified += OnClientNotified;
         }
 
         public void OnClientCleared(NetworkIdentity targetNetIdentity) {
@@ -41,7 +46,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             //todo najpierw idzie Clear -> ale chwile pozniej jeszce szedł dmg od innego szczura i jest Set wołany 
             if (targetNetIdentity != null) {
                 targetNetIdentity.GetComponent<IStatsHolder>().ClientChanged -= OnClientStatsChanged;
+                targetNetIdentity.GetComponent<IUnitEffectClientNotifier>().ClientNotified -= OnClientNotified;
             }
+
+            unitEffectsPanel.ClientRefreshUnitEffects(new List<string>());
         }
 
         private void OnClientStatsChanged(StatId statId, StatVal val) {
@@ -57,6 +65,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             else if (statId == StatId.MaxMana) {
                 targetNetIdentityPanel.ClientSetMaxMana(val.Current);
             }
+        }
+
+        private void OnClientNotified(List<string> effectNames) {
+            unitEffectsPanel.ClientRefreshUnitEffects(effectNames);
         }
 
     }

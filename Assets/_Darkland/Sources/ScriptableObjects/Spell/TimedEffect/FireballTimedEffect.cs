@@ -6,7 +6,6 @@ using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
-using _Darkland.Sources.Scripts.Presentation;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using Mirror;
 using UnityEngine;
@@ -26,7 +25,11 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             var targetNetIdentity = caster.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
             var castPos = caster.GetComponent<IDiscretePosition>().Pos;
             var targetPos = targetNetIdentity.GetComponent<IDiscretePosition>().Pos;
-            var fireballFlyDuration = 1.0f / fireballProjectileSpeed;
+            var fireballPathLength = Vector3.Distance(castPos, targetPos);
+            
+            var fireballFlyDuration = fireballPathLength / fireballProjectileSpeed;
+            // var fireballFlyDuration = 1.0f / fireballProjectileSpeed;
+            
             var damageTimeOffset = 0.2f;
 
             NetworkServer.SendToReady(new SpellMessages.FireballSpellVfxResponseMessage {

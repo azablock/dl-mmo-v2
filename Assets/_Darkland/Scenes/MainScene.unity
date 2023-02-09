@@ -348,11 +348,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 916535653, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535654, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535654, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[1]
+      value: -2025741341
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535654, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[2]
+      value: 536408327
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535654, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[3]
+      value: 1931842669
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535654, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: -1243131151
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: scale
-      value: 1024
+      value: 24576
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColor.key0.b
@@ -426,6 +450,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1176818422
       objectReference: {fileID: 0}
+    - target: {fileID: 4837134936173489870, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5413341736266090864, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1062839082
@@ -434,6 +462,10 @@ PrefabInstance:
       propertyPath: toggleTarget
       value: 
       objectReference: {fileID: 654018767}
+    - target: {fileID: 5531538991643862123, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5888239304279989373, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3634675226

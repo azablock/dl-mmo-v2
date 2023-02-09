@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using _Darkland.Sources.Models.Unit;
 using Mirror;
 using UnityEngine;
@@ -16,16 +15,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         private void OnEnable() {
             var unitEffectClientNotifier = DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>();
-            unitEffectClientNotifier.ClientAdded += OnClientAdded;
-            unitEffectClientNotifier.ClientRemoved += OnClientRemoved;
-            unitEffectClientNotifier.ClientRemovedAll += OnClientRemovedAll;
+            // unitEffectClientNotifier.ClientAdded += OnClientAdded;
+            // unitEffectClientNotifier.ClientRemoved += OnClientRemoved;
+            // unitEffectClientNotifier.ClientRemovedAll += OnClientRemovedAll;
+            // unitEffectClientNotifier.ClientNotified += ClientRefreshUnitEffects;
         }
 
         private void OnDisable() {
             var unitEffectClientNotifier = DarklandHeroBehaviour.localHero.GetComponent<IUnitEffectClientNotifier>();
-            unitEffectClientNotifier.ClientAdded -= OnClientAdded;
-            unitEffectClientNotifier.ClientRemoved -= OnClientRemoved;
-            unitEffectClientNotifier.ClientRemovedAll -= OnClientRemovedAll;
+            // unitEffectClientNotifier.ClientAdded -= OnClientAdded;
+            // unitEffectClientNotifier.ClientRemoved -= OnClientRemoved;
+            // unitEffectClientNotifier.ClientRemovedAll -= OnClientRemovedAll;
+            
+            // unitEffectClientNotifier.ClientNotified -= ClientRefreshUnitEffects;
         }
 
         [Client]
@@ -52,6 +54,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             }
             
             _activeEffects.Clear();
+        }
+
+        public void ClientRefreshUnitEffects(List<string> effectNames) {
+            OnClientRemovedAll();
+            effectNames.ForEach(OnClientAdded);
         }
 
     }

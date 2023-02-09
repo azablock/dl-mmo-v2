@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Spell;
 using Mirror;
 using UnityEngine;
@@ -24,12 +26,19 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
         public override IEnumerator Process(GameObject caster) {
             var instance = Instantiate(circleOfLightPrefab, caster.transform.position, Quaternion.identity);
             var triggeredIdentities = new List<NetworkIdentity>();
+            var castPos = caster.GetComponent<IDiscretePosition>().Pos;
             
             instance.GetComponent<CircleOfLightSpellBodyBehaviour>()
                 .ServerInit(circleOfLightRadius,
                             identity => ServerAddHealthRegainBuff(identity, triggeredIdentities),
                             identity => ServerSubtractHealthRegainBuff(identity, triggeredIdentities));
 
+            NetworkServer.SendToReady(new SpellMessages.CircleOfLightSpellVfxResponseMessage {
+                castPos = castPos,
+                radius = circleOfLightRadius,
+                duration = circleOfLightDuration
+            });
+            
             yield return new WaitForSeconds(circleOfLightDuration);
             Destroy(instance);
             

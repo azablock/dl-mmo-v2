@@ -12,7 +12,7 @@ namespace _Darkland.Sources.Models.Combat {
         void AddNextAttackDamageBonus(int val);
         int nextAttackDamageBonus { get; }
 
-        event Action<UnitAttackEvent> ServerDamageApplied;
+        event Action<DamageAppliedEvent> ServerDamageApplied;
 
         public const int UnarmedAttackRange = 1;
         public static int UnarmedBaseDamageRange() => Random.Range(1, 3);

@@ -18,7 +18,7 @@ MonoBehaviour:
   castRange: 4
   targetType: 1
   instantEffects:
-  - {fileID: 11400000, guid: 11898f26c9e98a84189e606022164b02, type: 2}
+  - {fileID: 11400000, guid: dc926423c468cd84b9de7245b9ea5f56, type: 2}
   timedEffects: []
   castConditions:
   - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}

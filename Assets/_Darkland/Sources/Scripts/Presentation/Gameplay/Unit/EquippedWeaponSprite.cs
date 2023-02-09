@@ -1,4 +1,5 @@
 using System;
+using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Scripts.Equipment;
 using Mirror;

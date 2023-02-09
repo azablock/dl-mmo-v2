@@ -27,8 +27,10 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Server]
-        private void ServerOnDamageApplied(UnitAttackEvent evt) {
-            if (evt.target.GetComponent<IStatsHolder>().ValueOf(StatId.Health).Basic > 0) return;
+        private void ServerOnDamageApplied(DamageAppliedEvent evt) {
+            Debug.LogError(RichTextFormatter.FormatServerLog($"targetHealthAfterDamage: {evt.targetHealthAfterDamage}"));
+            
+            if (evt.targetHealthAfterDamage > 0) return;
 
             var mobDef = evt.target.GetComponent<IMobDefHolder>().MobDef;
             var xpGain = mobDef.XpGain;
