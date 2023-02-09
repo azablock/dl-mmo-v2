@@ -14,6 +14,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             caster.GetComponent<IDamageDealer>().AddNextAttackDamageBonus(damageBonus);
         }
 
+        public override string Description(GameObject caster) {
+            return $"Attack with extra {damageBonus} damage.";
+        }
+
     }
 
 }
