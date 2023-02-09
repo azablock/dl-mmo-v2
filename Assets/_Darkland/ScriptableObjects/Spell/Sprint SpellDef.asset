@@ -22,3 +22,4 @@ MonoBehaviour:
   timedEffects: []
   castConditions:
   - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}
+  cooldownStrategy: {fileID: 11400000, guid: 7edb7ecccef62d44886be094e3526d85, type: 2}

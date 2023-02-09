@@ -7,6 +7,7 @@ namespace _Darkland.Sources.Models.Equipment {
         int MinDamage { get; }
         int MaxDamage { get; }
         int AttackRange { get; }
+        float AttackSpeed { get; }
 
     }
 

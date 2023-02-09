@@ -15,6 +15,7 @@ MonoBehaviour:
   manaCost: 0
   cooldown: 1
   castTime: 0
+  castRange: 0
   targetType: 2
   instantEffects:
   - {fileID: 11400000, guid: a8dbffb70625ad848b88081343331906, type: 2}
@@ -22,3 +23,4 @@ MonoBehaviour:
   castConditions:
   - {fileID: 11400000, guid: 24378c1d578d4f74786acb541ed5bd2f, type: 2}
   - {fileID: 11400000, guid: ad98d767edefbf543a7bf5d469d87d5f, type: 2}
+  cooldownStrategy: {fileID: 11400000, guid: fe6ff137c94705e47b52ff978a329eee, type: 2}

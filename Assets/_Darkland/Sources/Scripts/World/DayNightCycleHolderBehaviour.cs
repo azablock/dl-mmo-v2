@@ -9,13 +9,14 @@ namespace _Darkland.Sources.Scripts.World {
         [Tooltip("65536 ->>> ok. 54 sekundy")]
         private int fullDayLength;
         
-        [Client]
+        [Server]
         public void ServerSet(int val) {
             partOfDay = val;
         }
 
         public int partOfDay { get; private set; }
 
+        [ServerCallback]
         private void FixedUpdate() {
             partOfDay++;
             partOfDay %= fullDayLength;

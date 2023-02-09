@@ -14,6 +14,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             targetNetIdHolder.TargetNetIdentity.GetComponent<ITargetNetIdHolder>().Set(casterIdentity.netId);
         }
 
+        public override string Description(GameObject caster) {
+            return $"Changes enemy's target to 'Taunt' caster.";
+        }
+
     }
 
 }

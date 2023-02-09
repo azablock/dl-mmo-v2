@@ -37,6 +37,19 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
 
         }
 
+        public override string Description(GameObject caster) {
+            var desc = "";
+            
+            if (restoreStatId == StatId.Mana) {
+                desc += $"Transfer {restoreAmount} mana to target.";
+            }
+            else if (restoreStatId == StatId.Health) {
+                desc += $"Restore {restoreAmount} health to target.";
+            }
+
+            return desc;
+        }
+
     }
 
 }

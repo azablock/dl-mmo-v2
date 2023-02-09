@@ -28,8 +28,6 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [Server]
         private void ServerOnDamageApplied(DamageAppliedEvent evt) {
-            Debug.LogError(RichTextFormatter.FormatServerLog($"targetHealthAfterDamage: {evt.targetHealthAfterDamage}"));
-            
             if (evt.targetHealthAfterDamage > 0) return;
 
             var mobDef = evt.target.GetComponent<IMobDefHolder>().MobDef;

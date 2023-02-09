@@ -50,8 +50,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
         public override bool CanProcess(GameObject caster) => true;
 
         public override string Description(GameObject caster, ISpell spell) {
-            return $"Circle of healing....\n" +
-                   $"Max range:\t{spell.CastRange}\n" +
+            return $"Creates zone of radius {circleOfLightRadius} that grants {healthRegainBonus} bonus to Health Regain.\n" +
                    $"Mana cost:\t{spell.ManaCost}\n" +
                    $"Cooldown:\t{spell.Cooldown(caster):0.0} seconds";
         }

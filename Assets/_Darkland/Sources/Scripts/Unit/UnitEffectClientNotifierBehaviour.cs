@@ -15,7 +15,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         private IUnitEffectHolder _unitEffectHolder;
 
-        private SyncList<string> _activeEffectsNames = new();
+        private readonly SyncList<string> _activeEffectsNames = new();
 
         public override void OnStartServer() {
             _unitEffectHolder = GetComponent<IUnitEffectHolder>();

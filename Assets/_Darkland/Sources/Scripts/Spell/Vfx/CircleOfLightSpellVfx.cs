@@ -16,7 +16,12 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         [SerializeField]
         private Light2D light2D;
         
-        private void Awake() {
+        public void BeginVfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
+            StartCoroutine(Vfx(message));
+        }
+
+        private IEnumerator Vfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
+            transform.position = message.castPos;
             var sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
             spriteRenderer.sortingLayerID = sortingLayerID;
             
@@ -24,14 +29,12 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
                 .GetType()
                 .GetField("m_ApplyToSortingLayers", BindingFlags.NonPublic | BindingFlags.Instance);
             fieldInfo.SetValue(light2D, new[] {sortingLayerID});
-        }
-        
-        public void BeginVfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
-            StartCoroutine(Vfx(message));
-        }
-
-        private IEnumerator Vfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
-            transform.position = message.castPos;
+            
+            
+            
+            
+            
+            
             transform.localScale = new Vector3(message.radius, message.radius, 1);
             var startOuterLightRadius = light2D.pointLightOuterRadius;
             

@@ -1,12 +1,8 @@
 using _Darkland.Sources.Models.Combat;
-using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.NetworkMessages;
-using _Darkland.Sources.ScriptableObjects.Stats2;
 using _Darkland.Sources.Scripts.Unit.Combat;
-using Mirror;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {

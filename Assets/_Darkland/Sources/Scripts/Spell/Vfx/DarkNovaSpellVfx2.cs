@@ -20,7 +20,12 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         [SerializeField]
         private float vfxSpeed;
 
-        private void Awake() {
+        public void BeginVfx(SpellMessages.DarkNovaSpellVfxResponseMessage message) {
+            StartCoroutine(Vfx(message));
+        }
+
+        private IEnumerator Vfx(SpellMessages.DarkNovaSpellVfxResponseMessage message) {
+            transform.position = message.castPos;
             var sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
             spriteRenderer.sortingLayerID = sortingLayerID;
             
@@ -28,14 +33,6 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
                 .GetType()
                 .GetField("m_ApplyToSortingLayers", BindingFlags.NonPublic | BindingFlags.Instance);
             fieldInfo.SetValue(light2D, new[] {sortingLayerID});
-        }
-        
-        public void BeginVfx(SpellMessages.DarkNovaSpellVfxResponseMessage message) {
-            StartCoroutine(Vfx(message));
-        }
-
-        private IEnumerator Vfx(SpellMessages.DarkNovaSpellVfxResponseMessage message) {
-            transform.position = message.castPos;
             
             var lerp = 0.0f;
             var initialOuterRadius = light2D.pointLightOuterRadius;

@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Combat;
 using _Darkland.Sources.Models.Spell;
-using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Interaction;
 using UnityEngine;
 
@@ -31,24 +29,38 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         private List<SpellTimedEffect> timedEffects;
         [SerializeField]
         private List<SpellCastCondition> castConditions;
+        [SerializeField]
+        private SpellCooldownStrategy cooldownStrategy;
+        [SerializeField]
+        [TextArea]
+        private string generalDescription;
 
         public string Id => name;
         public string SpellName => Regex.Replace(name, $"/^ {nameof(SpellDef)}$/", string.Empty);
         public int ManaCost => manaCost;
         public float CastRange => castRange;
         public float CastTime => castTime;
+        public float BaseCooldown => cooldown;
         public TargetType TargetType => targetType;
         public List<ISpellInstantEffect> InstantEffects => new(instantEffects);
         public List<ISpellTimedEffect> TimedEffects => new(timedEffects);
+        public ISpellCooldownStrategy CooldownStrategy => cooldownStrategy;
+        public string GeneralDescription => generalDescription;
         public List<ISpellCastCondition> CastConditions => new(castConditions);
-
-        public float Cooldown(GameObject caster) =>
-            cooldown / caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionSpeed).Current;
+        public float Cooldown(GameObject caster) => CooldownStrategy.Cooldown(this, caster);
 
         public string Description(GameObject caster) {
-            return timedEffects
+            var instantEffectDescriptions = instantEffects.Select(it => it.Description(caster)).ToList();
+            var timedEffectDescriptions = timedEffects
                 .Select(it => it.Description(caster, this))
-                .Aggregate(string.Empty, (desc, next) => desc + next + "\n");
+                .ToList();
+
+            var descriptions = new List<string>();
+            descriptions.Add(GeneralDescription);
+            descriptions.AddRange(instantEffectDescriptions);
+            descriptions.AddRange(timedEffectDescriptions);
+            
+            return descriptions.Aggregate(string.Empty, (desc, next) => desc + next + "\n");
         }
 
     }
