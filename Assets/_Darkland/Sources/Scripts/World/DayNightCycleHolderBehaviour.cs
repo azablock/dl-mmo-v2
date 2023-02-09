@@ -6,7 +6,8 @@ namespace _Darkland.Sources.Scripts.World {
     public class DayNightCycleHolderBehaviour : MonoBehaviour {
 
         [SerializeField]
-        private int fullDayLength; //65536 ->>> 54 sekundy
+        [Tooltip("65536 ->>> ok. 54 sekundy")]
+        private int fullDayLength;
         
         [Client]
         public void ServerSet(int val) {

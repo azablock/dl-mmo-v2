@@ -10,7 +10,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         private IAvailableMovesHolder _idleAvailableMovesHolder;
         private List<Vector3Int> _lastChasePath;
 
-        [Server]
+        [ServerCallback]
         private void Awake() {
             _idleAvailableMovesHolder = new SimpleAvailableMovesHolder();
         }

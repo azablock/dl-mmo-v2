@@ -16,7 +16,10 @@ namespace _Darkland.Sources.Scripts {
         private DarklandUnitView heroView;
         private UnitNameBehaviour _unitNameBehaviour;
 
-        public HeroVocation heroVocation { get; private set; }
+        [SyncVar]
+        private HeroVocationType _heroVocationType;
+        
+        public HeroVocation heroVocation => HeroVocationsContainer._.Vocation(_heroVocationType);
         
         public static DarklandHeroBehaviour localHero;
         public static event Action LocalHeroStarted;
@@ -61,7 +64,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         [Server]
-        public void ServerSetVocation(HeroVocationType v) => heroVocation = HeroVocationsContainer._.Vocation(v);
+        public void ServerSetVocation(HeroVocationType v) => _heroVocationType = v;
 
         [Server]
         private void ServerTagGameObjectName(string unitName) {
