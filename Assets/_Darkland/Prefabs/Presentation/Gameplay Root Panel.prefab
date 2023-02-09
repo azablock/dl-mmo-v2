@@ -955,11 +955,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 827859080194647256, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.083
       objectReference: {fileID: 0}
     - target: {fileID: 827859080194647256, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3466667264047255775, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_Name
@@ -967,7 +967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466667264047255775, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4313354024663214121, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: unitHealthSlider
@@ -1056,6 +1056,14 @@ PrefabInstance:
     - target: {fileID: 6069308758752016600, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273658273817077979, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.789
+      objectReference: {fileID: 0}
+    - target: {fileID: 6273658273817077979, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6851293421936819926, guid: 3206d0a23b31f214a835e5f89555f75d, type: 3}
       propertyPath: m_text

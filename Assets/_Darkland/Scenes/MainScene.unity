@@ -372,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: scale
-      value: 24576
+      value: 49152
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_Enabled
@@ -391,6 +391,34 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime1
+      value: 13107
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime2
+      value: 21299
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime3
+      value: 26214
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime4
+      value: 39321
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime5
+      value: 44236
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime6
+      value: 52428
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.ctime7
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.key0.b
       value: 1
       objectReference: {fileID: 0}
@@ -403,16 +431,92 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
-      propertyPath: lightColorGradient.key2.b
+      propertyPath: lightColorGradient.key1.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key2.b
+      value: 0.34456214
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.key2.g
-      value: 1
+      value: 0.5759491
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.key2.r
+      value: 0.8396226
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key3.b
+      value: 0.2924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key3.g
+      value: 0.1448469
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key3.r
+      value: 0.19585313
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key4.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key4.g
+      value: 0.15445887
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key4.r
+      value: 0.22748661
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key5.b
+      value: 0.24313724
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key5.g
+      value: 0.41311496
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key5.r
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key6.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key6.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key6.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key7.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key7.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.key7.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: lightColorGradient.m_NumColorKeys
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 90070729607066189, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId

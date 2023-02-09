@@ -9,6 +9,7 @@ using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Unit;
+using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
 
@@ -94,6 +95,9 @@ namespace _Darkland.Sources.Scripts {
             _networkMessagesProxies.ForEach(it => it.OnStartServer());
             
             ServerStarted?.Invoke();
+
+            FindObjectOfType<DayNightCycleHolderBehaviour>().ServerSet(0);
+
         }
 
         public override void OnStopServer() {
