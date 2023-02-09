@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.ScriptableObjects.Unit;
@@ -21,6 +22,13 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                                     .ServerAdd(it));
         }
 
+        public override string Description(GameObject caster) {
+            var descriptions = unitEffects
+                .Select(it => it.Description(caster))
+                .Aggregate(string.Empty, (desc, next) => desc + next + "\n");
+            
+            return $"Works on friendly target.\n{descriptions}";
+        }
     }
 
 }

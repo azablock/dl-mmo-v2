@@ -30,6 +30,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                 });
         }
 
+        public override string Description(GameObject caster) {
+            return "Attack with equipped weapon, or with bare hands.";
+        }
+
     }
 
 }
