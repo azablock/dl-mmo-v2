@@ -15,8 +15,8 @@ MonoBehaviour:
   vocationType: 0
   availableSpells:
   - {fileID: 11400000, guid: 2fe42a45313e7144b8a185b48f7d80c1, type: 2}
-  - {fileID: 11400000, guid: c64aa8571d903dd49b632cbbcaf6213a, type: 2}
-  - {fileID: 11400000, guid: c5631b128d79e0441a20d6c5b2a06d98, type: 2}
+  - {fileID: 11400000, guid: 66bf82ec3e5bdd94a830e427cbbfdc86, type: 2}
+  - {fileID: 11400000, guid: fa310eb45f3a62d4687ec6b9a3ecb1b0, type: 2}
   - {fileID: 11400000, guid: 82c39b9d4171b1b448f9d753318b5c13, type: 2}
   levelTraitDistribution: {fileID: 11400000, guid: 62e3dc77d68c89c4ab9f9da6f8ab804f, type: 2}
   startingStats: {fileID: 0}

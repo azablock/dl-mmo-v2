@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53cb8f42d5594b508c61e1e19abd6c56, type: 3}
-  m_Name: MightBuff CasterUnitEffectSpellInstantEffect
+  m_Name: Battle Stance CasterUnitEffectSpellInstantEffect
   m_EditorClassIdentifier: 
   unitEffects:
   - {fileID: 11400000, guid: d1404a322d681094c980e2fc70291126, type: 2}

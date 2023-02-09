@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
-  m_Name: Might Buff SpellDef
+  m_Name: Resist Magic SpellDef
   m_EditorClassIdentifier: 
   manaCost: 10
-  cooldown: 10
+  cooldown: 5
   castTime: 0
-  castRange: 0
-  targetType: 0
+  castRange: 4
+  targetType: 1
   instantEffects:
-  - {fileID: 11400000, guid: eb61cf66b038c0949af3d5fc6724ed25, type: 2}
+  - {fileID: 11400000, guid: 6a2ddb3c9f152f6439f1b535c94fc565, type: 2}
   timedEffects: []
   castConditions:
   - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}
+  - {fileID: 11400000, guid: 7c1664f9cdb32504a83cabaf939d589b, type: 2}
+  - {fileID: 11400000, guid: 143a3c98f05220444b158573645b1cab, type: 2}
+  - {fileID: 11400000, guid: ad98d767edefbf543a7bf5d469d87d5f, type: 2}

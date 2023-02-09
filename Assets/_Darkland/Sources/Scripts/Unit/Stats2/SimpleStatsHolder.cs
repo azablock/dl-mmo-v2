@@ -49,6 +49,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         [SerializeField]
         private StatVal maxHealth;
 
+        [SyncVar(hook = nameof(ClientSyncHealthRegain))]
         [DarklandStat(StatId.HealthRegain, nameof(ServerSetHealthRegain))]
         [SerializeField]
         private StatVal healthRegain;
@@ -135,6 +136,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ClientSyncHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.Health, val);
         [Client]
         private void ClientSyncMaxHealth(StatVal _, StatVal val) => InvokeClientChanged(StatId.MaxHealth, val);
+        [Client]
+        private void ClientSyncHealthRegain(StatVal _, StatVal val) => InvokeClientChanged(StatId.HealthRegain, val);
         [Client]
         private void ClientSyncMana(StatVal _, StatVal val) => InvokeClientChanged(StatId.Mana, val);
         [Client]

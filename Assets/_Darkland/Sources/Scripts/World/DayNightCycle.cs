@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.Scripts.World {
 
     public class DayNightCycle : MonoBehaviour {
 
+        [FormerlySerializedAs("lightColor")]
         [SerializeField]
-        private Gradient lightColor;
+        private Gradient lightColorGradient;
 
         [SerializeField]
         private GameObject light2D;
@@ -14,20 +16,26 @@ namespace _Darkland.Sources.Scripts.World {
         private GameWorldTimeBehaviour _gameWorldTimeBehaviour;
 
         public float speed = 1.0f;
+        private int _partOfDay; //0 to 255 * 256 = 65536
+        [SerializeField]
+        private float _color; //[SerializeField] for inspector debug
+
+        [SerializeField]
+        private float scale = 256.0f;
+
+        [SerializeField]
+        private string timeOfDay;
         
-        private int partOfDay = 0; //to 255 * 256 = 65536
-        
-        private void Awake() {
-            // _gameWorldTimeBehaviour = GetComponent<GameWorldTimeBehaviour>();
-        }
+        private void FixedUpdate() {
+            _partOfDay++;
+            _color = _partOfDay / scale * speed; //todo speed?
+            light2D.GetComponent<Light2D>().color = lightColorGradient.Evaluate(_color);
 
-        private void Update() {
-            partOfDay++;
-            light2D.GetComponent<Light2D>().color = lightColor.Evaluate(partOfDay / 65536.0f * speed); //256 * 256
+            _partOfDay %= (int) scale;
 
-            // Debug.Log($"partOfDay {partOfDay}, light color: {light2D.GetComponent<Light2D>().color}");
-
-            partOfDay %= 65536;
+            timeOfDay = $"{Mathf.Floor(_color * 24)}:00";
+            
+            
         }
     }
 

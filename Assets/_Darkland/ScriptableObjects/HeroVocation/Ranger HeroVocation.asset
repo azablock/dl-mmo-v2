@@ -15,4 +15,8 @@ MonoBehaviour:
   vocationType: 2
   availableSpells:
   - {fileID: 11400000, guid: 2fe42a45313e7144b8a185b48f7d80c1, type: 2}
+  - {fileID: 11400000, guid: 2c9a823e10482944d8c202223c8ebda8, type: 2}
+  - {fileID: 11400000, guid: ba9b41868675f424586ed0f26c49edf9, type: 2}
   - {fileID: 11400000, guid: c64aa8571d903dd49b632cbbcaf6213a, type: 2}
+  levelTraitDistribution: {fileID: 0}
+  startingStats: {fileID: 0}

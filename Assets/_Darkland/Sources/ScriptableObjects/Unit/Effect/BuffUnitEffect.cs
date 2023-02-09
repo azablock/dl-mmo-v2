@@ -23,6 +23,11 @@ namespace _Darkland.Sources.ScriptableObjects.Unit.Effect {
             effectHolder.GetComponent<IStatsHolder>().Subtract(statId, StatVal.OfBonus(buffValue));
         }
 
+        public override string Description(GameObject parent) {
+            return $"Increases {statId.ToString()} by {buffValue} points.\n" +
+                   $"Duration:\t{Duration} seconds (base duration)";
+        }
+
     }
 
 }

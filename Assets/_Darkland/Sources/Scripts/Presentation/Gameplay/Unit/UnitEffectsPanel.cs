@@ -10,7 +10,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
     public class UnitEffectsPanel : MonoBehaviour {
 
         [SerializeField]
-        private List<GameObject> unitEffectPrefabs;
+        private GameObject unitEffectPrefab;
+
         private readonly Dictionary<string, UnitEffectImage> _activeEffects = new();
 
         private void OnEnable() {
@@ -29,19 +30,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [Client]
         private void OnClientAdded(string effectName) {
-            var idx = unitEffectPrefabs
-                .Select(it => it.GetComponent<UnitEffectImage>())
-                .ToList()
-                .FindIndex(it => it.unitEffectName.Equals(effectName));
-            
-            Assert.IsTrue(idx > -1);
-
-            if (_activeEffects.ContainsKey(effectName)) return;
-
-            var unitEffectPrefab = unitEffectPrefabs[idx];
             var unitEffectImage = Instantiate(unitEffectPrefab, transform).GetComponent<UnitEffectImage>();
-            // unitEffectImage.ClientInit(unitEffectImage.);
-            // unitEffectImage.transform.position += Vector3.down * _activeEffects.Count;
+            unitEffectImage.ClientInit(effectName);
             
             _activeEffects.Add(effectName, unitEffectImage);
         }

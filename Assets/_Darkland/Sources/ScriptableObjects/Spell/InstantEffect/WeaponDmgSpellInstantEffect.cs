@@ -20,7 +20,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var statsHolder = caster.GetComponent<IStatsHolder>();
             var weapon = caster.GetComponent<IEqHolder>().ServerEquippedWeapon();
             var weaponDamage = weapon != null
-                ? Random.Range(weapon.MinDamage, weapon.MinDamage)
+                ? Random.Range(weapon.MinDamage, weapon.MaxDamage + 1)
                 : IDamageDealer.UnarmedBaseDamageRange();
             var actionPower = (int) statsHolder.ValueOf(StatId.ActionPower).Current;
             var summaryDamage = weaponDamage + actionPower;

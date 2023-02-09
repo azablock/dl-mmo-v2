@@ -23,14 +23,19 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
         [SerializeField]
         private GameObject damageMarkerPrefab;
 
+        public int nextAttackDamageBonus { get; private set; }
+
         public event Action<UnitAttackEvent> ServerDamageApplied;
 
         [Server]
         public void DealDamage(UnitAttackEvent evt) {
             var targetPos = evt.target.GetComponent<IDiscretePosition>().Pos;
             var healthStat = evt.target.GetComponent<IStatsHolder>().Stat(StatId.Health);
-            var newHealthValue = healthStat.Get().Basic - evt.damage;
+            var resultDamage = evt.damage + nextAttackDamageBonus;
+            var newHealthValue = healthStat.Get().Basic - resultDamage;
             healthStat.Set(StatVal.OfBasic(newHealthValue));
+
+            nextAttackDamageBonus = 0;
             ServerDamageApplied?.Invoke(evt);
             
             //todo brzydkie to - nie powinno tu tego byc --------------------------------------------------
@@ -47,7 +52,12 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
 
             
             //todo move to new script
-            ClientRpcShowDamageMarker(evt.damage, targetPos);
+            ClientRpcShowDamageMarker(resultDamage, targetPos);
+        }
+
+        [Server]
+        public void AddNextAttackDamageBonus(int val) {
+            nextAttackDamageBonus += val;
         }
 
         [ClientRpc]

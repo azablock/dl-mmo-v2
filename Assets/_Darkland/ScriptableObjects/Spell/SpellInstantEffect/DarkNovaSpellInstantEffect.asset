@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703177b29f1641968671ab43ffae0160, type: 3}
+  m_Name: DarkNovaSpellInstantEffect
+  m_EditorClassIdentifier: 
+  darkNovaPrefab: {fileID: 2848027172686577679, guid: a09dd90b3b7743e4ca70fd8383fff861, type: 3}
+  radius: 4
+  novaDamage: 10

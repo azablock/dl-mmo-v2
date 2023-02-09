@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Fireball SpellDef
   m_EditorClassIdentifier: 
   manaCost: 5
-  cooldown: 2
+  cooldown: 3
   castTime: 0
-  castRange: 6
+  castRange: 4
   targetType: 2
   instantEffects: []
   timedEffects:
   - {fileID: 11400000, guid: 25b06cb5f2c9d0043aea0f846f245b70, type: 2}
   castConditions:
-  - {fileID: 11400000, guid: 24378c1d578d4f74786acb541ed5bd2f, type: 2}
   - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}
+  - {fileID: 11400000, guid: 24378c1d578d4f74786acb541ed5bd2f, type: 2}
   - {fileID: 11400000, guid: ad98d767edefbf543a7bf5d469d87d5f, type: 2}
   - {fileID: 11400000, guid: 143a3c98f05220444b158573645b1cab, type: 2}

@@ -43,7 +43,8 @@ namespace _Darkland.Sources.Scripts.Interaction {
         public void Set(uint newTargetNetId) {
             Assert.IsTrue(NetworkServer.spawned.ContainsKey(newTargetNetId));
 
-            if (netId == newTargetNetId) return;
+            //todo zakladam ze jednak mozna kliknac na siebie samego
+            // if (netId == newTargetNetId) return;
             if (TargetNetIdentity != null && TargetNetIdentity.netId == newTargetNetId) return;
 
             var holderPos = _discretePosition.Pos;

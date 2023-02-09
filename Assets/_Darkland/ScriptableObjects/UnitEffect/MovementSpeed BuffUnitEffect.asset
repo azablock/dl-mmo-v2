@@ -15,5 +15,6 @@ MonoBehaviour:
   effectName: MovementSpeed Buff
   effectProcessConditions: []
   duration: 10
+  effectSprite: {fileID: -2070509915, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   statId: 11
-  buffValue: 4
+  buffValue: 2
