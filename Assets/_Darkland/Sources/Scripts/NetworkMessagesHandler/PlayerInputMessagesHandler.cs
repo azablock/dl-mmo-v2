@@ -149,7 +149,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                     eqHolder.UseConsumable(backpackSlot);
                     break;
                 case EqItemType.Wearable:
-                    eqHolder.EquipWearable(backpackSlot);
+                    eqHolder.EquipWearableFromBackpack(backpackSlot);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -159,7 +159,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         [Server]
         private static void ServerProcessUnequipWearable(NetworkConnectionToClient conn,
                                                                   UnequipWearableRequestMessage message) {
-            conn.identity.GetComponent<IEqHolder>().UnequipWearable(message.wearableSlot);
+            conn.identity.GetComponent<IEqHolder>().UnequipWearableToBackpack(message.wearableSlot);
         }
 
     }

@@ -97,7 +97,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
                 .ForEach(it => eqHolder.AddToBackpack(it));
             
             foreach (var (slotName, itemName) in e.equippedWearables) {
-                eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), itemName);
+                // eqHolder.EquippedWearables.Add(Enum.Parse<WearableSlot>(slotName), itemName);
+                eqHolder.SetWearable(Enum.Parse<WearableSlot>(slotName), itemName);
             }
 
             var goldHolder = darklandHero.GetComponent<IGoldHolder>();

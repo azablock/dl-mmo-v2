@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Equipment;
+using _Darkland.Sources.Models.Unit.Stats2;
 using Mirror;
 using UnityEngine.Assertions;
 
@@ -10,6 +11,8 @@ namespace _Darkland.Sources.Scripts.Equipment {
     public class EqChangeServerListenerBehaviour : NetworkBehaviour, IEqChangeServerListener {
 
         private IEqHolder _eqHolder;
+        //todo to pewnie nowy skrypt...
+        private IStatsHolder _statsHolder;
         
         public event Action<List<string>> ClientBackpackChanged;
         public event Action<WearableSlot, string> ClientWearableEquipped;
@@ -19,20 +22,41 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
         private void Awake() {
             _eqHolder = GetComponent<IEqHolder>();
+            _statsHolder = GetComponent<IStatsHolder>();
         }
 
         public override void OnStartServer() {
             _eqHolder.ServerBackpackChanged += ServerOnBackpackChanged;
+            _eqHolder.ServerEquippedWearable += ServerOnEquippedWearable;
+            _eqHolder.ServerUnequippedWearable += ServerOnUnequippedWearable;
+            
+            foreach (var (wearableSlot, itemName) in _eqHolder.EquippedWearables) {
+                ServerOnEquippedWearable(wearableSlot, itemName);
+            }
         }
 
         public override void OnStopServer() {
             _eqHolder.ServerBackpackChanged -= ServerOnBackpackChanged;
+            _eqHolder.ServerEquippedWearable -= ServerOnEquippedWearable;
+            _eqHolder.ServerUnequippedWearable -= ServerOnUnequippedWearable;
         }
 
         [Server]
         private void ServerOnBackpackChanged(List<IEqItemDef> backpack) {
             Assert.IsTrue(backpack?.Count <= _eqHolder.BackpackSize);
             TargetRpcBackpackChanged(backpack.Select(it => it.ItemName).ToList());
+        }
+        
+        [Server]
+        private void ServerOnEquippedWearable(WearableSlot _, string itemName) {
+            var wearable = (IWearable) EqItemsContainer.ItemDef2(itemName);
+            wearable.StatBonuses.ForEach(it => _statsHolder.Add(it.statId, StatVal.OfBonus(it.buffValue)));
+        }
+
+        [Server]
+        private void ServerOnUnequippedWearable(WearableSlot _, string itemName) {
+            var wearable = (IWearable) EqItemsContainer.ItemDef2(itemName);
+            wearable.StatBonuses.ForEach(it => _statsHolder.Subtract(it.statId, StatVal.OfBonus(it.buffValue)));
         }
 
         [TargetRpc]

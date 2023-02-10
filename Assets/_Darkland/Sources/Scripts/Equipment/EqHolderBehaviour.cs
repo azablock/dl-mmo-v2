@@ -16,7 +16,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
         public event Action<List<IEqItemDef>> ServerBackpackChanged;
         public event Action<WearableSlot, string> ServerEquippedWearable;
-        public event Action<WearableSlot> ServerUnequippedWearable;
+        public event Action<WearableSlot, string> ServerUnequippedWearable;
 
         private IDiscretePosition _discretePosition;
 
@@ -40,7 +40,20 @@ namespace _Darkland.Sources.Scripts.Equipment {
         }
 
         [Server]
-        public void EquipWearable(int backpackSlot) {
+        public void SetWearable(WearableSlot wearableSlot, string wearableName) {
+            var itemDef = EqItemsContainer.ItemDef2(wearableName);
+            Assert.IsNotNull(itemDef);
+            Assert.IsTrue(itemDef.ItemType == EqItemType.Wearable);
+            
+            var wearable = (IWearable)itemDef;
+            Assert.AreEqual(wearable.WearableItemSlot, wearableSlot);
+            
+            EquippedWearables[wearableSlot] = itemDef.ItemName;
+            ServerEquippedWearable?.Invoke(wearableSlot, EquippedWearables[wearableSlot]);
+        }
+
+        [Server]
+        public void EquipWearableFromBackpack(int backpackSlot) {
             var itemDef = Backpack[backpackSlot];
 
             Assert.IsTrue(backpackSlot < BackpackSize);
@@ -65,7 +78,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
         }
 
         [Server]
-        public void UnequipWearable(WearableSlot wearableSlot) {
+        public void UnequipWearableToBackpack(WearableSlot wearableSlot) {
             if (Backpack.Count >= BackpackSize) return; //todo maybe message to client?
 
             var wearableItemName = EquippedWearables[wearableSlot];
@@ -73,7 +86,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
             AddToBackpack(eqItemDef);
 
             EquippedWearables.Remove(wearableSlot);
-            ServerUnequippedWearable?.Invoke(wearableSlot);
+            ServerUnequippedWearable?.Invoke(wearableSlot, wearableItemName);
         }
 
         [Server]
