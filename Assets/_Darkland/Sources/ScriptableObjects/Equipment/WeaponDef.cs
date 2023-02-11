@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
+    public enum WeaponRange {
+
+        Melee,
+        Ranged
+
+    }
+    
     [CreateAssetMenu(fileName = nameof(WeaponDef),
                      menuName = "DL/Eq/" + nameof(WeaponDef))]
     public class WeaponDef : ScriptableObject, IWeaponDef, IEqItemDef, IWearable {
@@ -21,17 +28,18 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         [SerializeField]
         private int maxDamage;
         [SerializeField]
-        private int attackRange;
-        [SerializeField]
         private float attackSpeed;
         [SerializeField]
+        private WeaponRange weaponRange;
+        [SerializeField]
         private List<WearableStatBonus> statBonuses;
+
 
         public string ItemName => Regex.Replace(name, $"/^ {nameof(WeaponDef)}$/", string.Empty);
         public int ItemPrice => itemPrice;
         public int MinDamage => minDamage;
         public int MaxDamage => maxDamage;
-        public int AttackRange => attackRange;
+        public int AttackRange => weaponRange == WeaponRange.Melee ? 2 : 4;
         public float AttackSpeed => attackSpeed;
         public Sprite Sprite => sprite;
         public EqItemType ItemType => EqItemType.Wearable;
