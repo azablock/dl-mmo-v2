@@ -19,7 +19,7 @@ MonoBehaviour:
   maxDamage: 3
   passivePerceptionRange: 8
   attackPerceptionRange: 2
-  movementSpeed: 2
+  movementSpeed: 1
   xpGain: 57
   minGoldGain: 1
   maxGoldGain: 100
