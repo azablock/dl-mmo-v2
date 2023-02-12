@@ -734,7 +734,7 @@ PrefabInstance:
       objectReference: {fileID: 5266772926641419320}
     - target: {fileID: 2185199705402727023, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: fullDayLength
-      value: 65536
+      value: 98304
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
