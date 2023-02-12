@@ -1,5 +1,5 @@
 using _Darkland.Sources.Models.Unit;
-using Mirror;
+using _Darkland.Sources.Scripts.Unit;
 using TMPro;
 using UnityEngine;
 
@@ -9,26 +9,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [SerializeField]
         private TMP_Text heroLevelText;
+        [SerializeField]
+        private XpHolderBehaviour xpHolder;
 
-        private void Awake() {
-            DarklandHeroBehaviour.LocalHeroStarted += DarklandHeroOnLocalHeroStarted;
-            DarklandHeroBehaviour.LocalHeroStopped += DarklandHeroOnLocalHeroStopped;
+        private void OnEnable() {
+            xpHolder.ClientLevelChanged += ClientOnLevelChanged;   
         }
 
-        private void OnDestroy() {
-            DarklandHeroBehaviour.LocalHeroStarted -= DarklandHeroOnLocalHeroStarted;
-            DarklandHeroBehaviour.LocalHeroStopped -= DarklandHeroOnLocalHeroStopped;
+        private void OnDisable() {
+            xpHolder.ClientLevelChanged -= ClientOnLevelChanged;   
         }
 
-        private void DarklandHeroOnLocalHeroStarted() {
-            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
-        }
-
-        private void DarklandHeroOnLocalHeroStopped() {
-            DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= ClientOnLevelChanged;
-        }
-
-        [Client]
+        // [Client]
         private void ClientOnLevelChanged(ExperienceLevelChangeEvent evt) => heroLevelText.text = $"{evt.level}";
 
     }

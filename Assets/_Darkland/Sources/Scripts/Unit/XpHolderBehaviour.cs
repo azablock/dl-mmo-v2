@@ -7,7 +7,9 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class XpHolderBehaviour : NetworkBehaviour, IXpHolder {
 
+        [field: SyncVar]
         public int xp { get; private set; }
+        [field: SyncVar(hook = nameof(ClientSyncLevel))]
         public int level { get; private set; }
 
         public event Action<int> ServerLevelChanged;
@@ -28,11 +30,6 @@ namespace _Darkland.Sources.Scripts.Unit {
             _deathEventEmitter.Death -= ServerOnDeath;
         }
 
-        public override void OnStartLocalPlayer() => CmdGetCurrentExperienceState();
-
-        [Command]
-        private void CmdGetCurrentExperienceState() => TargetRpcLevelChanged(ServerEvt());
-
         [Server]
         public void ServerSetXp(int val) {
             xp = val;
@@ -44,9 +41,6 @@ namespace _Darkland.Sources.Scripts.Unit {
 
             level++;
             ServerLevelChanged?.Invoke(level);
-
-            
-            TargetRpcLevelChanged(ServerEvt());
         }
 
         [Server]
@@ -81,29 +75,18 @@ namespace _Darkland.Sources.Scripts.Unit {
             // var currentXpProgress = capDiff - xp;
             // var xpDeltaOnDeath = currentXpProgress / 10;
 
-            ServerSetXp(Math.Max(LevelXpCap(level), xp - (ServerNextLevelXpCap() / 4)));
+            ServerSetXp(Math.Max(IXpHolder.LevelXpCap(level), xp - (ServerNextLevelXpCap() / 4)));
         }
-        
-        [Server]
-        private ExperienceLevelChangeEvent ServerEvt() => new() {
-            nextLevelXpCap = ServerNextLevelXpCap(),
-            currentLevelXpCap = LevelXpCap(level),
-            level = level,
-            currentXp = xp
-        };
 
         [Server]
-        private int ServerNextLevelXpCap() => LevelXpCap(level + 1);
-
-        [TargetRpc]
-        private void TargetRpcLevelChanged(ExperienceLevelChangeEvent e) => ClientLevelChanged?.Invoke(e);
+        private int ServerNextLevelXpCap() => IXpHolder.LevelXpCap(level + 1);
 
         [TargetRpc]
         private void TargetRpcXpChanged(int val) => ClientXpChanged?.Invoke(val);
 
-        private static int LevelXpCap(int lvl) => lvl == 1 ? 0
-            : (int)(Mathf.Pow(lvl, 3) + 60 * Mathf.Pow(lvl, 2) + 100 * Mathf.Pow(lvl, 1) + 140);
-        
+        [Client]
+        private void ClientSyncLevel(int _, int __) => ClientLevelChanged?.Invoke(this.LevelEvt());
+
         /*
          Experience_cap = Level^3 + 60 * Level^2 + 100 * Level + 140
 

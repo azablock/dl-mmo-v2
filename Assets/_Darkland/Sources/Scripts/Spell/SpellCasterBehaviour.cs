@@ -48,14 +48,23 @@ namespace _Darkland.Sources.Scripts.Spell {
 
             // Assert.IsTrue(spellIdx >= 0 && spellIdx < spells.Count);
             if (spellIdx >= availableSpells.Count) {
-                Debug.LogWarning(RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) is empty"));
+                // Debug.LogWarning(RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) is empty"));
+                
+                netIdentity.connectionToClient.Send(new ChatMessages.ServerLogResponseMessage {
+                    message = RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) is empty")
+                });
+                
                 return;
             }
             
             var spell = availableSpells[spellIdx];
 
             if (!_spellCooldowns[spellIdx]) {
-                Debug.LogWarning(RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) not ready"));
+                netIdentity.connectionToClient.Send(new ChatMessages.ServerLogResponseMessage {
+                    message = RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) not ready.")
+                });
+                
+                // Debug.LogWarning(RichTextFormatter.FormatServerLog($"Spell ({spellIdx}) not ready"));
                 return; 
             }
 
@@ -68,7 +77,7 @@ namespace _Darkland.Sources.Scripts.Spell {
                     message = RichTextFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage())
                 });
     
-                Debug.LogWarning(RichTextFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage()));
+                // Debug.LogWarning(RichTextFormatter.FormatServerLog(invalidCastCondition.InvalidCastMessage()));
                 return;
             }
             

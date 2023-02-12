@@ -10,7 +10,7 @@ namespace _Darkland.Sources.ScriptableObjects.Mob {
     public class MobDef : ScriptableObject, Models.Mob.IMobDef {
 
         [SerializeField]
-        [Range(1, 100)]
+        [Range(1, 300)]
         private int maxHealth;
         [SerializeField]
         private DamageType damageType;
@@ -47,6 +47,9 @@ namespace _Darkland.Sources.ScriptableObjects.Mob {
         [Range(1, 4)]
         [Tooltip("in script - formula: '1.0f / reactionSpeed', Base reaction speed = 1")]
         private float reactionSpeed;
+        [SerializeField]
+        [Range(0, 10)]
+        private float healthRegain;
 
         public string MobName => Regex.Replace(name, $"/^ {nameof(MobDef)}$/", string.Empty);
         public int MaxHealth => maxHealth;
@@ -55,6 +58,7 @@ namespace _Darkland.Sources.ScriptableObjects.Mob {
         public DamageType DamageType => damageType;
         public Sprite MobSprite => mobSprite;
         public float ReactionSpeed => reactionSpeed;
+        public float HealthRegain => healthRegain;
         public float AttackPerceptionRange => attackPerceptionRange;
         public float PassivePerceptionRange => passivePerceptionRange;
         public float MovementSpeed => movementSpeed;

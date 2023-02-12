@@ -13,56 +13,64 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
 
         //todo refactor this!!!!!!!
         public static readonly Dictionary<StatId, float> startingValues = new() {
-            { StatId.MaxHealth, 10 },
-            { StatId.HealthRegain, 0.5f },
+            // { StatId.MaxHealth, 10000 },
+            { StatId.MaxHealth, 5 },
+            // { StatId.HealthRegain, 50.5f },
+            { StatId.HealthRegain, 0.4f },
             { StatId.MaxMana, 10 },
-            { StatId.ManaRegain, 0.25f },
+            { StatId.ManaRegain, 0.1f },
             { StatId.ActionPower, 1 },
             { StatId.ActionSpeed, 1 },
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
             // { StatId.MovementSpeed, 8 },
-            { StatId.MovementSpeed, 2 },
+            { StatId.MovementSpeed, 1.5f },
         };
 
         public static readonly StatsFormulas statsFormulas = new() {
             {
                 StatId.Might, new StatModifiersDict {
                     { StatId.MaxHealth, v => v * 2 },
-                    { StatId.ActionPower, v => Mathf.FloorToInt(v / 3.0f) }
+                    { StatId.ActionPower, v => v / 3.0f } //casts to int
                 }
             },
             {
                 StatId.Constitution, new StatModifiersDict {
                     { StatId.MaxHealth, v => v * 5 },
-                    { StatId.HealthRegain, v => v / 5.0f },
-                    { StatId.MaxMana, v => v * 2 },
-                    { StatId.PhysicalResistance, v => Mathf.FloorToInt(v / 5) },
+                    { StatId.HealthRegain, v => v / 10.0f },
+                    { StatId.MaxMana, v => v * 1 },
+                    { StatId.PhysicalResistance, v => v / 5 }, //casts to int
                 }
             },
             {
                 StatId.Dexterity, new StatModifiersDict {
                     { StatId.MovementSpeed, v => v / 100.0f },
                     { StatId.ActionSpeed, v => v / 5.0f },
-                    { StatId.PhysicalResistance, v => Mathf.FloorToInt(v / 10) },
+                    { StatId.PhysicalResistance, v => v / 10 }, //casts to int
                 }
             },
             {
                 StatId.Intellect, new StatModifiersDict {
                     { StatId.MaxMana, v => v * 2 },
-                    { StatId.ManaRegain, v => v / 10.0f },
+                    { StatId.ManaRegain, v => v / 20.0f },
                     { StatId.ActionSpeed, v => v / 10.0f },
                 }
             },
             {
                 StatId.Soul, new StatModifiersDict {
                     { StatId.MaxMana, v => v * 5 },
-                    { StatId.ManaRegain, v => v / 5.0f },
+                    { StatId.ManaRegain, v => v / 10.0f },
                     { StatId.HealthRegain, v => v / 10.0f },
-                    { StatId.MagicResistance, v => Mathf.FloorToInt(v / 10) }
+                    { StatId.MagicResistance, v => v / 10 } //casts to int
                 }
             },
             
+        };
+
+        public static readonly HashSet<StatId> statIdsFlooredToInt = new() {
+            StatId.ActionPower,
+            StatId.PhysicalResistance,
+            StatId.MagicResistance,
         };
 
         public static readonly StatsFormulas statsFormulasPreImage = PreImage();
@@ -80,6 +88,10 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             //todo refactor this!!!!!!!
             if (startingValues.ContainsKey(targetStatId)) {
                 v += startingValues[targetStatId];
+            }
+
+            if (statIdsFlooredToInt.Contains(targetStatId)) {
+                v = Mathf.FloorToInt(v);
             }
 
             return StatVal.OfBasic(v);

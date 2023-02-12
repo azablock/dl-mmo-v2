@@ -19,7 +19,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         [SerializeField]
         private List<WearableStatBonus> statBonuses;
 
-        public string ItemName => Regex.Replace(name, $"/^ {nameof(BasicWearableDef)}$/", string.Empty);
+        public string ItemName => Regex.Replace(name, $" {nameof(BasicWearableDef)}", string.Empty);
         public int ItemPrice => itemPrice;
         public Sprite Sprite => sprite;
         public EqItemType ItemType => EqItemType.Wearable;

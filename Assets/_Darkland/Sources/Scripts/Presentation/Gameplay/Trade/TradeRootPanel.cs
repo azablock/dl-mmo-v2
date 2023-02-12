@@ -13,7 +13,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         private void OnEnable() {
             LocalHeroGoldHolder.ClientGoldAmountChanged += ClientOnGoldAmountChanged;
             //todo LocalHeroGoldHolder.GoldAmount <- this is [SyncVar], rename it to indicate that?
-            tradeItemsPanel.ClientRefreshPricePoints(LocalHeroGoldHolder.GoldAmount);
         }
 
         private void OnDisable() {

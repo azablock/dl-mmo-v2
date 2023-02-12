@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
-    public class TradeItemView : MonoBehaviour, IPointerClickHandler {
+    public class TradeItemView : MonoBehaviour, IPointerClickHandler, IDescriptionProvider {
 
         [SerializeField]
         private Image itemImage;
@@ -42,6 +42,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
             var color = _item.ItemPrice > goldAmount ? DarklandColorSet._.danger : Color.white;
             itemPriceText.color = color;
+        }
+
+        public TooltipDescription Get() {
+            return new TooltipDescription {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
         }
 
     }

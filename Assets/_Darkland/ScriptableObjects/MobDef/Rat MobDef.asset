@@ -22,6 +22,6 @@ MonoBehaviour:
   movementSpeed: 1
   xpGain: 57
   minGoldGain: 1
-  maxGoldGain: 100
-  respawnTime: 30
+  maxGoldGain: 4
+  respawnTime: 45
   reactionSpeed: 1

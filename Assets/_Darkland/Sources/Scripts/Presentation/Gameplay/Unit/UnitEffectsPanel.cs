@@ -49,8 +49,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [Client]
         private void OnClientRemovedAll() {
-            foreach (var unitEffectImage in _activeEffects.Values) {
-                Destroy(unitEffectImage.gameObject);
+            // foreach (var unitEffectImage in _activeEffects.Values) {
+            //     Destroy(unitEffectImage.gameObject);
+            // }
+            
+            foreach (Transform t in transform) {
+                Destroy(t.gameObject);
             }
             
             _activeEffects.Clear();

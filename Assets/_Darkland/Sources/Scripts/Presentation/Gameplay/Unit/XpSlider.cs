@@ -16,6 +16,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += ClientOnLevelChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientXpChanged += ClientOnXpChanged;
+
+            ClientOnLevelChanged(DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().LevelEvt());
         }
 
         private void OnDisable() {

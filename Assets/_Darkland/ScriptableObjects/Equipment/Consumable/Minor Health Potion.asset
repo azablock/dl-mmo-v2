@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrice: 25
   sprite: {fileID: -248179128, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  healthToRegen: 15
+  regenValue: 10
+  statToRegen: 0

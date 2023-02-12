@@ -19,5 +19,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba9b41868675f424586ed0f26c49edf9, type: 2}
   - {fileID: 11400000, guid: c64aa8571d903dd49b632cbbcaf6213a, type: 2}
   levelTraitDistribution: {fileID: 0}
-  vocationSprite: {fileID: 21300000, guid: b6a4df8bd5d49a44ab8e8fefe2c15e10, type: 3}
+  vocationSprite: {fileID: 21300000, guid: fa710fc192d27c645af12fce4d17abb6, type: 3}
   startingStats: {fileID: 0}

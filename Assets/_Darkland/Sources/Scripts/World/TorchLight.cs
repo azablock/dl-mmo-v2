@@ -16,7 +16,7 @@ namespace _Darkland.Sources.Scripts.World {
         private float noiseChance;
         
         private void FixedUpdate() {
-            var perlinNoise = Mathf.PerlinNoise(Time.time, 0);
+            var perlinNoise = Mathf.PerlinNoise(Time.time * Random.Range(0, 1), 0);
 
             if (perlinNoise < noiseChance) {
                 pointLight.pointLightOuterRadius = baseOuterRadius + perlinNoise * noiseIntensity;

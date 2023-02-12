@@ -23,6 +23,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private void OnDisable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
+            
+            unitEffectsPanel.ClientRefreshUnitEffects(new List<string>());
         }
         
         public void ClientInit(PlayerInputMessages.GetHealthStatsResponseMessage message) {

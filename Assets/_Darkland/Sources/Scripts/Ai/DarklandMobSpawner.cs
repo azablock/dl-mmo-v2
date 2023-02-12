@@ -33,7 +33,8 @@ namespace _Darkland.Sources.Scripts.Ai {
             _mob.GetComponent<IStatsHolder>()
                 .Set(StatId.MaxHealth, StatVal.OfBasic(mobDef.MaxHealth))
                 .Set(StatId.Health, StatVal.OfBasic(mobDef.MaxHealth))
-                .Set(StatId.MovementSpeed, StatVal.OfBasic(mobDef.MovementSpeed));
+                .Set(StatId.MovementSpeed, StatVal.OfBasic(mobDef.MovementSpeed))
+                .Set(StatId.HealthRegain, StatVal.OfBasic(mobDef.HealthRegain));
             
             _mob.GetComponent<UnitNameBehaviour>().ServerSet(mobDef.MobName);
 

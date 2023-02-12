@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6591926291944580071}
   - component: {fileID: 3988518335032296891}
   - component: {fileID: 6723007068843365338}
+  - component: {fileID: 7865637905421856115}
   m_Layer: 5
   m_Name: Trade Item View
   m_TagString: Untagged
@@ -95,6 +96,18 @@ MonoBehaviour:
   itemImage: {fileID: 4900686762458258762}
   itemNameText: {fileID: 6511882549453649257}
   itemPriceText: {fileID: 7772233639194259510}
+--- !u!114 &7865637905421856115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518684406215276002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6189d9c713214631bd72c7f396ecf3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3805725355775571024
 GameObject:
   m_ObjectHideFlags: 0

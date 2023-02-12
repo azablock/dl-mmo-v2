@@ -17,5 +17,5 @@ MonoBehaviour:
   duration: 0
   effectSprite: {fileID: 448095751, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   poisonDamage: 3
-  poisonRepeats: 3
+  poisonRepeats: 4
   timeBetweenPoison: 2

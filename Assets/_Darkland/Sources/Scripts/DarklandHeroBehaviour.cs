@@ -25,6 +25,7 @@ namespace _Darkland.Sources.Scripts {
         public static event Action LocalHeroStarted;
         public static event Action LocalHeroStopped;
         public static event Action<int, int> LocalHeroWorldTimeReceived;
+        public event Action ClientStarted;
 
         private void Awake() {
             _unitNameBehaviour = GetComponent<UnitNameBehaviour>();
@@ -54,6 +55,7 @@ namespace _Darkland.Sources.Scripts {
 
         public override void OnStartClient() {
             heroView.unitSpriteRenderer.sprite = heroVocation.VocationSprite;
+            ClientStarted?.Invoke();
         }
 
         [Command]

@@ -20,6 +20,7 @@ namespace _Darkland.Sources.Models.Mob {
         Sprite MobSprite { get; }
         //todo tmp
         float ReactionSpeed { get; }
+        float HealthRegain { get; }
     }
 
 }

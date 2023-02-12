@@ -28,7 +28,8 @@ namespace _Darkland.Sources.ScriptableObjects.Unit.Effect {
         }
 
         public override string Description(GameObject parent) {
-            return "poison effect";
+            return $"Inflicts {poisonDamage} for {poisonRepeats} times.\n" +
+                   $"Time between poison damage: {timeBetweenPoison}";
         }
 
         public override float Duration => poisonRepeats * timeBetweenPoison;

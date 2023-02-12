@@ -13,15 +13,23 @@ namespace _Darkland.Sources.Scripts.Npc {
         [SerializeField]
         private List<WeaponDef> weapons;
         [SerializeField]
+        private List<BasicWearableDef> basicWearables;
+        [SerializeField]
         private List<Consumable> consumables;
 
         private List<IEqItemDef> _allItems;
         [SerializeField]
         private float maxVisibleDistance;
+        [SerializeField]
+        public string traderName;
+        [SerializeField]
+        [TextArea]
+        public string traderInfo;
 
         private void Awake() {
             _allItems = new List<IEqItemDef>();
             _allItems.AddRange(weapons);
+            _allItems.AddRange(basicWearables);
             _allItems.AddRange(consumables);
         }
         
@@ -29,7 +37,8 @@ namespace _Darkland.Sources.Scripts.Npc {
             if (DarklandHeroBehaviour.localHero == null) return;
             var localPlayerPos = DarklandHeroBehaviour.localHero.GetComponent<IDiscretePosition>().Pos;
 
-            if (!LocalPlayerInProximity(localPlayerPos)) Hide();
+            //todo fuj
+            if (!LocalPlayerInProximity(localPlayerPos) && Equals(GameplayRootPanel.TradeRootPanel.TradeItemsPanel.npcTrader)) Hide();
         }
 
         private static void Hide() {
@@ -49,7 +58,7 @@ namespace _Darkland.Sources.Scripts.Npc {
             }
             else {
                 tradePanel.gameObject.SetActive(true);
-                tradePanel.TradeItemsPanel.ClientSet(_allItems);
+                tradePanel.TradeItemsPanel.ClientSet(this, _allItems);
             }
         }
 

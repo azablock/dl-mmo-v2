@@ -434,7 +434,7 @@ Transform:
   - {fileID: 1252113848794077340}
   - {fileID: 6393618084498695495}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3324427974439108458
 MonoBehaviour:
@@ -467,6 +467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 11400000, guid: b4c958d6367ba6747a326c82785d6ba4, type: 2}
+  basicWearables: []
   consumables:
   - {fileID: 11400000, guid: dea5d16556efcdc4c92b20b78ee8cd84, type: 2}
   maxVisibleDistance: 3

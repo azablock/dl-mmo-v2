@@ -14,7 +14,6 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         public class UnitEffectState {
 
-            public bool isAfterPostProcess;
             public Coroutine coroutine;
             public IUnitEffect effect;
 
@@ -48,13 +47,11 @@ namespace _Darkland.Sources.Scripts.Unit {
 
             if (_effectStates.ContainsKey(effectName) && _effectStates[effectName] != null) {
                 effect.PostProcess(gameObject);
-                _effectStates[effectName].isAfterPostProcess = true;
                 StopCoroutine(_effectStates[effectName].coroutine);
             }
 
             _effectStates[effectName] = new UnitEffectState {
                 coroutine = StartCoroutine(ServerHandleEffect(effect)),
-                isAfterPostProcess = false,
                 effect = effect
             };
 
@@ -66,11 +63,8 @@ namespace _Darkland.Sources.Scripts.Unit {
             var effectName = effect.EffectName;
             Assert.IsTrue(_effectStates.ContainsKey(effectName));
 
-            if (!_effectStates[effectName].isAfterPostProcess) {
-                effect.PostProcess(gameObject);
-                _effectStates[effectName].isAfterPostProcess = true;
-            }
-            
+            effect.PostProcess(gameObject);
+
             _effectStates.Remove(effectName);
             ServerRemoved?.Invoke(effectName);
         }
@@ -82,9 +76,8 @@ namespace _Darkland.Sources.Scripts.Unit {
                 .ToList()
                 .ForEach(effectName => {
                     if (_effectStates[effectName].coroutine != null) StopCoroutine(_effectStates[effectName].coroutine);
-                    if (!_effectStates[effectName].isAfterPostProcess) _effectStates[effectName].effect.PostProcess(gameObject);
-                    
-                    _effectStates.Remove(effectName);
+
+                    ServerRemove(_effectStates[effectName].effect);
                 });
 
             ServerRemovedAll?.Invoke();
@@ -94,9 +87,6 @@ namespace _Darkland.Sources.Scripts.Unit {
         private IEnumerator ServerHandleEffect(IUnitEffect effect) {
             effect.PreProcess(gameObject);
             yield return effect.Process(gameObject);
-            effect.PostProcess(gameObject);
-            _effectStates[effect.EffectName].isAfterPostProcess = true;
-
             ServerRemove(effect);
         }
 
