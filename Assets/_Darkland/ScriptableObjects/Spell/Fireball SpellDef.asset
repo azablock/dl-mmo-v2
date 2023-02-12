@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
   m_Name: Fireball SpellDef
   m_EditorClassIdentifier: 
-  manaCost: 5
-  cooldown: 3
+  manaCost: 7
+  cooldown: 5
   castTime: 0
   castRange: 4
   targetType: 2
@@ -26,3 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad98d767edefbf543a7bf5d469d87d5f, type: 2}
   - {fileID: 11400000, guid: 143a3c98f05220444b158573645b1cab, type: 2}
   cooldownStrategy: {fileID: 11400000, guid: 7edb7ecccef62d44886be094e3526d85, type: 2}
+  generalDescription: 

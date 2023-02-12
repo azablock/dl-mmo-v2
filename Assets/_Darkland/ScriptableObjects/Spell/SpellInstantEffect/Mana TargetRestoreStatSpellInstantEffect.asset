@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Mana TargetRestoreStatSpellInstantEffect
   m_EditorClassIdentifier: 
   restoreStatId: 2
-  restoreAmount: 5
+  restoreAmount: 8

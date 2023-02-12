@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Taunt SpellDef
   m_EditorClassIdentifier: 
   manaCost: 5
-  cooldown: 10
+  cooldown: 15
   castTime: 0
   castRange: 2
   targetType: 2
@@ -26,3 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 143a3c98f05220444b158573645b1cab, type: 2}
   - {fileID: 11400000, guid: ad98d767edefbf543a7bf5d469d87d5f, type: 2}
   cooldownStrategy: {fileID: 11400000, guid: 7edb7ecccef62d44886be094e3526d85, type: 2}
+  generalDescription: 

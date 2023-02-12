@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
   m_Name: Sprint SpellDef
   m_EditorClassIdentifier: 
-  manaCost: 0
-  cooldown: 15
+  manaCost: 5
+  cooldown: 90
   castTime: 0
   castRange: 0
   targetType: 0
@@ -23,3 +23,4 @@ MonoBehaviour:
   castConditions:
   - {fileID: 11400000, guid: 639c94d78eac70d42b71208f79675851, type: 2}
   cooldownStrategy: {fileID: 11400000, guid: 7edb7ecccef62d44886be094e3526d85, type: 2}
+  generalDescription: 
