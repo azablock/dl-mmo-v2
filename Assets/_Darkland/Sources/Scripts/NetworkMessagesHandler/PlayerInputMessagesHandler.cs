@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
+using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.World;
@@ -22,6 +23,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerMove += ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloor += ServerProcessChangeFloor;
             PlayerInputMessagesProxy.ServerNpcClick += ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerNpcClear += ServerProcessNpcClear;
             PlayerInputMessagesProxy.ServerGetHealthStats += ServerProcessGetHealthStats;
             PlayerInputMessagesProxy.ServerCastSpell += ServerProcessCastSpell;
             PlayerInputMessagesProxy.ServerPickupItem += ServerProcessPickupItem;
@@ -34,6 +36,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloor -= ServerProcessChangeFloor;
             PlayerInputMessagesProxy.ServerNpcClick -= ServerProcessNpcClick;
+            PlayerInputMessagesProxy.ServerNpcClear -= ServerProcessNpcClear;
             PlayerInputMessagesProxy.ServerGetHealthStats -= ServerProcessGetHealthStats;
             PlayerInputMessagesProxy.ServerCastSpell -= ServerProcessCastSpell;
             PlayerInputMessagesProxy.ServerPickupItem -= ServerProcessPickupItem;
@@ -41,7 +44,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerUseItem -= ServerProcessUseItem;
             PlayerInputMessagesProxy.ServerUnequipWearable -= ServerProcessUnequipWearable;
         }
-
+        
         [Server]
         private static void ServerProcessMove(NetworkConnectionToClient conn,
                                               MoveRequestMessage message) {
@@ -68,6 +71,12 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         private static void ServerProcessNpcClick(NetworkConnectionToClient conn,
                                                   NpcClickRequestMessage msg) {
             conn.identity.GetComponent<TargetNetIdHolderBehaviour>().Set(msg.npcNetId);
+        }
+        
+        [Server]
+        private static void ServerProcessNpcClear(NetworkConnectionToClient conn,
+                                                  NpcClearRequestMessage message) {
+            conn.identity.GetComponent<ITargetNetIdHolder>().Clear();
         }
 
         [Server]

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemPrice: 170
   sprite: {fileID: 1580647294, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   minDamage: 2
-  maxDamage: 4
+  maxDamage: 5
   attackSpeed: 1
   weaponRange: 0
   statBonuses: []

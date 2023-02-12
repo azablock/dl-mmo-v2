@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LocalPlayerInputManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2438363023244927300, guid: fb7d17393ec9dd34abf269673e0d5077, type: 3}
+      propertyPath: chatLeaveAction.m_SingletonActionBindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925279974235571815, guid: fb7d17393ec9dd34abf269673e0d5077, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -899,6 +903,98 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 530370294835301867}
     m_Modifications:
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: ringItems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: bootsItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5eac6bc0a72d4fe49842ce0867ee96e4, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b4c958d6367ba6747a326c82785d6ba4, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ab684464ac6d56429e7c68ee4a8ef38, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3adcd200a9bd5af4eb9f8d76b31cbd5e, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: f1d6befba3e211d4d9b96084a7c57904, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ab9272e79e8aae4d93b8fdb41fac163, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c0355a672f9d4b47ae0ccbf660a646f, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: weapons.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c0355a672f9d4b47ae0ccbf660a646f, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: ringItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 158c56fd894716d4b88c3bc228df7715, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: ringItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a0550f2cd7182643bc00d639f3fb68c, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: bootsItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0dc4f06b52dd917478ca97dfdaea9cc2, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: headArmorItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: chestArmorItems.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: headArmorItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bcbbb3883814074fa6065fb46465873, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: headArmorItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e9ef0bc4de76c724fbdd9be24c0350e0, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: headArmorItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f0dafcedffc610142b7a8165cb107b6c, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: chestArmorItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 717a9d8e29832d74ab5187a7874a7308, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: chestArmorItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c4d00fcc5c4dbf54d895e1ee61205394, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: chestArmorItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a388bdba20a59d4abdc630ee83de422, type: 2}
+    - target: {fileID: 1426617666004887200, guid: f24b14fd171342045bab09149f5968b8, type: 3}
+      propertyPath: chestArmorItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: f1d669c05090d874ea61847dfc542628, type: 2}
     - target: {fileID: 2888382937229898879, guid: f24b14fd171342045bab09149f5968b8, type: 3}
       propertyPath: m_RootOrder
       value: -1

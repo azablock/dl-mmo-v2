@@ -18,3 +18,5 @@ MonoBehaviour:
   statBonuses:
   - statId: 10
     buffValue: 5
+  - statId: 4
+    buffValue: 1

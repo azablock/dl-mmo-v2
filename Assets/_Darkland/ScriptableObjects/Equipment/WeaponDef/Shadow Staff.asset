@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shadow Staff
   m_EditorClassIdentifier: 
   itemPrice: 350
-  sprite: {fileID: 1539275448, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  sprite: {fileID: -873957963, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   minDamage: 2
   maxDamage: 6
   attackSpeed: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Helmet BasicWearableDef
   m_EditorClassIdentifier: 
   itemPrice: 180
-  sprite: {fileID: 1808110426, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  sprite: {fileID: 833006314, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   wearableItemSlot: 2
   statBonuses:
   - statId: 15

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
-    public class SpellIconBehaviour : MonoBehaviour, IPointerClickHandler, IDescriptionProvider {
+    public class SpellIconBehaviour : MonoBehaviour, IPointerClickHandler  {
 
         [SerializeField]
         private Image cooldownImage;
@@ -36,11 +36,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         }
 
         public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(this);
-
-        public TooltipDescription Get() => new() {
-                title = spellDef.SpellName,
-                content = spellDef.Description(DarklandHeroBehaviour.localHero.gameObject)
-            };
 
         [Client]
         public void ClientInit(in int idx) => hotkeyText.text = $"{idx}";

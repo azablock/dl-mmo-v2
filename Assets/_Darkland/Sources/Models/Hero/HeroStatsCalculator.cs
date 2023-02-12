@@ -21,6 +21,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             { StatId.ActionSpeed, 1 },
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
+            // { StatId.MovementSpeed, 8 },
             { StatId.MovementSpeed, 2 },
         };
 

@@ -62,7 +62,7 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
 
             
             //todo move to new script
-            ClientRpcShowDamageMarker(resultDamage, targetPos);
+            ClientRpcShowDamageMarker(resultDamage, evt.damageType, targetPos);
         }
 
         [Server]
@@ -71,10 +71,10 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
         }
 
         [ClientRpc]
-        private void ClientRpcShowDamageMarker(int damage, Vector3Int pos) {
+        private void ClientRpcShowDamageMarker(int damage, DamageType damageType, Vector3Int pos) {
             Instantiate(damageMarkerPrefab, pos, Quaternion.identity)
                 .GetComponent<DamageMarker>()
-                .ClientInit(damage);
+                .ClientInit(damage, damageType);
         }
 
     }

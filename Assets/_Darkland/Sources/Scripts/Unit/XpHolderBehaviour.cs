@@ -1,6 +1,7 @@
 using System;
 using _Darkland.Sources.Models.Unit;
 using Mirror;
+using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
@@ -100,7 +101,14 @@ namespace _Darkland.Sources.Scripts.Unit {
         [TargetRpc]
         private void TargetRpcXpChanged(int val) => ClientXpChanged?.Invoke(val);
 
-        private static int LevelXpCap(int lvl) => lvl == 1 ? 0 : (int)(Math.Exp(lvl) * 10);
+        private static int LevelXpCap(int lvl) => lvl == 1 ? 0
+            : (int)(Mathf.Pow(lvl, 3) + 60 * Mathf.Pow(lvl, 2) + 100 * Mathf.Pow(lvl, 1) + 140);
+        
+        /*
+         Experience_cap = Level^3 + 60 * Level^2 + 100 * Level + 140
+
+         */
+        // private static int LevelXpCap(int lvl) => lvl == 1 ? 0 : (int)(Math.Exp(lvl) * 10);
 
     }
 

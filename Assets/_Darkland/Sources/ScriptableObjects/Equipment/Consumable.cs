@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Equipment;
+using UnityEditor;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Equipment {

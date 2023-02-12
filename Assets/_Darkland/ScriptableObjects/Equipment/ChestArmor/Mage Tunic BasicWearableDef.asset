@@ -17,6 +17,6 @@ MonoBehaviour:
   wearableItemSlot: 1
   statBonuses:
   - statId: 14
-    buffValue: 1
+    buffValue: 2
   - statId: 10
-    buffValue: 1
+    buffValue: 3

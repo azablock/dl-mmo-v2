@@ -11,5 +11,6 @@ namespace _Darkland.Sources.Models.Equipment {
         string Description(GameObject parent);
 
     }
+    
 
 }

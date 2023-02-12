@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5475511698371187621}
   - component: {fileID: 2438363023244927300}
   - component: {fileID: 5455710950956774870}
+  - component: {fileID: 1057989440698059565}
   m_Layer: 0
   m_Name: LocalPlayerInputManager
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3355532615970537104
 MonoBehaviour:
@@ -232,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6261d0ee23e2421c967b14310fad9137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatFocusAction:
+  chatToggleAction:
     m_Name: Chat Focus
     m_Type: 0
     m_ExpectedControlType: 
@@ -256,15 +257,7 @@ MonoBehaviour:
     m_Id: 78c63043-8eca-45c1-9de7-d42363fdcdb0
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 6b628767-8ad4-4fad-9715-21642fcd3553
-      m_Path: <Keyboard>/escape
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Chat Leave
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
 --- !u!114 &5455710950956774870
 MonoBehaviour:
@@ -310,5 +303,34 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Equipment
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &1057989440698059565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd5e1aba02b43bcb9b092f1e76544c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTargetClear:
+    m_Name: Current Target Clear
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e20c8ad1-8bbb-4263-892b-2639d3ada951
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 600d93cb-46a7-4bc9-b659-78adcdea250e
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Current Target Clear
       m_Flags: 0
     m_Flags: 0

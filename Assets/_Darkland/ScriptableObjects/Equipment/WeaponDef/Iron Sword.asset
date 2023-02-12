@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdd0db5f0a458ebf9bbbecde8ea8dc, type: 3}
   m_Name: Iron Sword
   m_EditorClassIdentifier: 
-  itemPrice: 50
+  itemPrice: 60
   sprite: {fileID: 1524014334, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   minDamage: 1
   maxDamage: 2

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steel Helmet BasicWearableDef
   m_EditorClassIdentifier: 
   itemPrice: 260
-  sprite: {fileID: 833006314, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  sprite: {fileID: 1019757504, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   wearableItemSlot: 2
   statBonuses:
   - statId: 15

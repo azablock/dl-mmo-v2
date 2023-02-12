@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Arcane ChestArmor BasicWearableDef
   m_EditorClassIdentifier: 
   itemPrice: 400
-  sprite: {fileID: 1056434833, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  sprite: {fileID: -62495609, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  wearableItemSlot: 1
   statBonuses:
   - statId: 15
     buffValue: 5
   - statId: 14
     buffValue: 5
-  wearableItemSlot: 1

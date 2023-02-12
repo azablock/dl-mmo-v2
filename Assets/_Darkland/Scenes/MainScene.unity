@@ -396,11 +396,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.ctime2
-      value: 21299
+      value: 19661
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.ctime3
-      value: 26214
+      value: 24576
       objectReference: {fileID: 0}
     - target: {fileID: 916535656, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: lightColorGradient.ctime4
@@ -530,6 +530,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 700323988288096823, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 916772798621949657, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -553,6 +557,10 @@ PrefabInstance:
     - target: {fileID: 3819483931322188914, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1176818422
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713247199232520278, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4837134936173489870, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_IsActive
@@ -626,6 +634,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Darkland World
       objectReference: {fileID: 0}
+    - target: {fileID: 7617286901790057977, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7620916354567003298, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -695,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 5266772926641419320}
     - target: {fileID: 2185199705402727023, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: fullDayLength
-      value: 131072
+      value: 16384
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -882,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8751279475423413192, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 250
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 9138259252710378346, guid: f0932b2ae3235dc4b98d3cf50dfbbc17, type: 3}
       propertyPath: m_AnchorMax.y

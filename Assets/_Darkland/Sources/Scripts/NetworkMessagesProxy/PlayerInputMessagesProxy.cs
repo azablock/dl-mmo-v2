@@ -10,6 +10,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         public static event Action<NetworkConnectionToClient, MoveRequestMessage> ServerMove;
         public static event Action<NetworkConnectionToClient, ChangeFloorRequestMessage> ServerChangeFloor;
         public static event Action<NetworkConnectionToClient, NpcClickRequestMessage> ServerNpcClick;
+        public static event Action<NetworkConnectionToClient, NpcClearRequestMessage> ServerNpcClear;
         public static event Action<NetworkConnectionToClient, GetHealthStatsRequestMessage> ServerGetHealthStats;
         public static event Action<NetworkConnectionToClient, CastSpellRequestMessage> ServerCastSpell;
         public static event Action<NetworkConnectionToClient, PickupItemRequestMessage> ServerPickupItem;
@@ -24,6 +25,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.RegisterHandler<MoveRequestMessage>(ServerHandleMove);
             NetworkServer.RegisterHandler<ChangeFloorRequestMessage>(ServerHandleChangeFloor);
             NetworkServer.RegisterHandler<NpcClickRequestMessage>(ServerHandleNpcClick);
+            NetworkServer.RegisterHandler<NpcClearRequestMessage>(ServerHandleNpcClear);
             NetworkServer.RegisterHandler<GetHealthStatsRequestMessage>(ServerHandleGetHealthStats);
             NetworkServer.RegisterHandler<CastSpellRequestMessage>(ServerHandleCastSpell);
             NetworkServer.RegisterHandler<PickupItemRequestMessage>(ServerHandlePickupItem);
@@ -31,12 +33,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
             NetworkServer.RegisterHandler<UseItemRequestMessage>(ServerHandleUseItem);
             NetworkServer.RegisterHandler<UnequipWearableRequestMessage>(ServerHandleUnequipWearable);
         }
-
+        
         [Server]
         public void OnStopServer() {
             NetworkServer.UnregisterHandler<MoveRequestMessage>();
             NetworkServer.UnregisterHandler<ChangeFloorRequestMessage>();
             NetworkServer.UnregisterHandler<NpcClickRequestMessage>();
+            NetworkServer.UnregisterHandler<NpcClearRequestMessage>();
             NetworkServer.UnregisterHandler<GetHealthStatsRequestMessage>();
             NetworkServer.UnregisterHandler<CastSpellRequestMessage>();
             NetworkServer.UnregisterHandler<PickupItemRequestMessage>();
@@ -69,6 +72,12 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
         private static void ServerHandleNpcClick(NetworkConnectionToClient conn,
                                                  NpcClickRequestMessage message) =>
             ServerNpcClick?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleNpcClear(NetworkConnectionToClient conn,
+                                                 NpcClearRequestMessage message) =>
+            ServerNpcClear?.Invoke(conn, message);
+
 
         [Server]
         private static void ServerHandleGetHealthStats(NetworkConnectionToClient conn,

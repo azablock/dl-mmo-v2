@@ -10,8 +10,6 @@ namespace _Darkland.Sources.Scripts.Ai {
 
     public class FiniteStateMachineBehaviour : MonoBehaviour {
 
-        public float reactionRate = 1.0f;
-
         [SerializeField]
         private FiniteStateMachineBlueprint fsmBlueprint;
         private IFsmState _currentState;
@@ -36,7 +34,10 @@ namespace _Darkland.Sources.Scripts.Ai {
 
         private void OnServerUnitStarted() {
             _currentState = fsmBlueprint.initialState;
-            InvokeRepeating(nameof(ServerFsmReact), 0.0f, reactionRate);
+
+            //todo tmp
+            var reactionSpeed = _darklandUnit.GetComponent<DarklandMobBehaviour>().MobDef.ReactionSpeed;
+            InvokeRepeating(nameof(ServerFsmReact), 0.0f, 1.0f / reactionSpeed);
         }
 
         private void OnServerUnitStopped() => CancelInvoke(nameof(ServerFsmReact));

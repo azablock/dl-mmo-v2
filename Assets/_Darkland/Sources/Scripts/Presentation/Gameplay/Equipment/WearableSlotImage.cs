@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
-    public class WearableSlotImage : MonoBehaviour, IPointerClickHandler {
+    public class WearableSlotImage : MonoBehaviour, IPointerClickHandler, IDescriptionProvider {
 
         [SerializeField]
         private Image image;
@@ -24,8 +24,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         private Color emptySlotBackgroundColor;
 
         private IEqItemDef _item;
-
-        // public event Action<WearableSlot, WearableType> Clicked;
 
         public void OnPointerClick(PointerEventData eventData) {
             if (_item == null) return;
@@ -55,6 +53,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         }
 
         public WearableSlot Slot => wearableSlot;
+
+        public TooltipDescription Get() {
+            return new TooltipDescription() {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
+        }
 
     }
 

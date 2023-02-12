@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6839871088550520559}
   - component: {fileID: 3985546199512127408}
   - component: {fileID: 5969184996563138923}
+  - component: {fileID: 927376782538291666}
   m_Layer: 5
   m_Name: Wearable Image
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -100, y: 0}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6839871088550520559
 CanvasRenderer:
@@ -60,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
+  m_Color: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 0.7647059}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -93,4 +94,16 @@ MonoBehaviour:
   wearableSlot: 0
   wearableType: 0
   emptySlotSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  emptySlotBackgroundColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
+  emptySlotBackgroundColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 0.7647059}
+--- !u!114 &927376782538291666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031507840077393670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6189d9c713214631bd72c7f396ecf3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

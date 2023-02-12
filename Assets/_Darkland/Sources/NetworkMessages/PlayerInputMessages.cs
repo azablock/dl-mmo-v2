@@ -16,6 +16,9 @@ namespace _Darkland.Sources.NetworkMessages {
         public struct NpcClickRequestMessage : NetworkMessage {
             public uint npcNetId;
         }
+    
+        public struct NpcClearRequestMessage : NetworkMessage {
+        }
 
         public struct GetHealthStatsRequestMessage : NetworkMessage {
             public uint statsHolderNetId;

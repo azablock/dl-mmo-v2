@@ -22,7 +22,8 @@ namespace _Darkland.Sources.Scripts.Presentation {
             var yOffset = rectTransform.GetHeight() / 2 + globalTooltip.Height / 2 + paddingOffset.y;
 
             var xOffsetByTargetPos = targetPos.x < quarterWidth ? xOffset : targetPos.x > 3 * quarterWidth ? -xOffset : 0;
-            var yOffsetByTargetPos = targetPos.y < quarterHeight ? yOffset : targetPos.y > 3 * quarterHeight ? -yOffset : 0;
+            var yOffsetByTargetPos = targetPos.y < quarterHeight * 2 ? yOffset : -yOffset;
+            // var yOffsetByTargetPos = targetPos.y < quarterHeight ? yOffset : targetPos.y > 3 * quarterHeight ? -yOffset : 0;
             var tooltipPos = new Vector2(targetPos.x + xOffsetByTargetPos, targetPos.y + yOffsetByTargetPos);
             
             globalTooltip.Show(tooltipPos, tooltipDescription);

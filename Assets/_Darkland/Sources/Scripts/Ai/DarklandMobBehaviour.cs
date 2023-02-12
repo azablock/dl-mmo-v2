@@ -3,6 +3,7 @@ using _Darkland.Sources.ScriptableObjects.Mob;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
+using IMobDef = _Darkland.Sources.Models.Mob.IMobDef;
 
 namespace _Darkland.Sources.Scripts.Ai {
 
