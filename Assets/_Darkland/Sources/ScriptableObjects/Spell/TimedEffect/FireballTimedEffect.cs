@@ -58,7 +58,6 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             return $"Launches fireball towards enemy.\n" +
                    $"Damage:\t{RichTextFormatter.Bold(resultDmg.ToString())} (spell: {spellDamage} + actionPower: {actionPower})\n" +
                    $"Max range:\t{spell.CastRange}\n" +
-                   $"Mana cost:\t{spell.ManaCost}\n" +
                    $"Cooldown:\t{spell.Cooldown(caster):0.0} seconds";
         }
 

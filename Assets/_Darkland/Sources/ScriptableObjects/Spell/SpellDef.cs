@@ -59,6 +59,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
             descriptions.Add(GeneralDescription);
             descriptions.AddRange(instantEffectDescriptions);
             descriptions.AddRange(timedEffectDescriptions);
+            descriptions.Add($"Mana cost: {manaCost}");
             
             return descriptions.Aggregate(string.Empty, (desc, next) => desc + next + "\n");
         }

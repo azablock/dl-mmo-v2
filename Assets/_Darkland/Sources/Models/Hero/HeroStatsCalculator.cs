@@ -14,10 +14,10 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
         //todo refactor this!!!!!!!
         public static readonly Dictionary<StatId, float> startingValues = new() {
             // { StatId.MaxHealth, 10000 },
-            { StatId.MaxHealth, 5 },
+            { StatId.MaxHealth, 10 },
             // { StatId.HealthRegain, 50.5f },
             { StatId.HealthRegain, 0.4f },
-            { StatId.MaxMana, 10 },
+            { StatId.MaxMana, 5 },
             { StatId.ManaRegain, 0.1f },
             { StatId.ActionPower, 1 },
             { StatId.ActionSpeed, 1 },
