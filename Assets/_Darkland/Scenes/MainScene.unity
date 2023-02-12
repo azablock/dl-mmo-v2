@@ -351,7 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderInfo
-      value: Oh you again...
+      value: Show me the money or don't waste my time...
       objectReference: {fileID: 0}
     - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderName
@@ -362,11 +362,11 @@ PrefabInstance:
       value: 'All potions and consumables - of course if you have the coin.
 
         Ah
-        yes, and I also have some unique jewerly!'
+        yes, and I also have some unique jewerly! Hehehe....'
       objectReference: {fileID: 0}
     - target: {fileID: 191135375367191145, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderName
-      value: Agast the Alchemist
+      value: Haron
       objectReference: {fileID: 0}
     - target: {fileID: 301239543964893034, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
@@ -488,6 +488,14 @@ PrefabInstance:
       propertyPath: sceneId
       value: 379913570
       objectReference: {fileID: 0}
+    - target: {fileID: 4740016814122897852, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 221706210, guid: cce02854ead1ae7468413db91e53514e, type: 3}
+    - target: {fileID: 4740016814728062550, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1272790041, guid: e8629fc30ae25234384c1387ffbf7975, type: 3}
     - target: {fileID: 4971456327459537494, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1629191158
@@ -636,6 +644,10 @@ PrefabInstance:
     - target: {fileID: 8487205698836308466, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3817871549
+      objectReference: {fileID: 0}
+    - target: {fileID: 8547490681701404451, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: m_Name
+      value: Npc Haron Alchemist
       objectReference: {fileID: 0}
     - target: {fileID: 8551270817731394939, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId

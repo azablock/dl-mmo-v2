@@ -17799,6 +17799,8 @@ Transform:
   - {fileID: 7323189435429821937}
   - {fileID: 7438966354951883035}
   - {fileID: 1604184429397280679}
+  - {fileID: 8764333355847263918}
+  - {fileID: 5516273704225892696}
   m_Father: {fileID: 1059869474049067740}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61079,6 +61081,114 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 544813312839607878, guid: 91e7d25b2020fd54e9d05ed1614c17ad, type: 3}
   m_PrefabInstance: {fileID: 815420897102143046}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &824899412923789751
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 7323156147552841385}
+    m_Modifications:
+    - target: {fileID: 746204381981406948, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Welcome to Gotrek's Inn.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 536408327
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551190049827143762, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Welcome to Robin's Inn.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027450677190777927, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027450677190777927, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095130193549522065, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Felix's Armory
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188198025965627841, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Name
+      value: Felix's Armory Info Board (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+--- !u!4 &8764333355847263918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+  m_PrefabInstance: {fileID: 824899412923789751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &842808704990126738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62117,7 +62227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8188198025965627841, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
       propertyPath: m_Name
-      value: Info Board
+      value: Gotrek's Inn Info Board
       objectReference: {fileID: 0}
     - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
       propertyPath: m_RootOrder
@@ -64190,6 +64300,114 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
   m_PrefabInstance: {fileID: 4396226494071271271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4494089745455152705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 7323156147552841385}
+    m_Modifications:
+    - target: {fileID: 746204381981406948, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Welcome to Gotrek's Inn.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 536408327
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551190049827143762, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Welcome to Robin's Inn.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027450677190777927, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027450677190777927, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095130193549522065, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: infoMessage
+      value: Alchemy Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188198025965627841, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Name
+      value: Alchemy Shop Info Board
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+--- !u!4 &5516273704225892696 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8274110207167174425, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+  m_PrefabInstance: {fileID: 4494089745455152705}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4530681006772370266
 PrefabInstance:
