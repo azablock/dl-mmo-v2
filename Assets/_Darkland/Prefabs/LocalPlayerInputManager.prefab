@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2438363023244927300}
   - component: {fileID: 5455710950956774870}
   - component: {fileID: 1057989440698059565}
+  - component: {fileID: 6332135868018749852}
   m_Layer: 0
   m_Name: LocalPlayerInputManager
   m_TagString: Untagged
@@ -250,15 +251,6 @@ MonoBehaviour:
       m_Action: Chat Focus
       m_Flags: 0
     m_Flags: 0
-  chatLeaveAction:
-    m_Name: Chat Leave
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 78c63043-8eca-45c1-9de7-d42363fdcdb0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!114 &5455710950956774870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,5 +324,51 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Current Target Clear
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &6332135868018749852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525ca489afd04fb69a08d36d79fab161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleAmbient:
+    m_Name: Toggle Ambient
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2c852258-c07f-45d0-af34-261af244fe1d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 80433529-47a3-4a95-b384-320b1cfab96d
+      m_Path: <Keyboard>/f1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Ambient
+      m_Flags: 0
+    m_Flags: 0
+  toggleMusic:
+    m_Name: Toggle Music
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fb337b56-6374-4062-b3b9-4de38f5e0311
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: bc31d35c-67ce-4c3a-80dd-0741d957cfe0
+      m_Path: <Keyboard>/f2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Music
       m_Flags: 0
     m_Flags: 0
