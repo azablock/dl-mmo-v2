@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Reflection;
 using _Darkland.Sources.Models.Presentation;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static _Darkland.Sources.NetworkMessages.SpellMessages;
 
 namespace _Darkland.Sources.Scripts.Spell.Vfx {
@@ -18,9 +20,10 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
+        [SerializeField]
+        private Light2D light2D;
 
         private void Awake() {
-            spriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
         }
 
         [Client]
@@ -29,7 +32,14 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         [Client]
         private IEnumerator Vfx(FireballSpellVfxResponseMessage message) {
             transform.position = message.castPos;
+            spriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
 
+            var fieldInfo = light2D
+                .GetType()
+                .GetField("m_ApplyToSortingLayers", BindingFlags.NonPublic | BindingFlags.Instance);
+            fieldInfo.SetValue(light2D, new[] {Gfx2dHelper.SortingLayerIdByPos(transform.position)});
+            
+            
             var lerp = 0.0f;
             var vfxDuration = message.fireballFlyDuration;
             
