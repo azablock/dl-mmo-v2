@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
   m_Name: Battle Stance SpellDef
   m_EditorClassIdentifier: 
-  manaCost: 10
+  manaCost: 20
   cooldown: 120
   castTime: 0
   castRange: 0

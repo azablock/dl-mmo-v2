@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark Nova SpellDef
   m_EditorClassIdentifier: 
   manaCost: 20
-  cooldown: 50
+  cooldown: 60
   castTime: 0
   castRange: 0
   targetType: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e11f4ac47914c19a6b3518f385a125d, type: 3}
   m_Name: Poison Shot SpellDef
   m_EditorClassIdentifier: 
-  manaCost: 15
+  manaCost: 20
   cooldown: 30
   castTime: 0
   castRange: 0
