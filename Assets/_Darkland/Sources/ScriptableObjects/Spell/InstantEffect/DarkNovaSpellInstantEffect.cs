@@ -42,8 +42,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         }
 
         public override string Description(GameObject caster) {
+            var actionPower = Mathf.FloorToInt(caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current);
+
             return $"Creates dark energy zone of {radius} radius, " +
-                   $"that deals {novaDamage} damage to every enemy is range.";
+                   $"that deals {novaDamage + actionPower} damage to every enemy is range.";
         }
 
     }

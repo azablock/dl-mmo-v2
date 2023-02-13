@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Resist Magic
   effectProcessConditions: []
-  duration: 60
+  duration: 120
   effectSprite: {fileID: -139705257, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   statId: 14
   buffValue: 3

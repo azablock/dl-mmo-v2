@@ -29,7 +29,8 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             
             var fireballFlyDuration = fireballPathLength / fireballProjectileSpeed;
             // var fireballFlyDuration = 1.0f / fireballProjectileSpeed;
-            
+
+            var actionPower = Mathf.FloorToInt(caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current);
             var damageTimeOffset = 0.2f;
 
             NetworkServer.SendToReady(new SpellMessages.FireballSpellVfxResponseMessage {
@@ -44,7 +45,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
                 .GetComponent<IDamageDealer>()
                 .DealDamage(new UnitAttackEvent {
                     target = targetNetIdentity,
-                    damage = spellDamage,
+                    damage = spellDamage + actionPower,
                     damageType = DamageType.Magic
                 });
         }
@@ -56,7 +57,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.TimedEffect {
             var resultDmg = spellDamage + actionPower;
 
             return $"Launches fireball towards enemy.\n" +
-                   $"Damage:\t{RichTextFormatter.Bold(resultDmg.ToString())} (spell: {spellDamage} + actionPower: {actionPower})\n" +
+                   $"Damage:\t{RichTextFormatter.Bold(resultDmg.ToString())}\n" +
                    $"Max range:\t{spell.CastRange}\n" +
                    $"Cooldown:\t{spell.Cooldown(caster):0.0} seconds";
         }

@@ -17,8 +17,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         private int restoreAmount;
 
         public override void Process(GameObject caster) {
+            var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
             var target = caster.GetComponent<ITargetNetIdHolder>().TargetNetIdentity;
-            target.GetComponent<IStatsHolder>().Add(restoreStatId, StatVal.OfBasic(restoreAmount));
+            var resultRestoreAmount = restoreAmount + actionPower;
+            target.GetComponent<IStatsHolder>().Add(restoreStatId, StatVal.OfBasic(resultRestoreAmount));
 
             //todo decouple
             switch (restoreStatId) {
@@ -39,12 +41,13 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
 
         public override string Description(GameObject caster) {
             var desc = "";
-            
+            var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
+
             if (restoreStatId == StatId.Mana) {
-                desc += $"Transfer {restoreAmount} mana to target.";
+                desc += $"Transfer {restoreAmount + actionPower} mana to target.";
             }
             else if (restoreStatId == StatId.Health) {
-                desc += $"Restore {restoreAmount} health to target.";
+                desc += $"Restore {restoreAmount + actionPower} health to target.";
             }
 
             return desc;

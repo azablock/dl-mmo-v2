@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Iron Skin
   effectProcessConditions: []
-  duration: 60
+  duration: 120
   effectSprite: {fileID: 1019757504, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   statId: 15
   buffValue: 2

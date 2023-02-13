@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e443e28636d4a8299276d95e982ca13, type: 3}
   m_Name: Fireball TimedEffect
   m_EditorClassIdentifier: 
-  spellDamage: 4
-  fireballProjectileSpeed: 2
+  spellDamage: 5
+  fireballProjectileSpeed: 3

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Battle Stance
   effectProcessConditions: []
-  duration: 45
+  duration: 90
   effectSprite: {fileID: 1457839492, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   statId: 6
   buffValue: 5

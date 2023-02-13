@@ -14,13 +14,13 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
         //todo refactor this!!!!!!!
         public static readonly Dictionary<StatId, float> startingValues = new() {
             // { StatId.MaxHealth, 10000 },
-            { StatId.MaxHealth, 10 },
+            { StatId.MaxHealth, 13 },
             // { StatId.HealthRegain, 50.5f },
             { StatId.HealthRegain, 0.4f },
             { StatId.MaxMana, 5 },
             { StatId.ManaRegain, 0.1f },
             { StatId.ActionPower, 1 },
-            { StatId.ActionSpeed, 1 },
+            { StatId.ActionSpeed, 0.7f },
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
             // { StatId.MovementSpeed, 8 },
@@ -31,7 +31,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             {
                 StatId.Might, new StatModifiersDict {
                     { StatId.MaxHealth, v => v * 2 },
-                    { StatId.ActionPower, v => v / 3.0f } //casts to int
+                    { StatId.ActionPower, v => v / 5.0f } //casts to int
                 }
             },
             {
@@ -51,17 +51,17 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             },
             {
                 StatId.Intellect, new StatModifiersDict {
-                    { StatId.MaxMana, v => v * 2 },
+                    { StatId.MaxMana, v => v * 1 },
                     { StatId.ManaRegain, v => v / 20.0f },
                     { StatId.ActionSpeed, v => v / 10.0f },
                 }
             },
             {
                 StatId.Soul, new StatModifiersDict {
-                    { StatId.MaxMana, v => v * 5 },
+                    { StatId.MaxMana, v => v * 3 },
                     { StatId.ManaRegain, v => v / 10.0f },
                     { StatId.HealthRegain, v => v / 10.0f },
-                    { StatId.MagicResistance, v => v / 10 } //casts to int
+                    { StatId.MagicResistance, v => v / 5 } //casts to int
                 }
             },
             

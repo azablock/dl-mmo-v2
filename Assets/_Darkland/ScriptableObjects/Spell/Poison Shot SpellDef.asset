@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison Shot SpellDef
   m_EditorClassIdentifier: 
   manaCost: 20
-  cooldown: 30
+  cooldown: 45
   castTime: 0
   castRange: 0
   targetType: 2

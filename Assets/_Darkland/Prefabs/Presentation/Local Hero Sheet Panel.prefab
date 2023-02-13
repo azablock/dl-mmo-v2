@@ -4276,8 +4276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967462007025012050, guid: dde4701f40105ad429f6a85f4f818d8b, type: 3}
       propertyPath: generalDescription
-      value: Hero's endurance and resilience. A high Constitution score increases
-        a hero's maximum hit points
+      value: Hero's endurance and resilience.
       objectReference: {fileID: 0}
     - target: {fileID: 8820816495446259853, guid: dde4701f40105ad429f6a85f4f818d8b, type: 3}
       propertyPath: m_Pivot.x
@@ -4528,8 +4527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967462007025012050, guid: dde4701f40105ad429f6a85f4f818d8b, type: 3}
       propertyPath: generalDescription
-      value: Physical strength and mind power of a hero. A high Might score increases
-        the damage a hero can deal in combat
+      value: Hero's physical strength and mind power.
       objectReference: {fileID: 0}
     - target: {fileID: 8820816495446259853, guid: dde4701f40105ad429f6a85f4f818d8b, type: 3}
       propertyPath: m_Pivot.x

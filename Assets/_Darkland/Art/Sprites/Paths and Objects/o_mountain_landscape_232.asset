@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Scavengers_SpriteSheet_23
+  m_Name: o_mountain_landscape_232
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1335973860, guid: 367643fb422b83c4a98faa29c0978567, type: 3}
+  m_Sprite: {fileID: 1983792907, guid: 21c1f7db1f84ecc48880588fc2d38dea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

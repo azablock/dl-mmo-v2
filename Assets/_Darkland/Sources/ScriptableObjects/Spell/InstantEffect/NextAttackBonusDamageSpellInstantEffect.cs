@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
@@ -11,11 +12,13 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         private int damageBonus;
         
         public override void Process(GameObject caster) {
-            caster.GetComponent<IDamageDealer>().AddNextAttackDamageBonus(damageBonus);
+            var actionPower = Mathf.FloorToInt(caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current);
+            caster.GetComponent<IDamageDealer>().AddNextAttackDamageBonus(damageBonus + actionPower);
         }
 
         public override string Description(GameObject caster) {
-            return $"Attack with extra {damageBonus} damage.";
+            var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
+            return $"Attack with extra {damageBonus + actionPower} damage.";
         }
 
     }
