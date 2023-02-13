@@ -1,6 +1,7 @@
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Npc;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
@@ -50,6 +51,7 @@ namespace _Darkland.Sources.Scripts.Input {
             ClientHandleNpcClick(raycastHit);
             ClientHandleOnGroundEqItemClick(raycastHit);
             ClientHandleInfoBoardClick(raycastHit);
+            ClientHandleGameReportTrigger(raycastHit);
             //todo handle other collider hit "types"
         }
 
@@ -79,6 +81,13 @@ namespace _Darkland.Sources.Scripts.Input {
             if (infoText == null) return;
 
             infoText.Toggle();
+        }
+
+        private static void ClientHandleGameReportTrigger(RaycastHit raycastHit) {
+            var gameReportPanelTrigger = raycastHit.collider.GetComponent<GameReportPanelTrigger>();
+            if (gameReportPanelTrigger == null) return;
+
+            gameReportPanelTrigger.Toggle();
         }
 
     }

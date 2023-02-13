@@ -1,5 +1,6 @@
 using _Darkland.Sources.Models.Input;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Chat;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;
 using Mirror;
 using UnityEngine;
@@ -19,24 +20,28 @@ namespace _Darkland.Sources.Scripts.Input {
 
         private void OnEnable() {
             _chatPanel = FindObjectOfType<ChatPanel>();
-            _chatPanel.MessageInputFieldSelected += ClientOnMessageInputFieldSelected;
-            _chatPanel.MessageInputFieldDeselected += ClientOnMessageInputFieldDeselected;
+            _chatPanel.MessageInputFieldSelected += ClientActivateChatInputMode;
+            _chatPanel.MessageInputFieldDeselected += ClientDeactivateChatInputMode;
             
+            GameReportPanel.Enabled += ClientActivateChatInputMode;
+            GameReportPanel.Disabled += ClientDeactivateChatInputMode;
             TradeItemsPanel.Toggled += TradePanelOnToggled;
         }
 
         private void OnDisable() {
-            _chatPanel.MessageInputFieldSelected -= ClientOnMessageInputFieldSelected;
-            _chatPanel.MessageInputFieldDeselected -= ClientOnMessageInputFieldDeselected;
+            _chatPanel.MessageInputFieldSelected -= ClientActivateChatInputMode;
+            _chatPanel.MessageInputFieldDeselected -= ClientDeactivateChatInputMode;
             
+            GameReportPanel.Enabled -= ClientActivateChatInputMode;
+            GameReportPanel.Disabled -= ClientDeactivateChatInputMode;
             TradeItemsPanel.Toggled -= TradePanelOnToggled;
         }
 
         [Client]
-        private void ClientOnMessageInputFieldSelected() => chatInputActive = true;
+        private void ClientActivateChatInputMode() => chatInputActive = true;
 
         [Client]
-        private void ClientOnMessageInputFieldDeselected() => chatInputActive = false;
+        private void ClientDeactivateChatInputMode() => chatInputActive = false;
 
         [Client]
         private void TradePanelOnToggled(bool toggled) => tradeActive = toggled;

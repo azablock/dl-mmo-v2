@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.GameReport;
 using Mirror;
 
 namespace _Darkland.Sources.NetworkMessages {
@@ -16,6 +17,13 @@ namespace _Darkland.Sources.NetworkMessages {
 
         public struct ServerLogResponseMessage : NetworkMessage {
             public string message;
+        }
+        
+        //todo create new static class
+        public struct GameReportRequestMessage : NetworkMessage {
+            public string title;
+            public string content;
+            public GameReportType gameReportType;
         }
     }
 

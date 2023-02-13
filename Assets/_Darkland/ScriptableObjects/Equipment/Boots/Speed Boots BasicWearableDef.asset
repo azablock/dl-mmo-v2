@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19bf29668d44846abdb26f68b92c01a, type: 3}
   m_Name: Speed Boots BasicWearableDef
   m_EditorClassIdentifier: 
-  itemPrice: 250
+  itemPrice: 350
   sprite: {fileID: 477745173, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   wearableItemSlot: 2
   statBonuses:

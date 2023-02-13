@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0bdd0db5f0a458ebf9bbbecde8ea8dc, type: 3}
-  m_Name: Rusty Axe
+  m_Name: Iron Long Blade
   m_EditorClassIdentifier: 
-  itemPrice: 400
-  sprite: {fileID: 1201151803, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  minDamage: 4
-  maxDamage: 12
-  attackSpeed: 0.8
+  itemPrice: 90
+  sprite: {fileID: -289239978, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  minDamage: 1
+  maxDamage: 3
+  attackSpeed: 1.2
   weaponRange: 0
-  statBonuses:
-  - statId: 6
-    buffValue: 7
-  - statId: 7
-    buffValue: 2
+  statBonuses: []

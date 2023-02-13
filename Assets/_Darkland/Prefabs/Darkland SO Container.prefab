@@ -73,6 +73,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f1d6befba3e211d4d9b96084a7c57904, type: 2}
   - {fileID: 11400000, guid: 6ab9272e79e8aae4d93b8fdb41fac163, type: 2}
   - {fileID: 11400000, guid: 5c0355a672f9d4b47ae0ccbf660a646f, type: 2}
+  - {fileID: 11400000, guid: 609b9598af8fbbe4ebd3a2d6baa6736c, type: 2}
+  - {fileID: 11400000, guid: 2efbe9e3f0d0453449be3ea631202513, type: 2}
+  - {fileID: 11400000, guid: 18e49a8382ce11845a184f1e2434d1ca, type: 2}
   bootsItems:
   - {fileID: 11400000, guid: 0dc4f06b52dd917478ca97dfdaea9cc2, type: 2}
   chestArmorItems:

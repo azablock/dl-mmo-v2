@@ -17,6 +17,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -681115031, guid: cb1f17dcc12869348a725eba59745094, type: 3}
     - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318318696490769864, guid: 1fb55bdd9b8f2a1478d6ce77de847e44, type: 3}
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}

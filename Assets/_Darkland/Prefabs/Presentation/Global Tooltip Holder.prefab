@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalTooltip: {fileID: 0}
-  paddingOffset: {x: 20, y: 20}
+  paddingOffset: {x: 25, y: 25}

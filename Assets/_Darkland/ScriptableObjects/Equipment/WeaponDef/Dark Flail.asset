@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0bdd0db5f0a458ebf9bbbecde8ea8dc, type: 3}
-  m_Name: Rusty Axe
+  m_Name: Dark Flail
   m_EditorClassIdentifier: 
-  itemPrice: 400
-  sprite: {fileID: 1201151803, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  minDamage: 4
-  maxDamage: 12
-  attackSpeed: 0.8
+  itemPrice: 500
+  sprite: {fileID: -1557867312, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  minDamage: 10
+  maxDamage: 20
+  attackSpeed: 1
   weaponRange: 0
   statBonuses:
   - statId: 6
-    buffValue: 7
-  - statId: 7
+    buffValue: 5
+  - statId: 10
+    buffValue: 3
+  - statId: 13
     buffValue: 2

@@ -2,6 +2,7 @@ using System;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Unit;
 using Mirror;
@@ -17,6 +18,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private TargetNetIdPanel targetNetIdPanel;
         [SerializeField]
         private TradeRootPanel tradeRootPanel;
+        [SerializeField]
+        private GameReportPanel gameReportPanel;
 
         public static GameplayRootPanel _;
         
@@ -62,6 +65,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         }
 
         public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;
+        public static GameReportPanel GameReportPanel => _.gameReportPanel;
 
     }
 
