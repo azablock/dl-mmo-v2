@@ -20,11 +20,11 @@ namespace _Darkland.Sources.Scripts.World {
         private float _randomOffset;
 
         private void Awake() {
-            _randomOffset = Random.Range(0.0f, 1.0f);
+            _randomOffset = Random.Range(0.0f, 0.5f);
         }
 
         private void FixedUpdate() {
-            var perlinNoise = Mathf.PerlinNoise(Time.time * Random.Range(0.5f, 1.0f) + _randomOffset, 0);
+            var perlinNoise = Mathf.PerlinNoise(Time.time + _randomOffset, 0);
 
             if (perlinNoise < noiseChance) {
                 pointLight.pointLightOuterRadius = baseOuterRadius + perlinNoise * noiseIntensity;
