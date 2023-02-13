@@ -36,7 +36,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
         private string generalDescription;
 
         public string Id => name;
-        public string SpellName => Regex.Replace(name, $"/^ {nameof(SpellDef)}$/", string.Empty);
+        public string SpellName => Regex.Replace(name, $" {nameof(SpellDef)}", string.Empty);
         public int ManaCost => manaCost;
         public float CastRange => castRange;
         public float CastTime => castTime;

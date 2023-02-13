@@ -9,19 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0bdd0db5f0a458ebf9bbbecde8ea8dc, type: 3}
-  m_Name: Staff Of Life
+  m_Script: {fileID: 11500000, guid: b19bf29668d44846abdb26f68b92c01a, type: 3}
+  m_Name: Shadow King Soul BasicWearableDef
   m_EditorClassIdentifier: 
-  itemPrice: 400
-  sprite: {fileID: -1421849575, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  minDamage: 1
-  maxDamage: 3
-  attackSpeed: 1.2
-  weaponRange: 0
+  itemPrice: 999
+  sprite: {fileID: -1424193033, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+  wearableItemSlot: 4
   statBonuses:
-  - statId: 1
+  - statId: 6
     buffValue: 15
   - statId: 7
-    buffValue: 3
-  - statId: 4
-    buffValue: 2
+    buffValue: 15
+  - statId: 10
+    buffValue: 15

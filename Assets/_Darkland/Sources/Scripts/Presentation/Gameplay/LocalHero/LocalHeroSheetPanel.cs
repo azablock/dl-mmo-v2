@@ -145,11 +145,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
                 ? DarklandColorSet._.danger
                 : DarklandColorSet._.primary;
             var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
-            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor)}";
-            var currentVal = $"{val.Current}";
+            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor):F1}";
+            var currentVal = $"{val.Current:F1}";
             var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
             
-            return $"<b>{currentValueFormatted}</b>\t= {val.Basic} {bonusSuffix}";
+            return $"<b>{currentValueFormatted}</b>\t= {val.Basic:F1} {bonusSuffix}";
         }
 
     }

@@ -806,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 5266772926641419320}
     - target: {fileID: 2185199705402727023, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: fullDayLength
-      value: 98304
+      value: 147456
       objectReference: {fileID: 0}
     - target: {fileID: 5207673564530386058, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Enabled

@@ -24,7 +24,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         public Sprite Sprite => sprite;
         public EqItemType ItemType => EqItemType.Wearable;
         public WearableSlot WearableItemSlot => wearableItemSlot;
-        public WearableType WearableItemType => WearableType.Weapon;
+        public WearableType WearableItemType => WearableType.Armor;
         public List<WearableStatBonus> StatBonuses => statBonuses;
 
         public string Description(GameObject parent) {

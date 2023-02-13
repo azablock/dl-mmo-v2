@@ -90,6 +90,7 @@ MonoBehaviour:
   ringItems:
   - {fileID: 11400000, guid: 158c56fd894716d4b88c3bc228df7715, type: 2}
   - {fileID: 11400000, guid: 2a0550f2cd7182643bc00d639f3fb68c, type: 2}
+  - {fileID: 11400000, guid: d8a1340ee4415f54e9ff224d5ee46de9, type: 2}
 --- !u!114 &5004579124967574352
 MonoBehaviour:
   m_ObjectHideFlags: 0

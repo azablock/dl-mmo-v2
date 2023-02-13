@@ -66,8 +66,8 @@ namespace _Darkland.Sources.Scripts.Equipment {
 
             //todo EquippedWearables.ContainsKey(wearableSlot) <---- tu jest bug bo zostalo w backpack
             if (EquippedWearables.ContainsKey(wearableSlot) && EquippedWearables[wearableSlot] != null) {
-                var eqItemDef = EqItemsContainer.ItemDef2(EquippedWearables[wearableSlot]);
-                ServerInsertToBackpack(backpackSlot, eqItemDef);
+                var currentlyEquippedWearable = EqItemsContainer.ItemDef2(EquippedWearables[wearableSlot]);
+                ServerReturnWearableToBackpack(backpackSlot, currentlyEquippedWearable);
             }
             else {
                 RemoveFromBackpack(backpackSlot);
@@ -129,13 +129,16 @@ namespace _Darkland.Sources.Scripts.Equipment {
         }
 
         [Server]
-        private void ServerInsertToBackpack(int backpackSlot, IEqItemDef item) {
+        private void ServerReturnWearableToBackpack(int backpackSlot, IEqItemDef item) {
             Assert.IsNotNull(item);
             Assert.IsTrue(backpackSlot > -1 && backpackSlot < BackpackSize);
             Assert.IsTrue(backpackSlot < Backpack.Count);
 
             Backpack[backpackSlot] = item;
             ServerBackpackChanged?.Invoke(Backpack);
+
+            var wearable = (IWearable) EqItemsContainer.ItemDef2(item.ItemName);
+            ServerUnequippedWearable?.Invoke(wearable.WearableItemSlot, item.ItemName);
         }
 
     }

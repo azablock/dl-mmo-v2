@@ -19,10 +19,10 @@ MonoBehaviour:
   maxDamage: 15
   passivePerceptionRange: 8
   attackPerceptionRange: 2
-  movementSpeed: 1.5
+  movementSpeed: 1.25
   xpGain: 800
-  minGoldGain: 400
+  minGoldGain: 450
   maxGoldGain: 500
   respawnTime: 600
-  reactionSpeed: 1.5
+  reactionSpeed: 1.25
   healthRegain: 3

@@ -93,6 +93,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wearableSlotImages:
   - {fileID: 1236880153166213978}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7476421877496342347
 GameObject:
   m_ObjectHideFlags: 0

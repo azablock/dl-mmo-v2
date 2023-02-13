@@ -766,7 +766,7 @@ MonoBehaviour:
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
     - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
-    - {fileID: 11400000, guid: 78a3d9eb9658abb4c9cd37c178509b1a, type: 2}
+    - {fileID: 11400000, guid: 33b6ff53ec700b146a5b89b7e9c0e7fb, type: 2}
   - id: 1
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
@@ -775,7 +775,7 @@ MonoBehaviour:
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}
     - {fileID: 11400000, guid: e35a39a2839345841b7d88fd5d753107, type: 2}
-    - {fileID: 11400000, guid: 8fa9d42f7697ff449815a3093ea34a59, type: 2}
+    - {fileID: 11400000, guid: 89dd078ec3251144a9f6dd928a10bf40, type: 2}
   - id: 3
     hooks:
     - {fileID: 11400000, guid: 457d93a4bc38ab54abe718c0f738b3e3, type: 2}

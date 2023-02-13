@@ -35,7 +35,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         private List<WearableStatBonus> statBonuses;
 
 
-        public string ItemName => Regex.Replace(name, $"/^ {nameof(WeaponDef)}$/", string.Empty);
+        public string ItemName => Regex.Replace(name, $" {nameof(WeaponDef)}", string.Empty);
         public int ItemPrice => itemPrice;
         public int MinDamage => minDamage;
         public int MaxDamage => maxDamage;

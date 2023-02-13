@@ -214,6 +214,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704218209762866573, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
   m_PrefabInstance: {fileID: 4488402857757837583}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7826355371282116708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
+  m_PrefabInstance: {fileID: 4488402857757837583}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e266beb38816410c97cf8de0cc2801d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6580128748192046902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,6 +340,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
+--- !u!114 &686691307316192861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
+  m_PrefabInstance: {fileID: 6580128748192046902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e266beb38816410c97cf8de0cc2801d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2565583267620481723 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704218209762866573, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
@@ -446,6 +468,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Equipped Wearables Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 7575044126059135305, guid: c62abcc169e4c6e45b2c4e6d381393d8, type: 3}
+      propertyPath: wearableSlotImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 2767712555588853339}
+    - target: {fileID: 7575044126059135305, guid: c62abcc169e4c6e45b2c4e6d381393d8, type: 3}
+      propertyPath: wearableSlotImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 3375263155698727236}
+    - target: {fileID: 7575044126059135305, guid: c62abcc169e4c6e45b2c4e6d381393d8, type: 3}
+      propertyPath: wearableSlotImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 686691307316192861}
+    - target: {fileID: 7575044126059135305, guid: c62abcc169e4c6e45b2c4e6d381393d8, type: 3}
+      propertyPath: wearableSlotImages.Array.data[4]
+      value: 
+      objectReference: {fileID: 7826355371282116708}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 157858295588219726, guid: c62abcc169e4c6e45b2c4e6d381393d8, type: 3}
@@ -597,6 +635,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704218209762866573, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
   m_PrefabInstance: {fileID: 8412211487015151408}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2767712555588853339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
+  m_PrefabInstance: {fileID: 8412211487015151408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e266beb38816410c97cf8de0cc2801d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8491630214675586898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -938,7 +987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
       propertyPath: wearableSlot
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
       propertyPath: wearableType
@@ -1040,6 +1089,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8704218209762866573, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
   m_PrefabInstance: {fileID: 8935592279484022831}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3375263155698727236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5969184996563138923, guid: 476ca121ec5662b4582e06caa16baa41, type: 3}
+  m_PrefabInstance: {fileID: 8935592279484022831}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e266beb38816410c97cf8de0cc2801d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8954821982811850937
 PrefabInstance:
   m_ObjectHideFlags: 0

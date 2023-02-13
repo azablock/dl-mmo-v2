@@ -26,6 +26,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [Client]
         private void ClientOnWearableEquipped(WearableSlot wearableSlot, string itemName) {
+            if (wearableSlot != WearableSlot.RightHand) return;
             spriteRenderer.sprite = EqItemsContainer.ItemDef2(itemName).Sprite;
         }
 

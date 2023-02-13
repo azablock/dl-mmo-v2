@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b19bf29668d44846abdb26f68b92c01a, type: 3}
-  m_Name: Speed Boots BasicWearableDef
+  m_Script: {fileID: 11500000, guid: 7451949b53594846bd5935c26c24096e, type: 3}
+  m_Name: MaxMana TrimByOtherStatsCurrentValueStatPreChangeHook
   m_EditorClassIdentifier: 
-  itemPrice: 350
-  sprite: {fileID: 477745173, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  wearableItemSlot: 3
-  statBonuses:
-  - statId: 11
-    buffValue: 0.5
+  trimByStatId: 3

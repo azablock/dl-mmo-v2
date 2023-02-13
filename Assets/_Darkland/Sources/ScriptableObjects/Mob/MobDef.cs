@@ -51,7 +51,7 @@ namespace _Darkland.Sources.ScriptableObjects.Mob {
         [Range(0, 10)]
         private float healthRegain;
 
-        public string MobName => Regex.Replace(name, $"/^ {nameof(MobDef)}$/", string.Empty);
+        public string MobName => Regex.Replace(name, $" {nameof(MobDef)}", string.Empty);
         public int MaxHealth => maxHealth;
         public int MinDamage => minDamage;
         public int MaxDamage => maxDamage;

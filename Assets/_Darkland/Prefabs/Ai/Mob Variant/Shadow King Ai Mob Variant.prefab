@@ -135,6 +135,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8971679367318124726, guid: 3caa1fad7e0744949a794ba3d96a5dfc, type: 3}
+      propertyPath: wearable
+      value: 
+      objectReference: {fileID: 11400000, guid: d8a1340ee4415f54e9ff224d5ee46de9, type: 2}
     - target: {fileID: 119151979988157374, guid: 3caa1fad7e0744949a794ba3d96a5dfc, type: 3}
       propertyPath: m_Name
       value: Shadow King Ai Mob Variant

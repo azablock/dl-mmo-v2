@@ -30,7 +30,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
         public static readonly StatsFormulas statsFormulas = new() {
             {
                 StatId.Might, new StatModifiersDict {
-                    { StatId.MaxHealth, v => v * 2 },
+                    { StatId.MaxHealth, v => v * 1 },
                     { StatId.ActionPower, v => v / 5.0f } //casts to int
                 }
             },
@@ -45,7 +45,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             {
                 StatId.Dexterity, new StatModifiersDict {
                     { StatId.MovementSpeed, v => v / 100.0f },
-                    { StatId.ActionSpeed, v => v / 5.0f },
+                    { StatId.ActionSpeed, v => v / 10.0f },
                     { StatId.PhysicalResistance, v => v / 10 }, //casts to int
                 }
             },
@@ -60,7 +60,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
                 StatId.Soul, new StatModifiersDict {
                     { StatId.MaxMana, v => v * 3 },
                     { StatId.ManaRegain, v => v / 10.0f },
-                    { StatId.HealthRegain, v => v / 10.0f },
+                    { StatId.HealthRegain, v => v / 20.0f },
                     { StatId.MagicResistance, v => v / 5 } //casts to int
                 }
             },
@@ -94,7 +94,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
                 v = Mathf.FloorToInt(v);
             }
 
-            return StatVal.OfBasic(v);
+            return StatVal.Of(v, statsHolder.ValueOf(targetStatId).Bonus);
         }
 
         private static StatsFormulas PreImage() {
