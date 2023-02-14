@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 300
   damageType: 1
   mobSprite: {fileID: 21300000, guid: 2c67e8d30d883624392d09c432c26e05, type: 3}
-  minDamage: 7
+  minDamage: 4
   maxDamage: 15
   passivePerceptionRange: 8
   attackPerceptionRange: 2

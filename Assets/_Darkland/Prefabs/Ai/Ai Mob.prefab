@@ -899,8 +899,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3336841614088503935}
     - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Name
+      value: Attack Zone Debug View
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: aiNetworkPerception
@@ -1004,8 +1012,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3336841614088503935}
     - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_Name
+      value: Passive Zone Debug View
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450821880389991078, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1996778987062251091, guid: 527e43dce7687894dad9d99f87209cc8, type: 3}
       propertyPath: zoneType

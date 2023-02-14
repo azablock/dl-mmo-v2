@@ -19,6 +19,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             // unitEffectClientNotifier.ClientRemoved += OnClientRemoved;
             // unitEffectClientNotifier.ClientRemovedAll += OnClientRemovedAll;
             // unitEffectClientNotifier.ClientNotified += ClientRefreshUnitEffects;
+            
+            
         }
 
         private void OnDisable() {

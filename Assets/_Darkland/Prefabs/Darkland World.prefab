@@ -22575,6 +22575,7 @@ Transform:
   - {fileID: 8582331946175846236}
   - {fileID: 44945043641921480}
   - {fileID: 755775579609193614}
+  - {fileID: 8655740983563471961}
   m_Father: {fileID: 1059869474049067740}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -69527,6 +69528,74 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
   m_PrefabInstance: {fileID: 664647985345633862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &676680384015194386
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 7961499800103526900}
+    m_Modifications:
+    - target: {fileID: 4722434309840645614, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_Name
+      value: Rat Ai Mob Spawner Variant (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790078164750527793, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+      propertyPath: _assetId
+      value: 93104171
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+--- !u!4 &8655740983563471961 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8177221537404032331, guid: 0212a060e43e71b4a8fcc25b699bb920, type: 3}
+  m_PrefabInstance: {fileID: 676680384015194386}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &791418192158179276
 PrefabInstance:

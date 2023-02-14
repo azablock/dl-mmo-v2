@@ -40,6 +40,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             
             targetNetIdentity.GetComponent<IStatsHolder>().ClientChanged += OnClientStatsChanged;
             targetNetIdentity.GetComponent<IUnitEffectClientNotifier>().ClientNotified += OnClientNotified;
+
+            var activeEffects = targetNetIdentity.GetComponent<IUnitEffectClientNotifier>().ActiveEffectsNames;
+            OnClientNotified(activeEffects);
         }
 
         public void OnClientCleared(NetworkIdentity targetNetIdentity) {

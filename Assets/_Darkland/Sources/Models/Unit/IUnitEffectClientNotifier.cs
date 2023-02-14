@@ -9,6 +9,7 @@ namespace _Darkland.Sources.Models.Unit {
         event Action<string> ClientRemoved;
         event Action ClientRemovedAll;
         event Action<List<string>> ClientNotified;
+        List<string> ActiveEffectsNames { get; }
 
     }
 

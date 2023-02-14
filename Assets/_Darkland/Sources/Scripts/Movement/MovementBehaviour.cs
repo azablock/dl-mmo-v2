@@ -46,8 +46,8 @@ namespace _Darkland.Sources.Scripts.Movement {
 
             var possibleNewPos = _discretePosition.Pos + movementVector;
             if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
-    
-            _discretePosition.Set(possibleNewPos, true);
+
+            ServerSetDiscretePosition(possibleNewPos, true);
         }
 
         [Server]
@@ -57,7 +57,7 @@ namespace _Darkland.Sources.Scripts.Movement {
             var possibleNewPos = _discretePosition.Pos + movementVector;
             if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
 
-            _discretePosition.Set(_discretePosition.Pos + movementVector);
+            ServerSetDiscretePosition(possibleNewPos);
         }
 
         [Server]
@@ -71,10 +71,10 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
         
         [Server]
-        private void ServerSetDiscretePosition(Vector3Int pos) {
+        private void ServerSetDiscretePosition(Vector3Int pos, bool clientImmediate = false) {
             if (!DarklandWorldBehaviour._.IsEmptyField(pos)) return;
 
-            _discretePosition.Set(pos);
+            _discretePosition.Set(pos, clientImmediate);
 
             if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
                 transform.position = pos;

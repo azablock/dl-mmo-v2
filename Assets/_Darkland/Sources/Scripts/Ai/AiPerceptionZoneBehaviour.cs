@@ -50,10 +50,9 @@ namespace _Darkland.Sources.Scripts.Ai {
 
         [Server]
         private void ServerOnPlayerDisconnected(NetworkIdentity identity) {
-            perceptionTargets.Remove(identity);
+            perceptionZone.OnTargetExit(identity);
         }
 
-        private HashSet<NetworkIdentity> perceptionTargets => aiNetworkPerception.PerceptionZones[zoneType].targets;
         private AiNetworkPerceptionZone perceptionZone => aiNetworkPerception.PerceptionZones[zoneType];
 
     }

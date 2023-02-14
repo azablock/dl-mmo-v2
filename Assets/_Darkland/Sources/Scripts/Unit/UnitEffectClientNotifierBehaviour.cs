@@ -8,6 +8,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class UnitEffectClientNotifierBehaviour : NetworkBehaviour, IUnitEffectClientNotifier {
 
+        public List<string> ActiveEffectsNames => _activeEffectsNames.ToList();
         public event Action<string> ClientAdded;
         public event Action<string> ClientRemoved;
         public event Action ClientRemovedAll;
@@ -56,7 +57,7 @@ namespace _Darkland.Sources.Scripts.Unit {
                     throw new ArgumentOutOfRangeException(nameof(op), op, null);
             }
             
-            ClientNotified?.Invoke(_activeEffectsNames.ToList());
+            ClientNotified?.Invoke(ActiveEffectsNames);
         }
 
         [Server]

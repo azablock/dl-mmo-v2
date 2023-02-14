@@ -23,8 +23,8 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             { StatId.ActionSpeed, 0.8f },
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
-            { StatId.MovementSpeed, 8 },
-            // { StatId.MovementSpeed, 1.5f },
+            // { StatId.MovementSpeed, 8 },
+            { StatId.MovementSpeed, 1.5f },
         };
 
         public static readonly StatsFormulas statsFormulas = new() {

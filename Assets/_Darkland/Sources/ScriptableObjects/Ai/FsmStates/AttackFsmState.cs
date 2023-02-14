@@ -35,8 +35,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var resistance = mobDef.DamageType == DamageType.Physical ? physicalRes : magicRes;
 
             var resistanceCurrent = Mathf.FloorToInt(resistance.Current);
-            var guaranteedResistancePointDistribution = resistanceCurrent / 5;
-            var resistanceOnAttack = Random.Range(0, resistanceCurrent + 1) + guaranteedResistancePointDistribution;
+            var resistanceOnAttack = Random.Range(0, resistanceCurrent + 1);
             var damage = Mathf.Max(0, mobDamage - resistanceOnAttack); 
             
             damageDealer.DealDamage(new UnitAttackEvent {
