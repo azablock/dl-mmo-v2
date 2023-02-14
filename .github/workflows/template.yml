@@ -262,7 +262,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
   
   copyLinuxClientBuildViaScp:
-    name: Copy OSX Build via scp
+    name: Copy Linux Build via scp
     needs: buildLinuxClient
     runs-on: ubuntu-latest
     steps:
@@ -272,8 +272,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-StandaloneLinux-Client
-          path: build/StandaloneLinux-Client
+          name: build-StandaloneLinux64-Client
+          path: build/StandaloneLinux64-Client
 
       - name: list files
         run: ls -al
@@ -281,7 +281,7 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/StandaloneLinux-Client
+          local: build/StandaloneLinux64-Client
           remote: dl-mmo-client-builds/dl-mmo-client-linux-build-upload/dl-mmo-linux-client
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -301,7 +301,7 @@ jobs:
           script: ./pack-dl-mmo-windows-client.sh
   
   packLinuxClientBuildViaSsh:
-    name: Pack OSX Build via ssh
+    name: Pack Linux Build via ssh
     needs: copyLinuxClientBuildViaScp
     runs-on: ubuntu-latest
     steps:
