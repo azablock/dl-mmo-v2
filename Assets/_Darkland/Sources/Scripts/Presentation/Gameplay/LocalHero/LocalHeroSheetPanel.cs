@@ -101,7 +101,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private void OnClientChanged(StatId statId, StatVal val) {
             if (!_statTexts.ContainsKey(statId)) return;
 
-            _statTexts[statId].text = IHeroTraitDistribution.traitStatIds.Contains(statId) ? FormatTraitStatVal(val) : FormatStatVal(val);
+            _statTexts[statId].text = IHeroTraitDistribution.integerStatIds.Contains(statId) ? FormatIntStatVal(val) : FormatStatVal(val);
         }
 
         [Client]
@@ -124,18 +124,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
             heroLevelText.text = $"{message.heroLevel}";
             heroVocationText.text = message.heroVocationType.ToString();
 
-            mightText.text = FormatTraitStatVal(message.heroTraits.might);
-            constitutionText.text = FormatTraitStatVal(message.heroTraits.constitution);
-            dexterityText.text = FormatTraitStatVal(message.heroTraits.dexterity);
-            intellectText.text = FormatTraitStatVal(message.heroTraits.intellect);
-            soulText.text = FormatTraitStatVal(message.heroTraits.soul);
+            mightText.text = FormatIntStatVal(message.heroTraits.might);
+            constitutionText.text = FormatIntStatVal(message.heroTraits.constitution);
+            dexterityText.text = FormatIntStatVal(message.heroTraits.dexterity);
+            intellectText.text = FormatIntStatVal(message.heroTraits.intellect);
+            soulText.text = FormatIntStatVal(message.heroTraits.soul);
             
             healthRegainText.text = FormatStatVal(message.heroSecondaryStats.healthRegain);
             manaRegainText.text = FormatStatVal(message.heroSecondaryStats.manaRegain);
             actionPowerText.text = FormatStatVal(message.heroSecondaryStats.actionPower);
             actionSpeedText.text = FormatStatVal(message.heroSecondaryStats.actionSpeed);
-            magicResistanceText.text = FormatStatVal(message.heroSecondaryStats.magicResistance);
-            physicalResistanceText.text = FormatStatVal(message.heroSecondaryStats.physicalResistance);
+            magicResistanceText.text = FormatIntStatVal(message.heroSecondaryStats.magicResistance);
+            physicalResistanceText.text = FormatIntStatVal(message.heroSecondaryStats.physicalResistance);
             movementSpeedText.text = FormatStatVal(message.heroSecondaryStats.movementSpeed);
         }
 
@@ -145,14 +145,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
                 ? DarklandColorSet._.danger
                 : DarklandColorSet._.primary;
             var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
-            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor):F1}";
-            var currentVal = $"{val.Current:F1}";
+            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor):F}";
+            var currentVal = $"{val.Current:F}";
             var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
             
-            return $"<b>{currentValueFormatted}</b>\t= {val.Basic:F1} {bonusSuffix}";
+            return $"<b>{currentValueFormatted}</b>\t= {val.Basic:F} {bonusSuffix}";
         }
         
-        private static string FormatTraitStatVal(StatVal val) {
+        private static string FormatIntStatVal(StatVal val) {
             var bonusSign = val.Bonus >= 0 ? "+" : "-";
             var bonusColor = val.Bonus > 0 ? DarklandColorSet._.success : val.Bonus < 0
                 ? DarklandColorSet._.danger

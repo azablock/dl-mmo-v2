@@ -83,6 +83,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4d00fcc5c4dbf54d895e1ee61205394, type: 2}
   - {fileID: 11400000, guid: 2a388bdba20a59d4abdc630ee83de422, type: 2}
   - {fileID: 11400000, guid: f1d669c05090d874ea61847dfc542628, type: 2}
+  - {fileID: 11400000, guid: 1c166c2123822834788e87f87466a90e, type: 2}
   headArmorItems:
   - {fileID: 11400000, guid: 9bcbbb3883814074fa6065fb46465873, type: 2}
   - {fileID: 11400000, guid: e9ef0bc4de76c724fbdd9be24c0350e0, type: 2}

@@ -23,6 +23,16 @@ namespace _Darkland.Sources.Models.Hero {
             StatId.Soul
         }; 
 
+        static HashSet<StatId> integerStatIds = new() {
+            StatId.Might,
+            StatId.Constitution,
+            StatId.Dexterity,
+            StatId.Intellect,
+            StatId.Soul,
+            StatId.PhysicalResistance,
+            StatId.MagicResistance,
+        }; 
+
         static int PointToDistributeForHero(UnitTraits unitTraits, int heroLevel) {
             var summedTraitValues = unitTraits.might.Basic
                                     + unitTraits.constitution.Basic

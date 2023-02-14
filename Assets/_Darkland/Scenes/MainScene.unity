@@ -373,6 +373,30 @@ PrefabInstance:
       propertyPath: traderName
       value: Felix the Armorsmith
       objectReference: {fileID: 0}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c166c2123822834788e87f87466a90e, type: 2}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bcbbb3883814074fa6065fb46465873, type: 2}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: e9ef0bc4de76c724fbdd9be24c0350e0, type: 2}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: f0dafcedffc610142b7a8165cb107b6c, type: 2}
+    - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: basicWearables.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0dc4f06b52dd917478ca97dfdaea9cc2, type: 2}
     - target: {fileID: 191135375367191145, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderInfo
       value: 'All potions and consumables - of course if you have the coin.
@@ -387,6 +411,10 @@ PrefabInstance:
     - target: {fileID: 214765199729501428, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 138849376
+      objectReference: {fileID: 0}
+    - target: {fileID: 278889492400370675, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 3040934909
       objectReference: {fileID: 0}
     - target: {fileID: 301239543964893034, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
@@ -512,6 +540,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1968927227
       objectReference: {fileID: 0}
+    - target: {fileID: 4121798325778954617, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 332150596
+      objectReference: {fileID: 0}
     - target: {fileID: 4208263201417434382, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 379913570
@@ -579,6 +611,10 @@ PrefabInstance:
     - target: {fileID: 5945170520102312898, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 2694284816
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009869948315068381, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2506442847
       objectReference: {fileID: 0}
     - target: {fileID: 6580754936756582854, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: m_RootOrder
@@ -693,6 +729,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 991995274
       objectReference: {fileID: 0}
+    - target: {fileID: 7904830440844740055, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 1610185351
+      objectReference: {fileID: 0}
     - target: {fileID: 8034049540666591845, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3922668648
@@ -736,6 +776,10 @@ PrefabInstance:
     - target: {fileID: 8973821248714928829, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 512047808
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061670886340794817, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2666869099
       objectReference: {fileID: 0}
     - target: {fileID: 9195615149601795878, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId

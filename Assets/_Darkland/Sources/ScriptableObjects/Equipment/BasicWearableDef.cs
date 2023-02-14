@@ -30,7 +30,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         public string Description(GameObject parent) {
             var bonuses = statBonuses.Aggregate(string.Empty, (res, bonus) => {
                 var signStr = bonus.buffValue > 0 ? "+" : "-";
-                return res + $"{bonus.statId.ToString()}\t{signStr} {bonus.buffValue}\n";
+                return res + $"{bonus.statId.ToString()}\t{signStr} {Mathf.Abs(bonus.buffValue)}\n";
             });
 
             return $"Wearable slot:\t{wearableItemSlot.ToString()}\n{bonuses}";
