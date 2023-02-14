@@ -748,10 +748,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 524122901, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
-      propertyPath: visRange
-      value: 32
-      objectReference: {fileID: 0}
     - target: {fileID: 530370294835301396, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Name
       value: Darkland Network Manager
@@ -810,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5207673564530386058, guid: f94e7da3600acc1458e6b5ddcb669469, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

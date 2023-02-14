@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrice: 260
   sprite: {fileID: 1539275448, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
-  minDamage: 2
-  maxDamage: 5
+  minDamage: 3
+  maxDamage: 7
   attackSpeed: 1.5
   weaponRange: 0
   statBonuses:

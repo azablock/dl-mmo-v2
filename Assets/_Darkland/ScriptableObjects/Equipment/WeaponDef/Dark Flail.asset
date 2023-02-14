@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdd0db5f0a458ebf9bbbecde8ea8dc, type: 3}
   m_Name: Dark Flail
   m_EditorClassIdentifier: 
-  itemPrice: 500
+  itemPrice: 750
   sprite: {fileID: -1557867312, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   minDamage: 10
   maxDamage: 20

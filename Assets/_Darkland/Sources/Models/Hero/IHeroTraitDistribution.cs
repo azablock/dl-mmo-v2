@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -14,7 +15,15 @@ namespace _Darkland.Sources.Models.Hero {
 
         const int TraitPointsPerLevel = 5;
 
-        public static int PointToDistributeForHero(UnitTraits unitTraits, int heroLevel) {
+        static HashSet<StatId> traitStatIds = new() {
+            StatId.Might,
+            StatId.Constitution,
+            StatId.Dexterity,
+            StatId.Intellect,
+            StatId.Soul
+        }; 
+
+        static int PointToDistributeForHero(UnitTraits unitTraits, int heroLevel) {
             var summedTraitValues = unitTraits.might.Basic
                                     + unitTraits.constitution.Basic
                                     + unitTraits.dexterity.Basic

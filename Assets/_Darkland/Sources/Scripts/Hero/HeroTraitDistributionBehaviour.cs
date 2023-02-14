@@ -18,15 +18,6 @@ namespace _Darkland.Sources.Scripts.Hero {
         private IStatsHolder _statsHolder;
         private IXpHolder _xpHolder;
 
-        //todo to gdzies wyniesc
-        private readonly HashSet<StatId> _traitStatIds = new() {
-            StatId.Might,
-            StatId.Constitution,
-            StatId.Dexterity,
-            StatId.Intellect,
-            StatId.Soul
-        };
-
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _xpHolder = GetComponent<IXpHolder>();
@@ -42,7 +33,7 @@ namespace _Darkland.Sources.Scripts.Hero {
 
         [Server]
         public void Distribute(StatId traitStatId) {
-            Assert.IsTrue(_traitStatIds.Contains(traitStatId));
+            Assert.IsTrue(IHeroTraitDistribution.traitStatIds.Contains(traitStatId));
             
             if (pointsToDistribute <= 0) return;
             // Assert.IsTrue(pointsToDistribute > 0);

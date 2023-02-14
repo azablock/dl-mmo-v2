@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Darkland.Sources.Scripts.Equipment;
 using Mirror;
 using UnityEngine.Assertions;
 
@@ -39,9 +40,10 @@ namespace _Darkland.Sources.Models.Equipment {
             return eqHolder.Backpack[backpackSlot];
         }
 
-        public static IWeaponDef ServerEquippedWeapon(this IEqHolder eqHolder) {
-            return null;
-        }
+        public static IWeaponDef ServerEquippedWeapon(this IEqHolder eqHolder) =>
+            eqHolder.EquippedWearables.ContainsKey(WearableSlot.RightHand)
+                ? (IWeaponDef) EqItemsContainer.ItemDef2(eqHolder.EquippedWearables[WearableSlot.RightHand])
+                : null;
 
     } 
 

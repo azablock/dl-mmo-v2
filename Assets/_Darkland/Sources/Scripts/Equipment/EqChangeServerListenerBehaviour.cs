@@ -93,6 +93,7 @@ namespace _Darkland.Sources.Scripts.Equipment {
                     if (isLocalPlayer) {
                         LocalPlayerWearableEquipped?.Invoke(wearableSlot, itemName);
                     }
+                    ClientWearableEquipped?.Invoke(wearableSlot, itemName);
                     break;
                 case SyncIDictionary<WearableSlot, string>.Operation.OP_REMOVE:
                     // entry removed

@@ -101,7 +101,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private void OnClientChanged(StatId statId, StatVal val) {
             if (!_statTexts.ContainsKey(statId)) return;
 
-            _statTexts[statId].text = FormatStatVal(val);
+            _statTexts[statId].text = IHeroTraitDistribution.traitStatIds.Contains(statId) ? FormatTraitStatVal(val) : FormatStatVal(val);
         }
 
         [Client]
@@ -124,11 +124,11 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
             heroLevelText.text = $"{message.heroLevel}";
             heroVocationText.text = message.heroVocationType.ToString();
 
-            mightText.text = FormatStatVal(message.heroTraits.might);
-            constitutionText.text = FormatStatVal(message.heroTraits.constitution);
-            dexterityText.text = FormatStatVal(message.heroTraits.dexterity);
-            intellectText.text = FormatStatVal(message.heroTraits.intellect);
-            soulText.text = FormatStatVal(message.heroTraits.soul);
+            mightText.text = FormatTraitStatVal(message.heroTraits.might);
+            constitutionText.text = FormatTraitStatVal(message.heroTraits.constitution);
+            dexterityText.text = FormatTraitStatVal(message.heroTraits.dexterity);
+            intellectText.text = FormatTraitStatVal(message.heroTraits.intellect);
+            soulText.text = FormatTraitStatVal(message.heroTraits.soul);
             
             healthRegainText.text = FormatStatVal(message.heroSecondaryStats.healthRegain);
             manaRegainText.text = FormatStatVal(message.heroSecondaryStats.manaRegain);
@@ -150,6 +150,19 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
             var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
             
             return $"<b>{currentValueFormatted}</b>\t= {val.Basic:F1} {bonusSuffix}";
+        }
+        
+        private static string FormatTraitStatVal(StatVal val) {
+            var bonusSign = val.Bonus >= 0 ? "+" : "-";
+            var bonusColor = val.Bonus > 0 ? DarklandColorSet._.success : val.Bonus < 0
+                ? DarklandColorSet._.danger
+                : DarklandColorSet._.primary;
+            var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
+            var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor)}";
+            var currentVal = $"{val.Current:0}";
+            var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
+            
+            return $"<b>{currentValueFormatted}</b>\t= {val.Basic:0} {bonusSuffix}";
         }
 
     }

@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39adc6e09d5544ed955a50ce8600355a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visRange: 16
+  visRange: 24
   rebuildInterval: 1
   checkMethod: 1
   showSlider: 0
@@ -243,8 +243,11 @@ MonoBehaviour:
   - {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
   - {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
   - {fileID: 224893356600284482, guid: f269bc8dea59df344abde296cefd6098, type: 3}
-  - {fileID: 8589541905812962912, guid: 22f436861627848429452b2f849ea815, type: 3}
   - {fileID: 3711275858274869439, guid: f7dfe8f6109fa1f44b8251bf2484dd07, type: 3}
+  - {fileID: 8589541905812962912, guid: 22f436861627848429452b2f849ea815, type: 3}
+  - {fileID: 8589541905812962912, guid: 2a3af16441b1d0d49a2fac422f3841c2, type: 3}
+  - {fileID: 8589541905812962912, guid: 940c9d921544ca4469c9fe4493193b68, type: 3}
+  - {fileID: 8589541905812962912, guid: fa95486040c32a04982095fd78338c5c, type: 3}
   timeInterpolationGui: 0
   darklandPlayerPrefab: {fileID: 6084493378536407968, guid: 208270ef800c3f344abc684091beacec, type: 3}
   darklandBotPrefab: {fileID: 5329301702517875642, guid: 64827c9f0e99a7f4fbb993dda1d61dd1, type: 3}
