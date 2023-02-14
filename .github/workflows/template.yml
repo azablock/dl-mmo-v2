@@ -140,6 +140,7 @@ jobs:
       - name: Run Unity builder
         uses: game-ci/unity-builder@v2
         with:
+          buildName: StandaloneLinux64-Client
           targetPlatform: StandaloneLinux64
           customParameters: -dl-server-address {{secrets.SSH_HOST}}
 
