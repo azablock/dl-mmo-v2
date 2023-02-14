@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19bf29668d44846abdb26f68b92c01a, type: 3}
   m_Name: Mage Tunic BasicWearableDef
   m_EditorClassIdentifier: 
-  itemPrice: 250
+  itemPrice: 280
   sprite: {fileID: 1716454068, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
   wearableItemSlot: 1
   statBonuses:
