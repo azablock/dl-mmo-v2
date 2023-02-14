@@ -57,7 +57,7 @@ jobs:
 #          name: Test results (${{ matrix.testMode }})
 #          path: ${{ steps.testRunner.outputs.artifactsPath }}
 
-  buildWindows:
+  buildWindowsClient:
 #    needs: testRunner
     name: Build for Windows 🖥️
     runs-on: ubuntu-latest
@@ -104,6 +104,7 @@ jobs:
   
   buildLinuxClient:
     #    needs: testRunner
+    needs: copyLinuxHeadlessServerBuildViaScp
     name: Build for Linux Client 🖥️
     runs-on: ubuntu-latest
     strategy:
@@ -132,7 +133,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-StandaloneLinux64-Client
+          key: Library-build-StandaloneLinux64
           restore-keys: |
             Library-build-
             Library-
@@ -140,14 +141,14 @@ jobs:
       - name: Run Unity builder
         uses: game-ci/unity-builder@v2
         with:
-          buildName: StandaloneLinux64-Client
+          buildName: StandaloneLinux64
           targetPlatform: StandaloneLinux64
           customParameters: -dl-server-address {{secrets.SSH_HOST}}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-StandaloneLinux64-Client
-          path: build/StandaloneLinux64-Client
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
   
   buildLinuxHeadlessServer:
 #    needs: testRunner
@@ -209,8 +210,8 @@ jobs:
 #          name: olek_test_file.txt
 #          path: test/olek_test_file.txt
 
-  copyLinuxBuildViaScp:
-    name: Copy Linux Build via scp
+  copyLinuxHeadlessServerBuildViaScp:
+    name: Copy Linux Headless Server Build via scp
     needs: buildLinuxHeadlessServer
     runs-on: ubuntu-latest
     steps:
@@ -236,9 +237,9 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           
   
-  copyWindowsBuildViaScp:
-    name: Copy Windows Build via scp
-    needs: buildWindows
+  copyWindowsClientBuildViaScp:
+    name: Copy Windows Client Build via scp
+    needs: buildWindowsClient
     runs-on: ubuntu-latest
     steps:
       - name: checkout #to chyba niepotrzebne
@@ -273,8 +274,8 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-StandaloneLinux64-Client
-          path: build/StandaloneLinux64-Client
+          name: build-StandaloneLinux64
+          path: build/StandaloneLinux64
 
       - name: list files
         run: ls -al
@@ -282,15 +283,15 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: build/StandaloneLinux64-Client
+          local: build/StandaloneLinux64
           remote: dl-mmo-client-builds/dl-mmo-client-linux-build-upload/dl-mmo-linux-client
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
 
-  packWindowsBuildViaSsh:
-    name: Pack Windows Build via ssh
-    needs: copyWindowsBuildViaScp
+  packWindowsClientBuildViaSsh:
+    name: Pack Windows Client Build via ssh
+    needs: copyWindowsClientBuildViaScp
     runs-on: ubuntu-latest
     steps:
       - name: run build zipping script
