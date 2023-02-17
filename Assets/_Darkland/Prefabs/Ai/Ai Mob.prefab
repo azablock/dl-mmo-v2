@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 947860035185799702}
   - component: {fileID: 9174209023604330504}
   - component: {fileID: 7394066121051152810}
-  - component: {fileID: 6972356571735058417}
+  - component: {fileID: 3783732233368593412}
   - component: {fileID: 585354991192703992}
   - component: {fileID: 8555989389243704630}
   - component: {fileID: 7806717631113445499}
@@ -259,7 +259,7 @@ MonoBehaviour:
   regainRelations:
   - regainSourceStatId: 4
     regainTargetStatId: 0
---- !u!114 &6972356571735058417
+--- !u!114 &3783732233368593412
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,12 +268,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 119151979988157374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b785d35f383d4b4e847e7f60a3608055, type: 3}
+  m_Script: {fileID: 11500000, guid: 20b6f9f60850400bb99d853bc3ad1af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &585354991192703992
 MonoBehaviour:
   m_ObjectHideFlags: 0

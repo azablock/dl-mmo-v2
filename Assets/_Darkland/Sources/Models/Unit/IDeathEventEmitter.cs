@@ -13,7 +13,7 @@ namespace _Darkland.Sources.Models.Unit {
         public IStat HealthStat { get; }
 
         public DeathEventEmitter(IStat healthStat) {
-            Debug.Assert(healthStat.id == StatId.Health, "argument stat is not a Health stat");
+            Debug.Assert(healthStat.id == StatId.Health, "argument is not a Health stat.");
             HealthStat = healthStat;
             HealthStat.Changed += OnHealthChanged;
         }
