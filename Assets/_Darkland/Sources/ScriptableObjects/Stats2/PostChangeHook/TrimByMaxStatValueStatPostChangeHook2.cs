@@ -1,3 +1,4 @@
+using _Darkland.Sources.Models.Stats2;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
@@ -12,16 +13,11 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
         [SerializeField]
         private StatId trimmedStatId;
-        
-        public override void OnStatChange(IStatsHolder statsHolder) {
-            var trimmedStat = statsHolder.Stat(trimmedStatId);
-            var trimByStat = statsHolder.Stat(onChangeStatId);
-    
-            var trimmedStatCurrentValue = trimmedStat.Get();
-            var trimByStatCurrentValue = trimByStat.Get();
 
-            if (trimmedStatCurrentValue.Current > trimByStatCurrentValue.Current)
-                trimmedStat.Set(StatVal.OfBasic(trimByStatCurrentValue.Current));
-        }
+        private readonly ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
+
+        public override void OnStatChange(IStatsHolder statsHolder) => _handler.Handle(statsHolder, trimmedStatId, onChangeStatId);
+
     }
+
 }

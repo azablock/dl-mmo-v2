@@ -1,22 +1,19 @@
 using System;
+using _Darkland.Sources.Models.Stats2;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.ScriptableObjects.Stats2;
-using _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook;
 using NSubstitute;
 using NUnit.Framework;
-using UnityEngine;
 
-namespace _Darkland.Tests.EditMode {
+namespace _Darkland.Tests.EditMode.Models.Stats2 {
 
     [TestFixture]
-    public class CheckHealthOnMaxHealthStatPostChangeHookTest {
+    public class TrimToMaxByOtherStatHandlerTest {
 
-        private TrimByMaxStatValueStatPostChangeHook2 _hook;
+        private ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
         private IStatsHolder _statsHolder;
 
         [OneTimeSetUp]
         public void SetUp() {
-            _hook = ScriptableObject.CreateInstance<TrimByMaxStatValueStatPostChangeHook2>();
             _statsHolder = Substitute.For<IStatsHolder>();
         }
 
@@ -28,15 +25,15 @@ namespace _Darkland.Tests.EditMode {
             var maxHealthValue = StatVal.OfBasic(10.0f);
             var healthStat = new Stat(StatId.Health, () => healthValue, value => { healthValue = value; });
             var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { maxHealthValue = value; });
+
             _statsHolder.Stat(StatId.Health).Returns(healthStat);
             _statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
             _statsHolder.ValueOf(StatId.Health).Returns(_ => healthStat.Get());
-            _statsHolder.Stats(StatId.Health, StatId.MaxHealth)
-                        .Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
+            _statsHolder.Stats(StatId.Health, StatId.MaxHealth).Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
 
             //Act
             _statsHolder.Stat(StatId.MaxHealth).Add(StatVal.OfBasic(1));
-            _hook.OnStatChange(_statsHolder);
+            _handler.Handle(_statsHolder, StatId.Health, StatId.MaxHealth);
 
             //Assert
             Assert.AreEqual(healthInitialValue, _statsHolder.ValueOf(StatId.Health).Basic);
@@ -50,15 +47,15 @@ namespace _Darkland.Tests.EditMode {
             var maxHealthValue = StatVal.OfBasic(healthInitialValue);
             var healthStat = new Stat(StatId.Health, () => healthValue, value => { healthValue = value; });
             var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { maxHealthValue = value; });
+            
             _statsHolder.Stat(StatId.Health).Returns(healthStat);
             _statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
             _statsHolder.ValueOf(StatId.Health).Returns(_ => healthStat.Get());
-            _statsHolder.Stats(StatId.Health, StatId.MaxHealth)
-                        .Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
+            _statsHolder.Stats(StatId.Health, StatId.MaxHealth).Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
 
             //Act
             _statsHolder.Stat(StatId.MaxHealth).Set(StatVal.OfBasic(healthInitialValue - 1));
-            _hook.OnStatChange(_statsHolder);
+            _handler.Handle(_statsHolder, StatId.Health, StatId.MaxHealth);
 
             //Assert
             Assert.AreEqual(healthInitialValue - 1, _statsHolder.ValueOf(StatId.Health).Basic);
