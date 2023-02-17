@@ -9,56 +9,57 @@ namespace _Darkland.Tests.EditMode.Models.Stats2 {
     [TestFixture]
     public class TrimToMaxByOtherStatHandlerTest {
 
-        private ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
+        private readonly ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
         private IStatsHolder _statsHolder;
 
-        [OneTimeSetUp]
+        private Stat _healthStat;
+        private Stat _maxHealthStat;
+        private StatVal _healthStatVal;
+        private StatVal _maxHealthStatVal;
+
+        [SetUp]
         public void SetUp() {
+            _healthStatVal = StatVal.Zero;
+            _healthStat = new Stat(StatId.Health, () => _healthStatVal, value => { _healthStatVal = value; });
+            
+            _maxHealthStatVal = StatVal.Zero;
+            _maxHealthStat = new Stat(StatId.MaxHealth, () => _maxHealthStatVal, value => { _maxHealthStatVal = value; });
+            
             _statsHolder = Substitute.For<IStatsHolder>();
+            _statsHolder.Stat(StatId.Health).Returns(_healthStat);
+            _statsHolder.Stat(StatId.MaxHealth).Returns(_maxHealthStat);
+            _statsHolder.ValueOf(StatId.Health).Returns(_ => _healthStat.Get());
+            _statsHolder.Stats(StatId.Health, StatId.MaxHealth).Returns(new Tuple<Stat, Stat>(_healthStat, _maxHealthStat));
         }
 
         [Test]
-        public void MaxHealthIncreased_HealthValueNotChanged() {
+        public void When_MaxHealthIncreased_Then_HealthValueNotChanged() {
             //Arrange
             const float healthInitialValue = 1;
-            var healthValue = StatVal.OfBasic(healthInitialValue);
-            var maxHealthValue = StatVal.OfBasic(10.0f);
-            var healthStat = new Stat(StatId.Health, () => healthValue, value => { healthValue = value; });
-            var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { maxHealthValue = value; });
-
-            _statsHolder.Stat(StatId.Health).Returns(healthStat);
-            _statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
-            _statsHolder.ValueOf(StatId.Health).Returns(_ => healthStat.Get());
-            _statsHolder.Stats(StatId.Health, StatId.MaxHealth).Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
-
+            _healthStat.Set(StatVal.OfBasic(healthInitialValue));
+            _maxHealthStat.Set(StatVal.OfBasic(10.0f));
+ 
             //Act
             _statsHolder.Stat(StatId.MaxHealth).Add(StatVal.OfBasic(1));
             _handler.Handle(_statsHolder, StatId.Health, StatId.MaxHealth);
 
             //Assert
-            Assert.AreEqual(healthInitialValue, _statsHolder.ValueOf(StatId.Health).Basic);
+            Assert.AreEqual(healthInitialValue, _statsHolder.BasicVal(StatId.Health));
         }
 
         [Test]
-        public void MaxHealthSetToBeLessThanHealth_HealthValueEqualToMaxHealth() {
+        public void When_MaxHealthSetToBeLessThanHealth_Then_HealthValueEqualToMaxHealth() {
             //Arrange
             const float healthInitialValue = 5;
-            var healthValue = StatVal.OfBasic(healthInitialValue);
-            var maxHealthValue = StatVal.OfBasic(healthInitialValue);
-            var healthStat = new Stat(StatId.Health, () => healthValue, value => { healthValue = value; });
-            var maxHealthStat = new Stat(StatId.MaxHealth, () => maxHealthValue, value => { maxHealthValue = value; });
+            _healthStat.Set(StatVal.OfBasic(healthInitialValue));
+            _maxHealthStat.Set(StatVal.OfBasic(healthInitialValue));
             
-            _statsHolder.Stat(StatId.Health).Returns(healthStat);
-            _statsHolder.Stat(StatId.MaxHealth).Returns(maxHealthStat);
-            _statsHolder.ValueOf(StatId.Health).Returns(_ => healthStat.Get());
-            _statsHolder.Stats(StatId.Health, StatId.MaxHealth).Returns(new Tuple<Stat, Stat>(healthStat, maxHealthStat));
-
             //Act
             _statsHolder.Stat(StatId.MaxHealth).Set(StatVal.OfBasic(healthInitialValue - 1));
             _handler.Handle(_statsHolder, StatId.Health, StatId.MaxHealth);
 
             //Assert
-            Assert.AreEqual(healthInitialValue - 1, _statsHolder.ValueOf(StatId.Health).Basic);
+            Assert.AreEqual(healthInitialValue - 1, _statsHolder.BasicVal(StatId.Health));
         }
     }
 

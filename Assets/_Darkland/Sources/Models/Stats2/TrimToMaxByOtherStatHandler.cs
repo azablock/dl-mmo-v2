@@ -4,9 +4,9 @@ namespace _Darkland.Sources.Models.Stats2 {
 
     public class TrimToMaxByOtherStatHandler : ITrimToMaxByOtherStatHandler {
 
-        public void Handle(IStatsHolder statsHolder, StatId trimmedStatId, StatId onChangeStatId) {
+        public void Handle(IStatsHolder statsHolder, StatId trimmedStatId, StatId trimByStatId) {
             var trimmedStat = statsHolder.Stat(trimmedStatId);
-            var trimByStat = statsHolder.Stat(onChangeStatId);
+            var trimByStat = statsHolder.Stat(trimByStatId);
     
             var trimmedStatCurrentValue = trimmedStat.Get();
             var trimByStatCurrentValue = trimByStat.Get();

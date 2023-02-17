@@ -74,6 +74,10 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
             };
         }
 
+        public static float BasicVal(this IStatsHolder holder, StatId statId) => holder.ValueOf(statId).Basic;
+        public static float BonusVal(this IStatsHolder holder, StatId statId) => holder.ValueOf(statId).Bonus;
+        public static float CurrentVal(this IStatsHolder holder, StatId statId) => holder.ValueOf(statId).Current;
+
     }
 
 }
