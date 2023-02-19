@@ -10,20 +10,20 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         private IStatsHolder _statsHolder;
         private IDiscretePosition _discretePosition;
-        private IDeathEventEmitterHolder _deathEventEmitterHolder;
+        private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
-        [ServerCallback]
+        // [ServerCallback]
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _discretePosition = GetComponent<IDiscretePosition>();
-            _deathEventEmitterHolder = GetComponent<IDeathEventEmitterHolder>();
+            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
         }
 
         [ServerCallback]
-        private void OnEnable() => _deathEventEmitterHolder.DeathEventEmitter.Death += ServerOnDeath;
+        private void OnEnable() => _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerOnDeath);
 
         [ServerCallback]
-        private void OnDisable() => _deathEventEmitterHolder.DeathEventEmitter.Death -= ServerOnDeath;
+        private void OnDisable() => _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerOnDeath);
 
         [Server]
         private void ServerOnDeath() {

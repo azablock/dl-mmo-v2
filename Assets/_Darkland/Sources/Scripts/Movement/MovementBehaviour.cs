@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -42,8 +43,6 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         public void ServerMoveOnceClientImmediate(Vector3Int movementVector) {
-            if (!_isReadyForNextMove) return;
-
             var possibleNewPos = _discretePosition.Pos + movementVector;
             if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
 
@@ -57,8 +56,11 @@ namespace _Darkland.Sources.Scripts.Movement {
             var possibleNewPos = _discretePosition.Pos + movementVector;
             if (!DarklandWorldBehaviour._.IsEmptyField(possibleNewPos)) return;
 
-            ServerSetDiscretePosition(possibleNewPos);
+            StartCoroutine(ServerProcessMoveOnce(movementVector));
         }
+
+        [Server]
+        public bool ServerIsReadyForNextMove() => _isReadyForNextMove;
 
         [Server]
         private IEnumerator ServerMove() {
@@ -69,7 +71,15 @@ namespace _Darkland.Sources.Scripts.Movement {
                 _isReadyForNextMove = true;
             }
         }
-        
+
+        [Server]
+        private IEnumerator ServerProcessMoveOnce(Vector3Int posDelta) {
+                _isReadyForNextMove = false;
+                ServerSetDiscretePosition(_discretePosition.Pos + posDelta);
+                yield return new WaitForSeconds(ServerTimeBetweenMoves());
+                _isReadyForNextMove = true;
+        }
+
         [Server]
         private void ServerSetDiscretePosition(Vector3Int pos, bool clientImmediate = false) {
             if (!DarklandWorldBehaviour._.IsEmptyField(pos)) return;

@@ -45,7 +45,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             {
                 StatId.Dexterity, new StatModifiersDict {
                     { StatId.MovementSpeed, v => v / 100.0f },
-                    { StatId.ActionSpeed, v => v / 10.0f },
+                    { StatId.ActionSpeed, v => v / 100.0f },
                     { StatId.PhysicalResistance, v => v / 10 }, //casts to int
                 }
             },
@@ -53,7 +53,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
                 StatId.Intellect, new StatModifiersDict {
                     { StatId.MaxMana, v => v * 1 },
                     { StatId.ManaRegain, v => v / 20.0f },
-                    { StatId.ActionSpeed, v => v / 10.0f },
+                    { StatId.ActionSpeed, v => v / 100.0f },
                 }
             },
             {

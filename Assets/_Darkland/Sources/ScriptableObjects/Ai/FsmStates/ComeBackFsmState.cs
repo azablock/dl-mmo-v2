@@ -18,13 +18,15 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
         public override void UpdateSelf(GameObject parent) {
             var currentPos = parent.GetComponent<IDiscretePosition>().Pos;
             var pathHolder = parent.GetComponent<AiPathHolderBehaviour>();
+            var movementBehaviour = parent.GetComponent<MovementBehaviour>();
             
             if (pathHolder.IsPathEmpty()) return;
+            if (!movementBehaviour.ServerIsReadyForNextMove()) return;
 
             var nextPos = pathHolder.NextPos();
             var movementVector = nextPos - currentPos;
             
-            parent.GetComponent<MovementBehaviour>().ServerMoveOnce(movementVector);
+            movementBehaviour.ServerMoveOnce(movementVector);
         }
 
     }

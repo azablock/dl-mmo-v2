@@ -16,16 +16,17 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var currentPos = parent.GetComponent<IDiscretePosition>().Pos;
             var targetPos = parent.GetComponent<ITargetNetIdHolder>().TargetPos();
             var pathHolder = parent.GetComponent<AiPathHolderBehaviour>();
-            var movement = parent.GetComponent<MovementBehaviour>();
+            var movementBehaviour = parent.GetComponent<MovementBehaviour>();
 
             pathHolder.ServerSetPath(currentPos, targetPos);
             
             if (pathHolder.IsPathEmpty()) return;
+            if (!movementBehaviour.ServerIsReadyForNextMove()) return;
 
             var nextPos = pathHolder.NextPos();
             var movementVector = nextPos - currentPos;
             
-            movement.ServerMoveOnce(movementVector);
+            movementBehaviour.ServerMoveOnce(movementVector);
         }
 
     }

@@ -34,7 +34,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             messageInputField.onSelect.AddListener(ClientMessageInputFieldSelected);
             messageInputField.onDeselect.AddListener(ClientMessageInputFieldDeselected);
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
-            messageInputField.onValueChanged.AddListener(ClientOnMessageInputFieldValueChanged);
 
             ChatMessagesProxy.ClientChatMessageReceived += ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived += ClientAddServerLogMessage;
@@ -44,7 +43,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             messageInputField.onSelect.RemoveListener(ClientMessageInputFieldSelected);
             messageInputField.onDeselect.RemoveListener(ClientMessageInputFieldDeselected);
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
-            messageInputField.onValueChanged.RemoveListener(ClientOnMessageInputFieldValueChanged);
 
             ChatMessagesProxy.ClientChatMessageReceived -= ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived -= ClientAddServerLogMessage;
@@ -88,12 +86,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             messageInputField.text = string.Empty;
             messageInputField.Select();
             messageInputField.ActivateInputField();
-        }
-
-        [Client]
-        private void ClientOnMessageInputFieldValueChanged(string val) {
-            if (val.Trim() == val) return;
-            messageInputField.text = val.Trim();
         }
 
         [Client]

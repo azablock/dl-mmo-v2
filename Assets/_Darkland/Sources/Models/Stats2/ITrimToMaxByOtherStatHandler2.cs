@@ -1,4 +1,4 @@
-﻿using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Models.Unit.Stats2;
 
 namespace _Darkland.Sources.Models.Stats2 {
 
@@ -19,5 +19,4 @@ namespace _Darkland.Sources.Models.Stats2 {
                 trimmedStat.Set(StatVal.OfBasic(trimByStatCurrentValue.Current));
         }
     }
-
 }

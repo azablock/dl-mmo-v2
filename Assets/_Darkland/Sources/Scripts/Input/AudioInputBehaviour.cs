@@ -32,8 +32,8 @@ namespace _Darkland.Sources.Scripts.Input {
             toggleMusic.Enable();
             
             //todo tmp
-            audioRootManager.Toggle(audioRootManager.ambient);
-            audioRootManager.Toggle(audioRootManager.music);
+            // audioRootManager.Toggle(audioRootManager.ambient);
+            // audioRootManager.Toggle(audioRootManager.music);
         }
 
         private void Disconnect() {

@@ -25,3 +25,4 @@ MonoBehaviour:
   maxGoldGain: 4
   respawnTime: 45
   reactionSpeed: 1
+  healthRegain: 0

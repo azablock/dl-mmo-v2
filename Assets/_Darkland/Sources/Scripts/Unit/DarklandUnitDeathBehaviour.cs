@@ -6,15 +6,12 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
-    public interface IDeathEventEmitterHolder {
-        IDeathEventEmitter DeathEventEmitter { get; }
-    }
-    
-    public class DarklandUnitDeathBehaviour : MonoBehaviour, IDeathEventEmitterHolder {
+    public class DarklandUnitDeathBehaviour : MonoBehaviour {
 
         private IStatsHolder _statsHolder;
         public IDeathEventEmitter DeathEventEmitter { get; private set; }
 
+        // [ServerCallback]
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             DeathEventEmitter = new DeathEventEmitter(_statsHolder.Stat(StatId.Health));

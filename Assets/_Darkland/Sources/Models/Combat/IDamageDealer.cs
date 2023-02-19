@@ -14,7 +14,7 @@ namespace _Darkland.Sources.Models.Combat {
 
         event Action<DamageAppliedEvent> ServerDamageApplied;
 
-        public const int UnarmedAttackRange = 1;
+        public const int UnarmedAttackRange = 2;
         public static int UnarmedBaseDamageRange() => Random.Range(1, 3);
 
     }

@@ -11,7 +11,6 @@ namespace _Darkland.Tests.EditMode.Models.Stats2 {
 
         private readonly ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
         private IStatsHolder _statsHolder;
-
         private Stat _healthStat;
         private Stat _maxHealthStat;
         private StatVal _healthStatVal;
