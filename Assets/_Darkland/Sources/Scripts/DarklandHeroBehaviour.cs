@@ -3,6 +3,7 @@ using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.ScriptableObjects.Hero;
 using _Darkland.Sources.Scripts.Presentation.Unit;
+using _Darkland.Sources.Scripts.ScriptableObjectContainer;
 using _Darkland.Sources.Scripts.Unit;
 using _Darkland.Sources.Scripts.World;
 using Mirror;

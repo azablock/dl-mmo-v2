@@ -21,19 +21,10 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         }
 
         private IEnumerator Vfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
-            transform.position = message.castPos;
             var sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
             spriteRenderer.sortingLayerID = sortingLayerID;
-            
-            var fieldInfo = light2D
-                .GetType()
-                .GetField("m_ApplyToSortingLayers", BindingFlags.NonPublic | BindingFlags.Instance);
-            fieldInfo.SetValue(light2D, new[] {sortingLayerID});
-            
-            
-            
-            
-            
+            transform.position = message.castPos;
+            Gfx2dHelper.ApplyLight2dSortingLayer(light2D, Vector3Int.FloorToInt(transform.position));
             
             transform.localScale = new Vector3(message.radius, message.radius, 1);
             var startOuterLightRadius = light2D.pointLightOuterRadius;

@@ -4,7 +4,7 @@ using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.ScriptableObjects.Hero;
 using UnityEngine;
 
-namespace _Darkland.Sources.Scripts.Unit {
+namespace _Darkland.Sources.Scripts.ScriptableObjectContainer {
 
     public class HeroVocationsContainer : MonoBehaviour {
 

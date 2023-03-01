@@ -87,12 +87,6 @@ namespace _Darkland.Sources.Scripts.Unit {
         [Client]
         private void ClientSyncLevel(int _, int __) => ClientLevelChanged?.Invoke(this.LevelEvt());
 
-        /*
-         Experience_cap = Level^3 + 60 * Level^2 + 100 * Level + 140
-
-         */
-        // private static int LevelXpCap(int lvl) => lvl == 1 ? 0 : (int)(Math.Exp(lvl) * 10);
-
     }
 
 }

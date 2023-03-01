@@ -23,7 +23,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
         public event Action<NetworkIdentity> ServerCleared;
 
         public override void OnStartServer() {
-            _deathEventEmitter = GetComponent<DeathHandlerBehaviour2>();
+            _deathEventEmitter = GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter;
             _discretePosition = GetComponent<IDiscretePosition>();
 
             _discretePosition.Changed += ServerOnOwnerPosChanged;
@@ -68,7 +68,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
             if (TargetNetIdentity == null) return;
             
             TargetNetIdentity.GetComponent<IDiscretePosition>().Changed -= ServerOnTargetPosChanged;
-            TargetNetIdentity.GetComponent<DeathHandlerBehaviour2>().Death -= Clear;
+            TargetNetIdentity.GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter.Death -= Clear;
 
             ServerCleared?.Invoke(TargetNetIdentity);
             
@@ -78,7 +78,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
         [Server]
         private void ServerConnectToTarget() {
             TargetNetIdentity.GetComponent<IDiscretePosition>().Changed += ServerOnTargetPosChanged;
-            TargetNetIdentity.GetComponent<DeathHandlerBehaviour2>().Death += Clear;
+            TargetNetIdentity.GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter.Death += Clear;
         }
 
         [Server]

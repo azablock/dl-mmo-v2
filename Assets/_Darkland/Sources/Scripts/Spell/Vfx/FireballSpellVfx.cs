@@ -33,13 +33,8 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         private IEnumerator Vfx(FireballSpellVfxResponseMessage message) {
             transform.position = message.castPos;
             spriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
+            Gfx2dHelper.ApplyLight2dSortingLayer(light2D, Vector3Int.FloorToInt(transform.position));
 
-            var fieldInfo = light2D
-                .GetType()
-                .GetField("m_ApplyToSortingLayers", BindingFlags.NonPublic | BindingFlags.Instance);
-            fieldInfo.SetValue(light2D, new[] {Gfx2dHelper.SortingLayerIdByPos(transform.position)});
-            
-            
             var lerp = 0.0f;
             var vfxDuration = message.fireballFlyDuration;
             

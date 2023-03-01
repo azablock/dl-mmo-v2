@@ -12,7 +12,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         private IDiscretePosition _discretePosition;
         private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
-        // [ServerCallback]
+        [ServerCallback]
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _discretePosition = GetComponent<IDiscretePosition>();

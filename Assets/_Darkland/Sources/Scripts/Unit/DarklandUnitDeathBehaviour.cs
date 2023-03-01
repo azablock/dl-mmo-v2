@@ -11,7 +11,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         private IStatsHolder _statsHolder;
         public IDeathEventEmitter DeathEventEmitter { get; private set; }
 
-        // [ServerCallback]
+        [ServerCallback]
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             DeathEventEmitter = new DeathEventEmitter(_statsHolder.Stat(StatId.Health));

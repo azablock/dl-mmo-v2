@@ -4,13 +4,6 @@ using UnityEngine.Assertions;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
-    public interface ITradeHandler {
-
-        void BuyItem(IEqItemDef item);
-        void SellItem(int backpackSlot);
-
-    }
-    
     public class TradeHandlerBehaviour : NetworkBehaviour, ITradeHandler {
 
         private IEqHolder _eqHolder;
