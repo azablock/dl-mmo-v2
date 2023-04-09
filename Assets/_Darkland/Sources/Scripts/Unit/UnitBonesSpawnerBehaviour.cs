@@ -10,22 +10,22 @@ namespace _Darkland.Sources.Scripts.Unit {
         [SerializeField]
         private GameObject unitBonesPrefab;
         private IDiscretePosition _discretePosition;
-        private IDeathEventEmitter _deathEventEmitter;
+        private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
         [ServerCallback]
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
-            _deathEventEmitter = GetComponent<IDeathEventEmitter>();
+            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
         }
 
         [ServerCallback]
         private void OnEnable() {
-            _deathEventEmitter.Death += ServerSpawnBones;
+            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerSpawnBones);
         }
 
         [ServerCallback]
         private void OnDisable() {
-            _deathEventEmitter.Death -= ServerSpawnBones;
+            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerSpawnBones);
         }
 
         [Server]

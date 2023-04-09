@@ -16,18 +16,18 @@ namespace _Darkland.Sources.Scripts.Unit {
         public event Action<int> ClientXpChanged;
         public event Action<ExperienceLevelChangeEvent> ClientLevelChanged;
 
-        private IDeathEventEmitter _deathEventEmitter;
+        private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
         private void Awake() {
-            _deathEventEmitter = GetComponent<IDeathEventEmitter>();
+            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
         }
 
         public override void OnStartServer() {
-            _deathEventEmitter.Death += ServerOnDeath;
+            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerOnDeath);
         }
 
         public override void OnStopServer() {
-            _deathEventEmitter.Death -= ServerOnDeath;
+            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerOnDeath);
         }
 
         [Server]

@@ -27,7 +27,7 @@ namespace _Darkland.Sources.Scripts.Ai {
             _mob = Instantiate(darklandMobPrefab, spawnPos, Quaternion.identity);
             _mob.GetComponent<IDiscretePosition>().Set(spawnPos);
             _mob.GetComponent<SpawnPositionHolder>().ServerSet(spawnPos);
-            _mob.GetComponent<IDeathEventEmitter>().Death += ServerOnMobDeath;
+            _mob.GetComponent<DarklandUnitDeathBehaviour>().ServerAddDeathCallback(ServerOnMobDeath);
 
             var mobDef = _mob.GetComponent<IMobDefHolder>().MobDef;
             _mob.GetComponent<IStatsHolder>()
@@ -44,7 +44,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         [Server]
         private void ServerOnMobDeath() {
             var respawnTime = _mob.GetComponent<IMobDefHolder>().MobDef.RespawnTime;
-            _mob.GetComponent<IDeathEventEmitter>().Death -= ServerOnMobDeath;
+            _mob.GetComponent<DarklandUnitDeathBehaviour>().ServerRemoveDeathCallback(ServerOnMobDeath);
             
             NetworkServer.Destroy(_mob);
             

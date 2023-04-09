@@ -20,7 +20,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
         
         private Dictionary<string, UnitEffectState> _effectStates;
-        private IDeathEventEmitter _deathEventEmitter;
+        private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
         public event Action<IUnitEffect> ServerAdded;
         public event Action<string> ServerRemoved;
@@ -29,13 +29,13 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         public override void OnStartServer() {
             _effectStates = new();
-            _deathEventEmitter = GetComponent<IDeathEventEmitter>();
+            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
 
-            _deathEventEmitter.Death += ServerRemoveAll;
+            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerRemoveAll);
         }
 
         public override void OnStopServer() {
-            _deathEventEmitter.Death -= ServerRemoveAll;
+            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerRemoveAll);
         }
 
         [Server]
