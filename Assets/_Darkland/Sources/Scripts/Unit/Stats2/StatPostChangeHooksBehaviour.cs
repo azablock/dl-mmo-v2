@@ -1,6 +1,5 @@
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats2;
-using _Darkland.Sources.ScriptableObjects.Stats2;
 using _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook;
 using Mirror;
 using UnityEngine;
@@ -17,6 +16,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
             _hooksHandler = new StatPostChangeHooksHandler(_statsHolder, statPostChangeHooks);
+
             Debug.Assert(statPostChangeHooks.All(it => it.CanBeRegistered(_statsHolder)));
         }
 

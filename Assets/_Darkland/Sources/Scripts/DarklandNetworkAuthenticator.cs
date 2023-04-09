@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Account;
-using _Darkland.Sources.Models.Persistence.Entity;
+using _Darkland.Sources.Models.Hero;
+using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Persistence;
 using Mirror;
@@ -21,7 +23,7 @@ namespace _Darkland.Sources.Scripts {
         public static Action clientAuthFailure;
         public static Action clientTimeout;
         
-        public static Action<List<string>> clientGetHeroesSuccess;
+        public static Action<List<DarklandHeroDto>> clientGetHeroesSuccess;
         public static Action clientNewHeroSuccess;
         public static Action<string> clientNewHeroFailure;
 
@@ -134,15 +136,15 @@ namespace _Darkland.Sources.Scripts {
             var darklandAccountEntity = DarklandDatabaseManager
                 .darklandAccountRepository
                 .FindByName(accountName);
-            var heroNames = DarklandDatabaseManager
+            var heroes = DarklandDatabaseManager
                 .darklandHeroRepository
                 .FindAllByDarklandAccountId(darklandAccountEntity.id)
-                .Select(it => it.name)
+                .Select(it => new DarklandHeroDto{heroVocationType = Enum.Parse<HeroVocationType>(it.vocation), heroName = it.name})
                 .ToList();
 
-            ((DarklandAuthState) conn.authenticationData).heroNames = heroNames;
+            ((DarklandAuthState) conn.authenticationData).heroNames = heroes.Select(it => it.heroName).ToList();
 
-            conn.Send(new DarklandAuthMessages.GetDarklandHeroesResponseMessage {heroNames = heroNames});
+            conn.Send(new DarklandAuthMessages.GetDarklandHeroesResponseMessage {heroes = heroes});
         }
 
         [Server]
@@ -162,12 +164,7 @@ namespace _Darkland.Sources.Scripts {
                 var accountName = ((DarklandAuthState) (conn.authenticationData)).accountName;
                 var darklandAccountEntity = DarklandDatabaseManager.darklandAccountRepository.FindByName(accountName);
 
-                var darklandHeroEntity = new DarklandHeroEntity {
-                    name = heroName,
-                    darklandAccountId = darklandAccountEntity.id
-                };
-
-                DarklandDatabaseManager.darklandHeroRepository.Create(darklandHeroEntity);
+                DarklandHeroService.ServerCreateNewHero(darklandAccountEntity.id, heroName, msg.heroVocationType);
 
                 conn.Send(new DarklandAuthMessages.NewDarklandHeroResponseMessage {
                     success = true,
@@ -238,7 +235,7 @@ namespace _Darkland.Sources.Scripts {
         
         [Client]
         private static void ClientOnGetDarklandHeroes(DarklandAuthMessages.GetDarklandHeroesResponseMessage msg) =>
-            clientGetHeroesSuccess?.Invoke(msg.heroNames);
+            clientGetHeroesSuccess?.Invoke(msg.heroes);
 
         [Client]
         private static void ClientOnNewDarklandHero(DarklandAuthMessages.NewDarklandHeroResponseMessage msg) {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MongoDB.Bson;
+using _Darkland.Sources.Models.Hero;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,9 +36,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             backButton.onClick.RemoveListener(BackToLogin);
         }
 
-        public void Init(IEnumerable<string> heroNames) {
-            var options = heroNames
-            .Select(it => new TMP_Dropdown.OptionData(it))
+        public void Init(List<DarklandHeroDto> heroes) {
+            var options = heroes
+            .Select(it => new TMP_Dropdown.OptionData($"{it.heroName} ({it.heroVocationType.ToString()})"))
             .ToList();
 
             var hasOptions = options.Count > 0;
@@ -51,7 +51,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             }
         }
 
-        private void EnterGame() => StartClicked?.Invoke(heroesDropdown.captionText.text);
+        //todo hack - trzeba value miec dropdowna jako tylko imie gracza - ale view pokazuje name + vocation
+        private void EnterGame() => StartClicked?.Invoke(heroesDropdown.captionText.text.Split(" (")[0]);
 
         private void CreateHero() {
             NewHeroClicked?.Invoke();

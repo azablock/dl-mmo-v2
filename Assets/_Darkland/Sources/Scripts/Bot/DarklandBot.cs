@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models;
+using _Darkland.Sources.Models.Ai;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Unit;
@@ -9,10 +10,10 @@ namespace _Darkland.Sources.Scripts.Bot {
 
     public class DarklandBot : NetworkBehaviour {
 
-        private AvailableMovesDummyHandler _availableMovesDummyHandler;
+        private IAvailableMovesHolder _availableMovesHolder;
 
         private void Awake() {
-            _availableMovesDummyHandler = GetComponent<AvailableMovesDummyHandler>();
+            _availableMovesHolder = new SimpleAvailableMovesHolder();
         }
 
         public override void OnStartServer() {
@@ -28,7 +29,7 @@ namespace _Darkland.Sources.Scripts.Bot {
 
         [Client]
         private void ClientSendMoveRequest() {
-            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {movementVector = _availableMovesDummyHandler.ClientNextMoveDelta()});
+            NetworkClient.Send(new PlayerInputMessages.MoveRequestMessage {movementVector = _availableMovesHolder.NextMoveDelta()});
         }
     }
 

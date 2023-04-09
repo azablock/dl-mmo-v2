@@ -11,6 +11,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         private IDiscretePosition _discretePosition;
         private Stat _movementSpeedStat;
+        private Coroutine _lerpMovementCoroutine;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -32,17 +33,20 @@ namespace _Darkland.Sources.Scripts.Movement {
             if (isClientImmediate) {
                 ClientRpcImmediateChangePosition(data.pos);
             } else {
-                ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get());
+                ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get().Current);
             }
         }
 
         [ClientRpc]
         private void ClientRpcLerpPosition(Vector3Int newPosition, float movementSpeed) {
-            StartCoroutine(ClientChangePosition(newPosition, movementSpeed));
+            _lerpMovementCoroutine = StartCoroutine(ClientChangePosition(newPosition, movementSpeed));
         }
 
         [ClientRpc]
-        private void ClientRpcImmediateChangePosition(Vector3Int newPosition) => transform.position = newPosition;
+        private void ClientRpcImmediateChangePosition(Vector3Int newPosition) {
+            if (_lerpMovementCoroutine != null) StopCoroutine(_lerpMovementCoroutine);
+            transform.position = newPosition;
+        }
 
         [Client]
         private IEnumerator ClientChangePosition(Vector3Int newPosition, float movementSpeed) {

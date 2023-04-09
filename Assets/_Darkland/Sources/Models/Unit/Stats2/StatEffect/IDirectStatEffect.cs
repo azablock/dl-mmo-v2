@@ -1,16 +1,16 @@
 namespace _Darkland.Sources.Models.Unit.Stats2.StatEffect {
 
     public interface IDirectStatEffect {
-        public float delta { get; }
+        public StatVal delta { get; }
         public StatId statId { get; }
     }
 
     public class DirectStatEffect : IDirectStatEffect {
 
-        public float delta { get; }
+        public StatVal delta { get; }
         public StatId statId { get; }
 
-        public DirectStatEffect(float delta, StatId statId) {
+        public DirectStatEffect(StatVal delta, StatId statId) {
             this.delta = delta;
             this.statId = statId;
         }

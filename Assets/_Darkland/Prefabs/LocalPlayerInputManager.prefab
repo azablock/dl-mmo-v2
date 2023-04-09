@@ -10,7 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1593477636082463851}
   - component: {fileID: 3355532615970537104}
-  - component: {fileID: 2925279974235571815}
+  - component: {fileID: 859285885206298932}
+  - component: {fileID: 5475511698371187621}
+  - component: {fileID: 2438363023244927300}
+  - component: {fileID: 5455710950956774870}
+  - component: {fileID: 1057989440698059565}
+  - component: {fileID: 6332135868018749852}
   m_Layer: 0
   m_Name: LocalPlayerInputManager
   m_TagString: Untagged
@@ -31,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3355532615970537104
 MonoBehaviour:
@@ -63,7 +68,7 @@ MonoBehaviour:
       m_Flags: 4
     - m_Name: up
       m_Id: be948a49-41b7-4d55-b302-1fd11fdd1118
-      m_Path: <Keyboard>/upArrow
+      m_Path: <Keyboard>/w
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -71,7 +76,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: down
       m_Id: 70d64035-e142-4d24-892a-a01b7c24269a
-      m_Path: <Keyboard>/downArrow
+      m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -79,7 +84,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: left
       m_Id: c4151502-410c-4deb-8f89-c4248098f7cc
-      m_Path: <Keyboard>/leftArrow
+      m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -87,7 +92,7 @@ MonoBehaviour:
       m_Flags: 8
     - m_Name: right
       m_Id: 1678d5c9-2d70-4fd9-9311-1f3db9f84ebe
-      m_Path: <Keyboard>/rightArrow
+      m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -96,45 +101,106 @@ MonoBehaviour:
     m_Flags: 0
   changeFloorAction:
     m_Name: Change Floor
-    m_Type: 1
+    m_Type: 0
     m_ExpectedControlType: Button
     m_Id: 92fb1f4a-1139-4d09-b217-8849417c7b8e
     m_Processors: 
     m_Interactions: Press
     m_SingletonActionBindings:
-    - m_Name: Upper, Lower Floors
-      m_Id: 529e6f49-44e0-44e4-98ef-944edb0ddca6
-      m_Path: 1DAxis
-      m_Interactions: Press
-      m_Processors: 
-      m_Groups: 
-      m_Action: Change Floor
-      m_Flags: 4
-    - m_Name: Negative
-      m_Id: d2d21003-b992-45d5-90ec-fd7bcb253bd6
-      m_Path: <Keyboard>/numpadPlus
+    - m_Name: 
+      m_Id: e96c846d-6178-4921-9f84-8e95d5b63bff
+      m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Change Floor
-      m_Flags: 8
-    - m_Name: Positive
-      m_Id: af59aa43-a741-4da0-a864-103595d241b8
-      m_Path: <Keyboard>/numpadMinus
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Change Floor
-      m_Flags: 8
+      m_Flags: 0
     m_Flags: 0
---- !u!114 &2925279974235571815
+--- !u!114 &859285885206298932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2214963643716453128}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69191191ffb0461d9dd4eeedac7df285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellActions:
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 734edf3e-d29a-4949-93e1-9ff50e0e5fb5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b95f1c7f-70fa-448b-9b21-6862115c6b2a
+      m_Path: <Keyboard>/1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7995aae2-bc36-4b55-8a2f-391d4f7ed6b9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 37298c79-7c08-49ac-bbd4-50365026ae89
+      m_Path: <Keyboard>/2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bc6c4d69-024a-4747-952c-7506909fe96e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 205519a1-57af-410b-aeba-2c5011982a37
+      m_Path: <Keyboard>/3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: de820cf2-1ab3-45ef-807e-f928eb27bfc3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 21a186d2-c521-4441-8824-8327e0217560
+      m_Path: <Keyboard>/4
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &5475511698371187621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94f49587a51345c6ba5339be533dc71a, type: 3}
   m_Name: 
@@ -142,17 +208,167 @@ MonoBehaviour:
   leftMouseClick:
     m_Name: Left Mouse Click
     m_Type: 0
-    m_ExpectedControlType: Vector2
-    m_Id: 4cce278d-0940-4cfc-b775-effb093bd230
+    m_ExpectedControlType: 
+    m_Id: ef890ad9-9bb6-4a23-bac4-460037055fc1
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 13531ce8-1689-42bd-9d49-8f0fec644d82
+      m_Id: f8b995d8-d112-4132-a284-f1c869ca1551
       m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Left Mouse Click
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &2438363023244927300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6261d0ee23e2421c967b14310fad9137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatToggleAction:
+    m_Name: Chat Focus
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1a791323-d285-4162-862a-ed3b0fe84020
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d65a35b8-aee9-447c-8232-5c77763d3ab5
+      m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Chat Focus
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &5455710950956774870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14427f812d545729fcf6f833dacf7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroSheetAction:
+    m_Name: Hero Sheet
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2a73f4de-cd29-43e5-b0aa-8ba7c00c5c72
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: be3cf925-e2ab-424c-a56c-c2d08a1100f0
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Hero Sheet
+      m_Flags: 0
+    m_Flags: 0
+  equipmentAction:
+    m_Name: Equipment
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 141633e7-2be5-4626-a065-742aa12d7d30
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 5c74ff82-06eb-4923-93be-9eedba58f536
+      m_Path: <Keyboard>/b
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Equipment
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &1057989440698059565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd5e1aba02b43bcb9b092f1e76544c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTargetClear:
+    m_Name: Current Target Clear
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e20c8ad1-8bbb-4263-892b-2639d3ada951
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 600d93cb-46a7-4bc9-b659-78adcdea250e
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Current Target Clear
+      m_Flags: 0
+    m_Flags: 0
+--- !u!114 &6332135868018749852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214963643716453128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525ca489afd04fb69a08d36d79fab161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleAmbient:
+    m_Name: Toggle Ambient
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2c852258-c07f-45d0-af34-261af244fe1d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 80433529-47a3-4a95-b384-320b1cfab96d
+      m_Path: <Keyboard>/f1
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Ambient
+      m_Flags: 0
+    m_Flags: 0
+  toggleMusic:
+    m_Name: Toggle Music
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fb337b56-6374-4062-b3b9-4de38f5e0311
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: bc31d35c-67ce-4c3a-80dd-0741d957cfe0
+      m_Path: <Keyboard>/f2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Toggle Music
       m_Flags: 0
     m_Flags: 0

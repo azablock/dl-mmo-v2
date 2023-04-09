@@ -32,11 +32,15 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         public void Unregister() {
             foreach (var hook in StatPostChangeHooks) {
                 var stat = StatsHolder.Stat(hook.onChangeStatId);
-                stat.Changed -= statOnChanged(hook);
+
+                //todo jest jakis bug NPE na stat
+                if (stat != null) {
+                    stat.Changed -= statOnChanged(hook);
+                }
             }
         }
 
-        private Action<float> statOnChanged(StatPostChangeHook hook) {
+        private Action<StatVal> statOnChanged(StatPostChangeHook hook) {
             return _ => hook.OnStatChange(StatsHolder);
         }
     }

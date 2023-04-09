@@ -18,7 +18,7 @@ namespace _Darkland.Sources.Models.Interaction {
         [Server]
         public void Interact(NetworkIdentity interactor, IDarklandTeleportTile target) {
             var interactorDiscretePosition = interactor.GetComponent<MovementBehaviour>();
-            interactorDiscretePosition.ServerMoveClientImmediate(target.posDelta);
+            interactorDiscretePosition.ServerMoveOnceClientImmediate(target.posDelta);
         }
 
         [Server]

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using UnityEngine;
@@ -76,12 +77,15 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private static void HeroesPanelOnStartClicked(string heroName) =>
             NetworkClient.Send(new DarklandAuthMessages.HeroEnterGameRequestMessage { selectedHeroName = heroName });
 
-        private static void NewHeroPanelOnCreateClicked(string heroName) =>
-            NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage { heroName = heroName });
+        private static void NewHeroPanelOnCreateClicked(DarklandHeroDto formData) =>
+            NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage {
+                heroName = formData.heroName,
+                heroVocationType = formData.heroVocationType
+            });
 
-        private void ClientGetHeroesSuccess(List<string> heroNames) {
+        private void ClientGetHeroesSuccess(List<DarklandHeroDto> heroes) {
             ShowChildPanel(heroesPanel);
-            heroesPanel.Init(heroNames);
+            heroesPanel.Init(heroes);
         }
 
         public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
@@ -104,6 +108,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         }
 
         private static void StartConnection() {
+            // NetworkManager.singleton.StartClient();
+            
 #if UNITY_EDITOR_64 && !UNITY_SERVER
             if (!NetworkServer.active) {
                 DarklandNetworkManager.self.StartHost();

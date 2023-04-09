@@ -11,8 +11,16 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
         public StatId trimByStatId;
 
-        public override float Apply(IStatsHolder statsHolder, float val) =>
-            Mathf.Min(val, statsHolder.Stat(trimByStatId).Get());
+        public bool applyBasic;
+        public bool applyBonus;
+
+        public override StatVal Apply(IStatsHolder statsHolder, StatVal val) {
+            var trimByStatVal = statsHolder.Stat(trimByStatId).Get();
+            var newBasic = applyBasic ? Mathf.Min(val.Basic, trimByStatVal.Basic) : val.Basic;
+            var newBonus = applyBonus ? Mathf.Min(val.Bonus, trimByStatVal.Bonus) : val.Bonus;
+            
+            return StatVal.Of(newBasic, newBonus);
+        }
     }
 
 }

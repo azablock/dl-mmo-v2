@@ -9,7 +9,9 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
     ]
     public class CastToIntStatPreChangeHook : StatPreChangeHook {
 
-        public override float Apply(IStatsHolder statsHolder, float val) => (int) val;
+        public override StatVal Apply(IStatsHolder statsHolder, StatVal val) =>
+            StatVal.Of((int)val.Basic, (int)val.Bonus);
+
     }
 
 }

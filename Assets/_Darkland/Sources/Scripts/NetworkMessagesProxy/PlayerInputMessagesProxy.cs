@@ -1,68 +1,117 @@
 using System;
-using _Darkland.Sources.NetworkMessages;
 using Mirror;
 using UnityEngine;
+using static _Darkland.Sources.NetworkMessages.PlayerInputMessages;
 
 namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
-    
-    public class PlayerInputMessagesProxy : MonoBehaviour, INetworkMessagesProxy {
-        
-        public static event Action<NetworkConnectionToClient, PlayerInputMessages.MoveRequestMessage> ServerMove;
-        public static event Action<NetworkConnectionToClient, PlayerInputMessages.ChangeFloorRequestMessage> ServerChangeFloor;
-        public static event Action<NetworkConnectionToClient, PlayerInputMessages.NpcClickRequestMessage> ServerNpcClick;
-        public static event Action<NetworkConnectionToClient, PlayerInputMessages.GetHealthStatsRequestMessage> ServerGetHealthStats;
 
-        public static event Action<PlayerInputMessages.GetHealthStatsResponseMessage> ClientGetHealthStats;
+    public class PlayerInputMessagesProxy : MonoBehaviour, INetworkMessagesProxy {
+
+        public static event Action<NetworkConnectionToClient, MoveRequestMessage> ServerMove;
+        public static event Action<NetworkConnectionToClient, ChangeFloorRequestMessage> ServerChangeFloor;
+        public static event Action<NetworkConnectionToClient, NpcClickRequestMessage> ServerNpcClick;
+        public static event Action<NetworkConnectionToClient, NpcClearRequestMessage> ServerNpcClear;
+        public static event Action<NetworkConnectionToClient, GetHealthStatsRequestMessage> ServerGetHealthStats;
+        public static event Action<NetworkConnectionToClient, CastSpellRequestMessage> ServerCastSpell;
+        public static event Action<NetworkConnectionToClient, PickupItemRequestMessage> ServerPickupItem;
+        public static event Action<NetworkConnectionToClient, DropItemRequestMessage> ServerDropItem;
+        public static event Action<NetworkConnectionToClient, UseItemRequestMessage> ServerUseItem;
+        public static event Action<NetworkConnectionToClient, UnequipWearableRequestMessage> ServerUnequipWearable;
+
+        public static event Action<GetHealthStatsResponseMessage> ClientGetHealthStats;
 
         [Server]
         public void OnStartServer() {
-            NetworkServer.RegisterHandler<PlayerInputMessages.MoveRequestMessage>(ServerHandleMove);
-            NetworkServer.RegisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>(ServerHandleChangeFloor);
-            NetworkServer.RegisterHandler<PlayerInputMessages.NpcClickRequestMessage>(ServerHandleNpcClick);
-            NetworkServer.RegisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>(ServerHandleGetHealthStats);
+            NetworkServer.RegisterHandler<MoveRequestMessage>(ServerHandleMove);
+            NetworkServer.RegisterHandler<ChangeFloorRequestMessage>(ServerHandleChangeFloor);
+            NetworkServer.RegisterHandler<NpcClickRequestMessage>(ServerHandleNpcClick);
+            NetworkServer.RegisterHandler<NpcClearRequestMessage>(ServerHandleNpcClear);
+            NetworkServer.RegisterHandler<GetHealthStatsRequestMessage>(ServerHandleGetHealthStats);
+            NetworkServer.RegisterHandler<CastSpellRequestMessage>(ServerHandleCastSpell);
+            NetworkServer.RegisterHandler<PickupItemRequestMessage>(ServerHandlePickupItem);
+            NetworkServer.RegisterHandler<DropItemRequestMessage>(ServerHandleDropItem);
+            NetworkServer.RegisterHandler<UseItemRequestMessage>(ServerHandleUseItem);
+            NetworkServer.RegisterHandler<UnequipWearableRequestMessage>(ServerHandleUnequipWearable);
         }
-
+        
         [Server]
         public void OnStopServer() {
-            NetworkServer.UnregisterHandler<PlayerInputMessages.MoveRequestMessage>();
-            NetworkServer.UnregisterHandler<PlayerInputMessages.ChangeFloorRequestMessage>();
-            NetworkServer.UnregisterHandler<PlayerInputMessages.NpcClickRequestMessage>();
-            NetworkServer.UnregisterHandler<PlayerInputMessages.GetHealthStatsRequestMessage>();
+            NetworkServer.UnregisterHandler<MoveRequestMessage>();
+            NetworkServer.UnregisterHandler<ChangeFloorRequestMessage>();
+            NetworkServer.UnregisterHandler<NpcClickRequestMessage>();
+            NetworkServer.UnregisterHandler<NpcClearRequestMessage>();
+            NetworkServer.UnregisterHandler<GetHealthStatsRequestMessage>();
+            NetworkServer.UnregisterHandler<CastSpellRequestMessage>();
+            NetworkServer.UnregisterHandler<PickupItemRequestMessage>();
+            NetworkServer.UnregisterHandler<DropItemRequestMessage>();
+            NetworkServer.UnregisterHandler<UseItemRequestMessage>();
+            NetworkServer.UnregisterHandler<UnequipWearableRequestMessage>();
         }
 
         [Client]
         public void OnStartClient() {
-            NetworkClient.RegisterHandler<PlayerInputMessages.GetHealthStatsResponseMessage>(ClientHandleGetHealthStats);
+            NetworkClient.RegisterHandler<GetHealthStatsResponseMessage>(ClientHandleGetHealthStats);
         }
 
         [Client]
         public void OnStopClient() {
-            NetworkClient.UnregisterHandler<PlayerInputMessages.GetHealthStatsResponseMessage>();
+            NetworkClient.UnregisterHandler<GetHealthStatsResponseMessage>();
         }
 
         [Server]
         private static void ServerHandleMove(NetworkConnectionToClient conn,
-                                             PlayerInputMessages.MoveRequestMessage message) =>
+                                             MoveRequestMessage message) =>
             ServerMove?.Invoke(conn, message);
 
         [Server]
         private static void ServerHandleChangeFloor(NetworkConnectionToClient conn,
-                                                    PlayerInputMessages.ChangeFloorRequestMessage message) =>
+                                                    ChangeFloorRequestMessage message) =>
             ServerChangeFloor?.Invoke(conn, message);
 
         [Server]
         private static void ServerHandleNpcClick(NetworkConnectionToClient conn,
-                                                 PlayerInputMessages.NpcClickRequestMessage message) =>
+                                                 NpcClickRequestMessage message) =>
             ServerNpcClick?.Invoke(conn, message);
 
         [Server]
+        private static void ServerHandleNpcClear(NetworkConnectionToClient conn,
+                                                 NpcClearRequestMessage message) =>
+            ServerNpcClear?.Invoke(conn, message);
+
+
+        [Server]
         private static void ServerHandleGetHealthStats(NetworkConnectionToClient conn,
-                                                       PlayerInputMessages.GetHealthStatsRequestMessage message) =>
+                                                       GetHealthStatsRequestMessage message) =>
             ServerGetHealthStats?.Invoke(conn, message);
 
+        [Server]
+        private static void ServerHandleCastSpell(NetworkConnectionToClient conn,
+                                                  CastSpellRequestMessage message) =>
+            ServerCastSpell?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandlePickupItem(NetworkConnectionToClient conn,
+                                                   PickupItemRequestMessage message) =>
+            ServerPickupItem?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleDropItem(NetworkConnectionToClient conn,
+                                                 DropItemRequestMessage message) =>
+            ServerDropItem?.Invoke(conn, message);
+
+        [Server]
+        private static void ServerHandleUseItem(NetworkConnectionToClient conn,
+                                                UseItemRequestMessage message) =>
+            ServerUseItem?.Invoke(conn, message);
+
+        private static void ServerHandleUnequipWearable(NetworkConnectionToClient conn,
+                                                        UnequipWearableRequestMessage message) =>
+            ServerUnequipWearable?.Invoke(conn, message);
+
         [Client]
-        private static void ClientHandleGetHealthStats(PlayerInputMessages.GetHealthStatsResponseMessage message) =>
+        private static void ClientHandleGetHealthStats(GetHealthStatsResponseMessage message) =>
             ClientGetHealthStats?.Invoke(message);
 
     }
+
 }

@@ -24,7 +24,6 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [ClientRpc]
         private void ClientRpcChangePosition(Vector3Int pos) {
-            Debug.Log($"v3INT {pos} [netId={netId}] {NetworkTime.time}");
             transform.position = pos;
         }
     }

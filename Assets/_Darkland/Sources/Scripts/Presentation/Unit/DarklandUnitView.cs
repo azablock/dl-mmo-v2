@@ -7,7 +7,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
 
     public class DarklandUnitView : MonoBehaviour {
 
-        public Canvas unitDebugCanvas;
         public SpriteRenderer unitSpriteRenderer;
         
         private IDiscretePosition _discretePosition;
@@ -30,11 +29,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
         private void DarklandUnitOnClientStarted() => ClientOnChangePosition(_discretePosition.Pos);
 
         [Client]
-        private void ClientOnChangePosition(Vector3Int pos) {
-            var sortingLayerId = Gfx2dHelper.SortingLayerIdByPos(pos);
-            unitDebugCanvas.sortingLayerID = sortingLayerId;
-            unitSpriteRenderer.sortingLayerID = sortingLayerId;
-        }
+        private void ClientOnChangePosition(Vector3Int pos) =>
+            unitSpriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(pos);
+
     }
 
 }

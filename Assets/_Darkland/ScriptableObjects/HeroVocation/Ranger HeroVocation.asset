@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1660a879d5b248b29432be50ff0ac195, type: 3}
+  m_Name: Ranger HeroVocation
+  m_EditorClassIdentifier: 
+  vocationType: 2
+  availableSpells:
+  - {fileID: 11400000, guid: 2fe42a45313e7144b8a185b48f7d80c1, type: 2}
+  - {fileID: 11400000, guid: 2c9a823e10482944d8c202223c8ebda8, type: 2}
+  - {fileID: 11400000, guid: ba9b41868675f424586ed0f26c49edf9, type: 2}
+  - {fileID: 11400000, guid: c64aa8571d903dd49b632cbbcaf6213a, type: 2}
+  levelTraitDistribution: {fileID: 0}
+  vocationSprite: {fileID: 21300000, guid: fa710fc192d27c645af12fce4d17abb6, type: 3}
+  startingStats: {fileID: 0}

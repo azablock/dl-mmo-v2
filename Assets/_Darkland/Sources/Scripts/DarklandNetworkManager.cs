@@ -5,9 +5,11 @@ using System.Linq;
 using _Darkland.Sources.Models.Account;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.DarklandHero;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Unit;
+using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
 
@@ -29,8 +31,9 @@ namespace _Darkland.Sources.Scripts {
 
         private List<INetworkMessagesProxy> _networkMessagesProxies;
 
-        public static Action<DisconnectStatus> clientDisconnected;
-        public static Action<NetworkIdentity> serverOnClientDisconnected;
+        public static Action ServerStarted;
+        public static Action<NetworkIdentity> serverOnPlayerDisconnected;
+        public static Action<DisconnectStatus> clientOnPlayerDisconnected;
         public static Action clientHeroEnterGameSuccess;
 
         /// <summary>
@@ -38,6 +41,17 @@ namespace _Darkland.Sources.Scripts {
         /// Networking is NOT initialized when this fires
         /// </summary>
         public override void Start() {
+            //todo move somewhere
+            Physics.IgnoreLayerCollision(
+                LayerMask.NameToLayer($"Player"),
+                LayerMask.NameToLayer($"Player"),
+                true);
+            
+            Physics.IgnoreLayerCollision(
+                LayerMask.NameToLayer($"Mob"),
+                LayerMask.NameToLayer($"Mob"),
+                true);
+            
             _networkMessagesProxies = GetComponentsInChildren<INetworkMessagesProxy>().ToList();
             
             var args = Environment.GetCommandLineArgs().ToList();
@@ -78,15 +92,16 @@ namespace _Darkland.Sources.Scripts {
 
         public override void OnStartServer() {
             NetworkServer.RegisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>(ServerHeroEnterGame);
-
-            
             _networkMessagesProxies.ForEach(it => it.OnStartServer());
+            
+            ServerStarted?.Invoke();
+
+            FindObjectOfType<DayNightCycleHolderBehaviour>().ServerSet(0);
+
         }
 
         public override void OnStopServer() {
             NetworkServer.UnregisterHandler<DarklandAuthMessages.HeroEnterGameRequestMessage>();
-
-            
             _networkMessagesProxies.ForEach(it => it.OnStopServer());
         }
 
@@ -95,12 +110,12 @@ namespace _Darkland.Sources.Scripts {
 
             if (netIdentity != null) {
                 var heroName = netIdentity.GetComponent<UnitNameBehaviour>().unitName;
-                var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has left the game.");
+                var message = RichTextFormatter.FormatServerLog($"{heroName} has left the game.");
 
                 NetworkServer.SendToReady(new ChatMessages.ServerLogResponseMessage {message = message});
                 DarklandHeroService.ServerSaveDarklandHero(netIdentity.gameObject);
                 
-                serverOnClientDisconnected?.Invoke(netIdentity);
+                serverOnPlayerDisconnected?.Invoke(netIdentity);
                 
                 Debug.Log(message);
             }
@@ -127,7 +142,7 @@ namespace _Darkland.Sources.Scripts {
             conn.Send(new DarklandAuthMessages.DarklandHeroEnterGameResponseMessage());
             
             var heroName = conn.identity.GetComponent<UnitNameBehaviour>().unitName;
-            var message = ChatMessagesFormatter.FormatServerLog($"{heroName} has joined the game.");
+            var message = RichTextFormatter.FormatServerLog($"{heroName} has joined the game.");
 
             NetworkServer.SendToReadyObservers(
                 conn.identity,
@@ -151,7 +166,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public override void OnClientDisconnect() {
-            clientDisconnected?.Invoke(NetworkClient.connection.isAuthenticated
+            clientOnPlayerDisconnected?.Invoke(NetworkClient.connection.isAuthenticated
                                            ? new DisconnectStatus {fromServer = NetworkClient.active}
                                            : new DisconnectStatus {fromServer = true});
             base.OnClientDisconnect();

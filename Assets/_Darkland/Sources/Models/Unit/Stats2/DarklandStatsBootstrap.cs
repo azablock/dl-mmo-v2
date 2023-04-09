@@ -30,7 +30,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
                            return new Stat(
                                statId,
-                               () => (float) fieldInfo.GetValue(statsHolder),
+                               () => (StatVal) fieldInfo.GetValue(statsHolder),
                                // () => ServerWrapStatsApi.ServerGet(() => (StatValue) fieldInfo.GetValue(statsHolder)),
                                val => {
                                    var statConstrainsHolder = statsHolder.statPreChangeHooksHolder;
@@ -41,8 +41,8 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
                                    var valAfterConstraints = hooks
                                        .Aggregate(val, (stat, constraint) => constraint.Apply(statsHolder, stat));
 
-                                   setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
-                                   // ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
+                                   // setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints});
+                                   ServerWrapStatsApi.ServerSet(() => setterMethodInfo.Invoke(statsHolder, new object[] {valAfterConstraints}));
                                }
                            );
                        }

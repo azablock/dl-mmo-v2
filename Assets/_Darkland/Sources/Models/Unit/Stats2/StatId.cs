@@ -1,6 +1,7 @@
 namespace _Darkland.Sources.Models.Unit.Stats2 {
 
     public enum StatId {
+        //health, mana
         Health,
         MaxHealth,
         Mana,
@@ -8,23 +9,24 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
         HealthRegain,
         ManaRegain,
 
+        //traits
         Might,
         Constitution,
         Dexterity,
-        Intelligence,
+        Intellect,
         Soul,
 
         MovementSpeed,
-        CastSpeed,
-        AttackSpeed,
-
-        SwordMastery,
-        RangedMastery,
-        Block,
+        ActionSpeed,
+        ActionPower,
 
         MagicResistance,
         PhysicalResistance,
 
+        //not used ----------------------
+        SwordMastery,
+        RangedMastery,
+        Block,
 
         Hunger,
         HungerRate,
@@ -33,6 +35,7 @@ namespace _Darkland.Sources.Models.Unit.Stats2 {
 
         MaxEncumbrance,
         Encumbrance,
+        //not used ----------------------
     }
 
 

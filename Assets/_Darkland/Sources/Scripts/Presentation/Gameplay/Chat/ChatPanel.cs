@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
@@ -25,19 +27,22 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         private readonly List<string> _chatHistory = new();
 
-        public event Action<string> MessageInputFieldValueChanged;
+        public event Action MessageInputFieldSelected;
+        public event Action MessageInputFieldDeselected;
 
         private void OnEnable() {
+            messageInputField.onSelect.AddListener(ClientMessageInputFieldSelected);
+            messageInputField.onDeselect.AddListener(ClientMessageInputFieldDeselected);
             messageInputField.onSubmit.AddListener(ClientSendChatMessage);
-            messageInputField.onValueChanged.AddListener(ClientOnMessageInputFieldValueChanged);
 
             ChatMessagesProxy.ClientChatMessageReceived += ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived += ClientAddServerLogMessage;
         }
         
         private void OnDisable() {
+            messageInputField.onSelect.RemoveListener(ClientMessageInputFieldSelected);
+            messageInputField.onDeselect.RemoveListener(ClientMessageInputFieldDeselected);
             messageInputField.onSubmit.RemoveListener(ClientSendChatMessage);
-            messageInputField.onValueChanged.RemoveListener(ClientOnMessageInputFieldValueChanged);
 
             ChatMessagesProxy.ClientChatMessageReceived -= ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived -= ClientAddServerLogMessage;
@@ -47,9 +52,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         }
 
         [Client]
+        public void ClientFocus() => messageInputField.ActivateInputField();
+
+        [Client]
+        public void ClientLeave() {
+            messageInputField.DeactivateInputField();
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+
+        [Client]
         private void ClientAddChatMessage(ChatMessages.ChatMessageResponseMessage msg) {
-            var isLocalPlayer = msg.senderNetId == DarklandHero.localHero.netId;
-            ClientUpdateChat(ChatMessagesFormatter.FormatChatMessage(msg.heroName, msg.message, isLocalPlayer));
+            var isLocalPlayer = msg.senderNetId == DarklandHeroBehaviour.localHero.netId;
+            ClientUpdateChat(RichTextFormatter.FormatChatMessage(msg.heroName, msg.message, isLocalPlayer));
         }
 
         [Client]
@@ -75,8 +89,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         }
 
         [Client]
-        private void ClientOnMessageInputFieldValueChanged(string val) => MessageInputFieldValueChanged?.Invoke(val);
+        private void ClientMessageInputFieldSelected(string _) => MessageInputFieldSelected?.Invoke();
+        
+        [Client]
+        private void ClientMessageInputFieldDeselected(string _) => MessageInputFieldDeselected?.Invoke();
 
+        
         [Client]
         private IEnumerator ClientUpdateScrollbar() {
             yield return null;

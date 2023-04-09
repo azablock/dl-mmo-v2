@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Darkland.Sources.Models.Hero;
 using Mirror;
 
 namespace _Darkland.Sources.NetworkMessages {
@@ -8,11 +9,12 @@ namespace _Darkland.Sources.NetworkMessages {
         public struct GetHeroesRequestMessage : NetworkMessage { }
 
         public struct GetDarklandHeroesResponseMessage : NetworkMessage {
-            public List<string> heroNames;
+            public List<DarklandHeroDto> heroes;
         }
 
         public struct NewHeroRequestMessage : NetworkMessage {
             public string heroName;
+            public HeroVocationType heroVocationType;
         }
 
         public struct NewDarklandHeroResponseMessage : NetworkMessage {

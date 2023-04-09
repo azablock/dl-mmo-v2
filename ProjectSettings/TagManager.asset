@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Mob
+  - Mob Perception Zone
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Level 2
+    uniqueID: 4152258693
+    locked: 0
   - name: Level 1
     uniqueID: 2269225955
     locked: 0
@@ -49,4 +52,7 @@ TagManager:
     locked: 0
   - name: Level -1
     uniqueID: 1931842669
+    locked: 0
+  - name: Level -2
+    uniqueID: 3051836145
     locked: 0

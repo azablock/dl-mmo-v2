@@ -1,4 +1,8 @@
 using _Darkland.Sources.Models.Persistence;
+using _Darkland.Sources.Models.Persistence.DarklandAccount;
+using _Darkland.Sources.Models.Persistence.DarklandHero;
+using _Darkland.Sources.Models.Persistence.GameReport;
+using _Darkland.Sources.Models.Persistence.OnGroundEqItem;
 using MongoDB.Driver;
 using UnityEngine;
 
@@ -8,6 +12,8 @@ namespace _Darkland.Sources.Scripts.Persistence {
 
         public static readonly DarklandAccountRepository darklandAccountRepository = new();
         public static readonly DarklandHeroRepository darklandHeroRepository = new();
+        public static readonly OnGroundEqItemRepository onGroundEqItemRepository = new();
+        public static readonly GameReportRepository gameReportRepository = new();
 
         private static IMongoDatabase _db;
         private static MongoClient _client;
