@@ -192,7 +192,7 @@ jobs:
         uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneLinux64
-          customParameters: -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
+          customParameters: -standaloneBuildSubtarget Server -EnableHeadlessMode -dl-server-address {{secrets.SSH_HOST}} -dl-server-port 7777
   
       - uses: actions/upload-artifact@v2
         with:
