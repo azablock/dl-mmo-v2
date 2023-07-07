@@ -5,6 +5,7 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
     public abstract class StatPostChangeHook : ScriptableObject {
+
         public StatId[] requiredStatIds;
         public StatId onChangeStatId;
 
@@ -13,6 +14,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
         public bool CanBeRegistered(IStatsHolder statsHolder) {
             return requiredStatIds.All(id => statsHolder.statIds.Contains(id));
         }
+
     }
 
 }

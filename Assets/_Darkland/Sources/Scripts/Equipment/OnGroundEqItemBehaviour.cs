@@ -1,7 +1,6 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Persistence;
-using _Darkland.Sources.Models.Presentation;
 using Mirror;
 using MongoDB.Bson;
 using UnityEngine;

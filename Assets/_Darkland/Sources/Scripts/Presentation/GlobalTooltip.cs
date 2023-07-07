@@ -11,6 +11,9 @@ namespace _Darkland.Sources.Scripts.Presentation {
         private TMP_Text contentText;
         private RectTransform _rectTransform;
 
+        public float Width => _rectTransform.GetWidth();
+        public float Height => _rectTransform.GetHeight();
+
         private void Awake() {
             _rectTransform = GetComponent<RectTransform>();
         }
@@ -26,9 +29,6 @@ namespace _Darkland.Sources.Scripts.Presentation {
             titleText.text = string.Empty;
             contentText.text = string.Empty;
         }
-
-        public float Width => _rectTransform.GetWidth();
-        public float Height => _rectTransform.GetHeight();
 
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Spell.CooldownStrategy {
 
     [CreateAssetMenu(fileName = nameof(WeaponAndStatsCooldownStrategy),
-                     menuName = "DL/"  + nameof(SpellCooldownStrategy) + "/" + nameof(WeaponAndStatsCooldownStrategy))]
+                     menuName = "DL/" + nameof(SpellCooldownStrategy) + "/" + nameof(WeaponAndStatsCooldownStrategy))]
     public class WeaponAndStatsCooldownStrategy : SpellCooldownStrategy {
 
         public override float Cooldown(ISpell spell, GameObject caster) {

@@ -1,5 +1,5 @@
 using System;
-using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Persistence.GameReport;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
@@ -23,21 +23,24 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
         }
 
         [Server]
-        private static void ServerHandleChatMessage(NetworkConnectionToClient conn, ChatMessages.ChatMessageRequestMessage msg) {
+        private static void ServerHandleChatMessage(NetworkConnectionToClient conn,
+                                                    ChatMessages.ChatMessageRequestMessage msg) {
             var netIdentity = conn.identity;
             var heroName = netIdentity.GetComponent<UnitNameBehaviour>().unitName;
             var netId = netIdentity.netId;
-            NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage { message = msg.message, heroName = heroName, senderNetId = netId });
+            NetworkServer.SendToAll(new ChatMessages.ChatMessageResponseMessage
+                                        { message = msg.message, heroName = heroName, senderNetId = netId });
         }
 
         [Server]
-        private static void ServerHandleGameReport(NetworkConnectionToClient conn, ChatMessages.GameReportRequestMessage msg) {
+        private static void ServerHandleGameReport(NetworkConnectionToClient conn,
+                                                   ChatMessages.GameReportRequestMessage msg) {
             var netIdentity = conn.identity;
             var heroName = netIdentity.GetComponent<UnitNameBehaviour>().unitName;
             var darklandHeroEntity = DarklandDatabaseManager.darklandHeroRepository.FindByName(heroName);
-            
+
             if (darklandHeroEntity == null) return;
-            
+
             var e = new GameReportEntity {
                 content = msg.content,
                 title = msg.title,
@@ -47,9 +50,11 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             };
 
             DarklandDatabaseManager.gameReportRepository.Create(e);
-            
-            conn.Send(new ChatMessages.ServerLogResponseMessage {message = RichTextFormatter.FormatServerLog("Successfully created game report!")});
+
+            conn.Send(new ChatMessages.ServerLogResponseMessage
+                          { message = RichTextFormatter.FormatServerLog("Successfully created game report!") });
         }
+
     }
 
 }

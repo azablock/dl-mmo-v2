@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Stats2 {
 
-    [CreateAssetMenu(
-        menuName = "DL/" + nameof(PersistentStatEffect) + "/" + nameof(HungerPersistentStatEffect),
-        fileName = nameof(HungerPersistentStatEffect))
+    [CreateAssetMenu(menuName = "DL/" + nameof(PersistentStatEffect) + "/" + nameof(HungerPersistentStatEffect),
+                     fileName = nameof(HungerPersistentStatEffect))
     ]
     public class HungerPersistentStatEffect : PersistentStatEffect {
-        
+
         public override IEnumerator<float> Apply(IStatsHolder statsHolder) {
             var hungerStat = statsHolder.Stat(StatId.Hunger);
 
@@ -18,6 +17,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
 
             yield return rate;
         }
+
     }
 
 }

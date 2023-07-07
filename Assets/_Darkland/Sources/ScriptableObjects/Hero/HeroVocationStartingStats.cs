@@ -18,8 +18,9 @@ namespace _Darkland.Sources.ScriptableObjects.Hero {
         List<StatStartValue> StartValues { get; }
 
     }
-    
-    [CreateAssetMenu(fileName = nameof(HeroVocationStartingStats), menuName = "DL/"  + nameof(HeroVocationStartingStats))]
+
+    [CreateAssetMenu(fileName = nameof(HeroVocationStartingStats),
+                     menuName = "DL/" + nameof(HeroVocationStartingStats))]
     public class HeroVocationStartingStats : ScriptableObject, IHeroVocationStartingStats {
 
         [SerializeField]

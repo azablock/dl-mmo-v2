@@ -12,31 +12,13 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class UnitEffectHolderBehaviour : NetworkBehaviour, IUnitEffectHolder {
 
-        public class UnitEffectState {
-
-            public Coroutine coroutine;
-            public IUnitEffect effect;
-
-        }
-        
-        private Dictionary<string, UnitEffectState> _effectStates;
         private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
+
+        private Dictionary<string, UnitEffectState> _effectStates;
 
         public event Action<IUnitEffect> ServerAdded;
         public event Action<string> ServerRemoved;
         public event Action ServerRemovedAll;
-
-
-        public override void OnStartServer() {
-            _effectStates = new();
-            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
-
-            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerRemoveAll);
-        }
-
-        public override void OnStopServer() {
-            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerRemoveAll);
-        }
 
         [Server]
         public void ServerAdd(IUnitEffect effect) {
@@ -83,11 +65,30 @@ namespace _Darkland.Sources.Scripts.Unit {
             ServerRemovedAll?.Invoke();
         }
 
+
+        public override void OnStartServer() {
+            _effectStates = new Dictionary<string, UnitEffectState>();
+            _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
+
+            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerRemoveAll);
+        }
+
+        public override void OnStopServer() {
+            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerRemoveAll);
+        }
+
         [Server]
         private IEnumerator ServerHandleEffect(IUnitEffect effect) {
             effect.PreProcess(gameObject);
             yield return effect.Process(gameObject);
             ServerRemove(effect);
+        }
+
+        public class UnitEffectState {
+
+            public Coroutine coroutine;
+            public IUnitEffect effect;
+
         }
 
     }

@@ -19,8 +19,9 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         }
 
         [Client]
-        private void ClientFireballVfxReceived(SpellMessages.FireballSpellVfxResponseMessage message) =>
+        private void ClientFireballVfxReceived(SpellMessages.FireballSpellVfxResponseMessage message) {
             Instantiate(fireBallVfxPrefab).GetComponent<IFireballSpellVfx>().BeginVfx(message);
+        }
 
     }
 

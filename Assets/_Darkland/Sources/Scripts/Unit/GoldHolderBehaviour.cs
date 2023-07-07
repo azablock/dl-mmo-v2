@@ -8,6 +8,7 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [field: SyncVar(hook = nameof(ClientSyncGoldAmount))]
         public int GoldAmount { get; private set; }
+
         public event Action<int> ClientGoldAmountChanged;
 
         [Server]
@@ -15,9 +16,11 @@ namespace _Darkland.Sources.Scripts.Unit {
             Assert.IsTrue(val >= 0);
             GoldAmount = val;
         }
-        
+
         [Client]
-        private void ClientSyncGoldAmount(int _, int val) => ClientGoldAmountChanged?.Invoke(val);
+        private void ClientSyncGoldAmount(int _, int val) {
+            ClientGoldAmountChanged?.Invoke(val);
+        }
 
     }
 

@@ -18,7 +18,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         public void BuyItem(IEqItemDef item) {
             if (_eqHolder.ServerBackpackFull()) return;
             if (_goldHolder.GoldAmount - item.ItemPrice < 0) return;
-    
+
             _goldHolder.ServerSubtractGold(item.ItemPrice);
             _eqHolder.AddToBackpack(item);
         }
@@ -27,7 +27,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         public void SellItem(int backpackSlot) {
             var item = _eqHolder.ServerBackpackItem(backpackSlot);
             Assert.IsNotNull(item);
-            
+
             _goldHolder.ServerAddGold(item.ItemPrice);
             _eqHolder.RemoveFromBackpack(backpackSlot);
         }

@@ -1,5 +1,4 @@
-﻿using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Unit;
+﻿using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 
@@ -9,8 +8,8 @@ namespace _Darkland.Sources.Scripts.Unit {
 
         [SerializeField]
         private GameObject unitBonesPrefab;
-        private IDiscretePosition _discretePosition;
         private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
+        private IDiscretePosition _discretePosition;
 
         [ServerCallback]
         private void Awake() {
@@ -33,6 +32,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             var instance = Instantiate(unitBonesPrefab, _discretePosition.Pos, Quaternion.identity);
             NetworkServer.Spawn(instance);
         }
+
     }
 
 }

@@ -19,7 +19,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private TMP_Text unitManaText;
 
         [Client]
-        public void ClientSetUnitName(string unitName) => unitNameText.text = unitName;
+        public void ClientSetUnitName(string unitName) {
+            unitNameText.text = unitName;
+        }
 
         [Client]
         public void ClientSetMaxHealth(float val) {
@@ -46,9 +48,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         [Client]
-        private void ClientSetHealthText() => unitHealthText.text = $"{unitHealthSlider.value} / {unitHealthSlider.maxValue}";
+        private void ClientSetHealthText() {
+            unitHealthText.text = $"{unitHealthSlider.value} / {unitHealthSlider.maxValue}";
+        }
 
-        private void ClientSetManaText() => unitManaText.text = $"{unitManaSlider.value} / {unitManaSlider.maxValue}";
+        private void ClientSetManaText() {
+            unitManaText.text = $"{unitManaSlider.value} / {unitManaSlider.maxValue}";
+        }
 
     }
 

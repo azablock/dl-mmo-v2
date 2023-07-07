@@ -1,5 +1,5 @@
 using _Darkland.Sources.Models.Combat;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Spell;
@@ -19,7 +19,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         private float radius;
         [SerializeField]
         private int novaDamage;
-        
+
         public override void Process(GameObject caster) {
             var damageDealer = caster.GetComponent<IDamageDealer>();
             var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
@@ -34,10 +34,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
                         damageType = DamageType.Magic
                     });
                 });
-            
+
             NetworkServer.SendToReady(new SpellMessages.DarkNovaSpellVfxResponseMessage {
                 castPos = castPos,
-                radius = radius,
+                radius = radius
             });
         }
 

@@ -4,7 +4,7 @@ using Mirror;
 namespace _Darkland.Sources.Scripts.Presentation.Unit {
 
     public class DarklandUnit : NetworkBehaviour {
-        
+
         public event Action ServerStarted;
         public event Action ServerStopped;
         public event Action ClientStarted;
@@ -20,6 +20,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
         public override void OnStartClient() {
             ClientStarted?.Invoke();
         }
+
     }
 
 }

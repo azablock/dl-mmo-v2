@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
@@ -7,7 +7,9 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
                      menuName = "DL/Ai/FsmDecision/" + nameof(HasNetIdTargetFsmDecision))]
     public class HasNetIdTargetFsmDecision : FsmDecision {
 
-        public override bool IsValid(GameObject parent) => parent.GetComponent<ITargetNetIdHolder>().HasTarget();
+        public override bool IsValid(GameObject parent) {
+            return parent.GetComponent<ITargetNetIdHolder>().HasTarget();
+        }
 
     }
 

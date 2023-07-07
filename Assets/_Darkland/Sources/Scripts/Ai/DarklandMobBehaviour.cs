@@ -1,9 +1,8 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.ScriptableObjects.Mob;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
-using IMobDef = _Darkland.Sources.Models.Mob.IMobDef;
 
 namespace _Darkland.Sources.Scripts.Ai {
 
@@ -12,7 +11,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         IMobDef MobDef { get; }
 
     }
-    
+
     public class DarklandMobBehaviour : NetworkBehaviour, IMobDefHolder {
 
         [SerializeField]
@@ -21,14 +20,14 @@ namespace _Darkland.Sources.Scripts.Ai {
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
-            
+
             Assert.IsTrue(mobDef.MinDamage <= mobDef.MaxDamage);
             Assert.IsTrue(mobDef.AttackPerceptionRange <= mobDef.PassivePerceptionRange);
             Assert.IsTrue(mobDef.MinGoldGain <= mobDef.MaxGoldGain);
         }
 
         // public override void OnStartServer() {
-            // _discretePosition.Set(Vector3Int.FloorToInt(transform.position));
+        // _discretePosition.Set(Vector3Int.FloorToInt(transform.position));
         // }
 
         public IMobDef MobDef => mobDef;

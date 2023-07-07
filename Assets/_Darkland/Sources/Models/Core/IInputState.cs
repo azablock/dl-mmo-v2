@@ -1,4 +1,4 @@
-namespace _Darkland.Sources.Models.Input {
+namespace _Darkland.Sources.Models.Core {
 
     public interface IInputState {
         bool chatInputActive { get; }

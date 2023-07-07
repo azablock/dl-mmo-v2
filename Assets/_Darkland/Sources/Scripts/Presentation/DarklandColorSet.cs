@@ -4,12 +4,16 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Presentation {
 
     public class DarklandColorSet : MonoBehaviour {
-        public ColorSet colorSet;
-        private static DarklandColorSet _instance;
 
-        private void Awake() => _instance = this;
+        private static DarklandColorSet _instance;
+        public ColorSet colorSet;
 
         public static ColorSet _ => _instance.colorSet;
+
+        private void Awake() {
+            _instance = this;
+        }
+
     }
 
 }

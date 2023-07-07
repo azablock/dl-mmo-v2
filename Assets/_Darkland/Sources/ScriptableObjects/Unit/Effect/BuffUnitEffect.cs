@@ -5,7 +5,7 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Unit.Effect {
 
     [CreateAssetMenu(fileName = nameof(BuffUnitEffect),
-                     menuName = "DL/"  + nameof(UnitEffect) + "/" + nameof(BuffUnitEffect))]
+                     menuName = "DL/" + nameof(UnitEffect) + "/" + nameof(BuffUnitEffect))]
     public class BuffUnitEffect : UnitEffect {
 
         public StatId statId;

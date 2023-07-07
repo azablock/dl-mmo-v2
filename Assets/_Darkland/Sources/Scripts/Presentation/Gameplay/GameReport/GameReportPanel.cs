@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using _Darkland.Sources.Models.GameReport;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.NetworkMessages;
 using Castle.Core.Internal;
 using Mirror;
@@ -23,15 +23,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport {
         [SerializeField]
         private Button closeButton;
 
-        public static event Action Enabled;
-        public static event Action Disabled;
-
         private void OnEnable() {
             sendButton.onClick.AddListener(ClientSendGameReport);
             closeButton.onClick.AddListener(ClientHide);
             gameReportTypeDropdown.AddOptions(Enum.GetNames(typeof(GameReportType)).ToList());
             gameReportTypeDropdown.value = 0;
-            
+
             Enabled?.Invoke();
         }
 
@@ -39,12 +36,15 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport {
             sendButton.onClick.RemoveListener(ClientSendGameReport);
             closeButton.onClick.RemoveListener(ClientHide);
             gameReportTypeDropdown.ClearOptions();
-            
+
             titleInputField.text = string.Empty;
             contentInputField.text = string.Empty;
-            
+
             Disabled?.Invoke();
         }
+
+        public static event Action Enabled;
+        public static event Action Disabled;
 
         [Client]
         private void ClientSendGameReport() {
@@ -52,18 +52,22 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport {
             var content = contentInputField.text.Trim();
 
             if (title.IsNullOrEmpty() || content.IsNullOrEmpty()) return;
-            
+
             NetworkClient.Send(new ChatMessages.GameReportRequestMessage {
                 title = title,
                 content = content,
-                gameReportType = Enum.Parse<GameReportType>(gameReportTypeDropdown.options[gameReportTypeDropdown.value].text)
+                gameReportType =
+                    Enum.Parse<GameReportType>(gameReportTypeDropdown.options[gameReportTypeDropdown.value].text)
             });
 
             ClientHide();
         }
 
         [Client]
-        private void ClientHide() => gameObject.SetActive(false);
+        private void ClientHide() {
+            gameObject.SetActive(false);
+        }
+
     }
 
 }

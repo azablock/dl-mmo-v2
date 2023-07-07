@@ -19,6 +19,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
         private static void Call() {
             Application.Quit();
         }
+
     }
 
 }

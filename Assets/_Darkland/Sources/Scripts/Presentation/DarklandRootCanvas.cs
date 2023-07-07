@@ -6,6 +6,7 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Presentation {
 
     public class DarklandRootCanvas : MonoBehaviour {
+
         [SerializeField]
         private AccountRootPanel accountRootPanel;
 
@@ -21,19 +22,20 @@ namespace _Darkland.Sources.Scripts.Presentation {
             DarklandNetworkManager.clientHeroEnterGameSuccess -= ClientHeroEnterGameSuccess;
             DarklandNetworkManager.clientOnPlayerDisconnected -= OnClientDisconnected;
         }
-        
+
         [Client]
         private void ClientHeroEnterGameSuccess() {
             accountRootPanel.gameObject.SetActive(false);
             gameplayRootPanel.gameObject.SetActive(true);
         }
-        
+
         private void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
             gameplayRootPanel.gameObject.SetActive(false);
             accountRootPanel.gameObject.SetActive(true);
-            
+
             accountRootPanel.OnClientDisconnected(disconnectStatus);
         }
+
     }
 
 }

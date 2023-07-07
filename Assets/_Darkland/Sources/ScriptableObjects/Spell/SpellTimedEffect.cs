@@ -6,10 +6,14 @@ namespace _Darkland.Sources.ScriptableObjects.Spell {
 
     public abstract class SpellTimedEffect : ScriptableObject, ISpellTimedEffect {
 
-        public virtual void PreProcess(GameObject caster) {}
-        public virtual void PostProcess(GameObject caster) {}
+        public virtual void PreProcess(GameObject caster) { }
+
+        public virtual void PostProcess(GameObject caster) { }
+
         public abstract IEnumerator Process(GameObject caster);
+
         public abstract bool CanProcess(GameObject caster);
+
         public abstract string Description(GameObject caster, ISpell spell);
 
     }

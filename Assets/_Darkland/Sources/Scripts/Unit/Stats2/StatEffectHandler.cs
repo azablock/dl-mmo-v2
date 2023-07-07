@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.Unit.Stats2.StatEffect;
-using _Darkland.Sources.ScriptableObjects.Stats2;
 using _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook;
 using Mirror;
 using UnityEngine;
@@ -10,9 +9,11 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
     public interface IStatEffectHandler {
+
         void ApplyDirectEffect(IDirectStatEffect effect);
+
     }
-    
+
     public class StatEffectHandler : NetworkBehaviour, IStatEffectHandler {
 
         [SerializeField]
@@ -21,17 +22,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
-            Debug.Assert(persistentStatEffects.All(it => it.requiredStatIds.All(id => _statsHolder.statIds.Contains(id))));
-        }
-
-        public override void OnStartServer() {
-            foreach (var effect in persistentStatEffects) {
-                StartCoroutine(ApplyPersistentEffect(effect));
-            }
-        }
-
-        public override void OnStopServer() {
-            StopAllCoroutines();
+            Debug.Assert(
+                persistentStatEffects.All(it => it.requiredStatIds.All(id => _statsHolder.statIds.Contains(id))));
         }
 
         [Server]
@@ -40,11 +32,17 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             _statsHolder.Stat(effect.statId).Add(effect.delta);
         }
 
+        public override void OnStartServer() {
+            foreach (var effect in persistentStatEffects) StartCoroutine(ApplyPersistentEffect(effect));
+        }
+
+        public override void OnStopServer() {
+            StopAllCoroutines();
+        }
+
         [Server]
         private IEnumerator<float> ApplyPersistentEffect(PersistentStatEffect effect) {
-            while (true) {
-                return effect.Apply(_statsHolder);
-            }
+            while (true) return effect.Apply(_statsHolder);
         }
 
     }

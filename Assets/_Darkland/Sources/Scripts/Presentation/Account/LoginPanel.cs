@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class LoginPanel : MonoBehaviour {
+
         [SerializeField]
         private TMP_InputField accountNameInputField;
         [SerializeField]
@@ -15,10 +16,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private Button registerButton;
         [SerializeField]
         private TMP_Text loginStatusText;
-
-        public event Action<string> LoginClicked;
-        public event Action LoginSuccess;
-        public event Action RegisterClicked;
 
         private void OnEnable() {
             loginButton.onClick.AddListener(SubmitLogin);
@@ -37,11 +34,16 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             DarklandNetworkAuthenticator.clientAuthFailure -= OnClientAuthFailure;
         }
 
+        public event Action<string> LoginClicked;
+        public event Action LoginSuccess;
+        public event Action RegisterClicked;
+
         public void OnClientDisconnected(DarklandNetworkManager.DisconnectStatus disconnectStatus) {
             if (disconnectStatus.fromServer) {
                 loginStatusText.text = "Disconnected from server!";
                 Debug.Log("Disconnected from server at " + NetworkTime.time);
-            } else {
+            }
+            else {
                 loginStatusText.text = "Login Status - client triggered";
                 Debug.Log("client disconnected from server at " + NetworkTime.time);
             }
@@ -72,6 +74,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             Debug.Log("client rejected at " + NetworkTime.time);
             DarklandNetworkManager.self.StopClient();
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        private void ServerOnDiscretePositionChanged(PositionChangeData data) {
+        private void ServerOnDiscretePositionChanged(PosChangeData data) {
             ClientRpcChangePosition(data.pos);
         }
 
@@ -26,6 +26,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         private void ClientRpcChangePosition(Vector3Int pos) {
             transform.position = pos;
         }
+
     }
 
 }

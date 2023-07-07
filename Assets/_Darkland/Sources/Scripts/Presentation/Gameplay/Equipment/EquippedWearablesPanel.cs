@@ -27,6 +27,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
             wearableSlotImage.ClientClear();
         }
+
     }
 
 }

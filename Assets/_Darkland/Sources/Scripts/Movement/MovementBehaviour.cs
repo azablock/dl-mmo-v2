@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.World;
 using _Darkland.Sources.Scripts.World;
@@ -13,10 +11,10 @@ namespace _Darkland.Sources.Scripts.Movement {
     public class MovementBehaviour : MonoBehaviour {
 
         private IDiscretePosition _discretePosition;
-        private Vector3Int _movementVector;
-        private Coroutine _movementCoroutine;
-        private IStatsHolder _statsHolder;
         private bool _isReadyForNextMove = true;
+        private Coroutine _movementCoroutine;
+        private Vector3Int _movementVector;
+        private IStatsHolder _statsHolder;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -27,9 +25,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         public void ServerSetMovementVector(Vector3Int movementVector) {
             _movementVector = movementVector;
 
-            if (_movementVector.x != 0 && _movementVector.y != 0) {
-                _movementVector *= new Vector3Int(1, 0, 1);
-            }
+            if (_movementVector.x != 0 && _movementVector.y != 0) _movementVector *= new Vector3Int(1, 0, 1);
 
             if (!_isReadyForNextMove) return;
 
@@ -74,10 +70,10 @@ namespace _Darkland.Sources.Scripts.Movement {
 
         [Server]
         private IEnumerator ServerProcessMoveOnce(Vector3Int posDelta) {
-                _isReadyForNextMove = false;
-                ServerSetDiscretePosition(_discretePosition.Pos + posDelta);
-                yield return new WaitForSeconds(ServerTimeBetweenMoves());
-                _isReadyForNextMove = true;
+            _isReadyForNextMove = false;
+            ServerSetDiscretePosition(_discretePosition.Pos + posDelta);
+            yield return new WaitForSeconds(ServerTimeBetweenMoves());
+            _isReadyForNextMove = true;
         }
 
         [Server]
@@ -86,13 +82,14 @@ namespace _Darkland.Sources.Scripts.Movement {
 
             _discretePosition.Set(pos, clientImmediate);
 
-            if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) {
-                transform.position = pos;
-            }
+            if (NetworkManager.singleton.mode == NetworkManagerMode.ServerOnly) transform.position = pos;
         }
 
         [Server]
-        private float ServerTimeBetweenMoves() => 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed).Current;
+        private float ServerTimeBetweenMoves() {
+            return 1.0f / _statsHolder.ValueOf(StatId.MovementSpeed).Current;
+        }
+
     }
 
 }

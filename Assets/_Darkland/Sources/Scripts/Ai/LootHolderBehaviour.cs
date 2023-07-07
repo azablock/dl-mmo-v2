@@ -1,5 +1,4 @@
-﻿using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Unit;
+﻿using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.ScriptableObjects.Equipment;
 using _Darkland.Sources.Scripts.Equipment;
 using _Darkland.Sources.Scripts.Unit;
@@ -21,15 +20,20 @@ namespace _Darkland.Sources.Scripts.Ai {
             _discretePosition = GetComponent<IDiscretePosition>();
         }
 
-        public override void OnStartServer() => _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerDropLoot);
+        public override void OnStartServer() {
+            _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerDropLoot);
+        }
 
-        public override void OnStopServer() => _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerDropLoot);
+        public override void OnStopServer() {
+            _darklandUnitDeathBehaviour.ServerRemoveDeathCallback(ServerDropLoot);
+        }
 
         [Server]
         private void ServerDropLoot() {
             if (wearable == null) return;
             OnGroundItemsManager._.ServerCreateOnGroundItem(_discretePosition.Pos, wearable.ItemName);
         }
+
     }
 
 }

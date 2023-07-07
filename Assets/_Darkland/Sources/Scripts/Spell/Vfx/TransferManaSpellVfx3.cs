@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Spell.Vfx {
 
-    public interface ITransferManaSpellVfx : ISpellVfx<SpellMessages.TransferManaSpellVfxResponseMessage> {}
-    
+    public interface ITransferManaSpellVfx : ISpellVfx<SpellMessages.TransferManaSpellVfxResponseMessage> { }
+
     public class TransferManaSpellVfx3 : MonoBehaviour, ITransferManaSpellVfx {
 
         [SerializeField]
@@ -15,7 +15,9 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         private float vfxDuration;
 
         [Client]
-        public void BeginVfx(SpellMessages.TransferManaSpellVfxResponseMessage message) => StartCoroutine(Vfx(message));
+        public void BeginVfx(SpellMessages.TransferManaSpellVfxResponseMessage message) {
+            StartCoroutine(Vfx(message));
+        }
 
         [Client]
         private IEnumerator Vfx(SpellMessages.TransferManaSpellVfxResponseMessage message) {
@@ -23,14 +25,14 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
             var manaGainMarker = Instantiate(transferManaMarkerPrefab, message.targetPos, Quaternion.identity);
 
             var lerp = 0.0f;
-            
-            while (lerp < 1.0f) {
-                manaLoseMarker.transform.position = 
-                    Vector3.Lerp(message.castPos, b: message.castPos - Vector3.up * 0.5f , lerp);
 
-                manaGainMarker.transform.position = 
-                    Vector3.Lerp(message.targetPos, b: message.targetPos + (Vector3.up * 1.5f) , lerp);
-                
+            while (lerp < 1.0f) {
+                manaLoseMarker.transform.position =
+                    Vector3.Lerp(message.castPos, message.castPos - Vector3.up * 0.5f, lerp);
+
+                manaGainMarker.transform.position =
+                    Vector3.Lerp(message.targetPos, message.targetPos + Vector3.up * 1.5f, lerp);
+
                 lerp += Time.deltaTime / vfxDuration;
 
                 yield return null;

@@ -1,5 +1,4 @@
-using _Darkland.Sources.Models.Interaction;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Presentation.Unit;
 using Mirror;
 using UnityEngine;
@@ -37,12 +36,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Interaction {
         private void OnClientChanged(NetworkIdentity targetNetIdentity) {
             var darklandUnit = targetNetIdentity.GetComponent<DarklandUnit>();
             _markerInstance = Instantiate(markerPrefab, darklandUnit.transform);
-            
+
             var sortingLayerId = Gfx2dHelper.SortingLayerIdByPos(darklandUnit.transform.position);
             _markerInstance.GetComponent<SpriteRenderer>().sortingLayerID = sortingLayerId;
         }
 
-        private void OnClientCleared(NetworkIdentity _) => ClearMarker();
+        private void OnClientCleared(NetworkIdentity _) {
+            ClearMarker();
+        }
 
         private void ClearMarker() {
             if (_markerInstance) Destroy(_markerInstance);

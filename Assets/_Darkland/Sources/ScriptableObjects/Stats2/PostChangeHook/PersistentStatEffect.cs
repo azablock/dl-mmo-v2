@@ -11,6 +11,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
         public float rate;
 
         public abstract IEnumerator<float> Apply(IStatsHolder statsHolder);
+
     }
 
 }

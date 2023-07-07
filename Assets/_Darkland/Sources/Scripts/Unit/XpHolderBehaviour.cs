@@ -1,26 +1,26 @@
 using System;
 using _Darkland.Sources.Models.Unit;
 using Mirror;
-using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Unit {
 
     public class XpHolderBehaviour : NetworkBehaviour, IXpHolder {
-
-        [field: SyncVar]
-        public int xp { get; private set; }
-        [field: SyncVar(hook = nameof(ClientSyncLevel))]
-        public int level { get; private set; }
-
-        public event Action<int> ServerLevelChanged;
-        public event Action<int> ClientXpChanged;
-        public event Action<ExperienceLevelChangeEvent> ClientLevelChanged;
 
         private DarklandUnitDeathBehaviour _darklandUnitDeathBehaviour;
 
         private void Awake() {
             _darklandUnitDeathBehaviour = GetComponent<DarklandUnitDeathBehaviour>();
         }
+
+        [field: SyncVar]
+        public int xp { get; private set; }
+
+        [field: SyncVar(hook = nameof(ClientSyncLevel))]
+        public int level { get; private set; }
+
+        public event Action<int> ServerLevelChanged;
+        public event Action<int> ClientXpChanged;
+        public event Action<ExperienceLevelChangeEvent> ClientLevelChanged;
 
         public override void OnStartServer() {
             _darklandUnitDeathBehaviour.ServerAddDeathCallback(ServerOnDeath);
@@ -50,10 +50,14 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Server]
-        public void ServerGain(int val) => ServerSetXp(xp + val);
+        public void ServerGain(int val) {
+            ServerSetXp(xp + val);
+        }
 
         [Server]
-        public void ServerLose(int val) => ServerSetXp(xp - val);
+        public void ServerLose(int val) {
+            ServerSetXp(xp - val);
+        }
 
         [Server]
         private void ServerOnDeath() {
@@ -75,17 +79,23 @@ namespace _Darkland.Sources.Scripts.Unit {
             // var currentXpProgress = capDiff - xp;
             // var xpDeltaOnDeath = currentXpProgress / 10;
 
-            ServerSetXp(Math.Max(IXpHolder.LevelXpCap(level), xp - (ServerNextLevelXpCap() / 4)));
+            ServerSetXp(Math.Max(IXpHolder.LevelXpCap(level), xp - ServerNextLevelXpCap() / 4));
         }
 
         [Server]
-        private int ServerNextLevelXpCap() => IXpHolder.LevelXpCap(level + 1);
+        private int ServerNextLevelXpCap() {
+            return IXpHolder.LevelXpCap(level + 1);
+        }
 
         [TargetRpc]
-        private void TargetRpcXpChanged(int val) => ClientXpChanged?.Invoke(val);
+        private void TargetRpcXpChanged(int val) {
+            ClientXpChanged?.Invoke(val);
+        }
 
         [Client]
-        private void ClientSyncLevel(int _, int __) => ClientLevelChanged?.Invoke(this.LevelEvt());
+        private void ClientSyncLevel(int _, int __) {
+            ClientLevelChanged?.Invoke(this.LevelEvt());
+        }
 
     }
 

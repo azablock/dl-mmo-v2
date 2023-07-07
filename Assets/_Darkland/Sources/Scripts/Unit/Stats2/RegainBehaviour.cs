@@ -9,24 +9,28 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
     [Serializable]
     public struct StatRegainRelation {
+
         public StatId regainSourceStatId;
         public StatId regainTargetStatId;
+
     }
 
     [Serializable]
     public struct StatRegainState {
+
         public StatRegainRelation statRegainRelation;
         public RegainState regainState;
+
     }
-    
+
     public class RegainBehaviour : NetworkBehaviour {
 
         [SerializeField]
         private List<StatRegainRelation> regainRelations;
-        private IStatEffectHandler _statEffectHandler;
-        private IStatsHolder _statsHolder;
         private IRegainApplier _regainApplier;
+        private IStatEffectHandler _statEffectHandler;
         private List<StatRegainState> _statRegainStates;
+        private IStatsHolder _statsHolder;
 
         [ServerCallback]
         private void Awake() {
@@ -56,6 +60,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         private void ServerApplyRegain() {
             _statRegainStates.ForEach(it => _regainApplier.ApplyRegain(it));
         }
+
     }
 
 }

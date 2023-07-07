@@ -10,6 +10,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
         public TradeItemsPanel TradeItemsPanel => tradeItemsPanel;
 
+        private static IGoldHolder LocalHeroGoldHolder => DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
+
         private void OnEnable() {
             LocalHeroGoldHolder.ClientGoldAmountChanged += ClientOnGoldAmountChanged;
             //todo LocalHeroGoldHolder.GoldAmount <- this is [SyncVar], rename it to indicate that?
@@ -19,9 +21,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
             LocalHeroGoldHolder.ClientGoldAmountChanged -= ClientOnGoldAmountChanged;
         }
 
-        private void ClientOnGoldAmountChanged(int goldAmount) => tradeItemsPanel.ClientRefreshPricePoints(goldAmount);
-
-        private static IGoldHolder LocalHeroGoldHolder => DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
+        private void ClientOnGoldAmountChanged(int goldAmount) {
+            tradeItemsPanel.ClientRefreshPricePoints(goldAmount);
+        }
 
     }
 

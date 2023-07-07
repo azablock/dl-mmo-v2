@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
-    public class SpellIconBehaviour : MonoBehaviour, IPointerClickHandler  {
+    public class SpellIconBehaviour : MonoBehaviour, IPointerClickHandler {
 
         [SerializeField]
         private Image cooldownImage;
@@ -25,7 +25,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
         private Coroutine _cooldownCoroutine;
 
-        public event Action<SpellIconBehaviour> Clicked;
+        public SpellDef SpellDef => spellDef;
 
         private void OnEnable() {
             Assert.IsNotNull(spellDef);
@@ -35,11 +35,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
             cooldownImage.gameObject.SetActive(false);
         }
 
-        public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(this);
+        public void OnPointerClick(PointerEventData _) {
+            Clicked?.Invoke(this);
+        }
+
+        public event Action<SpellIconBehaviour> Clicked;
 
         [Client]
-        public void ClientInit(in int idx) => hotkeyText.text = $"{idx}";
-        
+        public void ClientInit(in int idx) {
+            hotkeyText.text = $"{idx}";
+        }
+
         [Client]
         public void ClientStartCooldown(float cooldown) {
             if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
@@ -54,9 +60,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         [Client]
         private IEnumerator ClientCooldown(float cooldown) {
             Assert.IsTrue(cooldown >= 0.0f);
-            
+
             var remainingCooldown = cooldown;
-            
+
             cooldownImage.gameObject.SetActive(true);
 
             while (remainingCooldown >= 0.0f) {
@@ -64,12 +70,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
                 yield return new WaitForSeconds(cooldownDelta);
                 remainingCooldown -= cooldownDelta;
             }
-            
+
             cooldownImage.gameObject.SetActive(false);
         }
-        
-        public SpellDef SpellDef => spellDef;
-        
+
     }
 
 }

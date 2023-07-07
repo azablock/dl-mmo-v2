@@ -1,5 +1,5 @@
 using System.Collections;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using Mirror;
 using UnityEngine;
@@ -10,8 +10,8 @@ namespace _Darkland.Sources.Scripts.Movement {
     public class LerpClientPositionBehaviour : NetworkBehaviour {
 
         private IDiscretePosition _discretePosition;
-        private Stat _movementSpeedStat;
         private Coroutine _lerpMovementCoroutine;
+        private Stat _movementSpeedStat;
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -27,14 +27,13 @@ namespace _Darkland.Sources.Scripts.Movement {
         }
 
         [Server]
-        private void ServerOnDiscretePositionChanged(PositionChangeData data) {
+        private void ServerOnDiscretePositionChanged(PosChangeData data) {
             var isClientImmediate = data.clientImmediate;
 
-            if (isClientImmediate) {
+            if (isClientImmediate)
                 ClientRpcImmediateChangePosition(data.pos);
-            } else {
+            else
                 ClientRpcLerpPosition(data.pos, _movementSpeedStat.Get().Current);
-            }
         }
 
         [ClientRpc]
@@ -64,6 +63,7 @@ namespace _Darkland.Sources.Scripts.Movement {
 
             yield return null;
         }
+
     }
 
 }

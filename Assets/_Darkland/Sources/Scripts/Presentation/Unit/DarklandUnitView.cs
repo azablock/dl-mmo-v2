@@ -1,5 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
     public class DarklandUnitView : MonoBehaviour {
 
         public SpriteRenderer unitSpriteRenderer;
-        
-        private IDiscretePosition _discretePosition;
         private DarklandUnit _darklandUnit;
+
+        private IDiscretePosition _discretePosition;
 
         private void Awake() {
             _darklandUnit = GetComponentInParent<DarklandUnit>();
@@ -26,11 +25,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
         }
 
         [Client]
-        private void DarklandUnitOnClientStarted() => ClientOnChangePosition(_discretePosition.Pos);
+        private void DarklandUnitOnClientStarted() {
+            ClientOnChangePosition(_discretePosition.Pos);
+        }
 
         [Client]
-        private void ClientOnChangePosition(Vector3Int pos) =>
+        private void ClientOnChangePosition(Vector3Int pos) {
             unitSpriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(pos);
+        }
 
     }
 

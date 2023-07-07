@@ -8,6 +8,7 @@ using UnityEngine.UI;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class RegisterPanel : MonoBehaviour {
+
         [SerializeField]
         private TMP_InputField accountNameInputField;
         [SerializeField]
@@ -16,10 +17,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private Button backButton;
         [SerializeField]
         private TMP_Text registerStatusText;
-
-        public event Action<string> RegisterClicked;
-        public event Action RegisterSuccess;
-        public event Action BackClicked;
 
         private void OnEnable() {
             registerButton.onClick.AddListener(OnRegisterClicked);
@@ -35,6 +32,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             backButton.onClick.RemoveListener(OnBackClicked);
             DarklandNetworkAuthenticator.clientAuthSuccess -= OnClientAuthSuccess;
         }
+
+        public event Action<string> RegisterClicked;
+        public event Action RegisterSuccess;
+        public event Action BackClicked;
 
         private void OnRegisterClicked() {
             if (accountNameInputField.text.IsNullOrEmpty()) {

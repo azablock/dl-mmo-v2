@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;

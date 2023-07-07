@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using TMPro;
 using UnityEngine;
 

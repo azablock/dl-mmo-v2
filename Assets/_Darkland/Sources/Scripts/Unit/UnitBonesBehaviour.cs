@@ -1,4 +1,4 @@
-﻿using _Darkland.Sources.Models.Presentation;
+﻿using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 
@@ -15,10 +15,15 @@ namespace _Darkland.Sources.Scripts.Unit {
             spriteRenderer.sortingLayerID = Gfx2dHelper.SortingLayerIdByPos(transform.position);
         }
 
-        public override void OnStartServer() => Invoke(nameof(ServerRemoveSelf), lifeTimeSeconds);
+        public override void OnStartServer() {
+            Invoke(nameof(ServerRemoveSelf), lifeTimeSeconds);
+        }
 
         [Server]
-        private void ServerRemoveSelf() => NetworkServer.Destroy(gameObject);
+        private void ServerRemoveSelf() {
+            NetworkServer.Destroy(gameObject);
+        }
+
     }
 
 }

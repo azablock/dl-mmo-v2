@@ -1,6 +1,5 @@
 using _Darkland.Sources.Models.Combat;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Scripts.World;
 using UnityEngine;
@@ -8,7 +7,7 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
 
     [CreateAssetMenu(fileName = nameof(TargetVisibleSpellCastCondition),
-                     menuName = "DL/"  + nameof(SpellCastCondition) + "/" + nameof(TargetVisibleSpellCastCondition))]
+                     menuName = "DL/" + nameof(SpellCastCondition) + "/" + nameof(TargetVisibleSpellCastCondition))]
     public class TargetVisibleSpellCastCondition : SpellCastCondition {
 
         public override bool CanCast(GameObject caster, ISpell _) {

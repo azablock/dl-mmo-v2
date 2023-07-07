@@ -19,7 +19,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             DarklandHeroMessagesProxy.ServerGetEq += ServerHandleGetEq;
             DarklandHeroMessagesProxy.ServerDistributeTrait += ServerHandleDistributeTrait;
         }
-        
+
         private void OnDestroy() {
             DarklandHeroMessagesProxy.ServerGetHeroSheet -= ServerHandleGetHeroSheet;
             DarklandHeroMessagesProxy.ServerGetEq -= ServerHandleGetEq;
@@ -35,7 +35,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var heroName = identity.GetComponent<UnitNameBehaviour>().unitName;
             var heroTraits = identity.GetComponent<IStatsHolder>().TraitStatsValues();
             var secondaryStats = identity.GetComponent<IStatsHolder>().SecondaryStatsValues();
-            
+
             conn.Send(new DarklandHeroMessages.GetHeroSheetResponseMessage {
                 heroVocationType = heroVocation,
                 heroLevel = heroLevel,
@@ -51,13 +51,12 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var eqHolder = conn.identity.GetComponent<IEqHolder>();
             var goldHolder = conn.identity.GetComponent<IGoldHolder>();
             var equippedWearables = new List<WearableDto>();
-            
-            foreach (var (wearableSlot, itemName) in eqHolder.EquippedWearables) {
+
+            foreach (var (wearableSlot, itemName) in eqHolder.EquippedWearables)
                 equippedWearables.Add(new WearableDto {
                     wearableSlot = wearableSlot,
                     itemName = itemName
                 });
-            }
 
             conn.Send(new DarklandHeroMessages.GetEqResponseMessage {
                 itemNames = eqHolder.Backpack.Select(it => it.ItemName).ToList(),
@@ -65,14 +64,13 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 goldAmount = goldHolder.GoldAmount
             });
         }
-        
+
         [Server]
         private static void ServerHandleDistributeTrait(NetworkConnectionToClient conn,
                                                         DarklandHeroMessages.DistributeTraitRequestMessage message) {
             var heroTraitDistribution = conn.identity.GetComponent<IHeroTraitDistribution>();
             heroTraitDistribution.Distribute(message.traitStatId);
         }
-
 
     }
 

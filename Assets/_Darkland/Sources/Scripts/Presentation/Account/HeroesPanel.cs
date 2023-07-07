@@ -9,6 +9,7 @@ using UnityEngine.UI;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class HeroesPanel : MonoBehaviour {
+
         [SerializeField]
         private TMP_Dropdown heroesDropdown;
         [SerializeField]
@@ -17,10 +18,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private Button createHeroButton;
         [SerializeField]
         private Button backButton;
-        
-        public event Action NewHeroClicked;
-        public event Action<string> StartClicked;
-        public event Action BackClicked;
 
         private void OnEnable() {
             heroesDropdown.interactable = false;
@@ -36,23 +33,27 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             backButton.onClick.RemoveListener(BackToLogin);
         }
 
+        public event Action NewHeroClicked;
+        public event Action<string> StartClicked;
+        public event Action BackClicked;
+
         public void Init(List<DarklandHeroDto> heroes) {
             var options = heroes
-            .Select(it => new TMP_Dropdown.OptionData($"{it.heroName} ({it.heroVocationType.ToString()})"))
-            .ToList();
+                .Select(it => new TMP_Dropdown.OptionData($"{it.heroName} ({it.heroVocationType.ToString()})"))
+                .ToList();
 
             var hasOptions = options.Count > 0;
             heroesDropdown.interactable = hasOptions;
             startButton.interactable = hasOptions;
             heroesDropdown.AddOptions(options);
 
-            if (hasOptions) {
-                heroesDropdown.value = 0;
-            }
+            if (hasOptions) heroesDropdown.value = 0;
         }
 
         //todo hack - trzeba value miec dropdowna jako tylko imie gracza - ale view pokazuje name + vocation
-        private void EnterGame() => StartClicked?.Invoke(heroesDropdown.captionText.text.Split(" (")[0]);
+        private void EnterGame() {
+            StartClicked?.Invoke(heroesDropdown.captionText.text.Split(" (")[0]);
+        }
 
         private void CreateHero() {
             NewHeroClicked?.Invoke();
@@ -61,6 +62,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private void BackToLogin() {
             BackClicked?.Invoke();
         }
+
     }
 
 }

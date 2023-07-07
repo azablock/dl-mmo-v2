@@ -35,34 +35,32 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         public void ClientRefresh(List<string> itemNames) {
             Assert.IsTrue(itemNames.Count <= backpackSlots.Count);
 
-            for (var i = 0; i < itemNames.Count; i++) {
-                backpackSlots[i].ClientSet(itemNames[i]);
-            }
+            for (var i = 0; i < itemNames.Count; i++) backpackSlots[i].ClientSet(itemNames[i]);
 
-            for (var i = itemNames.Count; i < backpackSlots.Count; i++) {
-                backpackSlots[i].ClientClear();
-            }
+            for (var i = itemNames.Count; i < backpackSlots.Count; i++) backpackSlots[i].ClientClear();
         }
 
         [Client]
-        public void ClientUpdateGoldAmount(int goldAmount) => goldAmountText.text = $"{goldAmount}";
+        public void ClientUpdateGoldAmount(int goldAmount) {
+            goldAmountText.text = $"{goldAmount}";
+        }
 
         [Client]
         private void OnDropClick(BackpackSlotImage image) {
             var slotIdx = IndexOfBackpackSlotImage(image);
-            NetworkClient.Send(new PlayerInputMessages.DropItemRequestMessage {backpackSlot = slotIdx});
+            NetworkClient.Send(new PlayerInputMessages.DropItemRequestMessage { backpackSlot = slotIdx });
         }
 
         [Client]
         private void OnUseClick(BackpackSlotImage image) {
             var slotIdx = IndexOfBackpackSlotImage(image);
-            NetworkClient.Send(new PlayerInputMessages.UseItemRequestMessage {backpackSlot = slotIdx});
+            NetworkClient.Send(new PlayerInputMessages.UseItemRequestMessage { backpackSlot = slotIdx });
         }
 
         [Client]
         private void OnSellClick(BackpackSlotImage image) {
             var slotIdx = IndexOfBackpackSlotImage(image);
-            NetworkClient.Send(new TradeMessages.SellItemRequestMessage() {backpackSlot = slotIdx});
+            NetworkClient.Send(new TradeMessages.SellItemRequestMessage { backpackSlot = slotIdx });
         }
 
         private int IndexOfBackpackSlotImage(BackpackSlotImage backpackSlotImage) {

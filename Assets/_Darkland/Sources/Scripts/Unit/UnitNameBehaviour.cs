@@ -18,7 +18,9 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Client]
-        private void ClientSyncUnitName(string _, string val) => ClientUnitNameReceived?.Invoke(val);
+        private void ClientSyncUnitName(string _, string val) {
+            ClientUnitNameReceived?.Invoke(val);
+        }
 
     }
 

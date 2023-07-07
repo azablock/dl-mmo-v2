@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.DiscretePosition;
 using Mirror;
 using UnityEngine;

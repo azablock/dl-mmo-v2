@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
         }
 
         public override string Description(GameObject caster) {
-            return $"Changes enemy's target to 'Taunt' caster.";
+            return "Changes enemy's target to 'Taunt' caster.";
         }
 
     }

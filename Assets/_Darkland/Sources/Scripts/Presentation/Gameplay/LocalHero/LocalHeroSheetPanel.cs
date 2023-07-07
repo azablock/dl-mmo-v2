@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -54,34 +54,35 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private TMP_Text pointsToDistributeText;
         [SerializeField]
         private List<TraitDistributionImage> traitDistributionImages;
-        
+
         private Dictionary<StatId, TMP_Text> _statTexts;
 
         private void Awake() {
             _statTexts = new Dictionary<StatId, TMP_Text> {
                 { StatId.Might, mightText },
-                { StatId.Constitution, constitutionText},
-                { StatId.Dexterity, dexterityText},
-                { StatId.Intellect, intellectText}, 
-                { StatId.Soul, soulText}, 
-                { StatId.HealthRegain, healthRegainText}, 
-                { StatId.ManaRegain, manaRegainText}, 
-                { StatId.ActionPower, actionPowerText}, 
-                { StatId.ActionSpeed, actionSpeedText}, 
-                { StatId.MagicResistance, magicResistanceText},
-                { StatId.PhysicalResistance, physicalResistanceText}, 
-                { StatId.MovementSpeed, movementSpeedText}
+                { StatId.Constitution, constitutionText },
+                { StatId.Dexterity, dexterityText },
+                { StatId.Intellect, intellectText },
+                { StatId.Soul, soulText },
+                { StatId.HealthRegain, healthRegainText },
+                { StatId.ManaRegain, manaRegainText },
+                { StatId.ActionPower, actionPowerText },
+                { StatId.ActionSpeed, actionSpeedText },
+                { StatId.MagicResistance, magicResistanceText },
+                { StatId.PhysicalResistance, physicalResistanceText },
+                { StatId.MovementSpeed, movementSpeedText }
             };
         }
 
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged += OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged += OnClientLevelChanged;
-            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged += OnTraitDistributionClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged +=
+                OnTraitDistributionClientChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet += ClientOnGetHeroSheet;
-            
+
             var heroName = DarklandHeroBehaviour.localHero.GetComponent<UnitNameBehaviour>().unitName;
-            NetworkClient.Send(new DarklandHeroMessages.GetHeroSheetRequestMessage {heroName = heroName});
+            NetworkClient.Send(new DarklandHeroMessages.GetHeroSheetRequestMessage { heroName = heroName });
 
             //todo fuj
             OnTraitDistributionClientChanged(DarklandHeroBehaviour
@@ -89,11 +90,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
                                                  .GetComponent<IHeroTraitDistribution>()
                                                  .pointsToDistribute);
         }
-        
+
         private void OnDisable() {
             DarklandHeroBehaviour.localHero.GetComponent<IStatsHolder>().ClientChanged -= OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<IXpHolder>().ClientLevelChanged -= OnClientLevelChanged;
-            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged -= OnTraitDistributionClientChanged;
+            DarklandHeroBehaviour.localHero.GetComponent<IHeroTraitDistribution>().ClientChanged -=
+                OnTraitDistributionClientChanged;
             DarklandHeroMessagesProxy.ClientGetHeroSheet -= ClientOnGetHeroSheet;
         }
 
@@ -101,23 +103,27 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
         private void OnClientChanged(StatId statId, StatVal val) {
             if (!_statTexts.ContainsKey(statId)) return;
 
-            _statTexts[statId].text = IHeroTraitDistribution.integerStatIds.Contains(statId) ? FormatIntStatVal(val) : FormatStatVal(val);
+            _statTexts[statId].text = IHeroTraitDistribution.integerStatIds.Contains(statId)
+                ? FormatIntStatVal(val)
+                : FormatStatVal(val);
         }
 
         [Client]
-        private void OnClientLevelChanged(ExperienceLevelChangeEvent evt) => heroLevelText.text = $"{evt.level}";
+        private void OnClientLevelChanged(ExperienceLevelChangeEvent evt) {
+            heroLevelText.text = $"{evt.level}";
+        }
 
         [Client]
         private void OnTraitDistributionClientChanged(int pointsToDistribute) {
             pointsToDistributeText.text = $"Points to distribute: {pointsToDistribute}";
 
             var showDistribution = pointsToDistribute > 0;
-            
+
             pointsToDistributeText.gameObject.SetActive(showDistribution);
             traitDistributionImages.ForEach(it => it.gameObject.SetActive(showDistribution));
         }
 
-        
+
         [Client]
         private void ClientOnGetHeroSheet(DarklandHeroMessages.GetHeroSheetResponseMessage message) {
             heroNameText.text = message.heroName;
@@ -129,7 +135,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
             dexterityText.text = FormatIntStatVal(message.heroTraits.dexterity);
             intellectText.text = FormatIntStatVal(message.heroTraits.intellect);
             soulText.text = FormatIntStatVal(message.heroTraits.soul);
-            
+
             healthRegainText.text = FormatStatVal(message.heroSecondaryStats.healthRegain);
             manaRegainText.text = FormatStatVal(message.heroSecondaryStats.manaRegain);
             actionPowerText.text = FormatStatVal(message.heroSecondaryStats.actionPower);
@@ -141,27 +147,31 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
         private static string FormatStatVal(StatVal val) {
             var bonusSign = val.Bonus >= 0 ? "+" : "-";
-            var bonusColor = val.Bonus > 0 ? DarklandColorSet._.success : val.Bonus < 0
-                ? DarklandColorSet._.danger
-                : DarklandColorSet._.primary;
+            var bonusColor = val.Bonus > 0
+                ? DarklandColorSet._.success
+                : val.Bonus < 0
+                    ? DarklandColorSet._.danger
+                    : DarklandColorSet._.primary;
             var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
             var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor):F}";
             var currentVal = $"{val.Current:F}";
             var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
-            
+
             return $"<b>{currentValueFormatted}</b>\t= {val.Basic:F} {bonusSuffix}";
         }
-        
+
         private static string FormatIntStatVal(StatVal val) {
             var bonusSign = val.Bonus >= 0 ? "+" : "-";
-            var bonusColor = val.Bonus > 0 ? DarklandColorSet._.success : val.Bonus < 0
-                ? DarklandColorSet._.danger
-                : DarklandColorSet._.primary;
+            var bonusColor = val.Bonus > 0
+                ? DarklandColorSet._.success
+                : val.Bonus < 0
+                    ? DarklandColorSet._.danger
+                    : DarklandColorSet._.primary;
             var bonusAbsValue = $"{Math.Abs(val.Bonus)}";
             var bonusSuffix = $"{bonusSign} {RichTextFormatter.Colored(bonusAbsValue, bonusColor)}";
             var currentVal = $"{val.Current:0}";
             var currentValueFormatted = $"{RichTextFormatter.Colored(currentVal, bonusColor)}";
-            
+
             return $"<b>{currentValueFormatted}</b>\t= {val.Basic:0} {bonusSuffix}";
         }
 

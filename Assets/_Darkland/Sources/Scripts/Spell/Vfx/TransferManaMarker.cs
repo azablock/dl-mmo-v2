@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.Spell.Vfx {

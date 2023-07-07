@@ -1,11 +1,10 @@
 using System;
-using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Scripts;
 using _Darkland.Sources.Scripts.Ai;
 using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Models.Interaction {
+namespace _Darkland.Sources.Models.Core {
 
     public interface ITargetNetIdHolder {
 

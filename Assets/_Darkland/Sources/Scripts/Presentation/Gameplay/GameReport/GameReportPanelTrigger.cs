@@ -1,7 +1,5 @@
-﻿using System;
-using _Darkland.Sources.Models.Presentation;
+﻿using _Darkland.Sources.Models.Core;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport {
 
@@ -26,6 +24,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport {
             var gameReportPanelGameObject = GameplayRootPanel.GameReportPanel.gameObject;
             gameReportPanelGameObject.SetActive(!gameReportPanelGameObject.activeSelf);
         }
+
     }
 
 }

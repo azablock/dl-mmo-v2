@@ -1,5 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Unit;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
@@ -21,9 +20,9 @@ namespace _Darkland.Sources.Scripts.Ai {
         [Server]
         private void ServerRespawnMob() {
             Assert.IsNull(_mob);
-            
+
             var spawnPos = Vector3Int.FloorToInt(transform.position);
-    
+
             _mob = Instantiate(darklandMobPrefab, spawnPos, Quaternion.identity);
             _mob.GetComponent<IDiscretePosition>().Set(spawnPos);
             _mob.GetComponent<SpawnPositionHolder>().ServerSet(spawnPos);
@@ -35,7 +34,7 @@ namespace _Darkland.Sources.Scripts.Ai {
                 .Set(StatId.Health, StatVal.OfBasic(mobDef.MaxHealth))
                 .Set(StatId.MovementSpeed, StatVal.OfBasic(mobDef.MovementSpeed))
                 .Set(StatId.HealthRegain, StatVal.OfBasic(mobDef.HealthRegain));
-            
+
             _mob.GetComponent<UnitNameBehaviour>().ServerSet(mobDef.MobName);
 
             NetworkServer.Spawn(_mob);
@@ -45,9 +44,9 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void ServerOnMobDeath() {
             var respawnTime = _mob.GetComponent<IMobDefHolder>().MobDef.RespawnTime;
             _mob.GetComponent<DarklandUnitDeathBehaviour>().ServerRemoveDeathCallback(ServerOnMobDeath);
-            
+
             NetworkServer.Destroy(_mob);
-            
+
             Invoke(nameof(ServerRespawnMob), respawnTime);
         }
 

@@ -5,14 +5,16 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Spell.CastCondition {
 
     [CreateAssetMenu(fileName = nameof(ManaCostSpellCastCondition),
-                     menuName = "DL/"  + nameof(SpellCastCondition) + "/" + nameof(ManaCostSpellCastCondition))]
+                     menuName = "DL/" + nameof(SpellCastCondition) + "/" + nameof(ManaCostSpellCastCondition))]
     public class ManaCostSpellCastCondition : SpellCastCondition {
 
         public override bool CanCast(GameObject caster, ISpell spell) {
             return caster.GetComponent<IStatsHolder>().ValueOf(StatId.Mana).Basic >= spell.ManaCost;
         }
 
-        public override string InvalidCastMessage() => "Not enough mana";
+        public override string InvalidCastMessage() {
+            return "Not enough mana";
+        }
 
     }
 

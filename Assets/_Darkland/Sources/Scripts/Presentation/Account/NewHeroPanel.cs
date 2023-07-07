@@ -9,6 +9,7 @@ using UnityEngine.UI;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class NewHeroPanel : MonoBehaviour {
+
         [SerializeField]
         private TMP_InputField heroNameInputField;
         [SerializeField]
@@ -21,10 +22,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         [Space]
         [SerializeField]
         private HeroVocationPanel heroVocationPanel;
-
-        public event Action<DarklandHeroDto> CreateClicked;
-        public event Action BackClicked;
-        public event Action NewHeroSuccess;
 
         private DarklandHeroDto _formData;
 
@@ -52,10 +49,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
 
             DarklandNetworkAuthenticator.clientNewHeroSuccess -= ClientNewHeroSuccess;
             DarklandNetworkAuthenticator.clientNewHeroFailure -= ClientNewHeroFailure;
-            
+
             heroVocationPanel.VocationSelected -= OnVocationSelected;
             heroNameInputField.onValueChanged.RemoveListener(OnHeroNameValueChanged);
         }
+
+        public event Action<DarklandHeroDto> CreateClicked;
+        public event Action BackClicked;
+        public event Action NewHeroSuccess;
 
         private void CreateHero() {
             createButton.interactable = false;
@@ -76,12 +77,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             BackClicked?.Invoke();
         }
 
-        private void OnVocationSelected(HeroVocationType vocationType) => _formData.heroVocationType = vocationType;
+        private void OnVocationSelected(HeroVocationType vocationType) {
+            _formData.heroVocationType = vocationType;
+        }
 
         private void OnHeroNameValueChanged(string val) {
             var cleanVal = Regex.Replace(val.Trim(), @"[^\w\s]", string.Empty);
             _formData.heroName = cleanVal;
-            
+
             if (val == cleanVal) return;
             heroNameInputField.text = cleanVal;
         }

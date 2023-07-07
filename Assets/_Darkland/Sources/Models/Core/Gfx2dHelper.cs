@@ -2,7 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace _Darkland.Sources.Models.Presentation {
+namespace _Darkland.Sources.Models.Core {
 
     public static class Gfx2dHelper {
 

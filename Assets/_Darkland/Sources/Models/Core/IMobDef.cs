@@ -1,7 +1,7 @@
 using _Darkland.Sources.Models.Combat;
 using UnityEngine;
 
-namespace _Darkland.Sources.Models.Mob {
+namespace _Darkland.Sources.Models.Core {
 
     public interface IMobDef {
 

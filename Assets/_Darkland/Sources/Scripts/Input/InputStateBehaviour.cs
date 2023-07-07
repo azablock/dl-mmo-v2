@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.Input;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Chat;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;

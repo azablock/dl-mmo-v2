@@ -4,6 +4,7 @@ namespace _Darkland.Sources.ScriptableObjects.Presentation {
 
     [CreateAssetMenu(fileName = nameof(ColorSet), menuName = "DL/" + nameof(ColorSet))]
     public class ColorSet : ScriptableObject {
+
         [Header("Main")]
         public Color primary;
         public Color secondary;
@@ -13,6 +14,7 @@ namespace _Darkland.Sources.ScriptableObjects.Presentation {
         public Color danger;
         public Color light;
         public Color dark;
+
     }
 
 }

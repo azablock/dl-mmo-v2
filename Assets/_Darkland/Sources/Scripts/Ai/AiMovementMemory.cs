@@ -16,7 +16,9 @@ namespace _Darkland.Sources.Scripts.Ai {
         }
 
         [Server]
-        public Vector3Int ServerNextIdleMoveDelta() => _idleAvailableMovesHolder.NextMoveDelta();
+        public Vector3Int ServerNextIdleMoveDelta() {
+            return _idleAvailableMovesHolder.NextMoveDelta();
+        }
 
     }
 

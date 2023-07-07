@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,18 +5,20 @@ namespace _Darkland.Sources.Scripts.Presentation {
 
     public class TooltipDescription {
 
-        public string title;
         public string content;
 
+        public string title;
+
         public bool IsEmpty => string.IsNullOrEmpty(title) && string.IsNullOrEmpty(content);
+
     }
-    
+
     public interface IDescriptionProvider {
 
         public TooltipDescription Get();
 
     }
-    
+
     public class TooltipInteractiveBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
         private IDescriptionProvider _descriptionProvider;
@@ -28,9 +29,9 @@ namespace _Darkland.Sources.Scripts.Presentation {
 
         public void OnPointerEnter(PointerEventData _) {
             var tooltipDescription = _descriptionProvider.Get();
-            
+
             if (tooltipDescription.IsEmpty) return;
-            
+
             GlobalTooltipHolderBehaviour._.ShowOn(gameObject, tooltipDescription);
         }
 

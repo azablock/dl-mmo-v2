@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using _Darkland.Sources.Scripts.Ai;
 using Mirror;
 using UnityEngine;
 
@@ -19,7 +17,7 @@ namespace _Darkland.Sources.Scripts.Spell {
                                Action<NetworkIdentity> onTriggerExitCallback) {
             _onTriggerEnterCallback = onTriggerEnterCallback;
             _onTriggerExitCallback = onTriggerExitCallback;
-            
+
             boxCollider.size = new Vector3(radius, radius, 1);
             boxCollider.gameObject.SetActive(true);
 
@@ -31,7 +29,7 @@ namespace _Darkland.Sources.Scripts.Spell {
         //     yield return new WaitForSeconds(0.1f);
         //     Destroy(gameObject);
         // }
-        
+
     }
 
 }
