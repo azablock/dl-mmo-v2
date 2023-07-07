@@ -40,7 +40,9 @@ namespace _Darkland.Sources.Scripts.Ai {
             InvokeRepeating(nameof(ServerFsmReact), 0.0f, 1.0f / reactionSpeed);
         }
 
-        private void OnServerUnitStopped() => CancelInvoke(nameof(ServerFsmReact));
+        private void OnServerUnitStopped() {
+            CancelInvoke(nameof(ServerFsmReact));
+        }
 
         [Server]
         private void ServerFsmReact() {
@@ -52,11 +54,11 @@ namespace _Darkland.Sources.Scripts.Ai {
 
             if (fsmTransition != null) {
                 _currentState.ExitSelf(gameObject);
-                
+
                 // Debug.Log($"{((FsmState)_currentState).name} ->" +
                 //           $" {((FsmState) fsmTransition.TargetState).name}\t" +
                 //           $"{NetworkTime.time}");
-                
+
                 _currentState = fsmTransition.TargetState;
                 _currentState.EnterSelf(gameObject);
             }

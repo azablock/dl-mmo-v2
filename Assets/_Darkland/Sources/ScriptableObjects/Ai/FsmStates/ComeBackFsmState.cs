@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Movement;
 using UnityEngine;
@@ -19,13 +19,13 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
             var currentPos = parent.GetComponent<IDiscretePosition>().Pos;
             var pathHolder = parent.GetComponent<AiPathHolderBehaviour>();
             var movementBehaviour = parent.GetComponent<MovementBehaviour>();
-            
+
             if (pathHolder.IsPathEmpty()) return;
             if (!movementBehaviour.ServerIsReadyForNextMove()) return;
 
             var nextPos = pathHolder.NextPos();
             var movementVector = nextPos - currentPos;
-            
+
             movementBehaviour.ServerMoveOnce(movementVector);
         }
 

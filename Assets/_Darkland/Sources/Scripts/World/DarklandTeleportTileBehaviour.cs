@@ -1,5 +1,5 @@
 using System;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.World;
 using UnityEngine;
 

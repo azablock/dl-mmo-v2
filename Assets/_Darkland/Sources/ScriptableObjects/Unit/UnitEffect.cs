@@ -17,15 +17,17 @@ namespace _Darkland.Sources.ScriptableObjects.Unit {
         private Sprite effectSprite;
 
         public virtual void PreProcess(GameObject effectHolder) { }
+
         public abstract IEnumerator Process(GameObject effectHolder);
+
         public virtual void PostProcess(GameObject effectHolder) { }
+
         public abstract string Description(GameObject parent);
 
         public virtual float Duration => duration;
         public string EffectName => effectName;
         public Sprite EffectSprite => effectSprite;
         public List<IUnitEffectProcessCondition> EffectProcessConditions => new(effectProcessConditions);
-
 
     }
 

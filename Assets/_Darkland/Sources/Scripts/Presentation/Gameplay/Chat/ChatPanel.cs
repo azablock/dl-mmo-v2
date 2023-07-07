@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using _Darkland.Sources.Models.Chat;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using Mirror;
@@ -27,9 +26,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
         private readonly List<string> _chatHistory = new();
 
-        public event Action MessageInputFieldSelected;
-        public event Action MessageInputFieldDeselected;
-
         private void OnEnable() {
             messageInputField.onSelect.AddListener(ClientMessageInputFieldSelected);
             messageInputField.onDeselect.AddListener(ClientMessageInputFieldDeselected);
@@ -38,7 +34,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
             ChatMessagesProxy.ClientChatMessageReceived += ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived += ClientAddServerLogMessage;
         }
-        
+
         private void OnDisable() {
             messageInputField.onSelect.RemoveListener(ClientMessageInputFieldSelected);
             messageInputField.onDeselect.RemoveListener(ClientMessageInputFieldDeselected);
@@ -46,13 +42,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
 
             ChatMessagesProxy.ClientChatMessageReceived -= ClientAddChatMessage;
             ChatMessagesProxy.ClientServerLogReceived -= ClientAddServerLogMessage;
-            
+
             _chatHistory.Clear();
             chatHistoryText.text = string.Empty;
         }
 
+        public event Action MessageInputFieldSelected;
+        public event Action MessageInputFieldDeselected;
+
         [Client]
-        public void ClientFocus() => messageInputField.ActivateInputField();
+        public void ClientFocus() {
+            messageInputField.ActivateInputField();
+        }
 
         [Client]
         public void ClientLeave() {
@@ -67,7 +68,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         }
 
         [Client]
-        private void ClientAddServerLogMessage(ChatMessages.ServerLogResponseMessage msg) => ClientUpdateChat($"{msg.message}");
+        private void ClientAddServerLogMessage(ChatMessages.ServerLogResponseMessage msg) {
+            ClientUpdateChat($"{msg.message}");
+        }
 
         [Client]
         private void ClientUpdateChat(string message) {
@@ -89,18 +92,23 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         }
 
         [Client]
-        private void ClientMessageInputFieldSelected(string _) => MessageInputFieldSelected?.Invoke();
-        
-        [Client]
-        private void ClientMessageInputFieldDeselected(string _) => MessageInputFieldDeselected?.Invoke();
+        private void ClientMessageInputFieldSelected(string _) {
+            MessageInputFieldSelected?.Invoke();
+        }
 
-        
+        [Client]
+        private void ClientMessageInputFieldDeselected(string _) {
+            MessageInputFieldDeselected?.Invoke();
+        }
+
+
         [Client]
         private IEnumerator ClientUpdateScrollbar() {
             yield return null;
             yield return null;
             chatScrollbar.value = 0;
         }
+
     }
 
 }

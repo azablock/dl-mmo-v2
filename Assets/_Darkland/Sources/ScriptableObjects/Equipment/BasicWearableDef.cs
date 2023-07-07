@@ -23,9 +23,6 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         public int ItemPrice => itemPrice;
         public Sprite Sprite => sprite;
         public EqItemType ItemType => EqItemType.Wearable;
-        public WearableSlot WearableItemSlot => wearableItemSlot;
-        public WearableType WearableItemType => WearableType.Armor;
-        public List<WearableStatBonus> StatBonuses => statBonuses;
 
         public string Description(GameObject parent) {
             var bonuses = statBonuses.Aggregate(string.Empty, (res, bonus) => {
@@ -35,6 +32,10 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
             return $"Wearable slot:\t{wearableItemSlot.ToString()}\n{bonuses}";
         }
+
+        public WearableSlot WearableItemSlot => wearableItemSlot;
+        public WearableType WearableItemType => WearableType.Armor;
+        public List<WearableStatBonus> StatBonuses => statBonuses;
 
     }
 

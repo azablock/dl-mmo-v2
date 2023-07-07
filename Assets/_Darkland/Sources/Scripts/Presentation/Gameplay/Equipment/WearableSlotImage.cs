@@ -1,4 +1,3 @@
-using System;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.Equipment;
@@ -25,11 +24,20 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         private IEqItemDef _item;
 
+        public WearableSlot Slot => wearableSlot;
+
+        public TooltipDescription Get() {
+            return new TooltipDescription {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
+        }
+
         public void OnPointerClick(PointerEventData eventData) {
             if (_item == null) return;
             if (eventData.button != PointerEventData.InputButton.Right) return;
-            
-            NetworkClient.Send(new PlayerInputMessages.UnequipWearableRequestMessage{wearableSlot = wearableSlot});
+
+            NetworkClient.Send(new PlayerInputMessages.UnequipWearableRequestMessage { wearableSlot = wearableSlot });
         }
 
         [Client]
@@ -40,7 +48,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             var wearable = (IWearable)_item;
             Assert.IsTrue(wearable.WearableItemType == wearableType);
             Assert.IsTrue(wearable.WearableItemSlot == wearableSlot);
-            
+
             image.sprite = _item.Sprite;
             image.color = Color.white;
         }
@@ -50,15 +58,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             _item = null;
             image.sprite = emptySlotSprite;
             image.color = emptySlotBackgroundColor;
-        }
-
-        public WearableSlot Slot => wearableSlot;
-
-        public TooltipDescription Get() {
-            return new TooltipDescription() {
-                title = _item?.ItemName,
-                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
-            };
         }
 
     }

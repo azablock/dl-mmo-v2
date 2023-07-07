@@ -11,10 +11,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private GameplayPanelToggle equipmentToggle;
 
         [Client]
-        public void ClientToggleHeroSheet() => heroSheetToggle.ClientToggle();
+        public void ClientToggleHeroSheet() {
+            heroSheetToggle.ClientToggle();
+        }
 
         [Client]
-        public void ClientToggleEquipment() => equipmentToggle.ClientToggle();
+        public void ClientToggleEquipment() {
+            equipmentToggle.ClientToggle();
+        }
 
     }
 

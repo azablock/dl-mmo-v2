@@ -7,6 +7,7 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class AccountRootPanel : MonoBehaviour {
+
         [SerializeField]
         private LoginPanel loginPanel;
         [SerializeField]
@@ -63,7 +64,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             StartConnection();
         }
 
-        private void LoginPanelOnRegisterClicked() => ShowChildPanel(registerPanel);
+        private void LoginPanelOnRegisterClicked() {
+            ShowChildPanel(registerPanel);
+        }
 
         private static void RegisterPanelOnRegisterClicked(string accountName) {
             DarklandNetworkManager.self.darklandNetworkAuthenticator.clientIsRegister = true;
@@ -72,16 +75,20 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             StartConnection();
         }
 
-        private void HeroesPanelOnNewHeroClicked() => ShowChildPanel(newHeroPanel);
+        private void HeroesPanelOnNewHeroClicked() {
+            ShowChildPanel(newHeroPanel);
+        }
 
-        private static void HeroesPanelOnStartClicked(string heroName) =>
+        private static void HeroesPanelOnStartClicked(string heroName) {
             NetworkClient.Send(new DarklandAuthMessages.HeroEnterGameRequestMessage { selectedHeroName = heroName });
+        }
 
-        private static void NewHeroPanelOnCreateClicked(DarklandHeroDto formData) =>
+        private static void NewHeroPanelOnCreateClicked(DarklandHeroDto formData) {
             NetworkClient.Send(new DarklandAuthMessages.NewHeroRequestMessage {
                 heroName = formData.heroName,
                 heroVocationType = formData.heroVocationType
             });
+        }
 
         private void ClientGetHeroesSuccess(List<DarklandHeroDto> heroes) {
             ShowChildPanel(heroesPanel);
@@ -98,7 +105,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
             ShowChildPanel(loginPanel);
         }
 
-        private static void GetHeroes() => NetworkClient.Send(new DarklandAuthMessages.GetHeroesRequestMessage());
+        private static void GetHeroes() {
+            NetworkClient.Send(new DarklandAuthMessages.GetHeroesRequestMessage());
+        }
 
         private void ShowChildPanel(Component panelComponent) {
             for (var i = 0; i < transform.childCount; i++) {
@@ -109,17 +118,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
 
         private static void StartConnection() {
             // NetworkManager.singleton.StartClient();
-            
+
 #if UNITY_EDITOR_64 && !UNITY_SERVER
-            if (!NetworkServer.active) {
+            if (!NetworkServer.active)
                 DarklandNetworkManager.self.StartHost();
-            } else {
+            else
                 DarklandNetworkManager.self.StartClient();
-            }
 #else
                 NetworkManager.singleton.StartClient();
 #endif
         }
+
     }
 
 }

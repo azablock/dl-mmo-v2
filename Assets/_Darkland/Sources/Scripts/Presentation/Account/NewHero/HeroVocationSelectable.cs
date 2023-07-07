@@ -10,11 +10,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
         [SerializeField]
         private HeroVocationType vocationType;
 
-        public event Action<HeroVocationType> Clicked;
-
-        public void OnPointerClick(PointerEventData _) => Clicked?.Invoke(vocationType);
-
         public HeroVocationType VocationType => vocationType;
+
+        public void OnPointerClick(PointerEventData _) {
+            Clicked?.Invoke(vocationType);
+        }
+
+        public event Action<HeroVocationType> Clicked;
 
     }
 

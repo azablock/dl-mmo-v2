@@ -9,15 +9,18 @@ namespace _Darkland.Sources.Scripts.Spell {
         private void OnTriggerEnter(Collider other) {
             if (!other.GetComponent<DarklandHeroBehaviour>()) return;
 
-            GetComponentInParent<CircleOfLightSpellBodyBehaviour>()._onTriggerEnterCallback(other.GetComponent<NetworkIdentity>());
+            GetComponentInParent<CircleOfLightSpellBodyBehaviour>()
+                ._onTriggerEnterCallback(other.GetComponent<NetworkIdentity>());
         }
-        
+
         [ServerCallback]
         private void OnTriggerExit(Collider other) {
             if (!other.GetComponent<DarklandHeroBehaviour>()) return;
 
-            GetComponentInParent<CircleOfLightSpellBodyBehaviour>()._onTriggerExitCallback(other.GetComponent<NetworkIdentity>());
+            GetComponentInParent<CircleOfLightSpellBodyBehaviour>()
+                ._onTriggerExitCallback(other.GetComponent<NetworkIdentity>());
         }
+
     }
 
 }

@@ -18,10 +18,14 @@ namespace _Darkland.Sources.Scripts.Unit {
         }
 
         [Server]
-        public void ServerAddDeathCallback(Action onDeathCallback) => DeathEventEmitter.Death += onDeathCallback;
+        public void ServerAddDeathCallback(Action onDeathCallback) {
+            DeathEventEmitter.Death += onDeathCallback;
+        }
 
         [Server]
-        public void ServerRemoveDeathCallback(Action onDeathCallback) => DeathEventEmitter.Death -= onDeathCallback;
+        public void ServerRemoveDeathCallback(Action onDeathCallback) {
+            DeathEventEmitter.Death -= onDeathCallback;
+        }
 
     }
 

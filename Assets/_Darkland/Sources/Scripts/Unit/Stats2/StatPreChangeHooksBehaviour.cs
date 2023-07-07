@@ -17,15 +17,16 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
             var hookEntries = preChangeHooks ?? new List<StatPreChangeHookEntry>();
 
             var hasHookWithStatId = hookEntries
-                                                .Select(it => it.Id)
-                                                .Contains(id);
+                .Select(it => it.Id)
+                .Contains(id);
 
             return hasHookWithStatId
                 ? hookEntries
-                  .First(it => it.Id == id)
-                  .Hooks
+                    .First(it => it.Id == id)
+                    .Hooks
                 : new List<StatPreChangeHook>();
         }
+
     }
 
 }

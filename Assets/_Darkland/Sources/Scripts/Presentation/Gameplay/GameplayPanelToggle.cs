@@ -9,12 +9,18 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         [SerializeField]
         private GameObject panel;
 
-        private void OnDisable() => panel.SetActive(false);
+        private void OnDisable() {
+            panel.SetActive(false);
+        }
 
-        public void OnPointerClick(PointerEventData _) => ClientToggle();
+        public void OnPointerClick(PointerEventData _) {
+            ClientToggle();
+        }
 
         [Client]
-        public void ClientToggle() => panel.SetActive(!panel.activeSelf);
+        public void ClientToggle() {
+            panel.SetActive(!panel.activeSelf);
+        }
 
     }
 

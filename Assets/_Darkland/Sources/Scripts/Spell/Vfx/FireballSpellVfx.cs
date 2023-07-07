@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Reflection;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -13,8 +12,8 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         void BeginVfx(T message);
 
     }
-    
-    public interface IFireballSpellVfx : ISpellVfx<FireballSpellVfxResponseMessage> {}
+
+    public interface IFireballSpellVfx : ISpellVfx<FireballSpellVfxResponseMessage> { }
 
     public class FireballSpellVfx : MonoBehaviour, IFireballSpellVfx {
 
@@ -23,11 +22,12 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         [SerializeField]
         private Light2D light2D;
 
-        private void Awake() {
-        }
+        private void Awake() { }
 
         [Client]
-        public void BeginVfx(FireballSpellVfxResponseMessage message) => StartCoroutine(Vfx(message));
+        public void BeginVfx(FireballSpellVfxResponseMessage message) {
+            StartCoroutine(Vfx(message));
+        }
 
         [Client]
         private IEnumerator Vfx(FireballSpellVfxResponseMessage message) {
@@ -37,7 +37,7 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
 
             var lerp = 0.0f;
             var vfxDuration = message.fireballFlyDuration;
-            
+
             while (!transform.position.Equals(message.targetPos)) {
                 transform.position = Vector3.Lerp(message.castPos, message.targetPos, lerp);
                 lerp += Time.deltaTime / vfxDuration;

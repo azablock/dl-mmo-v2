@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace _Darkland.Sources.Scripts.Presentation.Account {
 
     public class StopClientButton : MonoBehaviour {
-        
+
         [SerializeField]
         private Button logoutButton;
 
@@ -19,6 +19,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private void Call() {
             DarklandNetworkManager.self.StopClient();
         }
+
     }
 
 }

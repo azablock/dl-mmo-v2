@@ -8,7 +8,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
 
         [SerializeField]
         private Button startClientButton;
-        
+
         [SerializeField]
         private Button stopClientButton;
 
@@ -41,7 +41,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
 
         private void StopClient() {
             NetworkManager.singleton.StopClient();
-            
+
             startClientButton.interactable = true;
             stopClientButton.interactable = false;
         }
@@ -50,6 +50,7 @@ namespace _Darkland.Sources.Scripts.Presentation {
             StopClient();
             Application.Quit();
         }
+
     }
 
 }

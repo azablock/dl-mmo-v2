@@ -1,5 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
 using Mirror;
@@ -43,12 +42,9 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var desc = "";
             var actionPower = caster.GetComponent<IStatsHolder>().ValueOf(StatId.ActionPower).Current;
 
-            if (restoreStatId == StatId.Mana) {
+            if (restoreStatId == StatId.Mana)
                 desc += $"Transfer {restoreAmount + actionPower} mana to target.";
-            }
-            else if (restoreStatId == StatId.Health) {
-                desc += $"Restore {restoreAmount + actionPower} health to target.";
-            }
+            else if (restoreStatId == StatId.Health) desc += $"Restore {restoreAmount + actionPower} health to target.";
 
             return desc;
         }

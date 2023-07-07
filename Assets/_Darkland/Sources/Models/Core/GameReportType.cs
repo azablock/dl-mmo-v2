@@ -1,4 +1,4 @@
-﻿namespace _Darkland.Sources.Models.GameReport {
+﻿namespace _Darkland.Sources.Models.Core {
 
     public enum GameReportType {
         Feature,

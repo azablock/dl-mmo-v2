@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Reflection;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.NetworkMessages;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 namespace _Darkland.Sources.Scripts.Spell.Vfx {
 
-    public interface ICircleOfLightSpellVfx : ISpellVfx<SpellMessages.CircleOfLightSpellVfxResponseMessage> {}
+    public interface ICircleOfLightSpellVfx : ISpellVfx<SpellMessages.CircleOfLightSpellVfxResponseMessage> { }
 
     public class CircleOfLightSpellVfx : MonoBehaviour, ICircleOfLightSpellVfx {
 
@@ -15,7 +14,7 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
         private SpriteRenderer spriteRenderer;
         [SerializeField]
         private Light2D light2D;
-        
+
         public void BeginVfx(SpellMessages.CircleOfLightSpellVfxResponseMessage message) {
             StartCoroutine(Vfx(message));
         }
@@ -25,18 +24,18 @@ namespace _Darkland.Sources.Scripts.Spell.Vfx {
             spriteRenderer.sortingLayerID = sortingLayerID;
             transform.position = message.castPos;
             Gfx2dHelper.ApplyLight2dSortingLayer(light2D, Vector3Int.FloorToInt(transform.position));
-            
+
             transform.localScale = new Vector3(message.radius, message.radius, 1);
             var startOuterLightRadius = light2D.pointLightOuterRadius;
-            
+
             var lerp = 0.0f;
-            
+
             while (lerp < 1.0f) {
                 light2D.pointLightOuterRadius = Mathf.Lerp(startOuterLightRadius, startOuterLightRadius + 4, lerp);
                 lerp += Time.deltaTime / message.duration;
                 yield return null;
             }
-            
+
             Destroy(gameObject);
         }
 

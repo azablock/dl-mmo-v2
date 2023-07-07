@@ -23,9 +23,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
             var goldHolder = DarklandHeroBehaviour.localHero.GetComponent<IGoldHolder>();
             goldHolder.ClientGoldAmountChanged += ClientOnGoldAmountChanged;
-                
+
             DarklandHeroMessagesProxy.ClientGetEq += ClientOnGetEq;
-            
+
             NetworkClient.Send(new DarklandHeroMessages.GetEqRequestMessage());
         }
 
@@ -42,7 +42,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         }
 
         [Client]
-        private void ClientOnBackpackChanged(List<string> itemNames) => backpackPanel.ClientRefresh(itemNames);
+        private void ClientOnBackpackChanged(List<string> itemNames) {
+            backpackPanel.ClientRefresh(itemNames);
+        }
 
         [Client]
         private void ClientOnGetEq(DarklandHeroMessages.GetEqResponseMessage message) {
@@ -62,7 +64,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
         }
 
         [Client]
-        private void ClientOnGoldAmountChanged(int goldAmount) => backpackPanel.ClientUpdateGoldAmount(goldAmount);
+        private void ClientOnGoldAmountChanged(int goldAmount) {
+            backpackPanel.ClientUpdateGoldAmount(goldAmount);
+        }
 
     }
 

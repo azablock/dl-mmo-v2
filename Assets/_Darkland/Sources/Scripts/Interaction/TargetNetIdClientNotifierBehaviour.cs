@@ -1,5 +1,5 @@
 using System;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 
 namespace _Darkland.Sources.Scripts.Interaction {
@@ -8,12 +8,12 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
         private ITargetNetIdHolder _targetNetIdHolder;
 
-        public event Action<NetworkIdentity> ClientChanged;
-        public event Action<NetworkIdentity> ClientCleared;
-
         private void Awake() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
         }
+
+        public event Action<NetworkIdentity> ClientChanged;
+        public event Action<NetworkIdentity> ClientCleared;
 
         public override void OnStartServer() {
             _targetNetIdHolder.ServerChanged += ServerOnTargetNetIdentityChanged;
@@ -26,16 +26,25 @@ namespace _Darkland.Sources.Scripts.Interaction {
         }
 
         [Server]
-        private void ServerOnTargetNetIdentityChanged(NetworkIdentity identity) => TargetRpcUpdate(identity);
+        private void ServerOnTargetNetIdentityChanged(NetworkIdentity identity) {
+            TargetRpcUpdate(identity);
+        }
 
         [Server]
-        private void ServerOnTargetNetIdentityCleared(NetworkIdentity identity) => TargetRpcClear(identity);
+        private void ServerOnTargetNetIdentityCleared(NetworkIdentity identity) {
+            TargetRpcClear(identity);
+        }
 
         [TargetRpc]
-        private void TargetRpcUpdate(NetworkIdentity identity) => ClientChanged?.Invoke(identity);
+        private void TargetRpcUpdate(NetworkIdentity identity) {
+            ClientChanged?.Invoke(identity);
+        }
 
         [TargetRpc]
-        private void TargetRpcClear(NetworkIdentity identity) => ClientCleared?.Invoke(identity);
+        private void TargetRpcClear(NetworkIdentity identity) {
+            ClientCleared?.Invoke(identity);
+        }
+
     }
 
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Hero {
 
-    [CreateAssetMenu(fileName = nameof(HeroVocation), menuName = "DL/"  + nameof(HeroVocation))]
+    [CreateAssetMenu(fileName = nameof(HeroVocation), menuName = "DL/" + nameof(HeroVocation))]
     public class HeroVocation : ScriptableObject, IHeroVocation {
 
         [SerializeField]

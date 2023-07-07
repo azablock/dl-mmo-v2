@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _Darkland.Sources.Models.Ai;
-using _Darkland.Sources.Models.Interaction;
-using _Darkland.Sources.Scripts.Interaction;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,10 +11,9 @@ namespace _Darkland.Sources.Scripts.Ai {
 
     public class AiNetworkPerceptionBehaviour2 : MonoBehaviour, IAiNetworkPerception {
 
-        private ITargetNetIdHolder _targetNetIdHolder;
         private AiCombatMemory _aiCombatMemory;
 
-        public Dictionary<AiPerceptionZoneType, AiNetworkPerceptionZone> PerceptionZones { get; } = new();
+        private ITargetNetIdHolder _targetNetIdHolder;
 
         // [ServerCallback]
         private void Awake() {
@@ -27,8 +25,8 @@ namespace _Darkland.Sources.Scripts.Ai {
             Assert.IsTrue(_targetNetIdHolder.MaxTargetDistance >= mobDef.PassivePerceptionRange);
             Assert.IsTrue(mobDef.PassivePerceptionRange >= mobDef.AttackPerceptionRange);
 
-            PerceptionZones.Add(Passive, new(mobDef.PassivePerceptionRange));
-            PerceptionZones.Add(Attack, new(mobDef.AttackPerceptionRange));
+            PerceptionZones.Add(Passive, new AiNetworkPerceptionZone(mobDef.PassivePerceptionRange));
+            PerceptionZones.Add(Attack, new AiNetworkPerceptionZone(mobDef.AttackPerceptionRange));
 
             // PerceptionZones[Passive].TargetEnteredZone += OnTargetEnteredZone;
             PerceptionZones[Passive].TargetExitedZone += OnTargetExitedPassiveZone;
@@ -46,6 +44,12 @@ namespace _Darkland.Sources.Scripts.Ai {
             // PerceptionZones[Attack].TargetExitedZone -= OnTargetExitedZone;
         }
 
+        public Dictionary<AiPerceptionZoneType, AiNetworkPerceptionZone> PerceptionZones { get; } = new();
+
+        public float PerceptionZoneRange(AiPerceptionZoneType zoneType) {
+            return PerceptionZones[zoneType].range;
+        }
+
         [ServerCallback]
         private void OnTargetEnteredAttackZone(NetworkIdentity target) {
             if (_targetNetIdHolder.HasTarget()) return;
@@ -61,24 +65,18 @@ namespace _Darkland.Sources.Scripts.Ai {
             if (!netIdEqualToTargetNetId) return;
 
             var attackZoneTargets = PerceptionZones[Attack].targets;
-            
-            if (attackZoneTargets.Count > 0) {
-                _targetNetIdHolder.Set(attackZoneTargets.First().netId);
-            }
+
+            if (attackZoneTargets.Count > 0) _targetNetIdHolder.Set(attackZoneTargets.First().netId);
 
             var passiveZoneTargets = PerceptionZones[Passive].targets;
             var isPassiveZoneTargetInCombatMemory =
                 passiveZoneTargets.FirstOrDefault(it => _aiCombatMemory.HasInHistory(it));
-            
-            if (isPassiveZoneTargetInCombatMemory) {
-                _targetNetIdHolder.Set(passiveZoneTargets.First().netId);
-            }
-            else {
-                _targetNetIdHolder.Clear();
-            }
-        }
 
-        public float PerceptionZoneRange(AiPerceptionZoneType zoneType) => PerceptionZones[zoneType].range;
+            if (isPassiveZoneTargetInCombatMemory)
+                _targetNetIdHolder.Set(passiveZoneTargets.First().netId);
+            else
+                _targetNetIdHolder.Clear();
+        }
 
     }
 

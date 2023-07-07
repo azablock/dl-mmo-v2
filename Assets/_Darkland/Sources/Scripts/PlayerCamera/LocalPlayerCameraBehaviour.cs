@@ -1,6 +1,5 @@
 ﻿using System;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.PlayerCamera;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.World;
 using Mirror;
 using UnityEngine;
@@ -55,7 +54,7 @@ namespace _Darkland.Sources.Scripts.PlayerCamera {
             if (Camera.main == null) return;
 
             var allFieldPositions = DarklandWorldBehaviour._.allFieldPositions;
-            var isTileAboveLocalPlayer = LocalPlayerCameraPositionResolver.IsTileAboveLocalPlayer(allFieldPositions, playerPos);
+            var isTileAboveLocalPlayer = LocalPlayerCameraHelper.IsAnyTileAbovePos(allFieldPositions, playerPos);
             var cameraTransform = Camera.main.transform;
 
             cameraTransform.localPosition = isTileAboveLocalPlayer ? cameraClosePosition : cameraDistantPosition;

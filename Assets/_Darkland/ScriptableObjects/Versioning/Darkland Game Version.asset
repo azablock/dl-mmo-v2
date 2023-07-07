@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   major: 1
   minor: 0
-  patch: 7
+  patch: 8
   changeLog: {fileID: 0}

@@ -5,9 +5,8 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
     [CreateAssetMenu(
-            menuName = "DL/" + nameof(StatPostChangeHook) + "/" + nameof(TrimByMaxStatValueStatPostChangeHook2),
-            fileName = nameof(TrimByMaxStatValueStatPostChangeHook2)
-        )
+        menuName = "DL/" + nameof(StatPostChangeHook) + "/" + nameof(TrimByMaxStatValueStatPostChangeHook2),
+        fileName = nameof(TrimByMaxStatValueStatPostChangeHook2))
     ]
     public class TrimByMaxStatValueStatPostChangeHook2 : StatPostChangeHook {
 
@@ -16,7 +15,9 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PostChangeHook {
 
         private readonly ITrimToMaxByOtherStatHandler _handler = new TrimToMaxByOtherStatHandler();
 
-        public override void OnStatChange(IStatsHolder statsHolder) => _handler.Handle(statsHolder, trimmedStatId, onChangeStatId);
+        public override void OnStatChange(IStatsHolder statsHolder) {
+            _handler.Handle(statsHolder, trimmedStatId, onChangeStatId);
+        }
 
     }
 

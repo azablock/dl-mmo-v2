@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Models.Unit.Stats2;
 using Mirror;
@@ -17,13 +16,12 @@ namespace _Darkland.Sources.Scripts.Spell {
 
     public class SpellCastStateClientNotifierBehaviour : NetworkBehaviour, ISpellCastStateClientNotifier {
 
-        private ITargetNetIdHolder _targetNetIdHolder;
-        private ISpellCaster _spellCaster;
         private IDiscretePosition _discretePosition;
-        private IStatsHolder _statsHolder;
         private Stat _manaStat;
+        private ISpellCaster _spellCaster;
+        private IStatsHolder _statsHolder;
 
-        public event Action<List<bool>> ClientNotified;
+        private ITargetNetIdHolder _targetNetIdHolder;
 
         private void Awake() {
             _targetNetIdHolder = GetComponent<ITargetNetIdHolder>();
@@ -32,16 +30,18 @@ namespace _Darkland.Sources.Scripts.Spell {
             _statsHolder = GetComponent<IStatsHolder>();
         }
 
+        public event Action<List<bool>> ClientNotified;
+
         public override void OnStartServer() {
             _targetNetIdHolder.ServerChanged += ServerTargetChanged;
             _targetNetIdHolder.ServerCleared += ServerTargetCleared;
             _discretePosition.Changed += ServerOnCasterPosChanged;
             _manaStat = _statsHolder.Stat(StatId.Mana);
-            
+
             //todo (1) jakis dziwny bug...
             // _statsHolder.Stat(StatId.Mana).Changed += ServerOnManaChanged;
         }
-        
+
         public override void OnStopServer() {
             _targetNetIdHolder.ServerChanged -= ServerTargetChanged;
             _targetNetIdHolder.ServerCleared -= ServerTargetCleared;
@@ -50,7 +50,9 @@ namespace _Darkland.Sources.Scripts.Spell {
         }
 
         //todo (1) jakis dziwny bug...
-        public override void OnStartLocalPlayer() => CmdConnectToManaChange();
+        public override void OnStartLocalPlayer() {
+            CmdConnectToManaChange();
+        }
 
         [Command]
         private void CmdConnectToManaChange() {
@@ -69,10 +71,14 @@ namespace _Darkland.Sources.Scripts.Spell {
         }
 
         [Server]
-        private void ServerOnCasterPosChanged(PositionChangeData _) => ServerNotify();
+        private void ServerOnCasterPosChanged(PosChangeData _) {
+            ServerNotify();
+        }
 
         [Server]
-        private void ServerOnTargetPosChanged(PositionChangeData _) => ServerNotify();
+        private void ServerOnTargetPosChanged(PosChangeData _) {
+            ServerNotify();
+        }
 
         [Server]
         private void ServerOnManaChanged(StatVal _) {
@@ -90,8 +96,10 @@ namespace _Darkland.Sources.Scripts.Spell {
         }
 
         [TargetRpc]
-        private void TargetRpcClientNotify(List<bool> canCastFlags) => ClientNotified?.Invoke(canCastFlags);
-        
+        private void TargetRpcClientNotify(List<bool> canCastFlags) {
+            ClientNotified?.Invoke(canCastFlags);
+        }
+
     }
 
 }

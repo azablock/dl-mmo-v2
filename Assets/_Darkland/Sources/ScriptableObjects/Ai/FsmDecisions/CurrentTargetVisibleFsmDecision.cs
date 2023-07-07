@@ -1,6 +1,5 @@
 using _Darkland.Sources.Models.Combat;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.World;
 using UnityEngine;
 

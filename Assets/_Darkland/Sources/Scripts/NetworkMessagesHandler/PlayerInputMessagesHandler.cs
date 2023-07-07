@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Equipment;
-using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Spell;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Models.World;
@@ -31,7 +30,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerUseItem += ServerProcessUseItem;
             PlayerInputMessagesProxy.ServerUnequipWearable += ServerProcessUnequipWearable;
         }
-        
+
         private void OnDestroy() {
             PlayerInputMessagesProxy.ServerMove -= ServerProcessMove;
             PlayerInputMessagesProxy.ServerChangeFloor -= ServerProcessChangeFloor;
@@ -44,7 +43,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             PlayerInputMessagesProxy.ServerUseItem -= ServerProcessUseItem;
             PlayerInputMessagesProxy.ServerUnequipWearable -= ServerProcessUnequipWearable;
         }
-        
+
         [Server]
         private static void ServerProcessMove(NetworkConnectionToClient conn,
                                               MoveRequestMessage message) {
@@ -72,7 +71,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                                                   NpcClickRequestMessage msg) {
             conn.identity.GetComponent<TargetNetIdHolderBehaviour>().Set(msg.npcNetId);
         }
-        
+
         [Server]
         private static void ServerProcessNpcClear(NetworkConnectionToClient conn,
                                                   NpcClearRequestMessage message) {
@@ -85,7 +84,7 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
             var statsHolderNetId = message.statsHolderNetId;
             var statsHolderNetIdentity = NetworkServer.spawned[statsHolderNetId];
             var statsHolder = statsHolderNetIdentity.GetComponent<IStatsHolder>();
-            var (health, maxHealth, mana, maxMana) = 
+            var (health, maxHealth, mana, maxMana) =
                 statsHolder.Values(Tuple.Create(StatId.Health, StatId.MaxHealth, StatId.Mana, StatId.MaxMana));
             var unitName = statsHolderNetIdentity.GetComponent<UnitNameBehaviour>().unitName;
 
@@ -113,33 +112,31 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                 .Select(it => it.GetComponent<IOnGroundEqItem>())
                 .Where(it => it != null)
                 .FirstOrDefault(it => it.Pos.Equals(message.eqItemPos));
-            
+
             if (onGroundItem == null) return;
 
             var eqHolder = conn.identity.GetComponent<IEqHolder>();
             if (eqHolder.ServerBackpackFull()) return;
-            
+
             var pickupPos = conn.identity.GetComponent<IDiscretePosition>().Pos;
             var itemPos = onGroundItem.Pos;
             var zEqual = itemPos.z == pickupPos.z;
             var inDistance = Vector3.Distance(pickupPos, itemPos) <= 2; //todo magic number
 
-            if (zEqual && inDistance) {
-                conn.identity.GetComponent<IEqHolder>().PickupFromGround(onGroundItem);
-            }
+            if (zEqual && inDistance) conn.identity.GetComponent<IEqHolder>().PickupFromGround(onGroundItem);
         }
 
         [Server]
         private static void ServerProcessDropItem(NetworkConnectionToClient conn,
                                                   DropItemRequestMessage message) {
             var dropPos = conn.identity.GetComponent<IDiscretePosition>().Pos;
-            
+
             //todo optimize!!!
             var itemsWithDropPos = NetworkServer.spawned.Values
                 .Select(it => it.GetComponent<IOnGroundEqItem>())
                 .Where(it => it != null)
                 .Count(it => it.Pos.Equals(dropPos));
-            
+
             //moge wyrzucic item - jesli tylko jeden przedmiot lezy w tym samym miejscu
             if (itemsWithDropPos > 1) return;
 
@@ -164,10 +161,10 @@ namespace _Darkland.Sources.Scripts.NetworkMessagesHandler {
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
         [Server]
         private static void ServerProcessUnequipWearable(NetworkConnectionToClient conn,
-                                                                  UnequipWearableRequestMessage message) {
+                                                         UnequipWearableRequestMessage message) {
             conn.identity.GetComponent<IEqHolder>().UnequipWearableToBackpack(message.wearableSlot);
         }
 

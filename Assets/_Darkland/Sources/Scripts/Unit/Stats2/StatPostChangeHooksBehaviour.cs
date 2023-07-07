@@ -10,8 +10,8 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
 
         [SerializeField]
         private StatPostChangeHook[] statPostChangeHooks;
-        private IStatsHolder _statsHolder;
         private StatPostChangeHooksHandler _hooksHandler;
+        private IStatsHolder _statsHolder;
 
         private void Awake() {
             _statsHolder = GetComponent<IStatsHolder>();
@@ -27,6 +27,7 @@ namespace _Darkland.Sources.Scripts.Unit.Stats2 {
         public override void OnStopServer() {
             _hooksHandler.Unregister();
         }
+
     }
 
 }

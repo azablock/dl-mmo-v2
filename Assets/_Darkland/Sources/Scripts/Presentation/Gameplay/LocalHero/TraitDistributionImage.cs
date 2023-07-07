@@ -10,9 +10,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero {
 
         [SerializeField]
         private StatId traitStatId;
-        
+
         public void OnPointerClick(PointerEventData _) {
-            NetworkClient.Send(new DarklandHeroMessages.DistributeTraitRequestMessage {traitStatId = traitStatId});
+            NetworkClient.Send(new DarklandHeroMessages.DistributeTraitRequestMessage { traitStatId = traitStatId });
         }
 
     }

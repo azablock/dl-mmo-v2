@@ -1,13 +1,13 @@
 using System.Text.RegularExpressions;
 using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Interaction;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Mob {
 
     [CreateAssetMenu(fileName = nameof(MobDef), menuName = "DL/" + nameof(MobDef))]
-    public class MobDef : ScriptableObject, Models.Mob.IMobDef {
+    public class MobDef : ScriptableObject, IMobDef {
 
         [SerializeField]
         [Range(1, 300)]

@@ -2,7 +2,7 @@ using _Darkland.Sources.Scripts.Presentation;
 using Mirror;
 using UnityEngine;
 
-namespace _Darkland.Sources.Models.Chat {
+namespace _Darkland.Sources.Models.Core {
 
     public static class RichTextFormatter {
 

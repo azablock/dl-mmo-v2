@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Ai;
 using UnityEngine;
 
@@ -9,7 +9,8 @@ namespace _Darkland.Sources.ScriptableObjects.Ai.FsmDecisions {
     public class CurrentPosEqualToSpawnPosFsmDecision : FsmDecision {
 
         public override bool IsValid(GameObject parent) {
-            return parent.GetComponent<IDiscretePosition>().Pos.Equals(parent.GetComponent<SpawnPositionHolder>().spawnPos);
+            return parent.GetComponent<IDiscretePosition>()
+                .Pos.Equals(parent.GetComponent<SpawnPositionHolder>().spawnPos);
         }
 
     }

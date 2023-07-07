@@ -4,9 +4,8 @@ using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
-    [CreateAssetMenu(
-        menuName = "DL/" + nameof(StatPreChangeHook) + "/" + nameof(MinValueStatPreChangeHook),
-        fileName = nameof(MinValueStatPreChangeHook))
+    [CreateAssetMenu(menuName = "DL/" + nameof(StatPreChangeHook) + "/" + nameof(MinValueStatPreChangeHook),
+                     fileName = nameof(MinValueStatPreChangeHook))
     ]
     public class MinValueStatPreChangeHook : StatPreChangeHook {
 
@@ -19,9 +18,10 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
         public override StatVal Apply(IStatsHolder statsHolder, StatVal val) {
             var newBasic = basicApply ? Mathf.Max(basicMin, val.Basic) : val.Basic;
             var newBonus = bonusApply ? Mathf.Max(bonusMin, val.Bonus) : val.Bonus;
-            
+
             return StatVal.Of(newBasic, newBonus);
         }
+
     }
 
 }

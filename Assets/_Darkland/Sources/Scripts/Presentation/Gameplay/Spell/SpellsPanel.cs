@@ -15,21 +15,23 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
         [SerializeField]
         private List<GameObject> spellIconPrefabs;
 
+        private List<SpellIconBehaviour> spellIcons => GetComponentsInChildren<SpellIconBehaviour>().ToList();
+
         private void OnEnable() {
             SpellMessagesProxy.ClientGetAvailableSpellsReceived += ClientInit;
             DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted += ClientOnSpellCasted;
             DarklandHeroBehaviour.localHero.GetComponent<ISpellCastStateClientNotifier>()
-                    .ClientNotified += ClientOnSpellCastConditionsNotified;
-            
+                .ClientNotified += ClientOnSpellCastConditionsNotified;
+
             NetworkClient.Send(new SpellMessages.GetAvailableSpellsRequestMessage());
         }
-        
+
         private void OnDisable() {
             SpellMessagesProxy.ClientGetAvailableSpellsReceived -= ClientInit;
             DarklandHeroBehaviour.localHero.GetComponent<ISpellCaster>().ClientSpellCasted -= ClientOnSpellCasted;
             DarklandHeroBehaviour.localHero.GetComponent<ISpellCastStateClientNotifier>()
                 .ClientNotified -= ClientOnSpellCastConditionsNotified;
-            
+
             spellIcons.ForEach(it => it.Clicked -= ClientOnSpellIconClicked);
             foreach (Transform child in transform) Destroy(child.gameObject);
         }
@@ -59,15 +61,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
             Assert.IsTrue(idx > -1 && idx < spellIcons.Count);
             NetworkClient.Send(new PlayerInputMessages.CastSpellRequestMessage { spellIdx = idx });
         }
-        
+
         [Client]
         private void ClientOnSpellCastConditionsNotified(List<bool> canCastFlags) {
             //todo dziwny bug (wczesniej tu byl assert "eqauls count count" i sie wywalalo)
             if (spellIcons.Count != canCastFlags.Count) return;
-            
-            for (var i = 0; i < canCastFlags.Count; i++) {
-                spellIcons[i].ClientSetCastConditionState(canCastFlags[i]);
-            }
+
+            for (var i = 0; i < canCastFlags.Count; i++) spellIcons[i].ClientSetCastConditionState(canCastFlags[i]);
         }
 
         [Client]
@@ -79,8 +79,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
 
             return spellIconPrefabs[idx];
         }
-
-        private List<SpellIconBehaviour> spellIcons => GetComponentsInChildren<SpellIconBehaviour>().ToList();
 
     }
 

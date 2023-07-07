@@ -21,7 +21,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var descriptions = unitEffects
                 .Select(it => it.Description(caster))
                 .Aggregate(string.Empty, (desc, next) => desc + next + "\n");
-            
+
             return $"Works on caster.\n{descriptions}";
         }
 

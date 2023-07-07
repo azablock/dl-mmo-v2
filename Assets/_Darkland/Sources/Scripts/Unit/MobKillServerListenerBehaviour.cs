@@ -1,6 +1,5 @@
-using _Darkland.Sources.Models.Chat;
 using _Darkland.Sources.Models.Combat;
-using _Darkland.Sources.Models.Unit.Stats2;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Scripts.Ai;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using Mirror;
@@ -11,9 +10,10 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class MobKillServerListenerBehaviour : NetworkBehaviour {
 
-        private XpHolderBehaviour _xpHolder;
-        private IGoldHolder _goldHolder;
         private IDamageDealer _damageDealer;
+        private IGoldHolder _goldHolder;
+
+        private XpHolderBehaviour _xpHolder;
 
         private void Awake() {
             _xpHolder = GetComponent<XpHolderBehaviour>();
@@ -38,7 +38,7 @@ namespace _Darkland.Sources.Scripts.Unit {
             _goldHolder.ServerAddGold(goldGain);
 
             var message = $"You gained {xpGain} xp and {goldGain} gold!";
-            
+
             netIdentity
                 .connectionToClient
                 .Send(new ServerLogResponseMessage { message = RichTextFormatter.FormatServerLog(message) });

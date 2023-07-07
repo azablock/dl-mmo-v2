@@ -19,9 +19,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
         [SerializeField]
         private TMP_Text traderInfoText;
 
-        public static event Action<bool> Toggled;
-
         public NpcTraderBehaviour npcTrader { get; private set; }
+
+        public static event Action<bool> Toggled;
 
         [Client]
         public void ClientSet(NpcTraderBehaviour trader, List<IEqItemDef> items) {

@@ -19,6 +19,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Account {
         private void Call() {
             DarklandNetworkManager.self.StopServer();
         }
+
     }
 
 }

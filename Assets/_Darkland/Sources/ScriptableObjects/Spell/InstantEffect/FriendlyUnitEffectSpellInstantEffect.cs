@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.ScriptableObjects.Unit;
 using UnityEngine;
@@ -8,7 +8,8 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
 
     [CreateAssetMenu(fileName = nameof(FriendlyUnitEffectSpellInstantEffect),
-                     menuName = "DL/" + nameof(SpellInstantEffect) + "/" + nameof(FriendlyUnitEffectSpellInstantEffect))]
+                     menuName = "DL/" + nameof(SpellInstantEffect) + "/" +
+                                nameof(FriendlyUnitEffectSpellInstantEffect))]
     public class FriendlyUnitEffectSpellInstantEffect : SpellInstantEffect {
 
         [SerializeField]
@@ -26,9 +27,10 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var descriptions = unitEffects
                 .Select(it => it.Description(caster))
                 .Aggregate(string.Empty, (desc, next) => desc + next + "\n");
-            
+
             return $"Works on friendly target.\n{descriptions}";
         }
+
     }
 
 }

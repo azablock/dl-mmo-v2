@@ -20,10 +20,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
         private IEqItemDef _item;
 
+        public TooltipDescription Get() {
+            return new TooltipDescription {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
+        }
+
         public void OnPointerClick(PointerEventData _) {
             if (_item == null) return;
-            
-            NetworkClient.Send(new TradeMessages.BuyItemRequestMessage {itemName = _item.ItemName});
+
+            NetworkClient.Send(new TradeMessages.BuyItemRequestMessage { itemName = _item.ItemName });
         }
 
         [Client]
@@ -42,13 +49,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Trade {
 
             var color = _item.ItemPrice > goldAmount ? DarklandColorSet._.danger : Color.white;
             itemPriceText.color = color;
-        }
-
-        public TooltipDescription Get() {
-            return new TooltipDescription {
-                title = _item?.ItemName,
-                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
-            };
         }
 
     }

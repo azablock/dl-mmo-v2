@@ -20,9 +20,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
 
         private IEqItemDef _item;
 
-        public event Action<BackpackSlotImage> DropClick;
-        public event Action<BackpackSlotImage> SellClick;
-        public event Action<BackpackSlotImage> UseClick;
+        public TooltipDescription Get() {
+            return new() {
+                title = _item?.ItemName,
+                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
+            };
+        }
 
         public void OnPointerClick(PointerEventData eventData) {
             if (_item == null) return;
@@ -45,10 +48,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Equipment {
             }
         }
 
-        public TooltipDescription Get() => new() {
-                title = _item?.ItemName,
-                content = _item?.Description(DarklandHeroBehaviour.localHero.gameObject)
-            };
+        public event Action<BackpackSlotImage> DropClick;
+        public event Action<BackpackSlotImage> SellClick;
+        public event Action<BackpackSlotImage> UseClick;
 
         [Client]
         public void ClientSet(string itemName) {

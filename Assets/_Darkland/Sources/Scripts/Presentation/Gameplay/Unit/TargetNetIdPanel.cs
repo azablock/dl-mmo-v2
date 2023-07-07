@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.NetworkMessages;
@@ -23,10 +23,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private void OnDisable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
-            
+
             unitEffectsPanel.ClientRefreshUnitEffects(new List<string>());
         }
-        
+
         public void ClientInit(PlayerInputMessages.GetHealthStatsResponseMessage message) {
             targetNetIdentityPanel.ClientSetUnitName(message.unitName);
             targetNetIdentityPanel.ClientSetMaxHealth(message.maxHealth);
@@ -36,8 +36,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         public void OnClientChanged(NetworkIdentity targetNetIdentity) {
-            NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage {statsHolderNetId = targetNetIdentity.netId});
-            
+            NetworkClient.Send(new PlayerInputMessages.GetHealthStatsRequestMessage
+                                   { statsHolderNetId = targetNetIdentity.netId });
+
             targetNetIdentity.GetComponent<IStatsHolder>().ClientChanged += OnClientStatsChanged;
             targetNetIdentity.GetComponent<IUnitEffectClientNotifier>().ClientNotified += OnClientNotified;
 
@@ -58,18 +59,13 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         }
 
         private void OnClientStatsChanged(StatId statId, StatVal val) {
-            if (statId == StatId.Health) {
+            if (statId == StatId.Health)
                 targetNetIdentityPanel.ClientSetHealth(val.Basic);
-            }
-            else if (statId == StatId.MaxHealth) {
+            else if (statId == StatId.MaxHealth)
                 targetNetIdentityPanel.ClientSetMaxHealth(val.Current);
-            }
-            else if (statId == StatId.Mana) {
+            else if (statId == StatId.Mana)
                 targetNetIdentityPanel.ClientSetMana(val.Basic);
-            }
-            else if (statId == StatId.MaxMana) {
-                targetNetIdentityPanel.ClientSetMaxMana(val.Current);
-            }
+            else if (statId == StatId.MaxMana) targetNetIdentityPanel.ClientSetMaxMana(val.Current);
         }
 
         private void OnClientNotified(List<string> effectNames) {

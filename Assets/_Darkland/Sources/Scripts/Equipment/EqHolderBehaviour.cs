@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Equipment;
 using Mirror;
 using UnityEngine.Assertions;

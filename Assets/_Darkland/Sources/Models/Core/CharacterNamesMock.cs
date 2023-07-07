@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Darkland.Sources.Models {
+namespace _Darkland.Sources.Models.Core {
 
-    public static class CharacterNames {
+    public static class CharacterNamesMock {
 
         public static string RandomName() => Names[Random.Range(0, Names.Count - 1)];
         

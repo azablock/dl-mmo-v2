@@ -14,7 +14,7 @@ namespace _Darkland.Sources.Scripts.Spell {
         [Server]
         public void ServerInit(float radius, Action<NetworkIdentity> onTriggerCallback) {
             _onTriggerCallback = onTriggerCallback;
-            
+
             boxCollider.size = new Vector3(radius, radius, 1);
             boxCollider.gameObject.SetActive(true);
 
@@ -26,7 +26,7 @@ namespace _Darkland.Sources.Scripts.Spell {
             yield return new WaitForSeconds(0.25f);
             Destroy(gameObject);
         }
-        
+
     }
 
 }

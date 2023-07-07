@@ -3,7 +3,7 @@ using _Darkland.Sources.Scripts.Movement;
 using UnityEngine;
 
 namespace _Darkland.Sources.ScriptableObjects.Ai.FsmStates {
-    
+
     [CreateAssetMenu(fileName = nameof(IdleFsmState), menuName = "DL/Ai/" + nameof(IdleFsmState))]
     public class IdleFsmState : FsmState {
 

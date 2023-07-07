@@ -17,12 +17,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
         [SerializeField]
         private List<HeroVocationSelectable> vocationSelectables;
 
-        public event Action<HeroVocationType> VocationSelected;
-
         private void OnEnable() {
             Assert.IsFalse(vocationSelectables.IsNullOrEmpty());
             vocationSelectables.ForEach(it => it.Clicked += OnVocationClicked);
-            
+
             OnVocationClicked(vocationSelectables.First().VocationType);
         }
 
@@ -30,6 +28,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Account.NewHero {
             Assert.IsFalse(vocationSelectables.IsNullOrEmpty());
             vocationSelectables.ForEach(it => it.Clicked -= OnVocationClicked);
         }
+
+        public event Action<HeroVocationType> VocationSelected;
 
         private void OnVocationClicked(HeroVocationType vocationType) {
             vocationText.text = vocationType.ToString();

@@ -12,7 +12,7 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
         Ranged
 
     }
-    
+
     [CreateAssetMenu(fileName = nameof(WeaponDef),
                      menuName = "DL/Eq/" + nameof(WeaponDef))]
     public class WeaponDef : ScriptableObject, IWeaponDef, IEqItemDef, IWearable {
@@ -37,15 +37,8 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
 
         public string ItemName => Regex.Replace(name, $" {nameof(WeaponDef)}", string.Empty);
         public int ItemPrice => itemPrice;
-        public int MinDamage => minDamage;
-        public int MaxDamage => maxDamage;
-        public int AttackRange => weaponRange == WeaponRange.Melee ? 2 : 4;
-        public float AttackSpeed => attackSpeed;
         public Sprite Sprite => sprite;
         public EqItemType ItemType => EqItemType.Wearable;
-        public WearableSlot WearableItemSlot => WearableSlot.RightHand;
-        public WearableType WearableItemType => WearableType.Weapon;
-        public List<WearableStatBonus> StatBonuses => statBonuses;
 
         public string Description(GameObject parent) {
             var bonuses = statBonuses.Aggregate(string.Empty, (res, bonus) => {
@@ -58,6 +51,14 @@ namespace _Darkland.Sources.ScriptableObjects.Equipment {
                    $"Attack Speed:\t{AttackSpeed}\n\n" +
                    $"{bonuses}";
         }
+
+        public int MinDamage => minDamage;
+        public int MaxDamage => maxDamage;
+        public int AttackRange => weaponRange == WeaponRange.Melee ? 2 : 4;
+        public float AttackSpeed => attackSpeed;
+        public WearableSlot WearableItemSlot => WearableSlot.RightHand;
+        public WearableType WearableItemType => WearableType.Weapon;
+        public List<WearableStatBonus> StatBonuses => statBonuses;
 
     }
 

@@ -19,8 +19,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             // unitEffectClientNotifier.ClientRemoved += OnClientRemoved;
             // unitEffectClientNotifier.ClientRemovedAll += OnClientRemovedAll;
             // unitEffectClientNotifier.ClientNotified += ClientRefreshUnitEffects;
-            
-            
+
+
         }
 
         private void OnDisable() {
@@ -28,7 +28,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             // unitEffectClientNotifier.ClientAdded -= OnClientAdded;
             // unitEffectClientNotifier.ClientRemoved -= OnClientRemoved;
             // unitEffectClientNotifier.ClientRemovedAll -= OnClientRemovedAll;
-            
+
             // unitEffectClientNotifier.ClientNotified -= ClientRefreshUnitEffects;
         }
 
@@ -36,7 +36,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
         private void OnClientAdded(string effectName) {
             var unitEffectImage = Instantiate(unitEffectPrefab, transform).GetComponent<UnitEffectImage>();
             unitEffectImage.ClientInit(effectName);
-            
+
             _activeEffects.Add(effectName, unitEffectImage);
         }
 
@@ -54,11 +54,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
             // foreach (var unitEffectImage in _activeEffects.Values) {
             //     Destroy(unitEffectImage.gameObject);
             // }
-            
-            foreach (Transform t in transform) {
-                Destroy(t.gameObject);
-            }
-            
+
+            foreach (Transform t in transform) Destroy(t.gameObject);
+
             _activeEffects.Clear();
         }
 

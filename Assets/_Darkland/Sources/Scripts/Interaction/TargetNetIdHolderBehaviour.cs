@@ -1,6 +1,5 @@
 using System;
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit;
 using _Darkland.Sources.Scripts.Unit;
 using Mirror;
@@ -11,33 +10,16 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
     public class TargetNetIdHolderBehaviour : NetworkBehaviour, ITargetNetIdHolder {
 
-        private IDiscretePosition _discretePosition;
+        public const float MaxTargetDis = 8; //todo should be equal to vis range (AOI NetworkManager)?
         private IDeathEventEmitter _deathEventEmitter;
-        
-        public NetworkIdentity TargetNetIdentity { get; private set; }
-        public float MaxTargetDistance => MaxTargetDis; 
 
-        public const float MaxTargetDis = 8;//todo should be equal to vis range (AOI NetworkManager)?
-        
+        private IDiscretePosition _discretePosition;
+
+        public NetworkIdentity TargetNetIdentity { get; private set; }
+        public float MaxTargetDistance => MaxTargetDis;
+
         public event Action<NetworkIdentity> ServerChanged;
         public event Action<NetworkIdentity> ServerCleared;
-
-        public override void OnStartServer() {
-            _deathEventEmitter = GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter;
-            _discretePosition = GetComponent<IDiscretePosition>();
-
-            _discretePosition.Changed += ServerOnOwnerPosChanged;
-            _deathEventEmitter.Death += Clear;
-            DarklandNetworkManager.serverOnPlayerDisconnected += ServerOnClientDisconnected;
-        }
-
-        public override void OnStopServer() {
-            Clear();
-            
-            _discretePosition.Changed -= ServerOnTargetPosChanged;
-            _deathEventEmitter.Death -= Clear;
-            DarklandNetworkManager.serverOnPlayerDisconnected -= ServerOnClientDisconnected;
-        }
 
         [Server]
         public void Set(uint newTargetNetId) {
@@ -60,19 +42,36 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
             ServerConnectToTarget();
         }
-        
+
         [Server]
         public void Clear() {
             //todo tutaj chyba jest jakis maly bug - po smierci gracza gracz mial nadal targetowanego szczura
             //- moze ten if jest zly??
             if (TargetNetIdentity == null) return;
-            
+
             TargetNetIdentity.GetComponent<IDiscretePosition>().Changed -= ServerOnTargetPosChanged;
             TargetNetIdentity.GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter.Death -= Clear;
 
             ServerCleared?.Invoke(TargetNetIdentity);
-            
+
             TargetNetIdentity = null;
+        }
+
+        public override void OnStartServer() {
+            _deathEventEmitter = GetComponent<DarklandUnitDeathBehaviour>().DeathEventEmitter;
+            _discretePosition = GetComponent<IDiscretePosition>();
+
+            _discretePosition.Changed += ServerOnOwnerPosChanged;
+            _deathEventEmitter.Death += Clear;
+            DarklandNetworkManager.serverOnPlayerDisconnected += ServerOnClientDisconnected;
+        }
+
+        public override void OnStopServer() {
+            Clear();
+
+            _discretePosition.Changed -= ServerOnTargetPosChanged;
+            _deathEventEmitter.Death -= Clear;
+            DarklandNetworkManager.serverOnPlayerDisconnected -= ServerOnClientDisconnected;
         }
 
         [Server]
@@ -87,11 +86,12 @@ namespace _Darkland.Sources.Scripts.Interaction {
         }
 
         [Server]
-        private void ServerOnTargetPosChanged(PositionChangeData data) =>
+        private void ServerOnTargetPosChanged(PosChangeData data) {
             ServerCheckPositions(_discretePosition.Pos, data.pos);
+        }
 
         [Server]
-        private void ServerOnOwnerPosChanged(PositionChangeData data) {
+        private void ServerOnOwnerPosChanged(PosChangeData data) {
             if (TargetNetIdentity == null) return;
             ServerCheckPositions(data.pos, TargetNetIdentity.GetComponent<IDiscretePosition>().Pos);
         }
@@ -108,7 +108,7 @@ namespace _Darkland.Sources.Scripts.Interaction {
 
             return isInTargetDistance && zPositionsMEqual;
         }
-        
+
     }
 
 }

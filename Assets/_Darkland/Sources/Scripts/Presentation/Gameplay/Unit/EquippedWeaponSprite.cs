@@ -1,5 +1,3 @@
-using System;
-using _Darkland.Sources.Models.DiscretePosition;
 using _Darkland.Sources.Models.Equipment;
 using _Darkland.Sources.Scripts.Equipment;
 using Mirror;
@@ -32,9 +30,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Unit {
 
         [Client]
         private void ClientOnWearableCleared(WearableSlot wearableSlot) {
-            if (wearableSlot == WearableSlot.RightHand) {
-                spriteRenderer.sprite = null;
-            }
+            if (wearableSlot == WearableSlot.RightHand) spriteRenderer.sprite = null;
         }
 
     }

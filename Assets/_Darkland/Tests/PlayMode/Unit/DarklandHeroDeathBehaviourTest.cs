@@ -1,5 +1,5 @@
 using System.Collections;
-using _Darkland.Sources.Models.DiscretePosition;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.DiscretePosition;
 using _Darkland.Sources.Scripts.Unit;

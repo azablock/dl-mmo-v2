@@ -9,14 +9,14 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
 
         [SerializeField]
         private Slider slider;
-        private IStatsHolder _statsHolder;
         private DarklandUnit _darklandUnit;
+        private IStatsHolder _statsHolder;
 
         private void Awake() {
             _statsHolder = GetComponentInParent<IStatsHolder>();
             _darklandUnit = GetComponentInParent<DarklandUnit>();
             slider.minValue = 0;
-            
+
         }
 
         private void OnEnable() {
@@ -37,12 +37,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
 
         [Client]
         private void ClientOnStatsChanged(StatId statId, StatVal statVal) {
-            if (statId == StatId.MaxHealth) {
+            if (statId == StatId.MaxHealth)
                 slider.maxValue = statVal.Current;
-            }
-            else if (statId == StatId.Health) {
-                slider.value = statVal.Basic;
-            }
+            else if (statId == StatId.Health) slider.value = statVal.Basic;
         }
 
     }

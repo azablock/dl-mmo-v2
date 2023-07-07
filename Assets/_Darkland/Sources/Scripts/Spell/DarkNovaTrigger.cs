@@ -10,7 +10,8 @@ namespace _Darkland.Sources.Scripts.Spell {
         private void OnTriggerEnter(Collider other) {
             if (!other.GetComponent<DarklandMobBehaviour>()) return;
 
-            GetComponentInParent<DarkNovaSpellBodyBehaviour>()._onTriggerCallback(other.GetComponent<NetworkIdentity>());
+            GetComponentInParent<DarkNovaSpellBodyBehaviour>()
+                ._onTriggerCallback(other.GetComponent<NetworkIdentity>());
         }
 
     }

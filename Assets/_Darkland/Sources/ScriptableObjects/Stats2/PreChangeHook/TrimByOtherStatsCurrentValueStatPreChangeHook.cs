@@ -4,8 +4,8 @@ using UnityEngine;
 namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
 
     [CreateAssetMenu(
-                        menuName = "DL/" + nameof(StatPreChangeHook) + "/" + nameof(TrimByOtherStatsCurrentValueStatPreChangeHook),
-                        fileName = nameof(TrimByOtherStatsCurrentValueStatPreChangeHook))
+        menuName = "DL/" + nameof(StatPreChangeHook) + "/" + nameof(TrimByOtherStatsCurrentValueStatPreChangeHook),
+        fileName = nameof(TrimByOtherStatsCurrentValueStatPreChangeHook))
     ]
     public class TrimByOtherStatsCurrentValueStatPreChangeHook : StatPreChangeHook {
 
@@ -15,6 +15,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2.PreChangeHook {
             var result = Mathf.Min(val.Basic, statsHolder.ValueOf(trimByStatId).Current);
             return StatVal.OfBasic(result);
         }
+
     }
 
 }

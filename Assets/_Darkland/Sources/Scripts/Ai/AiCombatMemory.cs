@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using _Darkland.Sources.Models.Ai;
 using Mirror;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Darkland.Sources.Scripts.Ai {
 
@@ -16,13 +15,15 @@ namespace _Darkland.Sources.Scripts.Ai {
         [ServerCallback]
         private void Awake() {
             DarklandNetworkManager.serverOnPlayerDisconnected += ServerOnPlayerDisconnected;
-            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone += OnTargetExitedPassiveZone;
+            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone +=
+                OnTargetExitedPassiveZone;
         }
 
         [ServerCallback]
         private void OnDestroy() {
             DarklandNetworkManager.serverOnPlayerDisconnected -= ServerOnPlayerDisconnected;
-            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone -= OnTargetExitedPassiveZone;
+            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone -=
+                OnTargetExitedPassiveZone;
         }
 
         [Server]
@@ -35,7 +36,9 @@ namespace _Darkland.Sources.Scripts.Ai {
         }
 
         [Server]
-        public bool HasInHistory(NetworkIdentity identity) => _combatTargetsHistory.Contains(identity);
+        public bool HasInHistory(NetworkIdentity identity) {
+            return _combatTargetsHistory.Contains(identity);
+        }
 
         [Server]
         private void ServerOnPlayerDisconnected(NetworkIdentity identity) {

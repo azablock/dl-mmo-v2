@@ -1,6 +1,6 @@
 using _Darkland.Sources.Models.Combat;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Equipment;
-using _Darkland.Sources.Models.Interaction;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.Scripts.Unit.Combat;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace _Darkland.Sources.ScriptableObjects.Spell.InstantEffect {
             var weaponDamage = weapon != null
                 ? Random.Range(weapon.MinDamage, weapon.MaxDamage + 1)
                 : IDamageDealer.UnarmedBaseDamageRange();
-            var actionPower = (int) statsHolder.ValueOf(StatId.ActionPower).Current;
+            var actionPower = (int)statsHolder.ValueOf(StatId.ActionPower).Current;
             var summaryDamage = weaponDamage + actionPower;
 
             caster

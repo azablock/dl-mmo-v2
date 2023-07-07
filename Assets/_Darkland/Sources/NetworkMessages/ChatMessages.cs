@@ -1,4 +1,4 @@
-using _Darkland.Sources.Models.GameReport;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 
 namespace _Darkland.Sources.NetworkMessages {

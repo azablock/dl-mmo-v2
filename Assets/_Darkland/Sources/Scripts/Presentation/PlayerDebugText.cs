@@ -8,19 +8,19 @@ using UnityEngine;
 namespace _Darkland.Sources.Scripts.Presentation {
 
     public class PlayerDebugText : MonoBehaviour {
-        
+
         [SerializeField]
         private TextMeshProUGUI heroNameAndLevelText;
+        private string _unitLevel;
+        private string _unitName;
 
         private UnitNameBehaviour _unitNameBehaviour;
         private IXpHolder _xpHolder;
-        private string _unitName;
-        private string _unitLevel;
 
         private void Awake() {
             _unitNameBehaviour = GetComponentInParent<UnitNameBehaviour>();
             _xpHolder = GetComponentInParent<IXpHolder>();
-            
+
             _unitNameBehaviour.ClientUnitNameReceived += ClientOnHeroNameReceived;
             _xpHolder.ClientLevelChanged += ClientOnLevelChanged;
         }
@@ -50,7 +50,10 @@ namespace _Darkland.Sources.Scripts.Presentation {
         }
 
         [Client]
-        private void ClientRefresh() => heroNameAndLevelText.text = $"{_unitLevel} {_unitName}";
+        private void ClientRefresh() {
+            heroNameAndLevelText.text = $"{_unitLevel} {_unitName}";
+        }
+
     }
 
 }

@@ -1,5 +1,4 @@
-using _Darkland.Sources.Models.DiscretePosition;
-using _Darkland.Sources.Models.Presentation;
+using _Darkland.Sources.Models.Core;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -24,7 +23,9 @@ namespace _Darkland.Sources.Scripts.Unit {
             _discretePosition.ClientChanged -= ClientOnPosChanged;
         }
 
-        private void ClientOnPosChanged(Vector3Int pos) => Gfx2dHelper.ApplyLight2dSortingLayer(light2D, pos);
+        private void ClientOnPosChanged(Vector3Int pos) {
+            Gfx2dHelper.ApplyLight2dSortingLayer(light2D, pos);
+        }
 
     }
 

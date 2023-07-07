@@ -8,19 +8,19 @@ namespace _Darkland.Sources.Scripts.Unit {
 
     public class UnitEffectClientNotifierBehaviour : NetworkBehaviour, IUnitEffectClientNotifier {
 
+        private readonly SyncList<string> _activeEffectsNames = new();
+
+        private IUnitEffectHolder _unitEffectHolder;
+
         public List<string> ActiveEffectsNames => _activeEffectsNames.ToList();
         public event Action<string> ClientAdded;
         public event Action<string> ClientRemoved;
         public event Action ClientRemovedAll;
         public event Action<List<string>> ClientNotified;
 
-        private IUnitEffectHolder _unitEffectHolder;
-
-        private readonly SyncList<string> _activeEffectsNames = new();
-
         public override void OnStartServer() {
             _unitEffectHolder = GetComponent<IUnitEffectHolder>();
-            
+
             _unitEffectHolder.ServerAdded += ServerOnAdded;
             _unitEffectHolder.ServerRemoved += ServerOnRemoved;
             _unitEffectHolder.ServerRemovedAll += ServerOnRemovedAll;
@@ -40,7 +40,10 @@ namespace _Darkland.Sources.Scripts.Unit {
             _activeEffectsNames.Callback -= ActiveEffectsNamesOnCallback;
         }
 
-        private void ActiveEffectsNamesOnCallback(SyncList<string>.Operation op, int itemindex, string olditem, string newitem) {
+        private void ActiveEffectsNamesOnCallback(SyncList<string>.Operation op,
+                                                  int itemindex,
+                                                  string olditem,
+                                                  string newitem) {
             switch (op) {
 
                 case SyncList<string>.Operation.OP_ADD:
@@ -56,7 +59,7 @@ namespace _Darkland.Sources.Scripts.Unit {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(op), op, null);
             }
-            
+
             ClientNotified?.Invoke(ActiveEffectsNames);
         }
 
@@ -74,7 +77,7 @@ namespace _Darkland.Sources.Scripts.Unit {
         private void ServerOnRemovedAll() {
             _activeEffectsNames.Clear();
         }
-        
+
         // [TargetRpc]
         // private void TargetRpcEffectAdded(string effectName) => ClientAdded?.Invoke(effectName);
         //

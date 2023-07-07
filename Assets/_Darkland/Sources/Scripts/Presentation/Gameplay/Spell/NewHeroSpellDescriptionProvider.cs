@@ -10,10 +10,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Spell {
             _spellIconBehaviour = GetComponent<SpellIconBehaviour>();
         }
 
-        public TooltipDescription Get() => new() {
-            title = _spellIconBehaviour.SpellDef.SpellName,
-            content = _spellIconBehaviour.SpellDef.GeneralDescription
-        };
+        public TooltipDescription Get() {
+            return new() {
+                title = _spellIconBehaviour.SpellDef.SpellName,
+                content = _spellIconBehaviour.SpellDef.GeneralDescription
+            };
+        }
 
     }
 

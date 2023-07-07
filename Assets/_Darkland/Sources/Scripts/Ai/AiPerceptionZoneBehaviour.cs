@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using _Darkland.Sources.Models.Ai;
 using Mirror;
 using UnityEngine;
@@ -15,11 +13,13 @@ namespace _Darkland.Sources.Scripts.Ai {
         [SerializeField]
         private AiNetworkPerceptionBehaviour2 aiNetworkPerception;
 
+        private AiNetworkPerceptionZone perceptionZone => aiNetworkPerception.PerceptionZones[zoneType];
+
         [ServerCallback]
         private void Start() {
             var range = aiNetworkPerception.PerceptionZoneRange(zoneType);
             boxCollider.size = new Vector3(range, range, 0.1f);
-            
+
             DarklandNetworkManager.serverOnPlayerDisconnected += ServerOnPlayerDisconnected;
         }
 
@@ -32,7 +32,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void OnTriggerEnter(Collider other) {
             var networkIdentity = other.GetComponent<NetworkIdentity>();
             var darklandHero = other.GetComponent<DarklandHeroBehaviour>();
-                
+
             if (!networkIdentity || !darklandHero) return;
 
             perceptionZone.OnTargetEnter(networkIdentity);
@@ -42,7 +42,7 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void OnTriggerExit(Collider other) {
             var networkIdentity = other.GetComponent<NetworkIdentity>();
             var darklandHero = other.GetComponent<DarklandHeroBehaviour>();
-                
+
             if (!networkIdentity || !darklandHero) return;
 
             perceptionZone.OnTargetExit(networkIdentity);
@@ -52,8 +52,6 @@ namespace _Darkland.Sources.Scripts.Ai {
         private void ServerOnPlayerDisconnected(NetworkIdentity identity) {
             perceptionZone.OnTargetExit(identity);
         }
-
-        private AiNetworkPerceptionZone perceptionZone => aiNetworkPerception.PerceptionZones[zoneType];
 
     }
 

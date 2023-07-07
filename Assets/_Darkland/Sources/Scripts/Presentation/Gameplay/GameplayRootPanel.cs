@@ -1,5 +1,4 @@
-using System;
-using _Darkland.Sources.Models.Interaction;
+using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
@@ -12,6 +11,8 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
 
     public class GameplayRootPanel : MonoBehaviour {
 
+        public static GameplayRootPanel _;
+
         [SerializeField]
         private LocalHeroPanel localHeroPanel;
         [SerializeField]
@@ -21,8 +22,9 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         [SerializeField]
         private GameReportPanel gameReportPanel;
 
-        public static GameplayRootPanel _;
-        
+        public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;
+        public static GameReportPanel GameReportPanel => _.gameReportPanel;
+
         private void Awake() {
             _ = this;
         }
@@ -30,7 +32,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private void OnEnable() {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged += OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared += OnClientCleared;
-            
+
             PlayerInputMessagesProxy.ClientGetHealthStats += Call;
         }
 
@@ -38,19 +40,17 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientChanged -= OnClientChanged;
             DarklandHeroBehaviour.localHero.GetComponent<ITargetNetIdClientNotifier>().ClientCleared -= OnClientCleared;
             PlayerInputMessagesProxy.ClientGetHealthStats -= Call;
-            
+
             targetNetIdPanel.gameObject.SetActive(false);
         }
 
         private void Call(PlayerInputMessages.GetHealthStatsResponseMessage message) {
-            if (message.statsHolderNetId == DarklandHeroBehaviour.localHero.netId) {
-                localHeroPanel.ClientInit(message);
-            }
-            
+            if (message.statsHolderNetId == DarklandHeroBehaviour.localHero.netId) localHeroPanel.ClientInit(message);
+
             targetNetIdPanel.ClientInit(message);
 
             // else {
-                // targetNetIdPanel.ClientInit(message);
+            // targetNetIdPanel.ClientInit(message);
             // }
         }
 
@@ -63,9 +63,6 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
             targetNetIdPanel.OnClientCleared(obj);
             targetNetIdPanel.gameObject.SetActive(false);
         }
-
-        public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;
-        public static GameReportPanel GameReportPanel => _.gameReportPanel;
 
     }
 
