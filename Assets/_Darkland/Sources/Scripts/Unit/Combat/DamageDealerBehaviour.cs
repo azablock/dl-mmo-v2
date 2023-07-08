@@ -39,7 +39,7 @@ namespace _Darkland.Sources.Scripts.Unit.Combat {
             //todo tutaj byl bug z fireballem
             if (evt.target == null) return;
 
-            if (!GetComponent<MovementBehaviour>().ServerIsReadyForNextMove()) return;
+            // if (!GetComponent<MovementBehaviour>().ServerIsReadyForNextMove()) return;
 
             var targetPos = evt.target.GetComponent<IDiscretePosition>().Pos;
             var healthStat = evt.target.GetComponent<IStatsHolder>().Stat(StatId.Health);

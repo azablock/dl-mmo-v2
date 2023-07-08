@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Darkland.Sources.Models.Unit.Stats2;
 using UnityEngine;
 
-namespace _Darkland.Sources.ScriptableObjects.Stats2 {
+namespace _Darkland.Sources.Models.Hero {
 
     public static class HeroStatsCalculator {
 
@@ -24,7 +24,7 @@ namespace _Darkland.Sources.ScriptableObjects.Stats2 {
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
             // { StatId.MovementSpeed, 8 },
-            { StatId.MovementSpeed, 1.5f },
+            { StatId.MovementSpeed, 2.0f },
         };
 
         public static readonly StatsFormulas statsFormulas = new() {

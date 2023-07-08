@@ -65,6 +65,11 @@ namespace _Darkland.Sources.Scripts.Ai {
 
             // Debug.Log($"_currentState\t{((FsmState)_currentState).name} {NetworkTime.time}");
             _currentState.UpdateSelf(gameObject);
+            _currentState
+                .Steps
+                .Where(it => it.Decisions.All(d => d.Decide(gameObject)))
+                .ToList()
+                .ForEach(it => it.Perform(gameObject));
         }
 
     }

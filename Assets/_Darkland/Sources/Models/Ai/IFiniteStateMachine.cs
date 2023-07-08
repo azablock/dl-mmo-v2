@@ -19,6 +19,14 @@ namespace _Darkland.Sources.Models.Ai {
         void ExitSelf(GameObject parent);
         void UpdateSelf(GameObject parent);
         List<IFsmTransition> Transitions { get; }
+        List<IFsmStep> Steps { get; }
+    }
+
+    public interface IFsmStep {
+
+        List<IFsmDecision> Decisions { get; }
+        void Perform(GameObject parent);
+
     }
 
 }

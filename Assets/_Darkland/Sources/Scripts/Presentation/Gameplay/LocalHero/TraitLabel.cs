@@ -1,4 +1,5 @@
 using _Darkland.Sources.Models.Core;
+using _Darkland.Sources.Models.Hero;
 using _Darkland.Sources.Models.Unit.Stats2;
 using _Darkland.Sources.ScriptableObjects.Stats2;
 using UnityEngine;

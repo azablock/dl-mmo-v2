@@ -7,6 +7,7 @@ namespace _Darkland.Sources.ScriptableObjects.Ai {
     public abstract class FsmState : ScriptableObject, IFsmState {
 
         public List<FsmTransition> transitions;
+        public List<FsmStep> steps;
 
         public virtual void EnterSelf(GameObject parent) { }
 
@@ -16,6 +17,8 @@ namespace _Darkland.Sources.ScriptableObjects.Ai {
 
         public List<IFsmTransition> Transitions => new(transitions); //todo nieefektywne!!!
 
-    }
+        public List<IFsmStep> Steps => new(steps);
 
+    }
+    
 }
