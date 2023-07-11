@@ -552,6 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa88cd479bf64738934d8bb6281ca95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chatPopupPrefab: {fileID: 7852090574575358298, guid: e65108f6c0157bf49b7996ca02562483, type: 3}
 --- !u!114 &4786977868458215428
 MonoBehaviour:
   m_ObjectHideFlags: 0

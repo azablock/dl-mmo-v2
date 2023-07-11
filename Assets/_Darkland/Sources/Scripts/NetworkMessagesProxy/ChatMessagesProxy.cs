@@ -5,17 +5,6 @@ using UnityEngine;
 
 namespace _Darkland.Sources.Scripts.NetworkMessagesProxy {
 
-    public interface INetworkMessagesProxy {
-        [Server]
-        void OnStartServer();
-        [Server]
-        void OnStopServer();
-        [Client]
-        void OnStartClient();
-        [Client]
-        void OnStopClient();
-    }
-
     public class ChatMessagesProxy : MonoBehaviour, INetworkMessagesProxy {
         
         public static event Action<NetworkConnectionToClient, ChatMessages.ChatMessageRequestMessage> ServerChatMessageReceived;

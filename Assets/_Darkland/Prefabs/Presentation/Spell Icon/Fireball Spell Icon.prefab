@@ -8,21 +8,29 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 107913255833072721, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 107913255833072721, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2839538986426619771, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 209978505, guid: 9d1d40dd463a5cb439fec56b659dfcf6, type: 3}
+      objectReference: {fileID: 21300000, guid: b351aec763b2b12459493201c73321dd, type: 3}
     - target: {fileID: 2839538986426619771, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Color.b
-      value: 0.32894266
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2839538986426619771, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Color.g
-      value: 0.52558786
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2839538986426619771, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Color.r
-      value: 0.9056604
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3395916255269082559, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: sprite
@@ -32,9 +40,17 @@ PrefabInstance:
       propertyPath: spellDef
       value: 
       objectReference: {fileID: 11400000, guid: c5631b128d79e0441a20d6c5b2a06d98, type: 2}
+    - target: {fileID: 4835952018132845272, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5554092129422123233, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Name
       value: Fireball Spell Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775830374185251021, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9072689555723527120, guid: d57dd53c47c537748b9ba469d143901f, type: 3}
       propertyPath: m_Pivot.x

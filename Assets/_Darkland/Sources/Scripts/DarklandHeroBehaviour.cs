@@ -79,6 +79,9 @@ namespace _Darkland.Sources.Scripts {
             LocalHeroWorldTimeReceived?.Invoke(partOfDay, fullDayLength);
         }
 
+        [Client]
+        public DarklandUnitView ClientHeroView() => heroView;
+
     }
 
 }

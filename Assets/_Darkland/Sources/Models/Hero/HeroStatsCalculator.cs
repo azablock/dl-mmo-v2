@@ -24,7 +24,7 @@ namespace _Darkland.Sources.Models.Hero {
             { StatId.MagicResistance, 0 },
             { StatId.PhysicalResistance, 0 },
             // { StatId.MovementSpeed, 8 },
-            { StatId.MovementSpeed, 2.0f },
+          { StatId.MovementSpeed, 1.6f },
         };
 
         public static readonly StatsFormulas statsFormulas = new() {
