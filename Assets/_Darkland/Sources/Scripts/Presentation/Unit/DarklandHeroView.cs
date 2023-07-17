@@ -34,6 +34,7 @@ namespace _Darkland.Sources.Scripts.Presentation.Unit {
             _chatPopupCoroutine = StartCoroutine(ClientShow(msg.message));
         }
 
+        [Client]
         private IEnumerator ClientShow(string chatMessage) {
             chatPopup.gameObject.SetActive(true);
             yield return chatPopup.ClientShowPopup(chatMessage);

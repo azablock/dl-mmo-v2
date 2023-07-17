@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Mirror;
 using TMPro;
@@ -16,7 +17,10 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay.Chat {
         
         [Client]
         public IEnumerator ClientShowPopup(string message) {
-            chatPopupText.text = $"{message.PadLeft(popupTextMaxLength)}...";
+            var formattedMessage = message[..Math.Min(message.Length, popupTextMaxLength)];
+            if (message.Length > popupTextMaxLength) formattedMessage += "...";
+            chatPopupText.text = formattedMessage;
+
             yield return new WaitForSeconds(popupLifeTime);
         }
 

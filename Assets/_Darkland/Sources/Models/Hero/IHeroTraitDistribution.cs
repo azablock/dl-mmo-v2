@@ -15,7 +15,7 @@ namespace _Darkland.Sources.Models.Hero {
 
         const int TraitPointsPerLevel = 5;
 
-        static HashSet<StatId> traitStatIds = new() {
+        static readonly HashSet<StatId> traitStatIds = new() {
             StatId.Might,
             StatId.Constitution,
             StatId.Dexterity,
@@ -23,7 +23,7 @@ namespace _Darkland.Sources.Models.Hero {
             StatId.Soul
         }; 
 
-        static HashSet<StatId> integerStatIds = new() {
+        static readonly HashSet<StatId> integerStatIds = new() {
             StatId.Might,
             StatId.Constitution,
             StatId.Dexterity,

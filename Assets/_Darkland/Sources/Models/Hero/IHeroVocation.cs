@@ -10,7 +10,6 @@ namespace _Darkland.Sources.Models.Hero {
         HeroVocationType VocationType { get; }
         List<ISpell> AvailableSpells { get; }
         IHeroVocationStartingStats StartingStats { get; }
-        LevelTraitDistribution LevelTraitDistribution { get; }
         Sprite VocationSprite { get; }
 
     }

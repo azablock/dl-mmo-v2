@@ -55,7 +55,7 @@ namespace _Darkland.Sources.Scripts {
         }
 
         public override void OnStartClient() {
-            heroView.unitSpriteRenderer.sprite = heroVocation.VocationSprite;
+            // heroView.unitSpriteRenderer.sprite = heroVocation.VocationSprite;
             ClientStarted?.Invoke();
         }
 

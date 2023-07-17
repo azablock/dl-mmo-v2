@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.Models.Unit.Stats2;
@@ -16,6 +17,8 @@ namespace _Darkland.Sources.Scripts.Movement {
         private Vector3Int _movementVector;
         private IStatsHolder _statsHolder;
 
+        public Action<Vector3Int> movementVectorChanged;
+
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
             _statsHolder = GetComponent<IStatsHolder>();
@@ -24,6 +27,7 @@ namespace _Darkland.Sources.Scripts.Movement {
         [Server]
         public void ServerSetMovementVector(Vector3Int movementVector) {
             _movementVector = movementVector;
+            movementVectorChanged?.Invoke(_movementVector);
 
             if (_movementVector.x != 0 && _movementVector.y != 0) _movementVector *= new Vector3Int(1, 0, 1);
 

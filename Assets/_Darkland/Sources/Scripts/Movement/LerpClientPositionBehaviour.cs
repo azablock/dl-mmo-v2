@@ -9,9 +9,14 @@ namespace _Darkland.Sources.Scripts.Movement {
     [RequireComponent(typeof(IStatsHolder), typeof(IDiscretePosition))]
     public class LerpClientPositionBehaviour : NetworkBehaviour {
 
+        //todo brzydkie
+        [SerializeField]
+        private Animator animator;
+        
         private IDiscretePosition _discretePosition;
         private Coroutine _lerpMovementCoroutine;
         private Stat _movementSpeedStat;
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
         private void Awake() {
             _discretePosition = GetComponent<IDiscretePosition>();
@@ -52,6 +57,9 @@ namespace _Darkland.Sources.Scripts.Movement {
             var oldTransformPosition = Vector3.zero + transform.position;
             var newTransformPosition = Vector3.zero + newPosition;
             var t = 0.0f;
+            
+            //todo brzydkie
+            if (animator != null) animator.SetBool(IsMoving, true);
 
             while (t < 1.0f) {
                 transform.position = Vector3.Lerp(oldTransformPosition, newTransformPosition, t);
@@ -61,6 +69,8 @@ namespace _Darkland.Sources.Scripts.Movement {
 
             transform.position = newTransformPosition;
 
+            //todo brzydkie
+            if (animator != null) animator.SetBool(IsMoving, false);
             yield return null;
         }
 

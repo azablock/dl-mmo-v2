@@ -255,7 +255,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.75
+  orthographic size: 9.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1523922099
       objectReference: {fileID: 0}
+    - target: {fileID: 98785575786217295, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2376407002
+      objectReference: {fileID: 0}
     - target: {fileID: 191135374898597251, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderInfo
       value: Show me the money or don't waste my time...
@@ -432,6 +436,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 201546790
       objectReference: {fileID: 0}
+    - target: {fileID: 592142027684103215, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2534729032
+      objectReference: {fileID: 0}
     - target: {fileID: 811549066592361956, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1344944827
@@ -463,6 +471,14 @@ PrefabInstance:
     - target: {fileID: 1546362946378497248, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3300240423
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754280836925334667, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 1963315933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1769167046243685500, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2807300063
       objectReference: {fileID: 0}
     - target: {fileID: 1930977125230084675, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
@@ -496,9 +512,21 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2742844407
       objectReference: {fileID: 0}
+    - target: {fileID: 3026261085001971623, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 1828531575
+      objectReference: {fileID: 0}
+    - target: {fileID: 3061803318036417020, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 1340770419
+      objectReference: {fileID: 0}
     - target: {fileID: 3070727164804336995, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3984416603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094685609733243294, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2335174548
       objectReference: {fileID: 0}
     - target: {fileID: 3120656912782066536, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
@@ -568,6 +596,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1048005734
       objectReference: {fileID: 0}
+    - target: {fileID: 5159148539606129101, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 4078205969
+      objectReference: {fileID: 0}
     - target: {fileID: 5356960432190438407, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 3064384454
@@ -607,6 +639,10 @@ PrefabInstance:
     - target: {fileID: 5833599958363092799, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 4070332129
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868809854193567959, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 3079694756
       objectReference: {fileID: 0}
     - target: {fileID: 5945170520102312898, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
@@ -692,9 +728,21 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3818874122
       objectReference: {fileID: 0}
+    - target: {fileID: 7064851169662989605, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 871654421
+      objectReference: {fileID: 0}
     - target: {fileID: 7173995977713139002, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: sceneId
       value: 1501828474
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336412617638767305, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 244753063
+      objectReference: {fileID: 0}
+    - target: {fileID: 7405039139996708844, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
+      propertyPath: sceneId
+      value: 2411542486
       objectReference: {fileID: 0}
     - target: {fileID: 7468582942430427403, guid: 5d9c8bcfa3435674781d564fdf9d3241, type: 3}
       propertyPath: traderInfo

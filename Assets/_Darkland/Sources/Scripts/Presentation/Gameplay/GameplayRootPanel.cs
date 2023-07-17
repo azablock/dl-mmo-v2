@@ -2,6 +2,7 @@ using _Darkland.Sources.Models.Core;
 using _Darkland.Sources.NetworkMessages;
 using _Darkland.Sources.Scripts.NetworkMessagesProxy;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.GameReport;
+using _Darkland.Sources.Scripts.Presentation.Gameplay.LocalHero;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Trade;
 using _Darkland.Sources.Scripts.Presentation.Gameplay.Unit;
 using Mirror;
@@ -21,9 +22,12 @@ namespace _Darkland.Sources.Scripts.Presentation.Gameplay {
         private TradeRootPanel tradeRootPanel;
         [SerializeField]
         private GameReportPanel gameReportPanel;
+        [SerializeField]
+        private LocalHeroZoneText localHeroZoneText;
 
         public static TradeRootPanel TradeRootPanel => _.tradeRootPanel;
         public static GameReportPanel GameReportPanel => _.gameReportPanel;
+        public static LocalHeroZoneText LocalHeroZoneText => _.localHeroZoneText;
 
         private void Awake() {
             _ = this;

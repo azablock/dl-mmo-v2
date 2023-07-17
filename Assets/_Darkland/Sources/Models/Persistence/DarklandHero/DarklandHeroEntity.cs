@@ -19,6 +19,8 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         [BsonRequired]
         public string vocation;
         [BsonRequired]
+        public string race;
+        [BsonRequired]
         public int posX;
         [BsonRequired]
         public int posY;
@@ -30,12 +32,18 @@ namespace _Darkland.Sources.Models.Persistence.DarklandHero {
         public int health;
         [BsonRequired]
         public int mana;
+        [BsonRequired]
+        public Dictionary<string, int> learnedSpells; //spell name - spell level
 
         //other
         [BsonRequired]
         public int xp;
         [BsonRequired]
         public int level;
+        [BsonRequired]
+        public int hairId;
+        [BsonRequired]
+        public int hairColorId;
 
         //traits
         [BsonRequired]

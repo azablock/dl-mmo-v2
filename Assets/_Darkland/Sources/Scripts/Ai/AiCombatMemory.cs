@@ -15,15 +15,13 @@ namespace _Darkland.Sources.Scripts.Ai {
         [ServerCallback]
         private void Awake() {
             DarklandNetworkManager.serverOnPlayerDisconnected += ServerOnPlayerDisconnected;
-            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone +=
-                OnTargetExitedPassiveZone;
+            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone += OnTargetExitedPassiveZone;
         }
 
         [ServerCallback]
         private void OnDestroy() {
             DarklandNetworkManager.serverOnPlayerDisconnected -= ServerOnPlayerDisconnected;
-            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone -=
-                OnTargetExitedPassiveZone;
+            aiNetworkPerception.PerceptionZones[AiPerceptionZoneType.Passive].TargetExitedZone -= OnTargetExitedPassiveZone;
         }
 
         [Server]
@@ -31,6 +29,7 @@ namespace _Darkland.Sources.Scripts.Ai {
             _combatTargetsHistory.Add(identity);
         }
 
+        [Server]
         public void Clear() {
             _combatTargetsHistory.Clear();
         }
